@@ -1,0 +1,17 @@
+{
+  "name": "kadet/highlighter",
+  "description": "Yet another syntax highlighter for PHP",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kacper Donat",
+      "email": "kadet1090@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Kadet\\Highlighter\\": "."
+    }
+  }
+}
