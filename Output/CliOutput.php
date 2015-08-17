@@ -19,6 +19,12 @@ namespace Kadet\Highlighter\Output;
 use Kadet\Highlighter\Parser\StartToken;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
+/**
+ * Class CliOutput
+ * @package Kadet\Highlighter\Output
+ *
+ * @todo: write it better
+ */
 class CliOutput implements OutputInterface
 {
     private static $_colors = [
@@ -28,9 +34,10 @@ class CliOutput implements OutputInterface
         'variable.*' => '94',
         'keyword' => '33',
         'string' => '32',
-        'constant' => '34',
+        'constant' => '35',
         'annotation' => '33',
-        'number' => '95'
+        'number' => '95',
+        'symbol' => '1'
     ];
 
     private $_stack = [];

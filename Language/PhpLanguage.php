@@ -1,9 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: k_don
- * Date: 16.08.2015
- * Time: 21:02
+ * Highlighter
+ *
+ * Copyright (C) 2015, Some right reserved.
+ * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
+ * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
+ *
+ * Contact with author:
+ * Xmpp: kadet@jid.pl
+ * E-mail: kadet1090@gmail.com
+ *
+ * From Kadet with love.
  */
 
 namespace Kadet\Highlighter\Language;
@@ -24,12 +31,14 @@ class PhpLanguage extends Language
                 'single' => "'",
                 'double' => '"'
             ])),
+
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
                 'context' => ['!string.single']
             ]),
-            'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*->([a-z_][a-z0-9_]*)/i'), [
-                'context'
-            ]),
+            'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*(?:->([a-z_][a-z0-9_]*))+/i')),
+
+            'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
+            'symbol.class'    => new Rule(new RegexMatcher('/(?:class|new) ([\w\\\]+)/i')),
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
                 'as', 'break', 'callable', 'case', 'catch',
@@ -52,6 +61,7 @@ class PhpLanguage extends Language
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__'
             ])),
+            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 'docblock' => ['/**', '*/'],
                 ['/*', '*/']
