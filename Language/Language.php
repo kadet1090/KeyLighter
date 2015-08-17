@@ -16,11 +16,8 @@ use Kadet\Highlighter\Parser\Token;
 
 abstract class Language
 {
-    const START = 1;
-    const END = 0;
-
-    private $_tokens = [];
-    private $_mapping = [];
+    private $_tokens;
+    private $_mapping;
 
     /**
      * @var Rule[]
@@ -43,57 +40,45 @@ abstract class Language
 
     public function tokenize()
     {
-        $tokens = [];
+        $this->_tokens = [];
+
         foreach ($this->_rules as $name => $rule) {
-            $tokens[$name] = $rule->getMatcher()->match($this->_text);
+            $this->_saveTokens($rule->match($this->_text), $name, $rule);
         }
 
-        $this->_saveTokens($tokens);
-
         $this->_fixTokens();
-
-        return $this->tokens();
     }
 
     public abstract function getRules();
 
 
-    private function _saveTokens($array)
+    private function _saveTokens($tokens, $prefix, Rule $rule)
     {
-        $this->_tokens = [];
-        foreach ($array as $name => $tokens) {
-            foreach ($tokens as $token) {
-                $token->name = $name . (array_key_exists(0, $token) ? '.' . $token[0] : '');
-                $token->rule = $this->_rules[$name];
-                $token->id   = count($this->_tokens);
+        foreach ($tokens as $token) {
+            $token->name = $prefix . (isset($token->name) ? '.' . $token->name : '');
+            $token->rule = $rule;
+            $token->id   = count($this->_tokens);
 
-                $this->_mapping[$token->id] = [];
+            $this->_mapping[$token->id] = [];
 
-                if ($token instanceof Token) {
-                    $this->_tokens = array_merge($this->_tokens, $token->split());
-                    $this->_mapping[$token->id] = [$token->id, $token->id + 1];
-                } else {
-                    $this->_tokens[] = $token;
-                    $this->_mapping[$token->id] = [$token->id];
-                }
+            if ($token instanceof Token) {
+                $this->_tokens = array_merge($this->_tokens, $token->split());
+                $this->_mapping[$token->id] = [$token->id, $token->id + 1];
+            } else {
+                $this->_tokens[] = $token;
+                $this->_mapping[$token->id] = [$token->id];
             }
         }
-
-        uasort($this->_tokens, function ($a, $b) {
-            if ($a->pos < $b->pos) {
-                return -1;
-            }
-
-            return (int)($a->pos > $b->pos);
-        });
     }
 
     private function _fixTokens()
     {
-        $list = $this->tokens();
-        $context = [];
+        uasort($this->_tokens, function ($a, $b) {
+            return ($a->pos < $b->pos) ? -1 : (int)($a->pos > $b->pos);
+        });
 
-        foreach ($list as $token) {
+        $context = [];
+        foreach ($this->_tokens as $token) {
             /** @var Rule $rule */
             $rule = $token->rule;
 
@@ -113,27 +98,18 @@ abstract class Language
 
     public function tokens()
     {
-        $list = [];
-        foreach ($this->_tokens as $id => $token) {
-            if ($token instanceof Token) {
-                $list = array_merge($list, $token->split());
-            }
+        if($this->_tokens === null) {
+            $this->tokenize();
         }
 
-        uasort($list, function ($a, $b) {
-            if ($a->pos < $b->pos) {
-                return -1;
-            }
-
-            return (int)($a->pos > $b->pos);
-        });
-
-        return $list;
+        return $this->_tokens;
     }
 
     public function __dumpTokens()
     {
-        foreach ($this->_tokens as $token) {
+        $tokens = $this->tokens();
+
+        foreach ($tokens as $token) {
             if (method_exists($token, 'dump') && ($result = $token->dump($this->_text)) !== '') {
                 echo $result.PHP_EOL;
             }

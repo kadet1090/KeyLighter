@@ -1,7 +1,7 @@
 <?php
 namespace Kadet\Highlighter\Utils;
 
-class String
+class StringHelper
 {
     public static function findAll($haystack, $needle)
     {

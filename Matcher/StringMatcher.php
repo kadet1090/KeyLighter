@@ -8,7 +8,7 @@
 
 namespace Kadet\Highlighter\Matcher;
 use Kadet\Highlighter\Parser\Token;
-use Kadet\Highlighter\Utils\String;
+use Kadet\Highlighter\Utils\StringHelper;
 
 /**
  * Class StringMatcher
@@ -41,7 +41,7 @@ class StringMatcher implements MatcherInterface
         $tokens = [];
         $pos = 0;
         do {
-            if (($start = String::find($source, array_values($this->_quotes), $pos)) === false) {
+            if (($start = StringHelper::find($source, array_values($this->_quotes), $pos)) === false) {
                 break;
             }
             $end = $this->_findClosingQuote($source, $start + 1, $source[$start]);

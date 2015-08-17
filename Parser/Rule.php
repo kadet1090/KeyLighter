@@ -32,13 +32,13 @@ class Rule
         $this->_context = $options['context'];
     }
 
-    public function getMatcher() {
-        return $this->_matcher;
+    public function match($source) {
+        return $this->_matcher->match($source);
     }
 
     public function validateContext($context) {
         if (empty($this->_context)) {
-            return empty($this->_context);
+            return empty($context);
         }
 
         foreach ($this->_context as $rule) {
@@ -47,19 +47,15 @@ class Rule
                 $rule = substr($rule, 1);
             }
 
-            if($type === 'not in') {
-                $matching = array_filter($context, function ($a) use ($rule) {
-                    return (bool)preg_match("/^$rule(?:\\.\\w+)*$/", $a);
-                });
+            $matching = array_filter($context, function ($a) use ($rule) {
+                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a);
+            });
 
+            if($type === 'not in') {
                 if(!empty($matching)) {
                     return false;
                 }
             } elseif ($type === 'in') {
-                $matching = array_filter($context, function ($a) use ($rule) {
-                    return (bool)preg_match("/^$rule(?:\.\w+)*$/", $a);
-                });
-
                 if(empty($matching)) {
                     return false;
                 }

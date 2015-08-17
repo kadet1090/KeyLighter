@@ -27,6 +27,9 @@ class PhpLanguage extends Language
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
                 'context' => ['!string.single']
             ]),
+            'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*->([a-z_][a-z0-9_]*)/i'), [
+                'context'
+            ]),
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
                 'as', 'break', 'callable', 'case', 'catch',
@@ -41,15 +44,19 @@ class PhpLanguage extends Language
                 'public', 'require', 'require_once', 'return', 'static',
                 'switch', 'throw', 'trait', 'try', 'unset',
                 'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
-            ]), ['context' => ['!string', '!variable']]),
+            ]), ['context' => ['!string', '!variable', '!comment']]),
+            'annotation' => new Rule(new RegexMatcher('/(@\w+)/i'), [
+                'context' => ['comment.docblock']
+            ]),
             'constant' => new Rule(new WordMatcher([
-                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
+                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__'
-            ]), ['context' => ['!string', '!variable']]),
+            ])),
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 'docblock' => ['/**', '*/'],
                 ['/*', '*/']
-            ]), ['context' => ['!string']]),
+            ])),
+            'number' => new Rule(new RegexMatcher('/((?:0[xbo]?)?\d+)/'))
         ];
     }
 }
