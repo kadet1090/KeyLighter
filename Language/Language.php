@@ -85,7 +85,9 @@ abstract class Language
         });
 
         $context = [];
-        foreach ($this->_tokens as $token) {
+
+        reset($this->_tokens);
+        while(list(, $token) = each($this->_tokens)) {
             /** @var Rule $rule */
             $rule = $token->rule;
 

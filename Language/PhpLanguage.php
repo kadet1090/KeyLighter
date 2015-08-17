@@ -39,6 +39,7 @@ class PhpLanguage extends Language
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
             'symbol.class'    => new Rule(new RegexMatcher('/(?:class|new) ([\w\\\]+)/i')),
+
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
                 'as', 'break', 'callable', 'case', 'catch',
@@ -54,7 +55,7 @@ class PhpLanguage extends Language
                 'switch', 'throw', 'trait', 'try', 'unset',
                 'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
             ]), ['context' => ['!string', '!variable', '!comment']]),
-            'annotation' => new Rule(new RegexMatcher('/(@\w+)/i'), [
+            'annotation' => new Rule(new RegexMatcher('/[\s]+(@\w+)/i'), [
                 'context' => ['comment.docblock']
             ]),
             'constant' => new Rule(new WordMatcher([
