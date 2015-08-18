@@ -39,6 +39,13 @@ class PhpLanguage extends Language
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
             'symbol.class'    => new Rule(new RegexMatcher('/(?:class|new) ([\w\\\]+)/i')),
+            //'tet.class'    => new Rule(new RegexMatcher('/(\w+)/i')),
+
+            'operator' => new Rule(new WordMatcher([
+                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', '?', ':', '.'
+            ], ['separated' => false]), ['priority' => 0]),
+
+            'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
 
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
@@ -65,7 +72,7 @@ class PhpLanguage extends Language
             'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 'docblock' => ['/**', '*/'],
-                ['/*', '*/']
+                //['/* ', '*/'] // FIXME: Normal comments cannot be matched on docs
             ])),
             'number' => new Rule(new RegexMatcher('/((?:0[xbo]?)?\d+)/'))
         ];

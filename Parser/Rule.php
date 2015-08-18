@@ -23,6 +23,8 @@ class Rule
     private $_matcher;
     private $_context = [];
 
+    private $_priority;
+
     /**
      * @param MatcherInterface $matcher
      * @param array $options
@@ -33,10 +35,12 @@ class Rule
 
         // Default options:
         $options = array_merge([
-            'context' => []
+            'context'  => [],
+            'priority' => 1
         ], $options);
 
-        $this->_context = $options['context'];
+        $this->_context  = $options['context'];
+        $this->_priority = $options['priority'];
     }
 
     public function match($source) {
@@ -79,5 +83,9 @@ class Rule
             case '^': return 'top';
             default:  return 'in';
         }
+    }
+
+    public function getPriority() {
+        return $this->_priority;
     }
 }

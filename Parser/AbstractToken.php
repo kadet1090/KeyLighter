@@ -16,20 +16,33 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Utils\Helper;
+
 abstract class AbstractToken
 {
+    private static $_id = 0;
+
+
     public $pos;
     public $name;
 
+    /**
+     * @var Rule
+     */
     public $rule;
 
     public $id;
+
+    public $valid = true;
 
     /**
      * AbstractToken constructor.
      */
     public function __construct($options)
     {
+        $this->id = (++self::$_id);
+
+        // Name
         if(isset($options[0])) {
             $this->name = $options[0];
         }
@@ -39,5 +52,21 @@ abstract class AbstractToken
                 $this->{$name} = $value;
             }
         }
+    }
+
+    public static function compare($a, $b)
+    {
+        if (!($a instanceof AbstractToken) || !($b instanceof AbstractToken)) {
+            throw new \RuntimeException();
+        }
+
+        if ($a->pos == $b->pos) {
+            if (get_class($a) == get_class($b)) {
+                return Helper::cmp($b->rule->getPriority(), $a->rule->getPriority());
+            }
+            return $a instanceof EndToken ? -1 : 1;
+        }
+
+        return ($a->pos > $b->pos) ? 1 : -1;
     }
 }

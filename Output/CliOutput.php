@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Output;
 
 
 use Kadet\Highlighter\Parser\StartToken;
+use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -28,11 +29,12 @@ use Kadet\Highlighter\Utils\ArrayHelper;
 class CliOutput implements OutputInterface
 {
     private static $_colors = [
-        'comment' => '90',
-        'comment.docblock' => '37',
+        'comment' => '37',
+        'comment.docblock' => '90',
         'variable' => '34',
         'variable.*' => '94',
         'keyword' => '33',
+        'operator' => '33',
         'string' => '32',
         'constant' => '35',
         'annotation' => '33',
@@ -43,7 +45,7 @@ class CliOutput implements OutputInterface
     private $_stack = [];
     private $_current;
 
-    public function format($source, array $tokens)
+    public function format($source, TokenListInterface $tokens)
     {
         $result = '';
 

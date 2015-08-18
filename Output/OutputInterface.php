@@ -16,7 +16,9 @@
 namespace Kadet\Highlighter\Output;
 
 
+use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
+
 interface OutputInterface
 {
-    public function format($source, array $tokens);
+    public function format($source, TokenListInterface $tokens);
 }

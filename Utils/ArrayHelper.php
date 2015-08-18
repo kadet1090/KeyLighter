@@ -21,4 +21,21 @@ class ArrayHelper
     {
         return array_intersect_key($array, array_flip(array_filter(array_keys($array), $func)));
     }
+
+    public static function rewindTo(array &$array, callable $test)
+    {
+        $result = 1;
+        while ((list($k, $v) = each($array)) && !($result = $test($k, $v))) ;
+
+        if ($result < 0) {
+            prev($array);
+        }
+
+        return [key($array), current($array)];
+    }
+
+    public static function pushOn(array &$array, $pos, array $elements) {
+        $first = array_slice($array, 0, $pos);
+        $array = array_merge($first, $elements, $array);
+    }
 }

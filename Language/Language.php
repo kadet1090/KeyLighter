@@ -15,16 +15,16 @@
 
 namespace Kadet\Highlighter\Language;
 
-
-use Kadet\Highlighter\Parser\EndToken;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\StartToken;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenList\DoublyLinkedTokenList;
+use Kadet\Highlighter\Parser\TokenList\FixableTokenList;
 
 abstract class Language
 {
+    /**
+     * @var DoublyLinkedTokenList
+     */
     private $_tokens;
-    private $_mapping;
 
     /**
      * @var Rule[]
@@ -47,63 +47,17 @@ abstract class Language
 
     public function tokenize()
     {
-        $this->_tokens = [];
-
+        $this->_tokens = new DoublyLinkedTokenList();
         foreach ($this->_rules as $name => $rule) {
-            $this->_saveTokens($rule->match($this->_text), $name, $rule);
+            $this->_tokens->save($rule->match($this->_text), $name, $rule);
         }
 
-        $this->_fixTokens();
+        if ($this->_tokens instanceof FixableTokenList) {
+            $this->_tokens->fix();
+        }
     }
 
     public abstract function getRules();
-
-
-    private function _saveTokens($tokens, $prefix, Rule $rule)
-    {
-        foreach ($tokens as $token) {
-            $token->name = $prefix . (isset($token->name) ? '.' . $token->name : '');
-            $token->rule = $rule;
-            $token->id   = count($this->_tokens);
-
-            $this->_mapping[$token->id] = [];
-
-            if ($token instanceof Token) {
-                $this->_tokens = array_merge($this->_tokens, $token->split());
-                $this->_mapping[$token->id] = [$token->id, $token->id + 1];
-            } else {
-                $this->_tokens[] = $token;
-                $this->_mapping[$token->id] = [$token->id];
-            }
-        }
-    }
-
-    private function _fixTokens()
-    {
-        uasort($this->_tokens, function ($a, $b) {
-            return ($a->pos < $b->pos) ? -1 : (int)($a->pos > $b->pos);
-        });
-
-        $context = [];
-
-        reset($this->_tokens);
-        while(list(, $token) = each($this->_tokens)) {
-            /** @var Rule $rule */
-            $rule = $token->rule;
-
-            if ($token instanceof StartToken) {
-                if ($rule->validateContext($context)) {
-                    $context[] = $token->name;
-                } else {
-                    foreach($this->_mapping[$token->id] as $id) {
-                        unset($this->_tokens[$id]);
-                    }
-                }
-            } elseif ($token instanceof EndToken) {
-                $context = array_diff($context, [$token->name]);
-            }
-        }
-    }
 
     public function tokens()
     {

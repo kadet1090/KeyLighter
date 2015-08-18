@@ -45,7 +45,7 @@ class WordMatcher extends RegexMatcher
         }
 
         $regex = "/$regex/";
-        if($options['case-sensitivity']) {
+        if(!$options['case-sensitivity']) {
             $regex .= 'i';
         }
 
