@@ -15,9 +15,8 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\AbstractToken;
-use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Rule;
 
 class SimpleTokenList extends \ArrayObject implements TokenListInterface, FixableTokenList
 {
@@ -27,27 +26,25 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
 
     private $_remove = [];
 
-    public function remove(AbstractToken $token)
+    public function remove(Token $token)
     {
         $this->_remove[] = spl_object_hash($token);
     }
 
     public function save($tokens, $prefix, Rule $rule)
     {
+        /** @var Token $token */
         foreach($tokens as $token) {
             $token->name = $prefix . (isset($token->name) ? '.' . $token->name : '');
-            $token->rule = $rule;
+            $token->setRule($rule);
 
-            $current = $token instanceof Token ? $token->split() : [$token];
-            foreach($current as $t) {
-                $this[spl_object_hash($t)] = $t;
-            }
+            $this[spl_object_hash($token)] = $token;
         }
     }
 
     public function fix()
     {
-        $this->uasort('\Kadet\Highlighter\Parser\AbstractToken::compare');
+        $this->uasort('\Kadet\Highlighter\Parser\Token::compare');
         $this->_fix();
         foreach($this->_remove as $hash) {
             $this->offsetUnset($hash);

@@ -15,11 +15,11 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\AbstractToken;
+use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\Rule;
 
 interface TokenListInterface extends \Traversable
 {
-    public function remove(AbstractToken $token);
+    public function remove(Token $token);
     public function save($tokens, $prefix, Rule $rule);
 }

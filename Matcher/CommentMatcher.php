@@ -73,6 +73,7 @@ class CommentMatcher implements MatcherInterface
                     }
 
                     $result[] = $token;
+                    $result[] = $token->getEnd();
                 }
             }
         }

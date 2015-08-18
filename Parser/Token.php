@@ -16,38 +16,186 @@
 namespace Kadet\Highlighter\Parser;
 
 
-class Token extends AbstractToken
+use Kadet\Highlighter\Utils\Helper;
+
+class Token
 {
-    public $length;
+    private static $_autoincrement = 0;
 
-    public function split() {
-        $start = new StartToken([
-            'name' => $this->name,
-            'pos'  => $this->pos,
-            'rule' => $this->rule,
-            'id'   => $this->id
-        ]);
+    public $pos;
+    public $name;
 
-        $end = new EndToken([
-            'name'  => $this->name,
-            'pos'   => $this->pos + $this->length,
-            'rule'  => $this->rule,
-            'start' => $start,
-            'id'    => $this->id
-        ]);
+    /**
+     * @var Token
+     */
+    private $_end;
 
-        $start->end = $end;
+    /**
+     * @var Token
+     */
+    private $_start;
 
-        return [$start, $end];
+    private $_rule;
+    private $_id;
+
+    protected $_valid = true;
+
+    /**
+     * Token constructor.
+     */
+    public function __construct($options)
+    {
+        // Name
+        if(array_key_exists(0, $options)) {
+            $this->name = $options[0];
+        }
+
+        if(array_key_exists('id', $options)) {
+            $this->_id = $options['id'];
+        } else {
+            $this->_id = (++self::$_autoincrement);
+        }
+
+        if(array_key_exists('pos', $options)) {
+            $this->pos = $options['pos'];
+        }
+
+        if(array_key_exists('start', $options)) {
+            $this->setStart($options['start']);
+        }
+
+        if(array_key_exists('end', $options)) {
+            $this->setStart($options['end']);
+        }
+
+        if(array_key_exists('length', $options)) {
+            $this->setEnd(new Token([
+                $this->name, 'pos' => $this->pos + $options['length'], 'id' => $this->_id, 'start' => $this
+            ]));
+        }
     }
 
+    public static function compare($a, $b)
+    {
+        if (!($a instanceof Token) || !($b instanceof Token)) {
+            throw new \RuntimeException();
+        }
 
+        if ($a->pos == $b->pos) {
+            if ($a->isStart() && $b->isStart()) {
+                return Helper::cmp($b->getRule()->getPriority(), $a->getRule()->getPriority());
+            }
+            return $a->isEnd() ? -1 : 1;
+        }
+
+        return ($a->pos > $b->pos) ? 1 : -1;
+    }
+
+    public function isValid() {
+        return $this->_valid;
+    }
+
+    public function invalidate($invalid = true) {
+        $this->_valid = !$invalid;
+
+        if ($this->_end !== null) {
+            $this->_end->_valid = $this->_valid;
+        } elseif ($this->_start !== null) {
+            $this->_start->_valid = $this->_valid;
+        }
+    }
+
+    public function isEnd() {
+        return $this->_end == null;
+    }
+
+    public function isStart() {
+        return $this->_start == null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStart()
+    {
+        return $this->_start;
+    }
+
+    /**
+     * @param mixed $start
+     */
+    public function setStart(Token $start)
+    {
+        $this->_end = null;
+        $this->_start = $start;
+        $this->_start->_end = $this;
+
+        $this->_id = $start->_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnd()
+    {
+        return $this->_end;
+    }
+
+    /**
+     * @param mixed $end
+     */
+    public function setEnd(Token $end)
+    {
+        $this->_end = null;
+        $this->_end = $end;
+        $this->_end->_start = $this;
+
+        $this->_end->_id = $this->_id;
+    }
+
+    /**
+     * @return Rule
+     */
+    public function getRule()
+    {
+        return $this->_rule;
+    }
+
+    /**
+     * @param Rule $rule
+     */
+    public function setRule(Rule $rule)
+    {
+        $this->_rule = $rule;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->_id;
+    }
 
     public function getLength() {
+        if($this->_end != null) {
+            return $this->_end->pos - $this->pos;
+        }
 
+        return 0;
     }
 
-    public static function pair(StartToken $start, EndToken $end) {
-
+    public function dump($text = null) {
+        $result = '';
+        if($this->isStart()) {
+            $result = "Start ({$this->name}) #{$this->_id}:$this->pos";
+            if ($this->_end !== null) {
+                $result .= " -> End #{$this->_end->_id}:{$this->_end->pos}";
+                if ($text !== null) {
+                    $result .= '  '.substr($text, $this->pos, $this->_end->pos - $this->pos);
+                }
+            }
+        }
+        return $result;
     }
 }

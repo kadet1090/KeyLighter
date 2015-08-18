@@ -53,12 +53,16 @@ class StringMatcher implements MatcherInterface
             }
             $end = $this->_findClosingQuote($source, $start + 1, $source[$start]);
 
-            $token = new Token(['pos' => $start, 'length' => $end - $start]);
+            $tokenStart = new Token(['pos' => $start]);
+            $tokenEnd = new Token(['pos' => $end, 'start' => $tokenStart]);
+
             if(($key = array_search($source[$start], $this->_quotes, false)) !== false) {
-                $token->name = $key;
+                $tokenStart->name = $key;
+                $tokenEnd->name = $key;
             }
 
-            $tokens[] = $token;
+            $tokens[] = $tokenStart;
+            $tokens[] = $tokenEnd;
 
             $pos = $end + 1;
         } while($pos !== false && $end !== false);

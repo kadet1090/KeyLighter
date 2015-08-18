@@ -44,4 +44,18 @@ class ArrayHelper
             return $array[$key];
         }, $keys));
     }
+
+    public static function column(array $array, $index) {
+        return array_map(function ($e) use ($index) { return $e[$index]; }, $array);
+    }
+
+    public static function find(array $array, callable $tester) {
+        foreach ($array as $key => $value) {
+            if($tester($key, $value)) {
+                return $key;
+            }
+        }
+
+        return false;
+    }
 }

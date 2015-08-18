@@ -15,8 +15,7 @@
 
 namespace Kadet\Highlighter\Output;
 
-
-use Kadet\Highlighter\Parser\StartToken;
+use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
@@ -48,13 +47,14 @@ class CliOutput implements OutputInterface
     public function format($source, TokenListInterface $tokens)
     {
         $result = '';
-
         $last = 0;
+
+        /** @var Token $token */
         foreach ($tokens as $token) {
             $result .= substr($source, $last, $token->pos - $last);
 
             if (($color = self::getColor($token->name)) !== null) {
-                $result .= $this->_color($token instanceof StartToken ? $color : null);
+                $result .= $this->_color($token->isStart() ? $color : null);
             }
 
             $last = $token->pos;

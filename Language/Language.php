@@ -32,16 +32,16 @@ abstract class Language
      */
     private $_rules;
 
-    private $_text;
+    private $_source;
 
 
     /**
      * Parser constructor.
-     * @param $text
+     * @param $source
      */
-    public function __construct($text)
+    public function __construct($source)
     {
-        $this->_text = $text;
+        $this->setSource($source);
         $this->_rules = $this->getRules();
     }
 
@@ -50,10 +50,10 @@ abstract class Language
     {
         $this->_tokens = new SimpleTokenList();
         foreach ($this->_rules as $name => $rule) {
-            $this->_tokens->save($rule->match($this->_text), $name, $rule);
+            $this->_tokens->save($rule->match($this->_source), $name, $rule);
         }
 
-        //$this->__dumpTokens();
+        // $this->__dumpTokens();
 
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->fix();
@@ -64,7 +64,7 @@ abstract class Language
 
     public function tokens()
     {
-        if($this->_tokens === null) {
+        if ($this->_tokens === null) {
             $this->tokenize();
         }
 
@@ -76,9 +76,20 @@ abstract class Language
         $tokens = $this->tokens();
 
         foreach ($tokens as $token) {
-            if (method_exists($token, 'dump') && ($result = $token->dump($this->_text)) !== '') {
-                echo $result.PHP_EOL;
+            if (method_exists($token, 'dump') && ($result = $token->dump($this->_source)) !== '') {
+                echo $result . PHP_EOL;
             }
         }
+    }
+
+    public function setSource($source)
+    {
+        $this->_tokens = null;
+        $this->_source = $source;
+    }
+
+    public function getSource()
+    {
+        return $this->_source;
     }
 }

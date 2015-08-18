@@ -15,9 +15,8 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\AbstractToken;
-use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Rule;
 
 class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInterface, FixableTokenList
 {
@@ -31,7 +30,7 @@ class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInt
         $this->prev();
     }
 
-    public function remove(AbstractToken $token)
+    public function remove(Token $token)
     {
         if($token == $this->current()) {
             $this->_removeCurrent();
@@ -46,25 +45,22 @@ class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInt
             $token->name = $prefix . (isset($token->name) ? '.' . $token->name : '');
             $token->rule = $rule;
 
-            $current = $token instanceof Token ? $token->split() : [$token];
-            foreach($current as $t) {
-                $this->insertToken($t);
-            }
+            $this->insertToken($token);
         }
     }
 
-    private function insertToken(AbstractToken $token) {
+    private function insertToken(Token $token) {
         if ($this->count() == 0) {
             $this->push($token);
             return;
         }
 
-        if(AbstractToken::compare($token, $this->top()) > 0) {
+        if(Token::compare($token, $this->top()) > 0) {
             $this->push($token);
             return;
         }
 
-        if(AbstractToken::compare($token, $this->bottom()) < 0) {
+        if(Token::compare($token, $this->bottom()) < 0) {
             $this->unshift($token);
             $this->prev();
             return;
@@ -76,9 +72,9 @@ class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInt
 
         $current = $this->current();
 
-        $mode = AbstractToken::compare($token, $current);
+        $mode = Token::compare($token, $current);
         while($this->valid()) {
-            if(($result = AbstractToken::compare($token, $this->current())) != $mode) {
+            if(($result = Token::compare($token, $this->current())) != $mode) {
                 $this->add($this->_pos+($result > 0), $token);
                 if($mode > 0) {
                     $this->prev();

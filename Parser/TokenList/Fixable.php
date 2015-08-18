@@ -15,9 +15,7 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\AbstractToken;
-use Kadet\Highlighter\Parser\EndToken;
-use Kadet\Highlighter\Parser\StartToken;
+use Kadet\Highlighter\Parser\Token;
 
 trait Fixable
 {
@@ -28,17 +26,18 @@ trait Fixable
         }
 
         $context = [];
-        /** @var AbstractToken $token */
+        /** @var Token $token */
         foreach($this as $token) {
-            if ($token instanceof EndToken && array_key_exists($token->id, $context)) {
+            $id = $token->getId();
+            if (array_key_exists($id, $context) && $token->isEnd()) {
                 $copy = $context;
-                unset($copy[$token->id]);
+                unset($copy[$id]);
 
-                if($token->rule->validateContext($copy)) {
-                    unset($context[$token->id]);
+                if($token->getRule()->validateContext($copy)) {
+                    unset($context[$id]);
                 }
-            } elseif ($token instanceof StartToken && $token->rule->validateContext($context)) {
-                $context[$token->id] = $token->name;
+            } elseif ($token->isStart() && $token->getRule()->validateContext($context)) {
+                $context[$id] = $token->name;
             } else {
                 $token->invalidate();
                 $this->remove($token);
