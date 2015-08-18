@@ -22,7 +22,6 @@ abstract class AbstractToken
 {
     private static $_id = 0;
 
-
     public $pos;
     public $name;
 
@@ -33,17 +32,15 @@ abstract class AbstractToken
 
     public $id;
 
-    public $valid = true;
+    protected $_valid = true;
 
     /**
      * AbstractToken constructor.
      */
     public function __construct($options)
     {
-        $this->id = (++self::$_id);
-
         // Name
-        if(isset($options[0])) {
+        if(array_key_exists(0, $options)) {
             $this->name = $options[0];
         }
 
@@ -51,6 +48,10 @@ abstract class AbstractToken
             if(is_string($name)) {
                 $this->{$name} = $value;
             }
+        }
+
+        if($this->id == null) {
+            $this->id = (++self::$_id);
         }
     }
 
@@ -68,5 +69,13 @@ abstract class AbstractToken
         }
 
         return ($a->pos > $b->pos) ? 1 : -1;
+    }
+
+    public function isValid() {
+        return $this->_valid;
+    }
+
+    public function invalidate($invalid = true) {
+        $this->_valid = !$invalid;
     }
 }

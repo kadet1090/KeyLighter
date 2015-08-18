@@ -21,12 +21,13 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\StringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Utils\ArrayHelper;
 
 class PhpLanguage extends Language
 {
     public function getRules()
     {
-        return [
+        $rules = [
             'string' => new Rule(new StringMatcher([
                 'single' => "'",
                 'double' => '"'
@@ -39,13 +40,20 @@ class PhpLanguage extends Language
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
             'symbol.class'    => new Rule(new RegexMatcher('/(?:class|new) ([\w\\\]+)/i')),
-            //'tet.class'    => new Rule(new RegexMatcher('/(\w+)/i')),
 
-            'operator' => new Rule(new WordMatcher([
-                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', '?', ':', '.'
-            ], ['separated' => false]), ['priority' => 0]),
+            'comment' => new Rule(new CommentMatcher(['//', '#'], [
+                'docblock' => ['/**', '*/'],
+                //['/* ', '*/'] // FIXME: Normal comments cannot be matched on docs
+            ])),
+            'annotation' => new Rule(new RegexMatcher('/[\s]+(@\w+)/i'), [
+                'context' => ['comment.docblock']
+            ]),
 
-            'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
+            'constant' => new Rule(new WordMatcher([
+                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
+                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__'
+            ])),
+            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
 
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
@@ -62,19 +70,29 @@ class PhpLanguage extends Language
                 'switch', 'throw', 'trait', 'try', 'unset',
                 'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
             ]), ['context' => ['!string', '!variable', '!comment']]),
-            'annotation' => new Rule(new RegexMatcher('/[\s]+(@\w+)/i'), [
-                'context' => ['comment.docblock']
-            ]),
-            'constant' => new Rule(new WordMatcher([
-                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
-                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__'
-            ])),
-            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
-            'comment' => new Rule(new CommentMatcher(['//', '#'], [
-                'docblock' => ['/**', '*/'],
-                //['/* ', '*/'] // FIXME: Normal comments cannot be matched on docs
-            ])),
-            'number' => new Rule(new RegexMatcher('/((?:0[xbo]?)?\d+)/'))
+
+            'number' => new Rule(new RegexMatcher('/((?:0[xbo]?)?\d+)/')),
+
+            'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
+            'operator' => new Rule(new WordMatcher([
+                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', '?', ':', '.'
+            ], ['separated' => false]), ['priority' => 0]),
         ];
+
+        return ArrayHelper::rearrange($rules, [
+            'symbol.class',
+            'constant',
+            'constant.static',
+            'symbol.function',
+            'comment',
+            'annotation',
+            'variable',
+            'variable.property',
+            'string',
+            'keyword',
+            'number',
+            'operator.punctuation',
+            'operator',
+        ]);
     }
 }

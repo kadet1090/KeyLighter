@@ -40,4 +40,14 @@ class Token extends AbstractToken
 
         return [$start, $end];
     }
+
+
+
+    public function getLength() {
+
+    }
+
+    public static function pair(StartToken $start, EndToken $end) {
+
+    }
 }

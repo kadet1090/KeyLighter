@@ -33,4 +33,9 @@ class EndToken extends AbstractToken
     public function __toString() {
         return $this->dump();
     }
+
+    public function invalidate($invalid = true) {
+        parent::invalidate($invalid);
+        $this->start->_valid = $this->_valid;
+    }
 }

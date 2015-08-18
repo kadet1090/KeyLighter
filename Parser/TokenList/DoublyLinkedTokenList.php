@@ -33,8 +33,6 @@ class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInt
 
     public function remove(AbstractToken $token)
     {
-        $token->valid = false;
-
         if($token == $this->current()) {
             $this->_removeCurrent();
             return;

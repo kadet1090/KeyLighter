@@ -28,22 +28,20 @@ trait Fixable
         }
 
         $context = [];
-
         /** @var AbstractToken $token */
         foreach($this as $token) {
-            $rule = $token->rule;
+            if ($token instanceof EndToken && array_key_exists($token->id, $context)) {
+                $copy = $context;
+                unset($copy[$token->id]);
 
-            if ($token instanceof StartToken) {
-                if ($rule->validateContext($context)) {
-                    $context[$token->id] = $token->name;
-                } else {
-                    $this->remove($token);
-
-                    /** @noinspection PhpUndefinedFieldInspection Bug */
-                    $this->remove($token->end);
+                if($token->rule->validateContext($copy)) {
+                    unset($context[$token->id]);
                 }
-            } elseif ($token instanceof EndToken) {
-                unset($context[$token->id]);
+            } elseif ($token instanceof StartToken && $token->rule->validateContext($context)) {
+                $context[$token->id] = $token->name;
+            } else {
+                $token->invalidate();
+                $this->remove($token);
             }
         }
     }

@@ -16,13 +16,14 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\TokenList\DoublyLinkedTokenList;
 use Kadet\Highlighter\Parser\TokenList\FixableTokenList;
+use Kadet\Highlighter\Parser\TokenList\SimpleTokenList;
+use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 
 abstract class Language
 {
     /**
-     * @var DoublyLinkedTokenList
+     * @var TokenListInterface
      */
     private $_tokens;
 
@@ -47,10 +48,12 @@ abstract class Language
 
     public function tokenize()
     {
-        $this->_tokens = new DoublyLinkedTokenList();
+        $this->_tokens = new SimpleTokenList();
         foreach ($this->_rules as $name => $rule) {
             $this->_tokens->save($rule->match($this->_text), $name, $rule);
         }
+
+        //$this->__dumpTokens();
 
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->fix();

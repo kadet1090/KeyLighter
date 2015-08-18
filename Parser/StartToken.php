@@ -37,4 +37,9 @@ class StartToken extends AbstractToken
     public function __toString() {
         return $this->dump();
     }
+
+    public function invalidate($invalid = true) {
+        parent::invalidate($invalid);
+        $this->end->_valid = $this->_valid;
+    }
 }

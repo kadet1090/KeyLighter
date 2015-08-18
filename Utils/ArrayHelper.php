@@ -38,4 +38,10 @@ class ArrayHelper
         $first = array_slice($array, 0, $pos);
         $array = array_merge($first, $elements, $array);
     }
+
+    public static function rearrange(array $array, array $keys) {
+        return array_combine($keys, array_map(function($key) use ($array) {
+            return $array[$key];
+        }, $keys));
+    }
 }
