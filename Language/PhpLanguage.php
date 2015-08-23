@@ -19,8 +19,11 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\StringMatcher;
+use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
+use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 class PhpLanguage extends Language
@@ -34,12 +37,16 @@ class PhpLanguage extends Language
             ])),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
-                'context' => ['!string.single']
+                'context' => ['!string.single', '!comment']
             ]),
             'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*(?:->([a-z_][a-z0-9_]*))+/i')),
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
-            'symbol.class'    => new Rule(new RegexMatcher('/(?:class|new) ([\w\\\]+)/i')),
+            'symbol.class' => new Rule(new RegexMatcher('/(?:class|new|use) ([\w\\\]+)/i')),
+
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/i'), [
+                'context' => ['string']
+            ]),
 
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 'docblock' => ['/**', '*/'],
@@ -75,14 +82,15 @@ class PhpLanguage extends Language
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
             'operator' => new Rule(new WordMatcher([
-                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', '?', ':', '.'
-            ], ['separated' => false]), ['priority' => 0]),
+                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
+            ], ['separated' => false]), ['priority' => 0])
         ];
 
         return ArrayHelper::rearrange($rules, [
             'symbol.class',
             'constant',
             'constant.static',
+            'keyword.escape',
             'symbol.function',
             'comment',
             'annotation',
@@ -95,4 +103,11 @@ class PhpLanguage extends Language
             'operator',
         ]);
     }
+
+    /*public function getOpenClose() {
+        return [
+            new OpenRule(new SubStringMatcher('<?php')),
+            new CloseRule(new SubStringMatcher('?>'), ['context' => ['!string', '!comment'], 'priority' => 10000])
+        ];
+    }*/
 }

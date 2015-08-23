@@ -22,13 +22,9 @@ class StringHelper
         $pos = 0;
         $results = [];
 
-        while (true) {
-            $result = strpos($haystack, $needle, $pos);
-            if ($result === false) {
-                break;
-            }
-
-            $results[] = $result;
+        while (($pos = strpos($haystack, $needle, $pos)) !== false) {
+            $results[$pos] = $needle;
+            $pos += strlen($needle);
         }
 
         return $results;

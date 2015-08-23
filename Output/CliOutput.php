@@ -38,7 +38,8 @@ class CliOutput implements OutputInterface
         'constant' => '35',
         'annotation' => '33',
         'number' => '95',
-        'symbol' => '1'
+        'symbol' => '1',
+        'tag' => '90',
     ];
 
     private $_stack = [];

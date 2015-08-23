@@ -47,19 +47,21 @@ class Rule
         return $this->_matcher->match($source);
     }
 
-    public function validateContext($context) {
-        if (empty($this->_context)) {
+    public function validateContext($context, array $additional = []) {
+        $required = array_merge($this->_context, $additional);
+
+        if (empty($required)) {
             return empty($context);
         }
 
-        foreach ($this->_context as $rule) {
+        foreach ($required as $rule) {
             $type = $this->_getType($rule);
             if($type !== 'in') {
                 $rule = substr($rule, 1);
             }
 
             $matching = array_filter($context, function ($a) use ($rule) {
-                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a);
+                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a->name);
             });
 
             if($type === 'not in') {

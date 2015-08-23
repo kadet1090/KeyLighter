@@ -18,10 +18,8 @@ namespace Kadet\Highlighter\Parser\TokenList;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\Rule;
 
-class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInterface, FixableTokenList
+class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInterface
 {
-    use Fixable;
-
     private $_pos;
 
     private function _removeCurrent() {
@@ -38,7 +36,7 @@ class DoublyLinkedTokenList extends \SplDoublyLinkedList implements TokenListInt
         }
     }
 
-    public function save($tokens, $prefix, Rule $rule)
+    public function save($tokens, Rule $rule, $prefix = null)
     {
         $this->rewind();
         foreach ($tokens as $token) {

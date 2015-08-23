@@ -16,9 +16,11 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenList\FixableTokenList;
 use Kadet\Highlighter\Parser\TokenList\SimpleTokenList;
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
+use Kadet\Highlighter\Utils\ArrayHelper;
 
 abstract class Language
 {
@@ -49,14 +51,23 @@ abstract class Language
     public function tokenize()
     {
         $this->_tokens = new SimpleTokenList();
-        foreach ($this->_rules as $name => $rule) {
-            $this->_tokens->save($rule->match($this->_source), $name, $rule);
+
+        if (method_exists($this, 'getOpenClose')) {
+            /** @var Rule $rule */
+            foreach($this->getOpenClose() as $rule) {
+                $this->_tokens->save($rule->match($this->_source), $rule, 'language.php');
+            }
         }
 
-        // $this->__dumpTokens();
+        foreach ($this->_rules as $name => $rules) {
+            if(!is_array($rules)) {
+                $rules = [$rules];
+            }
 
-        if ($this->_tokens instanceof FixableTokenList) {
-            $this->_tokens->fix();
+            /** @var Rule $rule */
+            foreach($rules as $rule) {
+                $this->_tokens->save($rule->match($this->_source), $rule, $name);
+            }
         }
     }
 
@@ -65,7 +76,7 @@ abstract class Language
     public function tokens()
     {
         if ($this->_tokens === null) {
-            $this->tokenize();
+            $this->parse();
         }
 
         return $this->_tokens;
@@ -75,9 +86,15 @@ abstract class Language
     {
         $tokens = $this->tokens();
 
+        $deep = 0;
+        /** @var Token $token */
         foreach ($tokens as $token) {
-            if (method_exists($token, 'dump') && ($result = $token->dump($this->_source)) !== '') {
-                echo $result . PHP_EOL;
+            if($token->isEnd()) {
+                $deep--;
+            }
+            echo str_repeat('  ', $deep).$token->dump($this->_source).PHP_EOL;
+            if($token->isStart()) {
+                $deep++;
             }
         }
     }
@@ -91,5 +108,50 @@ abstract class Language
     public function getSource()
     {
         return $this->_source;
+    }
+
+    public function parse()
+    {
+
+        $this->tokenize();
+
+        if ($this->_tokens instanceof FixableTokenList) {
+            $this->_tokens->beforeParse();
+        }
+        $context = [];
+        /** @var Token $token */
+        foreach ($this->_tokens as $token) {
+            if ($token->isStart() && $token->getRule()->validateContext($context)) {
+                $context[spl_object_hash($token)] = $token;
+                continue;
+            } elseif ($token->isEnd()  && $token->isValid()) {
+                $start = $token->getStart();
+
+                if ($token->getRule()->validateContext($context, [$token->name])) {
+                    if ($start != null) {
+                        unset($context[spl_object_hash($start)]);
+                        continue;
+                    } else {
+                        /** @noinspection PhpUnusedParameterInspection */
+                        $start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
+                            return $v->name == $token->name;
+                        });
+
+                        if ($start !== false) {
+                            $token->setStart($context[$start]);
+                            unset($context[$start]);
+
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            $token->invalidate();
+            $this->_tokens->remove($token);
+        }
+        if ($this->_tokens instanceof FixableTokenList) {
+            $this->_tokens->afterParse();
+        }
     }
 }

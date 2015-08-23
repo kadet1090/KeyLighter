@@ -17,5 +17,6 @@ namespace Kadet\Highlighter\Parser\TokenList;
 
 interface FixableTokenList
 {
-    public function fix();
+    public function beforeParse();
+    public function afterParse();
 }

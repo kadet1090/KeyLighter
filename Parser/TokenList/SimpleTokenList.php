@@ -20,10 +20,6 @@ use Kadet\Highlighter\Parser\Rule;
 
 class SimpleTokenList extends \ArrayObject implements TokenListInterface, FixableTokenList
 {
-    use Fixable {
-        Fixable::fix as _fix;
-    }
-
     private $_remove = [];
 
     public function remove(Token $token)
@@ -31,7 +27,7 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
         $this->_remove[] = spl_object_hash($token);
     }
 
-    public function save($tokens, $prefix, Rule $rule)
+    public function save($tokens, Rule $rule, $prefix = null)
     {
         /** @var Token $token */
         foreach($tokens as $token) {
@@ -42,18 +38,21 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
         }
     }
 
-    public function fix()
+    public function beforeParse()
     {
         $this->uasort('\Kadet\Highlighter\Parser\Token::compare');
-        $this->_fix();
-        foreach($this->_remove as $hash) {
-            $this->offsetUnset($hash);
-        }
     }
 
     public function appendArray(array $array) {
         foreach($array as $value) {
             $this[] = $value;
+        }
+    }
+
+    public function afterParse()
+    {
+        foreach($this->_remove as $hash) {
+            $this->offsetUnset($hash);
         }
     }
 }
