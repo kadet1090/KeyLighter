@@ -34,12 +34,15 @@ class PhpLanguage extends Language
             'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
-            ]), ['context' => ['!keyword.escape', '!comment']]),
+            ]), ['context' => ['!keyword.escape', '!comment', '!string']]),
+
+            'string.heredoc' => new Rule(new RegexMatcher('/(<<<(\w+)(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
+            'string.nowdoc' => new Rule(new RegexMatcher('/(<<<\'(\w+)\'(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
                 'context' => ['!string.single', '!comment']
             ]),
-            'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*(?:->([a-z_][a-z0-9_]*))+/i')),
+            'variable.property' => new Rule(new RegexMatcher('/(?:\w|\)|\])->([a-z_][a-z0-9_]*)/i')),
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
             'symbol.class' => [
@@ -80,19 +83,26 @@ class PhpLanguage extends Language
                 'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
             ]), ['context' => ['!string', '!variable', '!comment']]),
 
+            'keyword.cast' => new Rule(
+                new RegexMatcher('/(\((?:int|integer|bool|boolean|float|double|real|string|array|object|unset)\))/')
+            ),
+
             'number' => new Rule(new RegexMatcher('/(-?(?:0[xbo]?)?\d+)/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            /*'operator' => new Rule(new WordMatcher([
+            'operator' => new Rule(new WordMatcher([
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0])*/
+            ], ['separated' => false]), ['priority' => 0])
         ];
 
         return ArrayHelper::rearrange($rules, [
             'symbol.class',
+            'string.heredoc',
+            'string.nowdoc',
             'constant',
             'constant.static',
             'keyword.escape',
+            'keyword.cast',
             'symbol.function',
             'comment',
             'annotation',

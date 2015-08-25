@@ -41,7 +41,7 @@ class Rule
             'language' => 'plaintext'
         ], $options);
 
-        $this->_context  = $options['context'];
+        $this->setContext($options['context']);
         $this->_priority = $options['priority'];
         $this->_language = $options['language'];
     }
@@ -52,7 +52,8 @@ class Rule
 
     // todo: write it better
     public function validateContext($current, array $additional = []) {
-        $required = array_merge($this->_context, $additional);
+        $required = array_merge($additional, $this->_context);
+
         list($language, $context) = $current;
 
         if($language !== 'language.'.$this->_language) {
@@ -67,14 +68,10 @@ class Rule
             $required[] = 'language.'.$this->_language;
         }
 
-        foreach ($required as $rule) {
-            $type = $this->_getType($rule);
-            if($type !== 'in') {
-                $rule = substr($rule, 1);
-            }
-
+        reset($required);
+        while(list($rule, $type) = each($required)) {
             $matching = array_filter($context, function ($a) use ($rule) {
-                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a);
+                return $a == $rule || fnmatch($rule.'.*', $a);
             });
 
             if($type === 'not in') {
@@ -85,10 +82,30 @@ class Rule
                 if(empty($matching)) {
                     return false;
                 }
+
+                if(($down = strstr($rule, '.', true)) !== false) {
+                    unset($required[$down]);
+                }
             }
         }
 
         return true;
+    }
+
+    public function setContext($rules) {
+        $this->_context = [];
+        foreach($rules as $key => $rule) {
+            if(!is_int($key)) {
+                continue;
+            }
+
+            $type = $this->_getType($rule);
+            if($type !== 'in') {
+                $rule = substr($rule, 1);
+            }
+
+            $this->_context[$rule] = $type;
+        }
     }
 
     private function _getType($rule) {

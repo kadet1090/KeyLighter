@@ -51,7 +51,7 @@ class MarkerToken extends Token
                 $this->_end = null;
             }
         } else {
-            if (!$this->getRule()->validateContext($context, [$this->name])) {
+            if (!$this->getRule()->validateContext($context, [$this->name => 'in'])) {
                 $this->invalidate();
             } else {
                 $this->_valid = false;

@@ -30,17 +30,30 @@ class StringHelper
         return $results;
     }
 
-    public static function find($haystack, $needle, $offset = 0)
+    public static function find($haystack, $needle, $offset = 0, &$match)
     {
         if (!is_array($needle)) {
             $needle = [$needle];
         }
 
         $results = array_map(function ($str) use ($haystack, $offset) {
-            return strpos($haystack, $str, $offset);
+            return [$str, strpos($haystack, $str, $offset)];
         }, $needle);
-        $results = array_filter($results, function ($a) { return $a !== false; });
 
-        return count($results) !== 0 ? min($results) : false;
+        if (count($results) === 0) {
+            return false;
+        }
+
+        $results = array_filter(
+            array_combine(ArrayHelper::column($results, 0), ArrayHelper::column($results, 1)),
+            function ($a) {
+                return $a !== false;
+            }
+        );
+        asort($results);
+        reset($results);
+
+        $match = key($results);
+        return current($results);
     }
 }

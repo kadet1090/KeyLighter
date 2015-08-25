@@ -89,7 +89,7 @@ abstract class Language
         $deep = 0;
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if (!fnmatch($name, $token->name)) {
+            if ($name != $token->name && !fnmatch($name.'.*', $token->name)) {
                 continue;
             }
 

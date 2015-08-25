@@ -76,15 +76,11 @@ class Token
         }
     }
 
-    public static function compare($a, $b)
+    public static function compare(Token $a, Token $b)
     {
-        if (!($a instanceof Token) || !($b instanceof Token)) {
-            throw new \RuntimeException();
-        }
-
         if ($a->pos == $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                return Helper::cmp($b->getRule()->getPriority(), $a->getRule()->getPriority());
+                return Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority());
             }
             return $a->isEnd() ? -1 : 1;
         }
@@ -208,16 +204,6 @@ class Token
 
     protected function validate($context)
     {
-        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name] : []));
-    }
-
-    public function unbound() {
-        if(isset($this->_end)) {
-            $this->setEnd();
-        }
-
-        if(isset($this->_start)) {
-            $this->setStart();
-        }
+        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name => 'in'] : []));
     }
 }

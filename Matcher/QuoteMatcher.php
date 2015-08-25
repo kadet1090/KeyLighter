@@ -48,36 +48,15 @@ class QuoteMatcher implements MatcherInterface
         $tokens = [];
         $pos = 0;
 
-        while (($pos = StringHelper::find($source, array_values($this->_quotes), $pos)) !== false) {
-            $token = new MarkerToken(['pos' => $pos, 'length' => 1]);
+        while (($pos = StringHelper::find($source, array_values($this->_quotes), $pos, $match)) !== false) {
+            $length = strlen($match);
+
+            $token = new MarkerToken(['pos' => $pos, 'length' => $length, array_search($match, $this->_quotes, false)]);
             $tokens[] = $token;
             $tokens[] = $token->getEnd();
-            $pos++;
+            $pos += $length;
         }
 
         return $tokens;
-    }
-
-    protected function _findClosingQuote($source, $pos, $quote)
-    {
-        do {
-            $pos = strpos($source, $quote, $pos);
-            if($pos === false) {
-                return strlen($source);
-            }
-
-            $escapes = 0;
-            for($i = $pos - 1; $i > 0; $i--) {
-                if ($source[$i] !== '\\') {
-                    break;
-                }
-
-                $escapes++;
-            }
-
-            $pos++;
-        } while ($escapes % 2 === 1);
-
-        return $pos;
     }
 }
