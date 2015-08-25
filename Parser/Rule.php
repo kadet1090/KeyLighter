@@ -24,6 +24,7 @@ class Rule
     private $_context = [];
 
     private $_priority;
+    private $_language;
 
     /**
      * @param MatcherInterface $matcher
@@ -36,22 +37,34 @@ class Rule
         // Default options:
         $options = array_merge([
             'context'  => [],
-            'priority' => 1
+            'priority' => 1,
+            'language' => 'plaintext'
         ], $options);
 
         $this->_context  = $options['context'];
         $this->_priority = $options['priority'];
+        $this->_language = $options['language'];
     }
 
     public function match($source) {
         return $this->_matcher->match($source);
     }
 
-    public function validateContext($context, array $additional = []) {
+    // todo: write it better
+    public function validateContext($current, array $additional = []) {
         $required = array_merge($this->_context, $additional);
+        list($language, $context) = $current;
+
+        if($language !== 'language.'.$this->_language) {
+            return false;
+        }
 
         if (empty($required)) {
-            return empty($context);
+            return count($context) == 1;
+        }
+
+        if ($this->_language != null) {
+            $required[] = 'language.'.$this->_language;
         }
 
         foreach ($required as $rule) {
@@ -89,5 +102,21 @@ class Rule
 
     public function getPriority() {
         return $this->_priority;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
+    {
+        return $this->_language;
+    }
+
+    /**
+     * @param string $language
+     */
+    public function setLanguage($language)
+    {
+        $this->_language = $language;
     }
 }

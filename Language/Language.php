@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Language;
 
+use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenList\FixableTokenList;
@@ -52,20 +53,19 @@ abstract class Language
     {
         $this->_tokens = new SimpleTokenList();
 
-        if (method_exists($this, 'getOpenClose')) {
-            /** @var Rule $rule */
-            foreach($this->getOpenClose() as $rule) {
-                $this->_tokens->save($rule->match($this->_source), $rule, 'language.php');
-            }
-        }
+        $this->_rules['language.' . $this->getIdentifier()] = $this->getOpenClose();
 
         foreach ($this->_rules as $name => $rules) {
-            if(!is_array($rules)) {
+            if (!is_array($rules)) {
                 $rules = [$rules];
             }
 
             /** @var Rule $rule */
-            foreach($rules as $rule) {
+            foreach ($rules as $rule) {
+                if($name != 'language.' . $this->getIdentifier()) {
+                    $rule->setLanguage($this->getIdentifier());
+                }
+
                 $this->_tokens->save($rule->match($this->_source), $rule, $name);
             }
         }
@@ -89,11 +89,11 @@ abstract class Language
         $deep = 0;
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if($token->isEnd()) {
+            if ($token->isEnd()) {
                 $deep--;
             }
-            echo str_repeat('  ', $deep).$token->dump($this->_source).PHP_EOL;
-            if($token->isStart()) {
+            echo str_repeat('  ', $deep) . $token->dump($this->_source) . PHP_EOL;
+            if ($token->isStart()) {
                 $deep++;
             }
         }
@@ -118,30 +118,45 @@ abstract class Language
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->beforeParse();
         }
-        $context = [];
+        $contexts = [['language.plaintext', [new Token(['pos' => 0, 'name' => 'language.plaintext'])]]];
         /** @var Token $token */
         foreach ($this->_tokens as $token) {
+            $context = &$contexts[count($contexts) - 1];
+
             if ($token->isStart() && $token->getRule()->validateContext($context)) {
-                $context[spl_object_hash($token)] = $token;
+                if(fnmatch('language.*', $token->name)) {
+                    $contexts[] = [$token->name, [$token]];
+                } else {
+                    $context[1][spl_object_hash($token)] = $token;
+                }
                 continue;
-            } elseif ($token->isEnd()  && $token->isValid()) {
+            } elseif ($token->isEnd() && $token->isValid()) {
                 $start = $token->getStart();
 
                 if ($token->getRule()->validateContext($context, [$token->name])) {
-                    if ($start != null) {
-                        unset($context[spl_object_hash($start)]);
-                        continue;
-                    } else {
+                    if (fnmatch('language.*', $token->name)) {
                         /** @noinspection PhpUnusedParameterInspection */
-                        $start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
-                            return $v->name == $token->name;
+                        $key = ArrayHelper::find(array_reverse($contexts, true), function ($k, $v) use ($token) {
+                            return $v[0] == $token->name;
                         });
-
-                        if ($start !== false) {
-                            $token->setStart($context[$start]);
-                            unset($context[$start]);
-
+                        unset($contexts[$key]);
+                        $contexts = array_values($contexts);
+                    } else {
+                        if ($start != null) {
+                            unset($context[1][spl_object_hash($start)]);
                             continue;
+                        } else {
+                            /** @noinspection PhpUnusedParameterInspection */
+                            $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
+                                return $v->name == $token->name;
+                            });
+
+                            if ($start !== false) {
+                                $token->setStart($context[1][$start]);
+                                unset($context[1][$start]);
+
+                                continue;
+                            }
                         }
                     }
                 }
@@ -154,4 +169,11 @@ abstract class Language
             $this->_tokens->afterParse();
         }
     }
+
+    public function getOpenClose()
+    {
+        return new Rule(new WholeMatcher());
+    }
+
+    public abstract function getIdentifier();
 }

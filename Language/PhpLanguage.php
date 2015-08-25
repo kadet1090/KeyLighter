@@ -58,7 +58,7 @@ class PhpLanguage extends Language
 
             'constant' => new Rule(new WordMatcher([
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
-                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__'
+                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__', 'false', 'true'
             ])),
             'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
 
@@ -78,7 +78,7 @@ class PhpLanguage extends Language
                 'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
             ]), ['context' => ['!string', '!variable', '!comment']]),
 
-            'number' => new Rule(new RegexMatcher('/((?:0[xbo]?)?\d+)/')),
+            'number' => new Rule(new RegexMatcher('/(-?(?:0[xbo]?)?\d+)/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
             'operator' => new Rule(new WordMatcher([
@@ -104,10 +104,19 @@ class PhpLanguage extends Language
         ]);
     }
 
-    /*public function getOpenClose() {
+    public function getOpenClose() {
         return [
             new OpenRule(new SubStringMatcher('<?php')),
-            new CloseRule(new SubStringMatcher('?>'), ['context' => ['!string', '!comment'], 'priority' => 10000])
+            new CloseRule(new SubStringMatcher('?>'), [
+                'context' => ['!string', '!comment'],
+                'priority' => 10000,
+                'language' => 'php'
+            ])
         ];
-    }*/
+    }
+
+    public function getIdentifier()
+    {
+        return 'php';
+    }
 }

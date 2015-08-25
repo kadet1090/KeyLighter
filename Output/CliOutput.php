@@ -103,6 +103,6 @@ class CliOutput implements OutputInterface
             $token = implode('.', $token);
         } while (!empty($token));
 
-        return true;
+        return null;
     }
 }
