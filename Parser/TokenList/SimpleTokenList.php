@@ -55,4 +55,9 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
             $this->offsetUnset($hash);
         }
     }
+
+    public function get($hash)
+    {
+        return $this->offsetGet($hash);
+    }
 }

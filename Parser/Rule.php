@@ -74,7 +74,7 @@ class Rule
             }
 
             $matching = array_filter($context, function ($a) use ($rule) {
-                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a->name);
+                return (bool)preg_match('/^'.preg_quote($rule).'(?:\\.\\w+)*$/', $a);
             });
 
             if($type === 'not in') {

@@ -22,4 +22,5 @@ interface TokenListInterface extends \Traversable
 {
     public function remove(Token $token);
     public function save($tokens, Rule $rule, $prefix = null);
+    public function get($hash);
 }

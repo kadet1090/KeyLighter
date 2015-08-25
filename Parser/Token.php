@@ -28,16 +28,16 @@ class Token
     /**
      * @var Token
      */
-    private $_end;
+    protected $_end;
 
     /**
      * @var Token
      */
-    private $_start;
+    protected $_start;
 
     /** @var Rule */
-    private $_rule;
-    private $_id;
+    protected $_rule;
+    protected $_id;
 
     protected $_valid;
 
@@ -206,8 +206,18 @@ class Token
         return $result;
     }
 
-    private function validate($context)
+    protected function validate($context)
     {
         $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name] : []));
+    }
+
+    public function unbound() {
+        if(isset($this->_end)) {
+            $this->setEnd();
+        }
+
+        if(isset($this->_start)) {
+            $this->setStart();
+        }
     }
 }

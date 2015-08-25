@@ -18,7 +18,7 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\StringMatcher;
+use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
@@ -31,10 +31,10 @@ class PhpLanguage extends Language
     public function getRules()
     {
         $rules = [
-            'string' => new Rule(new StringMatcher([
+            'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
-            ])),
+            ]), ['context' => ['!keyword.escape', '!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
                 'context' => ['!string.single', '!comment']

@@ -14,7 +14,7 @@
  */
 
 namespace Kadet\Highlighter\Matcher;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\MarkerToken;
 use Kadet\Highlighter\Utils\StringHelper;
 
 /**
@@ -23,7 +23,7 @@ use Kadet\Highlighter\Utils\StringHelper;
  *
  * Matches all string occurrences with escaped characters.
  */
-class StringMatcher implements MatcherInterface
+class QuoteMatcher implements MatcherInterface
 {
     protected $_quotes;
 
@@ -47,25 +47,13 @@ class StringMatcher implements MatcherInterface
     {
         $tokens = [];
         $pos = 0;
-        do {
-            if (($start = StringHelper::find($source, array_values($this->_quotes), $pos)) === false) {
-                break;
-            }
-            $end = $this->_findClosingQuote($source, $start + 1, $source[$start]);
 
-            $tokenStart = new Token(['pos' => $start]);
-            $tokenEnd = new Token(['pos' => $end, 'start' => $tokenStart]);
-
-            if(($key = array_search($source[$start], $this->_quotes, false)) !== false) {
-                $tokenStart->name = $key;
-                $tokenEnd->name = $key;
-            }
-
-            $tokens[] = $tokenStart;
-            $tokens[] = $tokenEnd;
-
-            $pos = $end + 1;
-        } while($pos !== false && $end !== false);
+        while (($pos = StringHelper::find($source, array_values($this->_quotes), $pos)) !== false) {
+            $token = new MarkerToken(['pos' => $pos, 'length' => 1]);
+            $tokens[] = $token;
+            $tokens[] = $token->getEnd();
+            $pos++;
+        }
 
         return $tokens;
     }

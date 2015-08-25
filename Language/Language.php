@@ -122,7 +122,7 @@ abstract class Language
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->beforeParse();
         }
-        $contexts = [['language.plaintext', [new Token(['pos' => 0, 'name' => 'language.plaintext'])]]];
+        $contexts = [['language.plaintext', ['language.plaintext']]];
         /** @var Token $token */
         foreach ($this->_tokens as $token) {
             $context = &$contexts[count($contexts) - 1];
@@ -134,9 +134,9 @@ abstract class Language
 
             if ($token->isStart()) {
                 if (fnmatch('language.*', $token->name)) {
-                    $contexts[] = [$token->name, [$token]];
+                    $contexts[] = [$token->name, [$token->name]];
                 } else {
-                    $context[1][spl_object_hash($token)] = $token;
+                    $context[1][spl_object_hash($token)] = $token->name;
                 }
             } else {
                 $start = $token->getStart();
@@ -154,11 +154,11 @@ abstract class Language
                     } else {
                         /** @noinspection PhpUnusedParameterInspection */
                         $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
-                            return $v->name == $token->name;
+                            return $v == $token->name;
                         });
 
                         if ($start !== false) {
-                            $token->setStart($context[1][$start]);
+                            $token->setStart($this->_tokens->get($start));
                             unset($context[1][$start]);
                         }
                     }

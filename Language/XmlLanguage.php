@@ -16,7 +16,7 @@ namespace Kadet\Highlighter\Language;
 
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\StringMatcher;
+use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
@@ -35,7 +35,7 @@ class XmlLanguage extends Language
             ],
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?(' . self::TAG_REGEX . ')/'), ['context' => ['tag']]),
             'symbol.attribute' => new Rule(new RegexMatcher('/(' . self::TAG_REGEX . ')=/'), ['context' => ['tag']]),
-            'string' => new Rule(new StringMatcher([
+            'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
             ]), ['context' => ['tag']]),
