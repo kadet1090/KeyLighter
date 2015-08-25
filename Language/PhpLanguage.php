@@ -39,10 +39,10 @@ class PhpLanguage extends Language
             'string.heredoc' => new Rule(new RegexMatcher('/(<<<(\w+)(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
             'string.nowdoc' => new Rule(new RegexMatcher('/(<<<\'(\w+)\'(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
 
-            'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_][a-z0-9_]*)/i'), [
+            'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
                 'context' => ['!string.single', '!comment']
             ]),
-            'variable.property' => new Rule(new RegexMatcher('/(?:\w|\)|\])->([a-z_][a-z0-9_]*)/i')),
+            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i')),
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
             'symbol.class' => [
@@ -57,7 +57,7 @@ class PhpLanguage extends Language
                 'docblock' => ['/**', '*/'],
                 //['/* ', '*/'] // FIXME: Normal comments cannot be matched on docs
             ])),
-            'annotation' => new Rule(new RegexMatcher('/[\s]+(@\w+)/i'), [
+            'annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']
             ]),
 
