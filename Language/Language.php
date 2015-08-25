@@ -62,7 +62,7 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if($name != 'language.' . $this->getIdentifier()) {
+                if ($name != 'language.' . $this->getIdentifier()) {
                     $rule->setLanguage($this->getIdentifier());
                 }
 
@@ -82,13 +82,17 @@ abstract class Language
         return $this->_tokens;
     }
 
-    public function __dumpTokens()
+    public function __dumpTokens($name = '*')
     {
         $tokens = $this->tokens();
 
         $deep = 0;
         /** @var Token $token */
         foreach ($tokens as $token) {
+            if (!fnmatch($name, $token->name)) {
+                continue;
+            }
+
             if ($token->isEnd()) {
                 $deep--;
             }
@@ -123,47 +127,43 @@ abstract class Language
         foreach ($this->_tokens as $token) {
             $context = &$contexts[count($contexts) - 1];
 
-            if ($token->isStart() && $token->getRule()->validateContext($context)) {
-                if(fnmatch('language.*', $token->name)) {
+            if (!$token->isValid($context)) {
+                $this->_tokens->remove($token);
+                continue;
+            }
+
+            if ($token->isStart()) {
+                if (fnmatch('language.*', $token->name)) {
                     $contexts[] = [$token->name, [$token]];
                 } else {
                     $context[1][spl_object_hash($token)] = $token;
                 }
-                continue;
-            } elseif ($token->isEnd() && $token->isValid()) {
+            } else {
                 $start = $token->getStart();
 
-                if ($token->getRule()->validateContext($context, [$token->name])) {
-                    if (fnmatch('language.*', $token->name)) {
-                        /** @noinspection PhpUnusedParameterInspection */
-                        $key = ArrayHelper::find(array_reverse($contexts, true), function ($k, $v) use ($token) {
-                            return $v[0] == $token->name;
-                        });
-                        unset($contexts[$key]);
-                        $contexts = array_values($contexts);
+                if (fnmatch('language.*', $token->name)) {
+                    /** @noinspection PhpUnusedParameterInspection */
+                    $key = ArrayHelper::find(array_reverse($contexts, true), function ($k, $v) use ($token) {
+                        return $v[0] == $token->name;
+                    });
+                    unset($contexts[$key]);
+                    $contexts = array_values($contexts);
+                } else {
+                    if ($start != null) {
+                        unset($context[1][spl_object_hash($start)]);
                     } else {
-                        if ($start != null) {
-                            unset($context[1][spl_object_hash($start)]);
-                            continue;
-                        } else {
-                            /** @noinspection PhpUnusedParameterInspection */
-                            $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
-                                return $v->name == $token->name;
-                            });
+                        /** @noinspection PhpUnusedParameterInspection */
+                        $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
+                            return $v->name == $token->name;
+                        });
 
-                            if ($start !== false) {
-                                $token->setStart($context[1][$start]);
-                                unset($context[1][$start]);
-
-                                continue;
-                            }
+                        if ($start !== false) {
+                            $token->setStart($context[1][$start]);
+                            unset($context[1][$start]);
                         }
                     }
                 }
             }
-
-            $token->invalidate();
-            $this->_tokens->remove($token);
         }
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->afterParse();

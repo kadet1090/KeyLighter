@@ -42,8 +42,10 @@ class PhpLanguage extends Language
             'variable.property' => new Rule(new RegexMatcher('/\$[a-z_][a-z0-9_]*(?:->([a-z_][a-z0-9_]*))+/i')),
 
             'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
-            'symbol.class' => new Rule(new RegexMatcher('/(?:class|new|use) ([\w\\\]+)/i')),
-
+            'symbol.class' => [
+                new Rule(new RegexMatcher('/(?:class|new|use) ([\w\\\]+)/i')),
+                new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
+            ],
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/i'), [
                 'context' => ['string']
             ]),
@@ -81,9 +83,9 @@ class PhpLanguage extends Language
             'number' => new Rule(new RegexMatcher('/(-?(?:0[xbo]?)?\d+)/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            'operator' => new Rule(new WordMatcher([
+            /*'operator' => new Rule(new WordMatcher([
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0])
+            ], ['separated' => false]), ['priority' => 0])*/
         ];
 
         return ArrayHelper::rearrange($rules, [
@@ -100,7 +102,7 @@ class PhpLanguage extends Language
             'keyword',
             'number',
             'operator.punctuation',
-            'operator',
+            //'operator',
         ]);
     }
 

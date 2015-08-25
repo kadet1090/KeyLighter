@@ -43,4 +43,9 @@ class XmlLanguage extends Language
             'tag.close' => new Rule(new RegexMatcher('/(<\\/' . self::TAG_REGEX . '>)/')),
         ];
     }
+
+    public function getIdentifier()
+    {
+        return 'xml';
+    }
 }

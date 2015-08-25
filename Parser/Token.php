@@ -35,10 +35,11 @@ class Token
      */
     private $_start;
 
+    /** @var Rule */
     private $_rule;
     private $_id;
 
-    protected $_valid = true;
+    protected $_valid;
 
     /**
      * Token constructor.
@@ -69,7 +70,7 @@ class Token
         }
 
         if(array_key_exists('length', $options)) {
-            $this->setEnd(new Token([
+            $this->setEnd(new static([
                 $this->name, 'pos' => $this->pos + $options['length'], 'id' => $this->_id, 'start' => $this
             ]));
         }
@@ -91,7 +92,11 @@ class Token
         return ($a->pos > $b->pos) ? 1 : -1;
     }
 
-    public function isValid() {
+    public function isValid($context = null) {
+        if ($this->_valid === null) {
+            $this->validate($context);
+        }
+
         return $this->_valid;
     }
 
@@ -192,21 +197,17 @@ class Token
     public function dump($text = null) {
         if($this->isStart()) {
             $result = "Start ({$this->name}) #{$this->_id}:$this->pos";
-            if ($this->_end !== null) {
-                //$result .= " -> End #{$this->_end->_id}:{$this->_end->pos}";
-                if ($text !== null) {
-                    $result .= '  '.substr($text, $this->pos, $this->_end->pos - $this->pos);
-                }
+            if ($text !== null && $this->_end !== null) {
+                $result .= '  '.substr($text, $this->pos, $this->_end->pos - $this->pos);
             }
         } else {
             $result = "End ({$this->name}) #{$this->_id}:$this->pos";
-            /*if ($this->_start !== null) {
-                $result .= " <- End #{$this->_start->_id}:{$this->_start->pos}";
-                if ($text !== null) {
-                    $result .= '  '.substr($text, $this->_start->pos, $this->pos - $this->_start->pos);
-                }
-            }*/
         }
         return $result;
+    }
+
+    private function validate($context)
+    {
+        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name] : []));
     }
 }
