@@ -13,19 +13,19 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Output;
+namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
- * Class CliOutput
- * @package Kadet\Highlighter\Output
+ * Class CliFormatter
+ * @package Kadet\Highlighter\Formatter
  *
  * @todo: write it better
  */
-class CliOutput implements OutputInterface
+class CliFormatter implements FormatterInterface
 {
     private static $_colors = [
         'comment' => '37',

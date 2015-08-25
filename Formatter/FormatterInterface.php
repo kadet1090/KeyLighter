@@ -13,12 +13,12 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Output;
+namespace Kadet\Highlighter\Formatter;
 
 
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 
-interface OutputInterface
+interface FormatterInterface
 {
     public function format($source, TokenListInterface $tokens);
 }
