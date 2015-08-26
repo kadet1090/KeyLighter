@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Matcher;
 use Kadet\Highlighter\Parser\MarkerToken;
-use Kadet\Highlighter\Utils\StringHelper;
 
 /**
  * Class StringMatcher
@@ -46,17 +45,17 @@ class QuoteMatcher implements MatcherInterface
     public function match($source)
     {
         $tokens = [];
-        $pos = 0;
+        foreach($this->_quotes as $name => $quote) {
+            $pos = 0;
+            $length = strlen($quote);
 
-        while (($pos = StringHelper::find($source, array_values($this->_quotes), $pos, $match)) !== false) {
-            $length = strlen($match);
-
-            $token = new MarkerToken(['pos' => $pos, 'length' => $length, array_search($match, $this->_quotes, false)]);
-            $tokens[] = $token;
-            $tokens[] = $token->getEnd();
-            $pos += $length;
+            while (($pos = strpos($source, $quote, $pos)) !== false) {
+                $token = new MarkerToken(['pos' => $pos, 'length' => $length, $name]);
+                $tokens[] = $token;
+                $tokens[] = $token->getEnd();
+                $pos += $length;
+            }
         }
-
         return $tokens;
     }
 }

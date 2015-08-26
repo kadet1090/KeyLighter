@@ -20,10 +20,9 @@ use Kadet\Highlighter\Utils\Helper;
 
 class Token
 {
-    private static $_autoincrement = 0;
-
     public $pos;
     public $name;
+    public $index = 1;
 
     /**
      * @var Token
@@ -37,9 +36,10 @@ class Token
 
     /** @var Rule */
     protected $_rule;
-    protected $_id;
 
     protected $_valid;
+
+    protected $_length;
 
     /**
      * Token constructor.
@@ -51,14 +51,12 @@ class Token
             $this->name = $options[0];
         }
 
-        if(array_key_exists('id', $options)) {
-            $this->_id = $options['id'];
-        } else {
-            $this->_id = (++self::$_autoincrement);
-        }
-
         if(array_key_exists('pos', $options)) {
             $this->pos = $options['pos'];
+        }
+
+        if(array_key_exists('index', $options)) {
+            $this->index = $options['index'];
         }
 
         if(array_key_exists('start', $options)) {
@@ -70,9 +68,7 @@ class Token
         }
 
         if(array_key_exists('length', $options)) {
-            $this->setEnd(new static([
-                $this->name, 'pos' => $this->pos + $options['length'], 'id' => $this->_id, 'start' => $this
-            ]));
+            new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this]);
         }
     }
 
@@ -80,8 +76,13 @@ class Token
     {
         if ($a->pos == $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                return Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority());
+                if(($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) != 0) {
+                    return $rule;
+                }
+
+                return Helper::cmp($b->index, $a->index);
             }
+
             return $a->isEnd() ? -1 : 1;
         }
 
@@ -132,7 +133,6 @@ class Token
 
         if($start != null) {
             $this->_start->_end = $this;
-            $this->_id = $start->_id;
         }
     }
 
@@ -151,10 +151,10 @@ class Token
     {
         $this->_start = null;
         $this->_end = $end;
+        $this->_length = 0;
 
         if($end != null) {
             $this->_end->_start = $this;
-            $this->_end->_id = $this->_id;
         }
     }
 
@@ -174,17 +174,9 @@ class Token
         $this->_rule = $rule;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->_id;
-    }
-
     public function getLength() {
-        if($this->_end != null) {
-            return $this->_end->pos - $this->pos;
+        if($this->_length == null) {
+            $this->_length = $this->_end == null ? 0 : $this->_end->pos - $this->pos;
         }
 
         return 0;
@@ -192,12 +184,12 @@ class Token
 
     public function dump($text = null) {
         if($this->isStart()) {
-            $result = "Start ({$this->name}) #{$this->_id}:$this->pos";
+            $result = "Start ({$this->name}) $this->pos";
             if ($text !== null && $this->_end !== null) {
                 $result .= '  '.substr($text, $this->pos, $this->_end->pos - $this->pos);
             }
         } else {
-            $result = "End ({$this->name}) #{$this->_id}:$this->pos";
+            $result = "End ({$this->name}) $this->pos";
         }
         return $result;
     }

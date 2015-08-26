@@ -55,7 +55,7 @@ class PhpLanguage extends Language
 
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 'docblock' => ['/**', '*/'],
-                //['/* ', '*/'] // FIXME: Normal comments cannot be matched on docs
+                ['/* ', '*/']
             ])),
             'annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']

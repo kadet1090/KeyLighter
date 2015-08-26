@@ -58,7 +58,7 @@ class CommentMatcher implements MatcherInterface
             $all[] = [$name, "/{$comment}(.*)/"];
         }
 
-        foreach ($all as $comment) {
+        foreach ($all as $i => $comment) {
             $matches = [];
 
             $name = $comment[0];
@@ -66,7 +66,7 @@ class CommentMatcher implements MatcherInterface
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $token = new Token(['pos' => $match[1], 'length' => strlen($match[0])]);
+                    $token = new Token(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i]);
 
                     if (!is_int($name)) {
                         $token->name = $name;
