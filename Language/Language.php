@@ -62,7 +62,7 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if ($name != 'language.' . $this->getIdentifier()) {
+                if ($name !== 'language.' . $this->getIdentifier()) {
                     $rule->setLanguage($this->getIdentifier());
                 }
 
@@ -89,7 +89,7 @@ abstract class Language
         $deep = 0;
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if ($name != $token->name && !fnmatch($name.'.*', $token->name)) {
+            if ($name !== $token->name && !fnmatch($name.'.*', $token->name)) {
                 continue;
             }
 
@@ -144,17 +144,17 @@ abstract class Language
                 if (fnmatch('language.*', $token->name)) {
                     /** @noinspection PhpUnusedParameterInspection */
                     $key = ArrayHelper::find(array_reverse($contexts, true), function ($k, $v) use ($token) {
-                        return $v[0] == $token->name;
+                        return $v[0] === $token->name;
                     });
                     unset($contexts[$key]);
                     $contexts = array_values($contexts);
                 } else {
-                    if ($start != null) {
+                    if ($start !== null) {
                         unset($context[1][spl_object_hash($start)]);
                     } else {
                         /** @noinspection PhpUnusedParameterInspection */
                         $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
-                            return $v == $token->name;
+                            return $v === $token->name;
                         });
 
                         if ($start !== false) {

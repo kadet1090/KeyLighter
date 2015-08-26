@@ -61,17 +61,17 @@ class Rule
         }
 
         if (empty($required)) {
-            return count($context) == 1;
+            return count($context) === 1;
         }
 
-        if ($this->_language != null) {
+        if ($this->_language !== null) {
             $required[] = 'language.'.$this->_language;
         }
 
         reset($required);
         while(list($rule, $type) = each($required)) {
             $matching = array_filter($context, function ($a) use ($rule) {
-                return $a == $rule || fnmatch($rule.'.*', $a);
+                return $a === $rule || fnmatch($rule.'.*', $a);
             });
 
             if($type === 'not in') {

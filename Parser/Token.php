@@ -74,9 +74,9 @@ class Token
 
     public static function compare(Token $a, Token $b)
     {
-        if ($a->pos == $b->pos) {
+        if ($a->pos === $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                if(($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) != 0) {
+                if(($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
                     return $rule;
                 }
 
@@ -108,11 +108,11 @@ class Token
     }
 
     public function isEnd() {
-        return $this->_end == null && !($this->_rule instanceof OpenRule);
+        return $this->_end === null && !($this->_rule instanceof OpenRule);
     }
 
     public function isStart() {
-        return $this->_start == null && !($this->_rule instanceof CloseRule);
+        return $this->_start === null && !($this->_rule instanceof CloseRule);
     }
 
     /**
@@ -131,7 +131,7 @@ class Token
         $this->_end = null;
         $this->_start = $start;
 
-        if($start != null) {
+        if($start !== null) {
             $this->_start->_end = $this;
         }
     }
@@ -153,7 +153,7 @@ class Token
         $this->_end = $end;
         $this->_length = 0;
 
-        if($end != null) {
+        if($end !== null) {
             $this->_end->_start = $this;
         }
     }
@@ -175,8 +175,8 @@ class Token
     }
 
     public function getLength() {
-        if($this->_length == null) {
-            $this->_length = $this->_end == null ? 0 : $this->_end->pos - $this->pos;
+        if($this->_length === null) {
+            $this->_length = $this->_end === null ? 0 : $this->_end->pos - $this->pos;
         }
 
         return 0;
