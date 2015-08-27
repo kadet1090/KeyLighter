@@ -48,6 +48,7 @@ class PhpLanguage extends Language
             'symbol.class' => [
                 new Rule(new RegexMatcher('/(?:class|new|use) ([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
+                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$]\w+)/i'), ['context' => ['comment.docblock']]),
             ],
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/i'), [
                 'context' => ['string']
@@ -57,7 +58,7 @@ class PhpLanguage extends Language
                 'docblock' => ['/**', '*/'],
                 ['/* ', '*/']
             ])),
-            'annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
+            'keyword.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']
             ]),
 
@@ -105,7 +106,7 @@ class PhpLanguage extends Language
             'keyword.cast',
             'symbol.function',
             'comment',
-            'annotation',
+            'keyword.annotation',
             'variable',
             'variable.property',
             'string',
