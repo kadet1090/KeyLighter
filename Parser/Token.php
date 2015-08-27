@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Parser;
 
 
 use Kadet\Highlighter\Utils\Helper;
+use Kadet\Highlighter\Utils\StringHelper;
 
 class Token
 {
@@ -183,13 +184,16 @@ class Token
     }
 
     public function dump($text = null) {
+        $pos = StringHelper::positionToLine($text, $this->pos);
+        $pos = $pos['line'].':'.$pos['pos'];
+
         if($this->isStart()) {
-            $result = "Start ({$this->name}) $this->pos";
+            $result = "Start ({$this->name}) $pos";
             if ($text !== null && $this->_end !== null) {
-                $result .= '  '.substr($text, $this->pos, $this->_end->pos - $this->pos);
+                $result .= "  \x02".substr($text, $this->pos, $this->_end->pos - $this->pos)."\x03";
             }
         } else {
-            $result = "End ({$this->name}) $this->pos";
+            $result = "End ({$this->name}) $pos";
         }
         return $result;
     }

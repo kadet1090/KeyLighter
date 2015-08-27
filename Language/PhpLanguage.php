@@ -50,7 +50,7 @@ class PhpLanguage extends Language
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
                 new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$]\w+)/i'), ['context' => ['comment.docblock']]),
             ],
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/i'), [
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{2}|u\{[0-9a-fA-F]{1,8}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']
             ]),
 

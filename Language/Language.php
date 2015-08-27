@@ -87,20 +87,23 @@ abstract class Language
         $tokens = $this->tokens();
 
         $deep = 0;
+        $result = '';
         /** @var Token $token */
         foreach ($tokens as $token) {
-            if ($name !== $token->name && !fnmatch($name.'.*', $token->name)) {
+            if (!fnmatch('*', $token->name) && !fnmatch($name.'.*', $token->name)) {
                 continue;
             }
 
             if ($token->isEnd()) {
                 $deep--;
             }
-            echo str_repeat('  ', $deep) . $token->dump($this->_source) . PHP_EOL;
+            $result .= str_repeat('  ', $deep) . $token->dump($this->_source) . PHP_EOL;
             if ($token->isStart()) {
                 $deep++;
             }
         }
+
+        return $result;
     }
 
     public function setSource($source)

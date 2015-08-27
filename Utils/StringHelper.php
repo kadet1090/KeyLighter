@@ -30,6 +30,18 @@ class StringHelper
         return $results;
     }
 
+    public static function positionToLine($source, $pos) {
+        $source = substr($source, 0, $pos);
+        $last = strripos($source, PHP_EOL);
+        if($last !== false) {
+            $last += strlen(PHP_EOL);
+        }
+        return [
+            'line' => substr_count($source, PHP_EOL),
+            'pos' =>  $pos - $last
+        ];
+    }
+
     public static function find($haystack, $needle, $offset = 0, &$match)
     {
         if (!is_array($needle)) {
