@@ -196,6 +196,6 @@ class Token
 
     protected function validate($context)
     {
-        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name => 'in'] : []));
+        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : []));
     }
 }

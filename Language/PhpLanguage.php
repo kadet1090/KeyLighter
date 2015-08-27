@@ -40,7 +40,7 @@ class PhpLanguage extends Language
             'string.nowdoc' => new Rule(new RegexMatcher('/(<<<\'(\w+)\'(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
-                'context' => ['!string.single', '!comment']
+                'context' => ['*comment.docblock', '!string.single', '!comment']
             ]),
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i')),
 

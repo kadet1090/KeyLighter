@@ -20,8 +20,15 @@ use Kadet\Highlighter\Matcher\MatcherInterface;
 
 class Rule
 {
+    const CONTEXT_IN        = 1;
+    const CONTEXT_NOT_IN    = 2;
+    const CONTEXT_IN_ONE_OF = 4;
+    const CONTEXT_EXACTLY   = 8;
+
     private $_matcher;
     private $_context = [];
+
+    private $_default = true;
 
     private $_priority;
     private $_language;
@@ -50,7 +57,6 @@ class Rule
         return $this->_matcher->match($source);
     }
 
-    // todo: write it better
     public function validateContext($current, array $additional = []) {
         $required = array_merge($additional, $this->_context);
 
@@ -68,28 +74,48 @@ class Rule
             $required[] = 'language.'.$this->_language;
         }
 
+        $result = $this->_default;
+
         reset($required);
         while(list($rule, $type) = each($required)) {
-            $matching = array_filter($context, function ($a) use ($rule) {
-                return $a === $rule || fnmatch($rule.'.*', $a);
-            });
+            $matched = !($type & self::CONTEXT_EXACTLY) ?
+                count(array_filter($context, function ($a) use ($rule) {
+                    return $a === $rule || fnmatch($rule.'.*', $a);
+                })) > 0 :
+                in_array($rule, $context, true);
 
-            if($type === 'not in') {
-                if(!empty($matching)) {
+            if($type & self::CONTEXT_NOT_IN) {
+                if($matched) {
                     return false;
                 }
-            } elseif ($type === 'in') {
-                if(empty($matching)) {
+                $result = true;
+            } elseif ($type & self::CONTEXT_IN) {
+                if(!$matched) {
                     return false;
                 }
+                $result = true;
 
-                if(($down = strstr($rule, '.', true)) !== false) {
-                    unset($required[$down]);
+                $this->_unsetUnnecessaryRules($rule, $required);
+            } elseif ($type & self::CONTEXT_IN_ONE_OF) {
+                if($matched) {
+                    $result = true;
+                    $this->_unsetUnnecessaryRules($rule, $required);
                 }
             }
         }
 
-        return true;
+        return $result;
+    }
+
+    private function _unsetUnnecessaryRules($rule, &$required)
+    {
+        if(strpos($rule, '.') !== false) {
+            foreach(array_filter(array_keys($this->_context), function ($key) use ($rule) {
+                return fnmatch($key.'.*', $rule);
+            }) as $remove) {
+                unset($required[$remove]);
+            }
+        }
     }
 
     public function setContext($rules) {
@@ -99,22 +125,38 @@ class Rule
                 continue;
             }
 
-            $type = $this->_getType($rule);
-            if($type !== 'in') {
-                $rule = substr($rule, 1);
-            }
-
-            $this->_context[$rule] = $type;
+            list($plain, $type) = $this->_getContextRule($rule);
+            $this->_context[$plain] = $type;
         }
     }
 
-    private function _getType($rule) {
-        // Possible more types
-        switch($rule[0]) {
-            case '!': return 'not in';
-            case '^': return 'top';
-            default:  return 'in';
+    private function _getContextRule($rule) {
+        $types = [
+            '!' => self::CONTEXT_NOT_IN,
+            '+' => self::CONTEXT_IN,
+            '*' => self::CONTEXT_IN_ONE_OF,
+            '@' => self::CONTEXT_EXACTLY,
+        ];
+
+        if (!array_key_exists($rule[0], $types)) {
+            return [$rule, self::CONTEXT_IN];
         }
+
+        $type = 0;
+        $pos = 0;
+        foreach(str_split($rule) as $pos => $char) {
+            if (!array_key_exists($char, $types)) {
+                break;
+            }
+
+            if($types[$char] == self::CONTEXT_IN_ONE_OF) {
+                $this->_default = false;
+            }
+
+            $type |= $types[$char];
+        }
+
+        return [substr($rule, $pos), $type];
     }
 
     public function getPriority() {
