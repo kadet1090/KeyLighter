@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -21,25 +21,26 @@ use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
  * Class CliFormatter
+ *
  * @package Kadet\Highlighter\Formatter
  *
- * @todo: write it better
+ * @todo    : write it better
  */
 class CliFormatter implements FormatterInterface
 {
     private static $_colors = [
-        'comment' => '37',
+        'comment'          => '37',
         'comment.docblock' => '90',
-        'variable' => '34',
-        'variable.*' => '94',
-        'keyword' => '33',
-        'operator' => '33',
-        'string' => '32',
-        'constant' => '35',
-        'annotation' => '33',
-        'number' => '95',
-        'symbol' => '1',
-        'tag' => '90',
+        'variable'         => '34',
+        'variable.*'       => '94',
+        'keyword'          => '33',
+        'operator'         => '33',
+        'string'           => '32',
+        'constant'         => '35',
+        'annotation'       => '33',
+        'number'           => '95',
+        'symbol'           => '1',
+        'tag'              => '90',
     ];
 
     private $_stack = [];
@@ -65,21 +66,6 @@ class CliFormatter implements FormatterInterface
         return $result;
     }
 
-    private function _color($color = null)
-    {
-        if ($color !== null) {
-            if ($this->_current !== null) {
-                $this->_stack[] = $this->_current;
-            }
-
-            $this->_current = $color;
-        } else {
-            $this->_current = count($this->_stack) > 0 ? array_pop($this->_stack) : '0';
-        }
-
-        return "\033[{$this->_current}m";
-    }
-
     public static function getColor($token)
     {
         do {
@@ -88,7 +74,7 @@ class CliFormatter implements FormatterInterface
             });
 
             if (!empty($colors)) {
-                usort($colors, function($a, $b) {
+                usort($colors, function ($a, $b) {
                     $a = strlen($a);
                     $b = strlen($b);
 
@@ -104,5 +90,20 @@ class CliFormatter implements FormatterInterface
         } while (!empty($token));
 
         return null;
+    }
+
+    private function _color($color = null)
+    {
+        if ($color !== null) {
+            if ($this->_current !== null) {
+                $this->_stack[] = $this->_current;
+            }
+
+            $this->_current = $color;
+        } else {
+            $this->_current = count($this->_stack) > 0 ? array_pop($this->_stack) : '0';
+        }
+
+        return "\033[{$this->_current}m";
     }
 }

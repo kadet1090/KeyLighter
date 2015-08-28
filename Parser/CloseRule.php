@@ -3,6 +3,7 @@
  * Highlighter
  *1
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
  *
  * Contact with author:
@@ -20,8 +21,9 @@ class CloseRule extends Rule
     public function match($source)
     {
         return array_filter(parent::match($source), function (Token $token) {
-            if($token->isEnd()) {
+            if ($token->isEnd()) {
                 $token->setStart(null);
+
                 return true;
             }
 

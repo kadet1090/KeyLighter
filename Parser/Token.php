@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -39,36 +39,35 @@ class Token
     protected $_rule;
 
     protected $_valid;
-
     protected $_length;
 
     /**
      * Token constructor.
      */
-    public function __construct($options)
+    public function __construct(array $options)
     {
         // Name
-        if(array_key_exists(0, $options)) {
+        if (isset($options[0])) {
             $this->name = $options[0];
         }
 
-        if(array_key_exists('pos', $options)) {
+        if (isset($options['pos'])) {
             $this->pos = $options['pos'];
         }
 
-        if(array_key_exists('index', $options)) {
+        if (isset($options['index'])) {
             $this->index = $options['index'];
         }
 
-        if(array_key_exists('start', $options)) {
+        if (isset($options['start'])) {
             $this->setStart($options['start']);
         }
 
-        if(array_key_exists('end', $options)) {
+        if (isset($options['end'])) {
             $this->setEnd($options['end']);
         }
 
-        if(array_key_exists('length', $options)) {
+        if (isset($options['length'])) {
             new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this]);
         }
     }
@@ -77,7 +76,7 @@ class Token
     {
         if ($a->pos === $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                if(($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
+                if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
                     return $rule;
                 }
 
@@ -90,7 +89,18 @@ class Token
         return ($a->pos > $b->pos) ? 1 : -1;
     }
 
-    public function isValid($context = null) {
+    public function isStart()
+    {
+        return $this->_start === null && !($this->_rule instanceof CloseRule);
+    }
+
+    public function isEnd()
+    {
+        return $this->_end === null && !($this->_rule instanceof OpenRule);
+    }
+
+    public function isValid($context = null)
+    {
         if ($this->_valid === null) {
             $this->validate($context);
         }
@@ -98,7 +108,14 @@ class Token
         return $this->_valid;
     }
 
-    public function invalidate($invalid = true) {
+    protected function validate($context)
+    {
+        $this->invalidate(!$this->_rule->validateContext($context,
+            $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : []));
+    }
+
+    public function invalidate($invalid = true)
+    {
         $this->_valid = !$invalid;
 
         if ($this->_end !== null) {
@@ -106,14 +123,6 @@ class Token
         } elseif ($this->_start !== null) {
             $this->_start->_valid = $this->_valid;
         }
-    }
-
-    public function isEnd() {
-        return $this->_end === null && !($this->_rule instanceof OpenRule);
-    }
-
-    public function isStart() {
-        return $this->_start === null && !($this->_rule instanceof CloseRule);
     }
 
     /**
@@ -132,7 +141,7 @@ class Token
         $this->_end = null;
         $this->_start = $start;
 
-        if($start !== null) {
+        if ($start !== null) {
             $this->_start->_end = $this;
         }
     }
@@ -154,7 +163,7 @@ class Token
         $this->_end = $end;
         $this->_length = 0;
 
-        if($end !== null) {
+        if ($end !== null) {
             $this->_end->_start = $this;
         }
     }
@@ -175,31 +184,29 @@ class Token
         $this->_rule = $rule;
     }
 
-    public function getLength() {
-        if($this->_length === null) {
+    public function getLength()
+    {
+        if ($this->_length === null) {
             $this->_length = $this->_end === null ? 0 : $this->_end->pos - $this->pos;
         }
 
         return 0;
     }
 
-    public function dump($text = null) {
+    public function dump($text = null)
+    {
         $pos = StringHelper::positionToLine($text, $this->pos);
-        $pos = $pos['line'].':'.$pos['pos'];
+        $pos = $pos['line'] . ':' . $pos['pos'];
 
-        if($this->isStart()) {
+        if ($this->isStart()) {
             $result = "Start ({$this->name}) $pos";
             if ($text !== null && $this->_end !== null) {
-                $result .= "  \x02".substr($text, $this->pos, $this->_end->pos - $this->pos)."\x03";
+                $result .= "  \x02" . substr($text, $this->pos, $this->_end->pos - $this->pos) . "\x03";
             }
         } else {
             $result = "End ({$this->name}) $pos";
         }
-        return $result;
-    }
 
-    protected function validate($context)
-    {
-        $this->invalidate(!$this->_rule->validateContext($context, $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : []));
+        return $result;
     }
 }

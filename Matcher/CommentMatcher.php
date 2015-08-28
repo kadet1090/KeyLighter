@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -21,10 +21,11 @@ use Kadet\Highlighter\Parser\Token;
 class CommentMatcher implements MatcherInterface
 {
     private $singleLine = [];
-    private $multiLine = [];
+    private $multiLine  = [];
 
     /**
      * CommentMatcher constructor.
+     *
      * @param array $singleLine
      * @param array $multiLine
      */
@@ -62,17 +63,17 @@ class CommentMatcher implements MatcherInterface
             $matches = [];
 
             $name = $comment[0];
+            $name = is_string($name) ? $name : null;
             $regex = $comment[1];
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $token = new Token(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, is_string($name) ? $name : null]);
+                    $token = new Token(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
                     $result[] = $token;
                     $result[] = $token->getEnd();
                 }
             }
         }
-
 
 
         return $result;

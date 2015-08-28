@@ -3,6 +3,7 @@
  * Highlighter
  *1
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
  *
  * Contact with author:
@@ -30,6 +31,7 @@ class WholeMatcher implements MatcherInterface
     public function match($source)
     {
         $token = new Token(['pos' => 0, 'length' => strlen($source)]);
+
         return [$token, $token->getEnd()];
     }
 }

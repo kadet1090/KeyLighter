@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -28,9 +28,9 @@ class WordMatcher extends RegexMatcher
     public function __construct(array $words, array $options = [])
     {
         $options = array_merge([
-            'escape' => true,
-            'separated' => true,
-            'case-sensitivity' => false
+            'escape'           => true,
+            'separated'        => true,
+            'case-sensitivity' => false,
         ], $options);
 
         if ($options['escape']) {
@@ -39,13 +39,13 @@ class WordMatcher extends RegexMatcher
             }, $words);
         }
 
-        $regex = '('.implode('|', $words).')';
+        $regex = '(' . implode('|', $words) . ')';
         if ($options['separated']) {
-            $regex = '\b'.$regex.'\b';
+            $regex = '\b' . $regex . '\b';
         }
 
         $regex = "/$regex/";
-        if(!$options['case-sensitivity']) {
+        if (!$options['case-sensitivity']) {
             $regex .= 'i';
         }
 

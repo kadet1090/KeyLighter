@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -14,10 +14,12 @@
  */
 
 namespace Kadet\Highlighter\Matcher;
+
 use Kadet\Highlighter\Parser\MarkerToken;
 
 /**
  * Class StringMatcher
+ *
  * @package Kadet\Highlighter\Matcher
  *
  * Matches all string occurrences with escaped characters.
@@ -28,6 +30,7 @@ class QuoteMatcher implements MatcherInterface
 
     /**
      * StringMatcher constructor.
+     *
      * @param string[] $quotes possible quotes for string
      */
     public function __construct(array $quotes = ['\'', '"'])
@@ -45,7 +48,7 @@ class QuoteMatcher implements MatcherInterface
     public function match($source)
     {
         $tokens = [];
-        foreach($this->_quotes as $name => $quote) {
+        foreach ($this->_quotes as $name => $quote) {
             $pos = 0;
             $length = strlen($quote);
 
@@ -56,6 +59,7 @@ class QuoteMatcher implements MatcherInterface
                 $pos += $length;
             }
         }
+
         return $tokens;
     }
 }

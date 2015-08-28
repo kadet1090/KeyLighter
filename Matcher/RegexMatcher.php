@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -24,6 +24,7 @@ class RegexMatcher implements MatcherInterface
 
     /**
      * RegexMatcher constructor.
+     *
      * @param $regex
      */
     public function __construct($regex)
@@ -42,7 +43,7 @@ class RegexMatcher implements MatcherInterface
     {
         preg_match_all($this->regex, $source, $matches, PREG_OFFSET_CAPTURE);
         $result = [];
-        foreach($matches[1] as $match) {
+        foreach ($matches[1] as $match) {
             $token = new Token(['pos' => $match[1], 'length' => strlen($match[0])]);
 
             $result[] = $token;

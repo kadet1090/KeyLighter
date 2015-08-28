@@ -3,6 +3,7 @@
  * Highlighter
  *1
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
  *
  * Contact with author:
@@ -17,12 +18,13 @@ namespace Kadet\Highlighter\Matcher;
 
 use Kadet\Highlighter\Parser\Token;
 
-class SubStringMatcher implements  MatcherInterface
+class SubStringMatcher implements MatcherInterface
 {
     private $_substr;
 
     /**
      * SubstrMatcher constructor.
+     *
      * @param $substr
      */
     public function __construct($substr)

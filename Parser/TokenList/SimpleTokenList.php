@@ -3,6 +3,7 @@
  * Highlighter
  *1
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
  *
  * Contact with author:
@@ -15,8 +16,8 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token;
 
 class SimpleTokenList extends \ArrayObject implements TokenListInterface, FixableTokenList
 {
@@ -30,7 +31,7 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
     public function save($tokens, Rule $rule, $prefix = null)
     {
         /** @var Token $token */
-        foreach($tokens as $token) {
+        foreach ($tokens as $token) {
             $token->name = $prefix . (isset($token->name) ? '.' . $token->name : '');
             $token->setRule($rule);
 
@@ -43,15 +44,16 @@ class SimpleTokenList extends \ArrayObject implements TokenListInterface, Fixabl
         $this->uasort('\Kadet\Highlighter\Parser\Token::compare');
     }
 
-    public function appendArray(array $array) {
-        foreach($array as $value) {
+    public function appendArray(array $array)
+    {
+        foreach ($array as $value) {
             $this[] = $value;
         }
     }
 
     public function afterParse()
     {
-        foreach($this->_remove as $hash) {
+        foreach ($this->_remove as $hash) {
             $this->offsetUnset($hash);
         }
     }

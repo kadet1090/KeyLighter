@@ -3,8 +3,8 @@
  * Highlighter
  *
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
- * @license http://creativecommons.org/licenses/by-sa/4.0/legalcode CC BY-SA
  *
  * Contact with author:
  * Xmpp: kadet@jid.pl
@@ -30,15 +30,17 @@ class StringHelper
         return $results;
     }
 
-    public static function positionToLine($source, $pos) {
+    public static function positionToLine($source, $pos)
+    {
         $source = substr($source, 0, $pos);
         $last = strripos($source, PHP_EOL);
-        if($last !== false) {
+        if ($last !== false) {
             $last += strlen(PHP_EOL);
         }
+
         return [
             'line' => substr_count($source, PHP_EOL),
-            'pos' =>  $pos - $last
+            'pos'  => $pos - $last,
         ];
     }
 
@@ -66,6 +68,7 @@ class StringHelper
         reset($results);
 
         $match = key($results);
+
         return current($results);
     }
 }

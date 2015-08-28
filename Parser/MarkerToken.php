@@ -3,6 +3,7 @@
  * Highlighter
  *1
  * Copyright (C) 2015, Some right reserved.
+ *
  * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
  *
  * Contact with author:
@@ -51,7 +52,7 @@ class MarkerToken extends Token
                 $this->_end = null;
             }
         } else {
-            if (!$this->getRule()->validateContext($context, [$this->name =>  Rule::CONTEXT_IN])) {
+            if (!$this->getRule()->validateContext($context, [$this->name => Rule::CONTEXT_IN])) {
                 $this->invalidate();
             } else {
                 $this->_valid = false;

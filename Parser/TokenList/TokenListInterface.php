@@ -15,8 +15,8 @@
 namespace Kadet\Highlighter\Parser\TokenList;
 
 
-use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token;
 
 interface TokenListInterface extends \Traversable
 {
