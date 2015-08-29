@@ -1,5 +1,5 @@
 {
-  "name": "kadet/highlighter",
+  "name": "kadet/keylighter",
   "description": "Yet another syntax highlighter for PHP",
   "minimum-stability": "dev",
   "license": "MIT",
@@ -9,6 +9,9 @@
       "email": "kadet1090@gmail.com"
     }
   ],
+  "require": {
+    "php": ">=5.4.0"
+  },
   "autoload": {
     "psr-4": {
       "Kadet\\Highlighter\\": "."

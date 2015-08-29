@@ -11,6 +11,12 @@ Name "KeyLighter" is inspired by Key Light concept in photography and cinematogr
 
 KeyLighter is supposed to do the same thing - for code.
 
+# Requirements
+ 
+PHP 5.4 and composer
+
+Yep, that's all. You don't even need any not core PHP extensions.
+
 ## Why KeyLighter?
 ### It works on CLI! And more!
 KeyLighter was originally designed as CLI highlighter for my own usage, 
