@@ -17,34 +17,25 @@ namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
-use Kadet\Highlighter\Utils\ArrayHelper;
+use Kadet\Highlighter\Utils\Console;
 
 /**
  * Class CliFormatter
  *
  * @package Kadet\Highlighter\Formatter
- *
- * @todo    : write it better
  */
 class CliFormatter implements FormatterInterface
 {
-    private static $_colors = [
-        'comment'          => '37',
-        'comment.docblock' => '90',
-        'variable'         => '34',
-        'variable.*'       => '94',
-        'keyword'          => '33',
-        'operator'         => '33',
-        'string'           => '32',
-        'constant'         => '35',
-        'annotation'       => '33',
-        'number'           => '95',
-        'symbol'           => '1',
-        'tag'              => '90',
-    ];
+    private $_styles;
 
-    private $_stack = [];
-    private $_current;
+    /**
+     * CliFormatter constructor.
+     *
+     * @param $styles
+     */
+    public function __construct($styles = false) {
+        $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
+    }
 
     public function format($source, TokenListInterface $tokens)
     {
@@ -55,8 +46,8 @@ class CliFormatter implements FormatterInterface
         foreach ($tokens as $token) {
             $result .= substr($source, $last, $token->pos - $last);
 
-            if (($color = self::getColor($token->name)) !== null) {
-                $result .= $this->_color($token->isStart() ? $color : null);
+            if (($style = self::getColor($token->name)) !== null) {
+                $result .= $token->isStart() ? Console::open($style) : Console::close();
             }
 
             $last = $token->pos;
@@ -66,22 +57,11 @@ class CliFormatter implements FormatterInterface
         return $result;
     }
 
-    public static function getColor($token)
+    public function getColor($token)
     {
         do {
-            $colors = ArrayHelper::filterByKey(self::$_colors, function ($key) use ($token) {
-                return fnmatch($key, $token);
-            });
-
-            if (!empty($colors)) {
-                usort($colors, function ($a, $b) {
-                    $a = strlen($a);
-                    $b = strlen($b);
-
-                    return ($a < $b ? -1 : (int)($a > $b));
-                });
-
-                return end($colors);
+            if(isset($this->_styles[$token])) {
+                return $this->_styles[$token];
             }
 
             $token = explode('.', $token);
@@ -92,18 +72,4 @@ class CliFormatter implements FormatterInterface
         return null;
     }
 
-    private function _color($color = null)
-    {
-        if ($color !== null) {
-            if ($this->_current !== null) {
-                $this->_stack[] = $this->_current;
-            }
-
-            $this->_current = $color;
-        } else {
-            $this->_current = count($this->_stack) > 0 ? array_pop($this->_stack) : '0';
-        }
-
-        return "\033[{$this->_current}m";
-    }
 }
