@@ -47,9 +47,6 @@ class MarkerToken extends Token
             } else {
                 $this->_valid = true;
                 $this->_end->_valid = false;
-
-                $this->_end->_start = null;
-                $this->_end = null;
             }
         } else {
             if (!$this->getRule()->validateContext($context, [$this->name => Rule::CONTEXT_IN])) {
@@ -57,10 +54,10 @@ class MarkerToken extends Token
             } else {
                 $this->_valid = false;
                 $this->_end->_valid = true;
-
-                $this->_end->_start = null;
-                $this->_end = null;
             }
         }
+
+        $this->_end->_start = null;
+        $this->_end = null;
     }
 }
