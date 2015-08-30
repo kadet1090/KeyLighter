@@ -66,7 +66,7 @@ abstract class Language
     /**
      * Tokenization rules definition
      *
-     * @return Rule[]
+     * @return array
      */
     public abstract function getRules();
 
