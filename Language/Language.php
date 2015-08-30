@@ -43,7 +43,7 @@ abstract class Language
      *
      * @param $source
      */
-    public function __construct($source)
+    public function __construct($source = '')
     {
         $this->setSource($source);
         $this->_rules = $this->getRules();

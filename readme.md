@@ -54,8 +54,8 @@ You can always write your own Formatter and use it for outputting data,
 I will describe writing formatters on wiki soon™.
 
 ### Simple to use
-Just like any other composer library add `kadet/highlighter` to your 
-`composer.json` require section, include autoload file and you're redy to go.
+Just like any other composer library add `kadet/keylighter` to your 
+`composer.json` require section, include autoload file and you're ready to go.
 
 Simple usage example:
 ```php
