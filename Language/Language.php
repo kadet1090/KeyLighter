@@ -23,18 +23,32 @@ use Kadet\Highlighter\Parser\TokenList\SimpleTokenList;
 use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
+/**
+ * Class Language
+ *
+ * @package Kadet\Highlighter\Language
+ */
 abstract class Language
 {
     /**
+     * Token list
+     *
      * @var TokenListInterface
      */
     private $_tokens;
 
     /**
+     * Tokenization rules
+     *
      * @var Rule[]
      */
     private $_rules;
 
+    /**
+     * Source to parse
+     *
+     * @var string
+     */
     private $_source;
 
 
@@ -49,8 +63,20 @@ abstract class Language
         $this->_rules = $this->getRules();
     }
 
+    /**
+     * Tokenization rules definition
+     *
+     * @return Rule[]
+     */
     public abstract function getRules();
 
+    /**
+     * Dump all tokens for debugging.
+     *
+     * @param string $name Token name wildcard matcher.
+     *
+     * @return string Dumped tokens
+     */
     public function __dumpTokens($name = '*')
     {
         $tokens = $this->tokens();
@@ -75,6 +101,11 @@ abstract class Language
         return $result;
     }
 
+    /**
+     * Returns highlighting Tokens
+     *
+     * @return TokenListInterface
+     */
     public function tokens()
     {
         if ($this->_tokens === null) {
@@ -84,15 +115,18 @@ abstract class Language
         return $this->_tokens;
     }
 
+    /**
+     * Parses source and removes wrong tokens.
+     */
     public function parse()
     {
-
         $this->tokenize();
 
         if ($this->_tokens instanceof FixableTokenList) {
             $this->_tokens->beforeParse();
         }
         $contexts = [['language.plaintext', ['language.plaintext']]];
+
         /** @var Token $token */
         foreach ($this->_tokens as $token) {
             $context = &$contexts[count($contexts) - 1];
@@ -140,6 +174,9 @@ abstract class Language
         }
     }
 
+    /**
+     * Tokenize source
+     */
     public function tokenize()
     {
         $this->_tokens = new SimpleTokenList();
@@ -162,18 +199,34 @@ abstract class Language
         }
     }
 
+    /**
+     * Unique language identifier, for example 'php'
+     *
+     * @return string
+     */
     public abstract function getIdentifier();
 
+    /**
+     * Language range Rule(s)
+     *
+     * @return Rule|Rule[]
+     */
     public function getOpenClose()
     {
         return new Rule(new WholeMatcher());
     }
 
+    /**
+     * @return string
+     */
     public function getSource()
     {
         return $this->_source;
     }
 
+    /**
+     * @param $source
+     */
     public function setSource($source)
     {
         $this->_tokens = null;
