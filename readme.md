@@ -1,4 +1,4 @@
-# KeyLighter
+# KeyLighter [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
 
@@ -66,6 +66,7 @@ $parser = new \Kadet\Highlighter\Language\PhpLanguage($content);
 $cli    = new \Kadet\Highlighter\Formatter\CliFormatter();
 $html   = new \Kadet\Highlighter\Formatter\HtmlFormatter();
 
+echo '<link href="Styles/Html/dark.css" rel="stylesheet" />';
 echo 'HTML:' . PHP_EOL . '<pre>' . $html->format($content, $parser->tokens()) . '</pre>';
 echo 'CLI:'  . PHP_EOL . $cli->format($content, $parser->tokens());
 ```

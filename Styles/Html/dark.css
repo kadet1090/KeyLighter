@@ -1,14 +1,7 @@
-@font-face {
-    font-family: fira;
-    src: url(FiraCode-Regular.otf);
-}
-
-
 pre {
     background: #272822;
     color: #f8f8f2;
     padding: 15px;
-    font-family: fira, monospace;
 }
 
 pre .keyword, pre .annotation { color: #FE9720; }
