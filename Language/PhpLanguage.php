@@ -62,7 +62,7 @@ class PhpLanguage extends Language
             ]),
 
             'constant' => new Rule(new WordMatcher([
-                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__', 'self',
+                '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__', 'false', 'true'
             ])),
             'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
@@ -79,8 +79,8 @@ class PhpLanguage extends Language
                 'instanceof', 'insteadof', 'interface', 'isset', 'list',
                 'namespace', 'new', 'or', 'print', 'private', 'protected',
                 'public', 'require', 'require_once', 'return', 'static',
-                'switch', 'throw', 'trait', 'try', 'unset',
-                'use', 'var', 'while', 'xor', 'yield', '<?php', '?>'
+                'switch', 'throw', 'trait', 'try', 'unset', 'parent', 'self',
+                'use', 'var', 'while', 'xor', 'yield'
             ]), ['context' => ['!string', '!variable', '!comment']]),
 
             'keyword.cast' => new Rule(

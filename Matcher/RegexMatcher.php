@@ -42,12 +42,24 @@ class RegexMatcher implements MatcherInterface
     public function match($source)
     {
         preg_match_all($this->regex, $source, $matches, PREG_OFFSET_CAPTURE);
-        $result = [];
-        foreach ($matches[1] as $match) {
-            $token = new Token(['pos' => $match[1], 'length' => strlen($match[0])]);
+        unset($matches[0]);
 
-            $result[] = $token;
-            $result[] = $token->getEnd();
+        $result = [];
+
+        while (list($name, $group) = each($matches)) {
+            if(is_string($name)) {
+                next($matches);
+                $group = current($matches);
+            } else {
+                $name = null;
+            }
+
+            foreach ($group as $match) {
+                $token = new Token([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
+
+                $result[] = $token;
+                $result[] = $token->getEnd();
+            }
         }
 
         return $result;
