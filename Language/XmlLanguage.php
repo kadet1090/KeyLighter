@@ -24,23 +24,23 @@ use Kadet\Highlighter\Parser\Rule;
 
 class XmlLanguage extends Language
 {
-    const TAG_REGEX = '\w+(?::\w+)?';
+    const IDENTIFIER = '(?P<namespace>\w+:)?(\w+)';
 
     public function getRules()
     {
         return [
             'tag.open' => [
-                new OpenRule(new RegexMatcher('/(<)\w/')),
+                new OpenRule(new RegexMatcher('/(<\w)/')),
                 new CloseRule(new SubStringMatcher('>'), ['priority' => -1])
             ],
-            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?(' . self::TAG_REGEX . ')/'), ['context' => ['tag']]),
-            'symbol.attribute' => new Rule(new RegexMatcher('/(' . self::TAG_REGEX . ')=/'), ['context' => ['tag']]),
+            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/'), ['context' => ['tag']]),
+            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/'), ['context' => ['tag']]),
             'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
             ]), ['context' => ['tag']]),
 
-            'tag.close' => new Rule(new RegexMatcher('/(<\\/' . self::TAG_REGEX . '>)/')),
+            'tag.close' => new Rule(new RegexMatcher('/(<\\/' . self::IDENTIFIER . '>)/')),
         ];
     }
 

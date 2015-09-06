@@ -51,7 +51,6 @@ class RegexMatcher implements MatcherInterface
         while (list($name, $group) = each($matches)) {
             if(is_string($name)) {
                 next($matches);
-                $group = current($matches);
             } else {
                 $name = null;
             }
