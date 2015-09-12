@@ -21,10 +21,8 @@ use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
-use Kadet\Highlighter\Utils\ArrayHelper;
 
 class PhpLanguage extends Language
 {
@@ -88,25 +86,32 @@ class PhpLanguage extends Language
                 new RegexMatcher('/(\((?:int|integer|bool|boolean|float|double|real|string|array|object|unset)\))/')
             ),
 
+            'delimiter' => new Rule(
+                new RegexMatcher('/(<\?php|\?>)/')
+            ),
+
             'number' => new Rule(new RegexMatcher('/(-?(?:0[xbo]?)?\d+)/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            'operator' => new Rule(new WordMatcher([
+            /*'operator' => new Rule(new WordMatcher([
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0])
+            ], ['separated' => false]), ['priority' => 0])*/
         ];
     }
 
     public function getOpenClose() {
         return [
             new OpenRule(new SubStringMatcher('<?php'), [
-                'type' => '\Kadet\Highlighter\Parser\LanguageToken'
+                'type' => '\Kadet\Highlighter\Parser\LanguageToken',
+                'priority' => 10000,
+                'context' => ['*'],
+                'inject'  => $this
             ]),
             new CloseRule(new SubStringMatcher('?>'), [
                 'context' => ['!string', '!comment'],
                 'priority' => 10000,
-                'language' => 'php',
-                'type' => '\Kadet\Highlighter\Parser\LanguageToken'
+                'type' => '\Kadet\Highlighter\Parser\LanguageToken',
+                'language' => $this
             ])
         ];
     }

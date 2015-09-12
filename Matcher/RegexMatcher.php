@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Matcher;
 
-
 use Kadet\Highlighter\Parser\Token;
 
 class RegexMatcher implements MatcherInterface
@@ -56,6 +55,11 @@ class RegexMatcher implements MatcherInterface
             }
 
             foreach ($group as $match) {
+                if ($match[1] === -1) {
+                    continue;
+                }
+
+                /** @var Token $token */
                 $token = new $class([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
 
                 $result[] = $token;

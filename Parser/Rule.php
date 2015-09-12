@@ -16,8 +16,19 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Matcher\MatcherInterface;
 
+/**
+ * Class Rule
+ *
+ * @package Kadet\Highlighter\Parser
+ *
+ * @property Language $language
+ * @property Language $inject
+ * @property integer  $priority
+ * @property string   $type
+ */
 class Rule
 {
     const CONTEXT_IN        = 1;
@@ -30,9 +41,7 @@ class Rule
 
     private $_default = true;
 
-    private $_priority;
-    private $_language;
-    private $_type;
+    private $_options;
 
     /**
      * @param MatcherInterface $matcher
@@ -46,14 +55,12 @@ class Rule
         $options = array_merge([
             'context'  => [],
             'priority' => 1,
-            'language' => 'plaintext',
+            'language' => null,
             'type'     => '\Kadet\Highlighter\Parser\Token'
         ], $options);
 
         $this->setContext($options['context']);
-        $this->_priority = $options['priority'];
-        $this->_language = $options['language'];
-        $this->_type     = $options['type'];
+        $this->_options  = $options;
     }
 
     public function setContext($rules)
@@ -101,18 +108,12 @@ class Rule
 
     public function match($source)
     {
-        return $this->_matcher->match($source, $this->_type);
+        return $this->_matcher->match($source, $this->type);
     }
 
-    public function validateContext($current, array $additional = [])
+    public function validateContext($context, array $additional = [])
     {
         $required = array_merge($additional, $this->_context);
-
-        list($language, $context) = $current;
-
-        /*if ($language !== $this->_language) {
-            return false;
-        }*/
 
         if (empty($required)) {
             return count($context) === 0;
@@ -164,7 +165,7 @@ class Rule
 
     public function getPriority()
     {
-        return $this->_priority;
+        return $this->priority;
     }
 
     /**
@@ -172,7 +173,7 @@ class Rule
      */
     public function getLanguage()
     {
-        return $this->_language;
+        return $this->language;
     }
 
     /**
@@ -180,6 +181,14 @@ class Rule
      */
     public function setLanguage($language)
     {
-        $this->_language = $language;
+        $this->language = $language;
+    }
+
+    public function __get($option) {
+        return $this->_options[$option];
+    }
+
+    public function __set($option, $value) {
+        return $this->_options[$option] = $value;
     }
 }

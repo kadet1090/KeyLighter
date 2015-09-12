@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Utils\Helper;
 use Kadet\Highlighter\Utils\StringHelper;
 
@@ -99,24 +100,26 @@ class Token
         return $this->_end === null && !($this->_rule instanceof OpenRule);
     }
 
-    public function isValid($context = null)
+    public function isValid(Language $language, $context = null)
     {
         if ($this->_valid === null) {
-            $this->validate($context);
+            $this->validate($language, $context);
         }
 
         return $this->_valid;
     }
 
-    protected function validate($context)
+    protected function validate(Language $language, $context)
     {
-        $this->invalidate(!$this->_rule->validateContext($context,
-            $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : []));
+        $this->setValid(
+            $language === $this->_rule->getLanguage() &&
+            $this->_rule->validateContext($context, $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : [])
+        );
     }
 
-    public function invalidate($invalid = true)
+    public function setValid($valid = true)
     {
-        $this->_valid = !$invalid;
+        $this->_valid = $valid;
 
         if ($this->_end !== null) {
             $this->_end->_valid = $this->_valid;

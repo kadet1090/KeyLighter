@@ -16,6 +16,8 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Language\Language;
+
 class MarkerToken extends Token
 {
     private $_type;
@@ -37,20 +39,24 @@ class MarkerToken extends Token
     }
 
 
-    protected function validate($context)
+    protected function validate(Language $language, $context)
     {
-        $start = !in_array($this->name, $context[1], false);
+        if($language !== $this->getRule()->getLanguage()) {
+            return false;
+        }
+
+        $start = !in_array($this->name, $context, false);
 
         if ($start) {
             if (!$this->getRule()->validateContext($context)) {
-                $this->invalidate();
+                $this->setValid(false);
             } else {
                 $this->_valid = true;
                 $this->_end->_valid = false;
             }
         } else {
             if (!$this->getRule()->validateContext($context, [$this->name => Rule::CONTEXT_IN])) {
-                $this->invalidate();
+                $this->setValid(false);
             } else {
                 $this->_valid = false;
                 $this->_end->_valid = true;
@@ -59,5 +65,7 @@ class MarkerToken extends Token
 
         $this->_end->_start = null;
         $this->_end = null;
+
+        return true;
     }
 }

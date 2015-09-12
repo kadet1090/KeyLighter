@@ -16,14 +16,21 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Language\Language;
+
 class LanguageToken extends Token
 {
     public function getLanguage() {
-        return $this->getRule()->getLanguage();
+        return $this->getRule()->inject;
     }
 
-    protected function validate($context)
+    protected function validate(Language $language, $context)
     {
-        $this->invalidate(!$this->_rule->validateContext($context));
+        $this->setValid(
+            ($this->isStart() ? (
+                $this->_rule->getLanguage() === null ||
+                ($language === $this->_rule->getLanguage() && $this->_rule->validateContext($context))
+            ) : $language === $this->_rule->getLanguage())
+        );
     }
 }

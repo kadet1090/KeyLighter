@@ -29,7 +29,7 @@ use Kadet\Highlighter\Utils\ArrayHelper;
 abstract class Language
 {
     /**
-     * Tokenization rules
+     * Tokenizer rules
      *
      * @var Rule[]
      */
@@ -50,7 +50,6 @@ abstract class Language
         $this->_rules = $this->getRules();
     }
 
-
     /**
      * Tokenization rules definition
      *
@@ -59,50 +58,21 @@ abstract class Language
     public abstract function getRules();
 
     /**
-     * Dump all tokens for debugging.
-     *
-     * @param string $name Token name wildcard matcher.
-     *
-     * @return string Dumped tokens
-     */
-    public function __dumpTokens($name = '*')
-    {
-        $tokens = $this->tokens();
-
-        $deep = 0;
-        $result = '';
-        /** @var Token $token */
-        foreach ($tokens as $token) {
-            if (!fnmatch('*', $token->name) && !fnmatch($name . '.*', $token->name)) {
-                continue;
-            }
-
-            if ($token->isEnd()) {
-                $deep--;
-            }
-            $result .= str_repeat('  ', $deep) . $token->dump($this->_source) . PHP_EOL;
-            if ($token->isStart()) {
-                $deep++;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
      * Parses source and removes wrong tokens.
      *
-     * @param \Iterator $tokens
+     * @param \Iterator|string $tokens
      *
      * @return Token[]
      */
-    public function parse(\Iterator $tokens = null)
+    public function parse($tokens = null)
     {
-        /*if ($tokens->current() !== $this) {
-            return []; // todo: throw exception
-        }*/
+        if (is_string($tokens)) {
+            $tokens = $this->tokenize($tokens);
+        }
 
         $start = $tokens->current();
+
+        /** @var Token[] $result */
         $result = [$start];
 
         $context = [];
@@ -113,12 +83,13 @@ abstract class Language
         for($tokens->next(); $tokens->valid(); $tokens->next()) {
             $token = $tokens->current();
 
-            if (!$token->isValid([$this, $context])) {
+            if (!$token->isValid($this, $context)) {
                 continue;
             }
 
             if ($token->isStart()) {
                 if ($token instanceof LanguageToken) {
+                    /** @noinspection PhpUndefinedMethodInspection bug */
                     $result = array_merge($result, $token->getLanguage()->parse($tokens));
                 } else {
                     $all[spl_object_hash($token)] = $result[] = $token;
@@ -127,7 +98,7 @@ abstract class Language
             } else {
                 $start = $token->getStart();
 
-                if ($token instanceof LanguageToken) {
+                if ($token instanceof LanguageToken && $token->getRule()->getLanguage() === $this) {
                     // todo: close unclosed tokens
                     $result[0]->setEnd($token);
 
@@ -158,8 +129,12 @@ abstract class Language
 
     /**
      * Tokenize source
+     *
+     * @param $source
+     *
+     * @return array
      */
-    public function tokenize($source)
+    private function _tokens($source)
     {
         $result = [];
         $this->_rules['language.' . $this->getIdentifier()] = $this->getOpenClose();
@@ -171,7 +146,9 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                $rule->setLanguage($this);
+                if($name !== 'language.' . $this->getIdentifier()) {
+                    $rule->setLanguage($this);
+                }
                 $tokens = $rule->match($source);
 
                 /** @var Token $token */
@@ -184,10 +161,18 @@ abstract class Language
         }
 
         foreach($this->_subLanguages as $language) {
-            $result = array_merge($result, $language->tokenize($source));
+            $result = array_merge($result, $language->_tokens($source));
         }
 
         return $result;
+    }
+
+    public function tokenize($source)
+    {
+        $iterator = new \ArrayIterator($this->_tokens($source));
+        $iterator->uasort('\Kadet\Highlighter\Parser\Token::compare');
+        $iterator->rewind();
+        return $iterator;
     }
 
     /**
@@ -204,23 +189,6 @@ abstract class Language
      */
     public function getOpenClose()
     {
-        return new Rule(new WholeMatcher());
-    }
-
-    /**
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->_source;
-    }
-
-    /**
-     * @param $source
-     */
-    public function setSource($source)
-    {
-        $this->_tokens = null;
-        $this->_source = $source;
+        return new Rule(new WholeMatcher(), ['priority' => 1000]);
     }
 }

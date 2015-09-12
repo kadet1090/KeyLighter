@@ -30,17 +30,17 @@ class XmlLanguage extends Language
     {
         return [
             'tag.open' => [
-                new OpenRule(new RegexMatcher('/(<\w)/')),
-                new CloseRule(new SubStringMatcher('>'), ['priority' => -1])
+                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag']]),
+                new CloseRule(new SubStringMatcher('>'), ['priority' => -1, 'context' => ['!string']])
             ],
-            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/'), ['context' => ['tag']]),
-            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/'), ['context' => ['tag']]),
+            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/'), ['context' => ['tag', '!string']]),
+            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/'), ['context' => ['tag', '!string']]),
             'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
             ]), ['context' => ['tag']]),
 
-            'tag.close' => new Rule(new RegexMatcher('/(<\\/' . self::IDENTIFIER . '>)/')),
+            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:\w+)>)/')),
         ];
     }
 
