@@ -72,7 +72,6 @@ class Console
         return $colors[strtolower($name)] + ($bg ? 10 : 0);
     }
 
-    /** @noinspection PhpInconsistentReturnPointsInspection */
     private static function _style($name, $value) {
         switch($name) {
             case 'color':
@@ -90,6 +89,8 @@ class Console
             case 'invert':
                 return $value ? 7 : 27;
         }
+
+        return null;
     }
 
     private static function _set($style) {

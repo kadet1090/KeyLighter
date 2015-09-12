@@ -15,10 +15,7 @@
 
 namespace Kadet\Highlighter\Formatter;
 
-
-use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
-
 interface FormatterInterface
 {
-    public function format($source, TokenListInterface $tokens);
+    public function format($source, \Traversable $tokens);
 }
