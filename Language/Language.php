@@ -16,11 +16,9 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
+use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
-use Kadet\Highlighter\Parser\TokenList\FixableTokenList;
-use Kadet\Highlighter\Parser\TokenList\SimpleTokenList;
-use Kadet\Highlighter\Parser\TokenList\TokenListInterface;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -31,13 +29,6 @@ use Kadet\Highlighter\Utils\ArrayHelper;
 abstract class Language
 {
     /**
-     * Token list
-     *
-     * @var TokenListInterface
-     */
-    private $_tokens;
-
-    /**
      * Tokenization rules
      *
      * @var Rule[]
@@ -45,23 +36,20 @@ abstract class Language
     private $_rules;
 
     /**
-     * Source to parse
-     *
-     * @var string
+     * @var Language[]
      */
-    private $_source;
-
+    private $_subLanguages = [];
 
     /**
-     * Parser constructor.
+     * Language constructor.
      *
-     * @param $source
+     * @param Language[] $subLanguages
      */
-    public function __construct($source = '')
-    {
-        $this->setSource($source);
+    public function __construct(array $subLanguages = []) {
+        $this->_subLanguages = $subLanguages;
         $this->_rules = $this->getRules();
     }
+
 
     /**
      * Tokenization rules definition
@@ -102,85 +90,78 @@ abstract class Language
     }
 
     /**
-     * Returns highlighting Tokens
-     *
-     * @return TokenListInterface
-     */
-    public function tokens()
-    {
-        if ($this->_tokens === null) {
-            $this->parse();
-        }
-
-        return $this->_tokens;
-    }
-
-    /**
      * Parses source and removes wrong tokens.
+     *
+     * @param \Iterator $tokens
+     *
+     * @return Token[]
      */
-    public function parse()
+    public function parse(\Iterator $tokens = null)
     {
-        $this->tokenize();
+        /*if ($tokens->current() !== $this) {
+            return []; // todo: throw exception
+        }*/
 
-        if ($this->_tokens instanceof FixableTokenList) {
-            $this->_tokens->beforeParse();
-        }
-        $contexts = [['language.plaintext', ['language.plaintext']]];
+        $start = $tokens->current();
+        $result = [$start];
+
+        $context = [];
+        $all = [];
+
 
         /** @var Token $token */
-        foreach ($this->_tokens as $token) {
-            $context = &$contexts[count($contexts) - 1];
+        for($tokens->next(); $tokens->valid(); $tokens->next()) {
+            $token = $tokens->current();
 
-            if (!$token->isValid($context)) {
-                $this->_tokens->remove($token);
+            if (!$token->isValid([$this, $context])) {
                 continue;
             }
 
             if ($token->isStart()) {
-                if (fnmatch('language.*', $token->name)) {
-                    $contexts[] = [$token->name, [$token->name]];
+                if ($token instanceof LanguageToken) {
+                    $result = array_merge($result, $token->getLanguage()->parse($tokens));
                 } else {
-                    $context[1][spl_object_hash($token)] = $token->name;
+                    $all[spl_object_hash($token)] = $result[] = $token;
+                    $context[spl_object_hash($token)] = $token->name;
                 }
             } else {
                 $start = $token->getStart();
 
-                if (fnmatch('language.*', $token->name)) {
-                    /** @noinspection PhpUnusedParameterInspection */
-                    $key = ArrayHelper::find(array_reverse($contexts, true), function ($k, $v) use ($token) {
-                        return $v[0] === $token->name;
-                    });
-                    unset($contexts[$key]);
-                    $contexts = array_values($contexts);
+                if ($token instanceof LanguageToken) {
+                    // todo: close unclosed tokens
+                    $result[0]->setEnd($token);
+
+                    $result[] = $token;
+                    return $result;
                 } else {
                     if ($start !== null) {
-                        unset($context[1][spl_object_hash($start)]);
+                        unset($context[spl_object_hash($start)]);
                     } else {
                         /** @noinspection PhpUnusedParameterInspection */
-                        $start = ArrayHelper::find(array_reverse($context[1]), function ($k, $v) use ($token) {
+                        $start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
                             return $v === $token->name;
                         });
 
                         if ($start !== false) {
-                            $token->setStart($this->_tokens->get($start));
-                            unset($context[1][$start]);
+                            $token->setStart($all[$start]);
+                            unset($context[$start]);
                         }
                     }
+
+                    $result[] = $token;
                 }
             }
         }
-        if ($this->_tokens instanceof FixableTokenList) {
-            $this->_tokens->afterParse();
-        }
+
+        return $result;
     }
 
     /**
      * Tokenize source
      */
-    public function tokenize()
+    public function tokenize($source)
     {
-        $this->_tokens = new SimpleTokenList();
-
+        $result = [];
         $this->_rules['language.' . $this->getIdentifier()] = $this->getOpenClose();
 
         foreach ($this->_rules as $name => $rules) {
@@ -190,13 +171,23 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if ($name !== 'language.' . $this->getIdentifier()) {
-                    $rule->setLanguage($this->getIdentifier());
-                }
+                $rule->setLanguage($this);
+                $tokens = $rule->match($source);
 
-                $this->_tokens->save($rule->match($this->_source), $rule, $name);
+                /** @var Token $token */
+                foreach ($tokens as $token) {
+                    $token->name = $name . (isset($token->name) ? '.' . $token->name : '');
+                    $token->setRule($rule);
+                    $result[spl_object_hash($token)] = $token;
+                }
             }
         }
+
+        foreach($this->_subLanguages as $language) {
+            $result = array_merge($result, $language->tokenize($source));
+        }
+
+        return $result;
     }
 
     /**

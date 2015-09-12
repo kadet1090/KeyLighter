@@ -32,6 +32,7 @@ class Rule
 
     private $_priority;
     private $_language;
+    private $_type;
 
     /**
      * @param MatcherInterface $matcher
@@ -46,11 +47,13 @@ class Rule
             'context'  => [],
             'priority' => 1,
             'language' => 'plaintext',
+            'type'     => '\Kadet\Highlighter\Parser\Token'
         ], $options);
 
         $this->setContext($options['context']);
         $this->_priority = $options['priority'];
         $this->_language = $options['language'];
+        $this->_type     = $options['type'];
     }
 
     public function setContext($rules)
@@ -98,7 +101,7 @@ class Rule
 
     public function match($source)
     {
-        return $this->_matcher->match($source);
+        return $this->_matcher->match($source, $this->_type);
     }
 
     public function validateContext($current, array $additional = [])
@@ -107,16 +110,12 @@ class Rule
 
         list($language, $context) = $current;
 
-        if ($language !== 'language.' . $this->_language) {
+        /*if ($language !== $this->_language) {
             return false;
-        }
+        }*/
 
         if (empty($required)) {
-            return count($context) === 1;
-        }
-
-        if ($this->_language !== null) {
-            $required[] = 'language.' . $this->_language;
+            return count($context) === 0;
         }
 
         $result = $this->_default;

@@ -37,9 +37,11 @@ class RegexMatcher implements MatcherInterface
      *
      * @param string $source Source to match tokens
      *
+     * @param        $class
+     *
      * @return array
      */
-    public function match($source)
+    public function match($source, $class)
     {
         preg_match_all($this->regex, $source, $matches, PREG_OFFSET_CAPTURE);
         unset($matches[0]);
@@ -55,7 +57,7 @@ class RegexMatcher implements MatcherInterface
             }
 
             foreach ($group as $match) {
-                $token = new Token([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
+                $token = new $class([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
 
                 $result[] = $token;
                 $result[] = $token->getEnd();

@@ -41,9 +41,11 @@ class CommentMatcher implements MatcherInterface
      *
      * @param string $source Source to match tokens
      *
+     * @param        $class
+     *
      * @return array
      */
-    public function match($source)
+    public function match($source, $class)
     {
         $result = [];
         $all = [];
@@ -68,7 +70,7 @@ class CommentMatcher implements MatcherInterface
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $token = new Token(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
+                    $token = new $class(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
                     $result[] = $token;
                     $result[] = $token->getEnd();
                 }

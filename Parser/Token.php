@@ -161,7 +161,7 @@ class Token
     {
         $this->_start = null;
         $this->_end = $end;
-        $this->_length = 0;
+        $this->_length = null;
 
         if ($end !== null) {
             $this->_end->_start = $this;

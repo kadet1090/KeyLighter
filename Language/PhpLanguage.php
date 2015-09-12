@@ -21,6 +21,7 @@ use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
+use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Utils\ArrayHelper;
@@ -29,7 +30,7 @@ class PhpLanguage extends Language
 {
     public function getRules()
     {
-        $rules = [
+        return [
             'string' => new Rule(new QuoteMatcher([
                 'single' => "'",
                 'double' => '"'
@@ -94,35 +95,18 @@ class PhpLanguage extends Language
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
             ], ['separated' => false]), ['priority' => 0])
         ];
-
-        return ArrayHelper::rearrange($rules, [
-            'symbol.class',
-            'string.heredoc',
-            'string.nowdoc',
-            'constant',
-            'constant.static',
-            'keyword.escape',
-            'keyword.cast',
-            'symbol.function',
-            'comment',
-            'keyword.annotation',
-            'variable',
-            'variable.property',
-            'string',
-            'keyword',
-            'number',
-            'operator.punctuation',
-            //'operator',
-        ]);
     }
 
     public function getOpenClose() {
         return [
-            new OpenRule(new SubStringMatcher('<?php')),
+            new OpenRule(new SubStringMatcher('<?php'), [
+                'type' => '\Kadet\Highlighter\Parser\LanguageToken'
+            ]),
             new CloseRule(new SubStringMatcher('?>'), [
                 'context' => ['!string', '!comment'],
                 'priority' => 10000,
-                'language' => 'php'
+                'language' => 'php',
+                'type' => '\Kadet\Highlighter\Parser\LanguageToken'
             ])
         ];
     }

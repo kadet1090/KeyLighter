@@ -43,9 +43,11 @@ class QuoteMatcher implements MatcherInterface
      *
      * @param string $source Source to match tokens
      *
+     * @param        $class
+     *
      * @return array
      */
-    public function match($source)
+    public function match($source, $class)
     {
         $tokens = [];
         foreach ($this->_quotes as $name => $quote) {

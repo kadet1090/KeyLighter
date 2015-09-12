@@ -38,9 +38,11 @@ class SubStringMatcher implements MatcherInterface
      *
      * @param string $source Source to match tokens
      *
+     * @param        $class
+     *
      * @return array
      */
-    public function match($source)
+    public function match($source, $class)
     {
         $results = [];
         $pos = 0;
@@ -48,7 +50,7 @@ class SubStringMatcher implements MatcherInterface
         $len = strlen($this->_substr);
 
         while (($pos = strpos($source, $this->_substr, $pos)) !== false) {
-            $token = new Token(['pos' => $pos, 'length' => $len]);
+            $token = new $class(['pos' => $pos, 'length' => $len]);
             $results[] = $token;
             $results[] = $token->getEnd();
             $pos += $len;

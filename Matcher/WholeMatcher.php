@@ -26,11 +26,13 @@ class WholeMatcher implements MatcherInterface
      *
      * @param string $source Source to match tokens
      *
+     * @param        $class
+     *
      * @return array
      */
-    public function match($source)
+    public function match($source, $class)
     {
-        $token = new Token(['pos' => 0, 'length' => strlen($source)]);
+        $token = new $class(['pos' => 0, 'length' => strlen($source)]);
 
         return [$token, $token->getEnd()];
     }
