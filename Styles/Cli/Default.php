@@ -9,8 +9,9 @@
     'comment'     => ['color' => 'dark gray'],
     'tag'         => ['color' => 'yellow'],
     'delimiter'   => ['color' => 'light yellow', 'bold' => true],
+    'call'        => ['color' => 'cyan'],
 
-    'comment.docblock'  => ['color' => 'dark gray', 'bold' => true],
+    'comment.docblock'  => ['color' => 'dark gray'],
     'variable.property' => ['color' => 'light blue'],
     'symbol.attribute'  => ['color' => 'light magenta'],
     'symbol.tag'        => ['color' => 'yellow'],

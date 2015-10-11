@@ -23,6 +23,7 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
+use Kadet\Highlighter\Parser\Token;
 
 class PhpLanguage extends Language
 {
@@ -34,21 +35,27 @@ class PhpLanguage extends Language
                 'double' => '"'
             ]), ['context' => ['!keyword.escape', '!comment', '!string']]),
 
-            'string.heredoc' => new Rule(new RegexMatcher('/(<<<(\w+)(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
-            'string.nowdoc' => new Rule(new RegexMatcher('/(<<<\'(\w+)\'(.*?)\n\2;)/sm'), ['context' => ['!comment']]),
+            'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
+            'string.nowdoc' => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
-                'context' => ['*comment.docblock', '!string.single', '!comment']
+                'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
             ]),
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i')),
 
-            'symbol.function' => new Rule(new RegexMatcher('/function ([a-z_]\w+)\s*\(/i')),
+            'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
             'symbol.class' => [
-                new Rule(new RegexMatcher('/(?:class|new|use) ([\w\\\]+)/i')),
+                new Rule(new RegexMatcher('/(?:class|new|use|extends)\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
                 new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$]\w+)/i'), ['context' => ['comment.docblock']]),
             ],
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{2}|u\{[0-9a-fA-F]{1,8}\}|[0-7]{1,3}|.))/i'), [
+
+            'symbol.interface' => [
+                new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
+                new Rule(new RegexMatcher('/implements\s+([\w\\\]+)(?:,\s*([\w\\\]+))*/i')),
+            ],
+
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']
             ]),
 
@@ -60,9 +67,12 @@ class PhpLanguage extends Language
                 'context' => ['comment.docblock']
             ]),
 
+            'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
+
             'constant' => new Rule(new WordMatcher([
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
-                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__', 'false', 'true'
+                '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__',
+                'false', 'true', 'null'
             ])),
             'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
 
@@ -86,11 +96,8 @@ class PhpLanguage extends Language
                 new RegexMatcher('/(\((?:int|integer|bool|boolean|float|double|real|string|array|object|unset)\))/')
             ),
 
-            'delimiter' => new Rule(
-                new RegexMatcher('/(<\?php|\?>)/')
-            ),
-
-            'number' => new Rule(new RegexMatcher('/(-?(?:0[xbo]?)?\d+)/')),
+            'delimiter' => new Rule(new RegexMatcher('/(<\?php|\?>)/')),
+            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
             /*'operator' => new Rule(new WordMatcher([
@@ -103,13 +110,13 @@ class PhpLanguage extends Language
         return [
             new OpenRule(new SubStringMatcher('<?php'), [
                 'type' => '\Kadet\Highlighter\Parser\LanguageToken',
-                'priority' => 10000,
+                'priority' => 1000,
                 'context' => ['*'],
                 'inject'  => $this
             ]),
             new CloseRule(new SubStringMatcher('?>'), [
                 'context' => ['!string', '!comment'],
-                'priority' => 10000,
+                'priority' => 1000,
                 'type' => '\Kadet\Highlighter\Parser\LanguageToken',
                 'language' => $this
             ])

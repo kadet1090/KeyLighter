@@ -22,6 +22,10 @@ use Kadet\Highlighter\Utils\StringHelper;
 
 class Token
 {
+    const NAME = null;
+
+    protected static $_id = 0;
+
     public $pos;
     public $name;
     public $index = 1;
@@ -41,6 +45,8 @@ class Token
 
     protected $_valid;
     protected $_length;
+
+    public $id;
 
     /**
      * Token constructor.
@@ -68,6 +74,8 @@ class Token
             $this->setEnd($options['end']);
         }
 
+        $this->id = ++self::$_id;
+
         if (isset($options['length'])) {
             new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this]);
         }
@@ -81,7 +89,11 @@ class Token
                     return $rule;
                 }
 
-                return Helper::cmp($b->index, $a->index);
+                if (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
+                    return $rule;
+                }
+
+                return $a->id < $b->id ? -1 : 1;
             }
 
             return $a->isEnd() ? -1 : 1;

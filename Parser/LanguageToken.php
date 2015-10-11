@@ -26,11 +26,17 @@ class LanguageToken extends Token
 
     protected function validate(Language $language, $context)
     {
-        $this->setValid(
-            ($this->isStart() ? (
-                $this->_rule->getLanguage() === null ||
-                ($language === $this->_rule->getLanguage() && $this->_rule->validateContext($context))
-            ) : $language === $this->_rule->getLanguage())
-        );
+        $valid = false;
+        if ($this->isStart()) {
+            $lang = $this->_rule->getLanguage();
+            if($lang === null && $this->getLanguage() !== $language) {
+                $valid = true;
+            } elseif($language === $lang && $this->_rule->validateContext($context)) {
+                $valid = true;
+            }
+        } else {
+            $valid = $language === $this->_rule->getLanguage() && $this->_rule->validateContext($context);
+        }
+        $this->setValid($valid);
     }
 }

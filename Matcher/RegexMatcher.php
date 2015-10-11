@@ -20,15 +20,18 @@ use Kadet\Highlighter\Parser\Token;
 class RegexMatcher implements MatcherInterface
 {
     private $regex;
+    private $groups;
 
     /**
      * RegexMatcher constructor.
      *
-     * @param $regex
+     * @param            $regex
+     * @param array|null $groups
      */
-    public function __construct($regex)
+    public function __construct($regex, array $groups = [1 => null])
     {
         $this->regex = $regex;
+        $this->groups = $groups;
     }
 
     /**
@@ -43,16 +46,11 @@ class RegexMatcher implements MatcherInterface
     public function match($source, $class)
     {
         preg_match_all($this->regex, $source, $matches, PREG_OFFSET_CAPTURE);
-        unset($matches[0]);
+        $matches = array_intersect_key($matches, $this->groups);
 
         $result = [];
-
-        while (list($name, $group) = each($matches)) {
-            if(is_string($name)) {
-                next($matches);
-            } else {
-                $name = null;
-            }
+        foreach ($matches as $id => $group) {
+            $name = $this->groups[$id];
 
             foreach ($group as $match) {
                 if ($match[1] === -1) {
