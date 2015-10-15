@@ -85,7 +85,7 @@ class Token
     {
         if ($a->pos === $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
+                if (($rule = Helper::cmp($a->_rule->getPriority(), $b->_rule->getPriority())) !== 0) {
                     return $rule;
                 }
 
