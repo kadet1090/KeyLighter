@@ -16,16 +16,16 @@ namespace Kadet\Highlighter\Language;
 
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class XmlLanguage extends Language
 {
-    const IDENTIFIER = '(?P<namespace>\w+:)?(\w+)';
+    const IDENTIFIER = '(?P<namespace>\w+:)?(?P<tag>\w+)';
 
     public function getRules()
     {
@@ -35,8 +35,15 @@ class XmlLanguage extends Language
                 new CloseRule(new SubStringMatcher('>'), ['priority' => -1, 'context' => ['!string']])
             ],
 
-            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/'), ['context' => ['tag', '!string']]),
-            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/'), ['context' => ['tag', '!string']]),
+            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
+                'tag' => Token::NAME,
+                'namespace' => '$.namespace'
+            ]), ['context' => ['tag', '!string']]),
+
+            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/', [
+                'tag' => Token::NAME,
+                'namespace' => '$.namespace'
+            ]), ['context' => ['tag', '!string']]),
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['tag'],

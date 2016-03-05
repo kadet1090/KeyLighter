@@ -17,7 +17,6 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
@@ -32,7 +31,7 @@ class PhpLanguage extends Language
     {
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
             ]),
 
@@ -41,13 +40,15 @@ class PhpLanguage extends Language
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
             ]),
 
-            'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
-            'string.nowdoc' => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
+            'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
+            'string.nowdoc' => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
                 'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
             ]),
-            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i')),
+            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i'), [
+                'priority' => -2
+            ]),
 
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
             'symbol.class' => [
@@ -66,20 +67,20 @@ class PhpLanguage extends Language
             ]),
 
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
-                'docblock' => ['/**', '*/'],
+                '$.docblock' => ['/**', '*/'],
                 ['/* ', '*/']
             ])),
+
             'keyword.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']
             ]),
 
             'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
 
-            'constant' => new Rule(new WordMatcher([
+            'constant' => new Rule(new WordMatcher(array_merge([
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__',
-                'false', 'true', 'null'
-            ])),
+            ], array_keys(get_defined_constants(true)["Core"])))),
             'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
 
             'keyword' => new Rule(new WordMatcher([
