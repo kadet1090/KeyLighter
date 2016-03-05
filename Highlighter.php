@@ -15,19 +15,76 @@
 
 namespace Kadet\Highlighter;
 
+use ArrayIterator;
+use Kadet\Highlighter\Formatter\CliFormatter;
+use Kadet\Highlighter\Formatter\FormatterInterface;
+use Kadet\Highlighter\Formatter\HtmlFormatter;
+use Kadet\Highlighter\Language\Language;
+
 class Highlighter
 {
-    private $languages = [];
+    const VERSION = '0.2.0';
 
-    public function __construct($language) {
-        if (!is_array($language)) {
-           $language = [$language];
+    /** @var */
+    private static $_languages = [];
+    /** @var FormatterInterface */
+    private static $_formatter = null;
+
+    /**
+     * @param string $name
+     *
+     * @return Language
+     */
+    public static function getLanguage($name) {
+        $embedded = [];
+        if(($pos = strpos($name, '>')) !== false) {
+            $embedded[] = self::getLanguage(trim(substr($name, $pos + 1)));
+            $name       = trim(substr($name, 0, $pos));
         }
 
-        $this->languages = $language;
+        if(!isset(self::$_languages[$name])) {
+            throw new \InvalidArgumentException("Language $name is not defined.");
+        }
+
+        return new self::$_languages[$name]($embedded);
     }
 
-    public function highlight($source) {
+    /**
+     * @param Language|callable|string $language
+     * @param $aliases
+     */
+    public static function registerLanguage($language, $aliases) {
+        self::$_languages = array_merge(self::$_languages, array_fill_keys($aliases, $language));
+    }
 
+    public static function setDefaultFormatter(FormatterInterface $formatter) {
+        self::$_formatter = $formatter;
+    }
+
+    public static function getDefaultFormatter() {
+        return self::$_formatter;
+    }
+
+    public static function highlight($source, $language, FormatterInterface $formatter = null) {
+        $formatter = $formatter ?: self::getDefaultFormatter();
+
+        if(!$language instanceof Language) {
+            $language = self::getLanguage($language);
+        }
+
+        return $formatter->format($source, new ArrayIterator($language->parse($source)));
     }
 }
+
+# Acts like static constructor
+
+Highlighter::setDefaultFormatter(
+    php_sapi_name() === 'cli' ?
+        new CliFormatter() :
+        new HtmlFormatter()
+);
+
+Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
+Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'html', 'xaml']);
+Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage', ['powershell', 'posh']);
+Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);

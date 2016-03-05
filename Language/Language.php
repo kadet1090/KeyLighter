@@ -39,16 +39,16 @@ abstract class Language
     /**
      * @var Language[]
      */
-    private $_subLanguages = [];
+    private $_embedded = [];
 
     /**
      * Language constructor.
      *
-     * @param Language[] $subLanguages
+     * @param Language[] $embedded
      */
-    public function __construct(array $subLanguages = []) {
-        $this->_subLanguages = $subLanguages;
-        $this->_rules = $this->getRules();
+    public function __construct(array $embedded = []) {
+        $this->_embedded = $embedded;
+        $this->_rules    = $this->getRules();
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class Language
             }
         }
 
-        foreach($this->_subLanguages as $language) {
+        foreach($this->_embedded as $language) {
             $result = array_merge($result, $language->_tokens($source));
         }
 
@@ -192,5 +192,13 @@ abstract class Language
             'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
             'inject' => $this
         ]);
+    }
+
+    public function getEmbedded() {
+        return $this->_embedded;
+    }
+
+    public function embed(Language $lang) {
+        $this->_embedded[] = $lang;
     }
 }
