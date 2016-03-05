@@ -19,9 +19,11 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
+use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
 
 class PowerShellLanguage extends Language
 {
@@ -34,10 +36,15 @@ class PowerShellLanguage extends Language
     public function getRules()
     {
         return [
-            'string' => new Rule(new QuoteMatcher([
-                'single' => "'",
-                'double' => '"'
-            ]), ['context' => ['!keyword.escape', '!comment', '!string']]),
+            'string.single' => new Rule(new SubStringMatcher('\''), [
+                'context' => ['!keyword.escape', '!comment', '!string'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
+
+            'string.double' => new Rule(new SubStringMatcher('"'), [
+                'context' => ['!keyword.escape', '!comment', '!string'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
 
             'variable' => [
                 new Rule(new RegexMatcher('/[^\^](\$(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
@@ -60,6 +67,8 @@ class PowerShellLanguage extends Language
                 'context' => ['!string.single', '!comment']
             ]),
 
+            'variable.scope' => new Rule(null, ['context' => ['*variable']]),
+
             'comment' => new Rule(new CommentMatcher(['#'], [['<#', '#>']])),
             'keyword.doc-section' => new Rule(new RegexMatcher('/[\s\n](\.\w+)/i'), [
                 'context' => ['comment']
@@ -70,7 +79,7 @@ class PowerShellLanguage extends Language
             'annotation' => new Rule(
                 new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
                     1 => Token::NAME,
-                    'arguments' => 'arguments'
+                    'arguments' => '$.arguments'
                 ])
             ),
 

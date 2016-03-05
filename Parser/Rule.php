@@ -24,10 +24,11 @@ use Kadet\Highlighter\Matcher\MatcherInterface;
  *
  * @package Kadet\Highlighter\Parser
  *
- * @property Language $language
- * @property Language $inject
- * @property integer  $priority
- * @property string   $type
+ * @property Language              $language
+ * @property Language              $inject
+ * @property integer               $priority
+ * @property string                $type
+ * @property TokenFactoryInterface $factory
  */
 class Rule
 {
@@ -44,10 +45,10 @@ class Rule
     private $_options;
 
     /**
-     * @param MatcherInterface $matcher
-     * @param array            $options
+     * @param MatcherInterface|null $matcher
+     * @param array                 $options
      */
-    public function __construct(MatcherInterface $matcher, array $options = [])
+    public function __construct(MatcherInterface $matcher = null, array $options = [])
     {
         $this->_matcher = $matcher;
 
@@ -56,11 +57,14 @@ class Rule
             'context'  => [],
             'priority' => 1,
             'language' => null,
-            'type'     => '\Kadet\Highlighter\Parser\Token'
+            'factory'  => new TokenFactory('\Kadet\Highlighter\Parser\Token'),
         ], $options);
 
         $this->setContext($options['context']);
-        $this->_options  = $options;
+        $this->_options = $options;
+
+        $this->factory->setRule($this);
+
     }
 
     public function setContext($rules)
@@ -108,7 +112,7 @@ class Rule
 
     public function match($source)
     {
-        return $this->_matcher->match($source, $this->type);
+        return $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
     }
 
     public function validateContext($context, array $additional = [])
@@ -184,11 +188,13 @@ class Rule
         $this->language = $language;
     }
 
-    public function __get($option) {
+    public function __get($option)
+    {
         return $this->_options[$option];
     }
 
-    public function __set($option, $value) {
+    public function __set($option, $value)
+    {
         return $this->_options[$option] = $value;
     }
 }

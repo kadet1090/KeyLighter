@@ -51,7 +51,7 @@ class CliFormatter implements FormatterInterface
 
             $last = $token->pos;
         }
-        $result .= substr($source, $last);
+        $result .= substr($source, $last).Console::reset();
 
         return $result;
     }

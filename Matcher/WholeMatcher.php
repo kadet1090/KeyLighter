@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Matcher;
 
 
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class WholeMatcher implements MatcherInterface
 {
@@ -24,16 +25,17 @@ class WholeMatcher implements MatcherInterface
     /**
      * Matches all occurrences and returns token list
      *
-     * @param string $source Source to match tokens
+     * @param string                $source Source to match tokens
      *
-     * @param        $class
+     * @param TokenFactoryInterface $factory
      *
      * @return array
      */
-    public function match($source, $class)
+    public function match($source, TokenFactoryInterface $factory)
     {
-        $token = new $class(['pos' => 0, 'length' => strlen($source)]);
+        $token = $factory->create(['pos' => 0, 'length' => strlen($source)]);
+        $end = $token->getEnd();
 
-        return [$token, $token->getEnd()];
+        return [spl_object_hash($token) => $token, spl_object_hash($end) => $end];
     }
 }

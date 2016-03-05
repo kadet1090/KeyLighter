@@ -16,16 +16,17 @@
 namespace Kadet\Highlighter\Matcher;
 
 
+use Kadet\Highlighter\Parser\TokenFactoryInterface;
+
 interface MatcherInterface
 {
     /**
      * Matches all occurrences and returns token list
      *
-     * @param string $source Source to match tokens
-     *
-     * @param        $class
+     * @param string                $source Source to match tokens
+     * @param TokenFactoryInterface $factory
      *
      * @return array
      */
-    public function match($source, $class);
+    public function match($source, TokenFactoryInterface $factory);
 }

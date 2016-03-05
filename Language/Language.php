@@ -19,6 +19,7 @@ use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -149,14 +150,10 @@ abstract class Language
                 if($name !== 'language.' . $this->getIdentifier()) {
                     $rule->setLanguage($this);
                 }
-                $tokens = $rule->match($source);
 
-                /** @var Token $token */
-                foreach ($tokens as $token) {
-                    $token->name = $name . (isset($token->name) ? '.' . $token->name : '');
-                    $token->setRule($rule);
-                    $result[spl_object_hash($token)] = $token;
-                }
+                $rule->factory->setBase($name);
+
+                $result = array_merge($result, $rule->match($source));
             }
         }
 
@@ -189,6 +186,11 @@ abstract class Language
      */
     public function getOpenClose()
     {
-        return new Rule(new WholeMatcher(), ['priority' => 1000]);
+        return new Rule(
+            new WholeMatcher(), [
+            'priority' => 1000,
+            'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+            'inject' => $this
+        ]);
     }
 }

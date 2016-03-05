@@ -70,6 +70,10 @@ class Token
             $this->setStart($options['start']);
         }
 
+        if (isset($options['rule'])) {
+            $this->setRule($options['rule']);
+        }
+
         if (isset($options['end'])) {
             $this->setEnd($options['end']);
         }
@@ -77,7 +81,7 @@ class Token
         $this->id = ++self::$_id;
 
         if (isset($options['length'])) {
-            new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this]);
+            new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this, 'rule' => $this->getRule()]);
         }
     }
 
@@ -85,7 +89,7 @@ class Token
     {
         if ($a->pos === $b->pos) {
             if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                if (($rule = Helper::cmp($a->_rule->getPriority(), $b->_rule->getPriority())) !== 0) {
+                if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
                     return $rule;
                 }
 

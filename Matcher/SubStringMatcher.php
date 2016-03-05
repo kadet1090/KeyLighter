@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Matcher;
 
 
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class SubStringMatcher implements MatcherInterface
 {
@@ -36,13 +37,13 @@ class SubStringMatcher implements MatcherInterface
     /**
      * Matches all occurrences and returns token list
      *
-     * @param string $source Source to match tokens
+     * @param string                $source Source to match tokens
      *
-     * @param        $class
+     * @param TokenFactoryInterface $factory
      *
      * @return array
      */
-    public function match($source, $class)
+    public function match($source, TokenFactoryInterface $factory)
     {
         $results = [];
         $pos = 0;
@@ -50,9 +51,11 @@ class SubStringMatcher implements MatcherInterface
         $len = strlen($this->_substr);
 
         while (($pos = strpos($source, $this->_substr, $pos)) !== false) {
-            $token = new $class(['pos' => $pos, 'length' => $len]);
-            $results[] = $token;
-            $results[] = $token->getEnd();
+            $token = $factory->create(['pos' => $pos, 'length' => $len]);
+            $end = $token->getEnd();
+
+            $results[spl_object_hash($token)] = $token;
+            $results[spl_object_hash($end)]   = $end;
             $pos += $len;
         }
 

@@ -24,16 +24,22 @@ use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
 
 class PhpLanguage extends Language
 {
     public function getRules()
     {
         return [
-            'string' => new Rule(new QuoteMatcher([
-                'single' => "'",
-                'double' => '"'
-            ]), ['context' => ['!keyword.escape', '!comment', '!string']]),
+            'string.single' => new Rule(new SubStringMatcher('\''), [
+                'context' => ['!keyword.escape', '!comment', '!string'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
+
+            'string.double' => new Rule(new SubStringMatcher('"'), [
+                'context' => ['!keyword.escape', '!comment', '!string'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
             'string.nowdoc' => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME]), ['context' => ['!comment']]),
@@ -109,7 +115,7 @@ class PhpLanguage extends Language
     public function getOpenClose() {
         return [
             new OpenRule(new SubStringMatcher('<?php'), [
-                'type' => '\Kadet\Highlighter\Parser\LanguageToken',
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
                 'priority' => 1000,
                 'context' => ['*'],
                 'inject'  => $this
@@ -117,7 +123,7 @@ class PhpLanguage extends Language
             new CloseRule(new SubStringMatcher('?>'), [
                 'context' => ['!string', '!comment'],
                 'priority' => 1000,
-                'type' => '\Kadet\Highlighter\Parser\LanguageToken',
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
                 'language' => $this
             ])
         ];

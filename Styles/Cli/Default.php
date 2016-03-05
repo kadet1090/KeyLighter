@@ -20,6 +20,7 @@
     'symbol.tag'           => ['color' => 'yellow'],
     'annotation.arguments' => ['color' => 'default'],
     'variable.special'     => ['color' => 'magenta'],
+    'variable.scope'       => ['color' => 'light blue'],
     'variable.splat'       => ['color' => 'light blue'],
 
     'symbol.attribute.namespace'  => ['color' => 'magenta', 'bold' => true],

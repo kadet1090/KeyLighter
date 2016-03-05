@@ -100,4 +100,8 @@ class Console
 
         return $escape;
     }
+
+    public static function reset() {
+        return "\033[0m";
+    }
 }

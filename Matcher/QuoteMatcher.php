@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Matcher;
 
 use Kadet\Highlighter\Parser\MarkerToken;
+use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 /**
  * Class StringMatcher
@@ -41,13 +42,13 @@ class QuoteMatcher implements MatcherInterface
     /**
      * Matches all occurrences and returns token list
      *
-     * @param string $source Source to match tokens
+     * @param string                $source Source to match tokens
      *
-     * @param        $class
+     * @param TokenFactoryInterface $factory
      *
      * @return array
      */
-    public function match($source, $class)
+    public function match($source, TokenFactoryInterface $factory)
     {
         $tokens = [];
         foreach ($this->_quotes as $name => $quote) {
@@ -55,9 +56,11 @@ class QuoteMatcher implements MatcherInterface
             $length = strlen($quote);
 
             while (($pos = strpos($source, $quote, $pos)) !== false) {
-                $token = new MarkerToken(['pos' => $pos, 'length' => $length, $name]);
-                $tokens[] = $token;
-                $tokens[] = $token->getEnd();
+                $token = $factory->create(['pos' => $pos, 'length' => $length, $name]);
+                $end = $token->getEnd();
+
+                $tokens[spl_object_hash($token)] = $token;
+                $tokens[spl_object_hash($end)]   = $end;
                 $pos += $length;
             }
         }
