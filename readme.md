@@ -29,7 +29,7 @@ Simple usage example:
 ```php
 echo \Kadet\Highlighter\Highlighter::highlight($source, $language, $formatter); 
 ```
-Yup, that's all.
+Thats it, nothing more.
 
 Where:
 `$language` is language, you can provide object of `\Kadet\Highlighter\Language\Language` type or registered alias (i.e. "xml"). It is even possible to embed one language in other: "xml > php" means php embedded in xml file. 
@@ -60,11 +60,11 @@ new \Kadet\Highlighter\Formatter\CliFormatter([
 Every token is placed inside it's own `span` so it can be easily styled with css. 
 
 ```html
-pre > <span class="variable">$maxOption</span>
+<span class="variable">$maxOption</span>
 ```
 
 ```css
-span.variable { color: #F7750D; }
+pre > span.variable { color: #F7750D; }
 ```
 #### Your own?
 You can always write your own Formatter and use it for outputting data, 
