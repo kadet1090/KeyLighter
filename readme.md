@@ -1,4 +1,6 @@
+![Logo](http://kadet.net/keylighter/logo.png)
 # KeyLighter [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
+
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
 
@@ -18,40 +20,6 @@ PHP 5.4 and composer
 Yep, that's all. You don't even need any not core PHP extensions.
 
 ## Why KeyLighter?
-### It works on CLI! And more!
-KeyLighter was originally designed as CLI highlighter for my own usage, 
-but then I decided that it should be able to generate any possible output, 
-currently supported are **HTML** via `\Kadet\Highlighter\Formatter\HtmlFormatter` 
-and **CLI** via `\Kadet\Highlighter\Formatter\CliFormatter`
-
-Example output for file (taken from wikipedia):
-```php
-<?php
-function myAge($birthYear) {
-    $yearsOld = date('Y') - $birthYear;
-    return $yearsOld . ' year' . ($yearsOld != 1 ? 's' : '');
-}
-
-echo 'I am currently ' . myAge(1981) . ' old.';
-```
-
-#### Cli
-![CLI](https://dl.dropboxusercontent.com/u/60020102/ShareX/2015-08/2015-08-28_16-52-26.png) 
-
-#### HTML (Customizable with CSS)
-![HTML](https://dl.dropboxusercontent.com/u/60020102/ShareX/2015-08/2015-08-28_16-57-10.png)
-```html
-<span class="language php">&lt;?php
-<span class="keyword">function</span> <span class="symbol function">myAge</span>(<span class="variable">$birthYear</span>) {
-    <span class="variable">$yearsOld</span> = date(<span class="string single">'Y'</span>) - <span class="variable">$birthYear</span><span class="operator punctuation">;</span>
-    <span class="keyword">return</span> <span class="variable">$yearsOld</span> . <span class="string single">' year'</span> . (<span class="variable">$yearsOld</span> != <span class="number">1</span> ? <span class="string single">'s'</span> : <span class="string single">''</span>)<span class="operator punctuation">;</span>
-}
-
-<span class="keyword">echo</span> <span class="string single">'I am currently '</span> . myAge(<span class="number">1981</span>) . <span class="string single">' old.'</span><span class="operator punctuation">;</span>
-```
-#### Your own?
-You can always write your own Formatter and use it for outputting data, 
-I will describe writing formatters on wiki soon™.
 
 ### Simple to use
 Just like any other composer library add `kadet/keylighter` to your 
@@ -59,19 +27,49 @@ Just like any other composer library add `kadet/keylighter` to your
 
 Simple usage example:
 ```php
-<?php
-$content = file_get_contents(isset($argv[1]) ? $argv[1] : __FILE__);
+echo \Kadet\Highlighter\Highlighter::highlight($source, $language, $formatter); 
+```
+Yup, that's all.
 
-$parser = new \Kadet\Highlighter\Language\PhpLanguage($content);
-$cli    = new \Kadet\Highlighter\Formatter\CliFormatter();
-$html   = new \Kadet\Highlighter\Formatter\HtmlFormatter();
+Where:
+`$language` is language, you can provide object of `\Kadet\Highlighter\Language\Language` type or registered alias (i.e. "xml"). It is even possible to embed one language in other: "xml > php" means php embedded in xml file. 
 
-echo '<link href="Styles/Html/dark.css" rel="stylesheet" />';
-echo 'HTML:' . PHP_EOL . '<pre>' . $html->format($content, $parser->tokens()) . '</pre>';
-echo 'CLI:'  . PHP_EOL . $cli->format($content, $parser->tokens());
+`$formatter` is implementation of `\Kadet\Highlighter\Formatter\FormatterInterface`.
+
+### It works on CLI! And more!
+KeyLighter was originally designed as CLI highlighter for my own usage, 
+but then I decided that it should be able to generate any possible output, 
+currently supported:
+
+#### Cli `\Kadet\Highlighter\Formatter\CliFormatter`
+![CLI](http://kadet.net/keylighter/php-cli.png)
+
+It can even be styled, default styles are stored in `Styles\Cli\Default.php`, but you can just pass additional argument into constructor:
+
+```php
+new \Kadet\Highlighter\Formatter\CliFormatter([
+    'string'      => ['color' => 'green'],
+    'keyword'     => ['color' => 'yellow'],
+    ...
+])
 ```
 
-Run with `php <^ that file> [file-to-highlight.php]`
+#### HTML `\Kadet\Highlighter\Formatter\HtmlFormatter`
+![HTML](http://kadet.net/keylighter/php-html.png)
+
+Every token is placed inside it's own `span` so it can be easily styled with css. 
+
+```html
+pre > <span class="variable">$maxOption</span>
+```
+
+```css
+span.variable { color: #F7750D; }
+```
+#### Your own?
+You can always write your own Formatter and use it for outputting data, 
+I will describe writing formatters on wiki soon™.
+
 
 ### It's context sensitive 
 Some of tokens are valid in some contexts, some not. This library 
@@ -122,19 +120,31 @@ class XmlLanguage extends Language
     {
         return [
             'tag.open' => [
-                new OpenRule(new RegexMatcher('/(<)\w/')),
-                new CloseRule(new SubStringMatcher('>'), ['priority' => -1])
+                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag']]),
+                new CloseRule(new SubStringMatcher('>'), ['priority' => -1, 'context' => ['!string']])
             ],
-            
-            'symbol.tag'       => new Rule(new RegexMatcher('/<\\/?(' . self::TAG_REGEX . ')/'), ['context' => ['tag']]),
-            'symbol.attribute' => new Rule(new RegexMatcher('/(' . self::TAG_REGEX . ')=/'), ['context' => ['tag']]),
-            
-            'string' => new Rule(new QuoteMatcher([
-                'single' => "'",
-                'double' => '"'
-            ]), ['context' => ['tag']]),
 
-            'tag.close' => new Rule(new RegexMatcher('/(<\\/' . self::TAG_REGEX . '>)/')),
+            'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
+                'tag' => Token::NAME,
+                'namespace' => '$.namespace'
+            ]), ['context' => ['tag', '!string']]),
+
+            'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/', [
+                'tag' => Token::NAME,
+                'namespace' => '$.namespace'
+            ]), ['context' => ['tag', '!string']]),
+
+            'string.single' => new Rule(new SubStringMatcher('\''), [
+                'context' => ['tag'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
+
+            'string.double' => new Rule(new SubStringMatcher('"'), [
+                'context' => ['tag'],
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+            ]),
+
+            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:\w+)>)/')),
         ];
     }
 
@@ -161,7 +171,7 @@ There are still few things to do, you can find all of them (and even propose) on
 ### Tests
 As it was supposed to be weekend project I didn't write any tests for it, but obviously now they are necessary. 
 
-### Nesting languages
+### Nesting languages (PARTIALLY DONE)
 Many languages can be injected inside others, for example CSS or JS in HTML, It should be supported. 
 Foundaments for that are done, it's possible to specify start and end tokens for languages, 
 but not possible to parse many languages at once.
