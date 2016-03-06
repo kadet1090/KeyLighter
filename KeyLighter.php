@@ -93,3 +93,4 @@ KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml'
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage', ['powershell', 'posh']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini']);

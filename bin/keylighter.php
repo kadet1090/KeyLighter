@@ -173,6 +173,10 @@ if($verbose > 1) {
         return $formatter->format($source, new ArrayIterator($tokens));
     });
 
+    if(function_exists('xdebug_peak_memory_usage')) {
+        echo Console::styled(['color' => 'green'], 'Max memory usage: ').number_format(xdebug_peak_memory_usage()/1024/1024, 4).'MBytes'.PHP_EOL;
+    }
+
     echo PHP_EOL;
 } else {
     $formatted = \Kadet\Highlighter\KeyLighter::highlight($source, $language, $formatter);
