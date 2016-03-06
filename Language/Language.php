@@ -20,6 +20,7 @@ use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -61,14 +62,16 @@ abstract class Language
     /**
      * Parses source and removes wrong tokens.
      *
-     * @param \Iterator|string $tokens
+     * @param TokenIterator|string $tokens
      *
-     * @return Token[]
+     * @return TokenIterator
      */
     public function parse($tokens = null)
     {
         if (is_string($tokens)) {
             $tokens = $this->tokenize($tokens);
+        } elseif(!$tokens instanceof TokenIterator) {
+            throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
         $start = $tokens->current();
@@ -78,7 +81,6 @@ abstract class Language
 
         $context = [];
         $all = [];
-
 
         /** @var Token $token */
         for($tokens->next(); $tokens->valid(); $tokens->next()) {
@@ -125,7 +127,7 @@ abstract class Language
             }
         }
 
-        return $result;
+        return new TokenIterator($result, $tokens->getSource());
     }
 
     /**
@@ -166,7 +168,7 @@ abstract class Language
 
     public function tokenize($source)
     {
-        $iterator = new \ArrayIterator($this->_tokens($source));
+        $iterator = new TokenIterator($this->_tokens($source), $source);
         $iterator->uasort('\Kadet\Highlighter\Parser\Token::compare');
         $iterator->rewind();
         return $iterator;
