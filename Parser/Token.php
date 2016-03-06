@@ -85,6 +85,7 @@ class Token
         }
     }
 
+    // todo: give it sense
     public static function compare(Token $a, Token $b)
     {
         if ($a->pos === $b->pos) {
@@ -166,7 +167,7 @@ class Token
     }
 
     /**
-     * @return mixed
+     * @return Token|null
      */
     public function getEnd()
     {
