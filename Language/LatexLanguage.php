@@ -24,7 +24,7 @@ use Kadet\Highlighter\Parser\Token;
 
 class LatexLanguage extends Language
 {
-    static $mathEnvs = ['align', 'equation', 'math'];
+    protected static $mathEnvironments = ['align', 'equation', 'math'];
 
     /**
      * Tokenization rules definition
@@ -42,10 +42,15 @@ class LatexLanguage extends Language
 
             'string.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
-                new Rule(new RegexMatcher('/\\\begin{((?:'.implode('|', self::$mathEnvs).')\*?)}(.*?)\\\end{\1}/s', [2 => Token::NAME]))
+                new Rule(
+                    new RegexMatcher(
+                        '/\\\begin{((?:' . implode('|', self::$mathEnvironments) . ')\*?)}(.*?)\\\end{\1}/s',
+                        [2 => Token::NAME]
+                    )
+                ),
             ],
 
-            'symbol.argument' => new Rule(new RegexMatcher('/\[(.*?)\]/')),
+            'symbol.argument'    => new Rule(new RegexMatcher('/\[(.*?)\]/')),
             'symbol.environment' => new Rule(new RegexMatcher('/\\\(?:begin|end){(.*?)}/')),
 
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
