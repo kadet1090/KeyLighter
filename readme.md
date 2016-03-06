@@ -27,7 +27,7 @@ Just like any other composer library add `kadet/keylighter` to your
 
 Simple usage example:
 ```php
-echo \Kadet\Highlighter\Highlighter::highlight($source, $language, $formatter); 
+echo \Kadet\Highlighter\KeyLighter::highlight($source, $language, $formatter); 
 ```
 Thats it, nothing more.
 

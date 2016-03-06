@@ -30,6 +30,10 @@ class Console
         'blink'      => false,
     ];
 
+    public static function styled($style, $text) {
+        return self::open($style).$text.self::close();
+    }
+
     public static function open($style)
     {
         if (!empty(self::$_current)) {

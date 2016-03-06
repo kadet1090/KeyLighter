@@ -21,7 +21,7 @@ use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Language\Language;
 
-class Highlighter
+class KeyLighter
 {
     const VERSION = '0.2.0';
 
@@ -61,6 +61,10 @@ class Highlighter
         self::$_formatter = $formatter;
     }
 
+    public static function registeredLanguages() {
+        return self::$_languages;
+    }
+
     public static function getDefaultFormatter() {
         return self::$_formatter;
     }
@@ -78,13 +82,13 @@ class Highlighter
 
 # Acts like static constructor
 
-Highlighter::setDefaultFormatter(
+KeyLighter::setDefaultFormatter(
     php_sapi_name() === 'cli' ?
         new CliFormatter() :
         new HtmlFormatter()
 );
 
-Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
-Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'html', 'xaml']);
-Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage', ['powershell', 'posh']);
-Highlighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'html', 'xaml']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage', ['powershell', 'posh']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);

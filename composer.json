@@ -16,5 +16,8 @@
     "psr-4": {
       "Kadet\\Highlighter\\": "."
     }
-  }
+  },
+  "bin": [
+    "bin/keylighter.php"
+  ]
 }
