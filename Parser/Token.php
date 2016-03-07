@@ -92,17 +92,13 @@ class Token
 
             if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
                 return $multiplier*$rule;
-            }
-
-            if (($a->isStart() && !$b->isStart()) || ($a->isEnd() && !$b->isEnd())) {
+            } elseif (($a->isStart() && !$b->isStart()) || ($a->isEnd() && !$b->isEnd())) {
                 return $multiplier;
-            }
-
-            if (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
+            } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
                 return $multiplier*$rule;
+            } else {
+                return $multiplier*($a->id < $b->id ? -1 : 1);
             }
-
-            return $multiplier*($a->id < $b->id ? -1 : 1);
         }
 
         return ($a->pos > $b->pos) ? 1 : -1;
