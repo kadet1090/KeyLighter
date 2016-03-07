@@ -38,17 +38,19 @@ abstract class Language
     private $_rules;
 
     /**
-     * @var Language[]
+     * @var array
      */
-    private $_embedded = [];
+    private $_options = [];
 
     /**
      * Language constructor.
      *
-     * @param Language[] $embedded
+     * @param array $options
      */
-    public function __construct(array $embedded = []) {
-        $this->_embedded = $embedded;
+    public function __construct(array $options = []) {
+        $this->_options  = array_merge([
+            'embedded' => [],
+        ], $options);
         $this->_rules    = $this->getRules();
     }
 
@@ -93,7 +95,10 @@ abstract class Language
             if ($token->isStart()) {
                 if ($token instanceof LanguageToken) {
                     /** @noinspection PhpUndefinedMethodInspection bug */
-                    $result = array_merge($result, $token->getLanguage()->parse($tokens));
+                    $result = array_merge(
+                        $result,
+                        $token->getLanguage()->parse($tokens)->getTokens()
+                    );
                 } else {
                     $all[spl_object_hash($token)] = $result[] = $token;
                     $context[spl_object_hash($token)] = $token->name;
@@ -118,7 +123,7 @@ abstract class Language
                     }
 
                     $result[] = $token;
-                    return $result;
+                    break;
                 } else {
                     if ($start !== null) {
                         unset($context[spl_object_hash($start)]);
@@ -171,7 +176,7 @@ abstract class Language
             }
         }
 
-        foreach($this->_embedded as $language) {
+        foreach($this->getEmbedded() as $language) {
             $result = array_merge($result, $language->_tokens($source));
         }
 
@@ -181,7 +186,7 @@ abstract class Language
     public function tokenize($source)
     {
         $iterator = new TokenIterator($this->_tokens($source), $source);
-        $iterator->uasort('\Kadet\Highlighter\Parser\Token::compare');
+        $iterator->sort();
         $iterator->rewind();
         return $iterator;
     }
@@ -202,17 +207,24 @@ abstract class Language
     {
         return new Rule(
             new WholeMatcher(), [
-            'priority' => 1000,
-            'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
-            'inject' => $this
-        ]);
+                'priority' => 1000,
+                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'inject' => $this
+            ]
+        );
     }
 
+    /**
+     * @return Language[]
+     */
     public function getEmbedded() {
-        return $this->_embedded;
+        return $this->_options['embedded'];
     }
 
+    /**
+     * @param Language $lang
+     */
     public function embed(Language $lang) {
-        $this->_embedded[] = $lang;
+        $this->_options['embedded'][] = $lang;
     }
 }

@@ -46,7 +46,9 @@ class KeyLighter
             throw new \InvalidArgumentException("Language $name is not defined.");
         }
 
-        return new self::$_languages[$name]($embedded);
+        return new self::$_languages[$name]([
+            'embedded' => $embedded
+        ]);
     }
 
     /**
