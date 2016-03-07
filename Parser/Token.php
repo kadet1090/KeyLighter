@@ -210,7 +210,7 @@ class Token
             $this->_length = $this->_end === null ? 0 : $this->_end->pos - $this->pos;
         }
 
-        return 0;
+        return $this->_length;
     }
 
     public function dump($text = null)

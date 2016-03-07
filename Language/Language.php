@@ -105,6 +105,18 @@ abstract class Language
                     // todo: close unclosed tokens
                     $result[0]->setEnd($token);
 
+                    if($result[0]->getRule()->postProcess) {
+                        $embed = $this
+                            ->parse(substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength()))
+                            ->getTokens();
+
+                        foreach($embed as $etoken) {
+                            $etoken->pos += $result[0]->pos;
+                        }
+
+                        $result = array_merge($result, $embed);
+                    }
+
                     $result[] = $token;
                     return $result;
                 } else {
@@ -149,7 +161,7 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if($name !== 'language.' . $this->getIdentifier()) {
+                if(strpos($name, 'language.') === false) {
                     $rule->setLanguage($this);
                 }
 

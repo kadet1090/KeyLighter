@@ -38,4 +38,8 @@ class TokenIterator extends \ArrayIterator
     {
         return $this->_source;
     }
+
+    public function getTokens() {
+        return $this->getArrayCopy();
+    }
 }

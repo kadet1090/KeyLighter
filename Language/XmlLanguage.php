@@ -58,9 +58,12 @@ class XmlLanguage extends Language
 
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
-            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']]))
+            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
+
+            'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
         ];
     }
+
 
     public function getIdentifier()
     {
