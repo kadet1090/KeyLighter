@@ -85,23 +85,24 @@ class Token
         }
     }
 
-    // todo: give it sense
     public static function compare(Token $a, Token $b)
     {
         if ($a->pos === $b->pos) {
-            if (($a->isStart() && $b->isStart()) || ($a->isEnd() && $b->isEnd())) {
-                if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
-                    return $rule;
-                }
+            $multiplier = $a->isEnd() ? -1 : 1;
 
-                if (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
-                    return $rule;
-                }
-
-                return $a->id < $b->id ? -1 : 1;
+            if (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
+                return $multiplier*$rule;
             }
 
-            return $a->isEnd() ? -1 : 1;
+            if (($a->isStart() && !$b->isStart()) || ($a->isEnd() && !$b->isEnd())) {
+                return $multiplier;
+            }
+
+            if (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
+                return $multiplier*$rule;
+            }
+
+            return $multiplier*($a->id < $b->id ? -1 : 1);
         }
 
         return ($a->pos > $b->pos) ? 1 : -1;

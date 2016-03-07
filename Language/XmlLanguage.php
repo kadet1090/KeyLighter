@@ -33,8 +33,10 @@ class XmlLanguage extends Language
         return [
             'tag.open' => [
                 new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag']]),
-                new CloseRule(new SubStringMatcher('>'), ['priority' => -1, 'context' => ['!string']])
+                new CloseRule(new SubStringMatcher('>'), ['context' => ['!string']])
             ],
+
+            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
                 'name' => Token::NAME,
@@ -56,7 +58,6 @@ class XmlLanguage extends Language
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
             ]),
 
-            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
             'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
 
