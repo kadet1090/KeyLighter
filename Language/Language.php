@@ -107,19 +107,19 @@ abstract class Language
                 $start = $token->getStart();
 
                 if ($token instanceof LanguageToken && $token->getRule()->getLanguage() === $this) {
-                    // todo: close unclosed tokens
                     $result[0]->setEnd($token);
 
                     if($result[0]->getRule()->postProcess) {
                         $embed = $this
                             ->parse(substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength()))
-                            ->getTokens();
-
-                        foreach($embed as $etoken) {
-                            $etoken->pos += $result[0]->pos;
-                        }
+                            ->getTokens($result[0]->pos);
 
                         $result = array_merge($result, $embed);
+                    }
+
+                    # closing unclosed tokens
+                    foreach(array_reverse($context) as $hash => $name) {
+                        $result[$hash]->setEnd(new Token([$name, 'pos' => $token->pos]));
                     }
 
                     $result[] = $token;

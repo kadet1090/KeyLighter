@@ -39,8 +39,18 @@ class TokenIterator extends \ArrayIterator
         return $this->_source;
     }
 
-    public function getTokens() {
-        return $this->getArrayCopy();
+    public function getTokens($offset = null) {
+        /** @var Token[] $result */
+        $result = $this->getArrayCopy();
+
+        // Array map would be cool, but is a lot slower
+        if($offset) {
+            foreach ($result as $item) {
+                $item->pos += $offset;
+            }
+        }
+
+        return $result;
     }
 
     public function sort() {
