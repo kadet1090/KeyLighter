@@ -34,7 +34,7 @@ class LatexLanguage extends Language
     public function getRules()
     {
         return [
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\\\w+)/'), ['context' => ['!!'], 'priority' => -1]),
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => ['!!'], 'priority' => -1]),
             /*'string' => [
                 new OpenRule(new SubStringMatcher('{'), ['context' => ['!!'], 'inside' => true, 'priority' => 0]),
                 new CloseRule(new SubStringMatcher('}'), ['inside' => true, 'priority' => -2])
@@ -55,9 +55,27 @@ class LatexLanguage extends Language
 
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
 
-            'operator' => new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => ['!!']]),
-
+            'operator' => [
+                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => ['!!']]),
+                new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
+                    'context' => ['string.math'],
+                    'priority' => -1
+                ]),
+            ],
             'comment' => new Rule(new CommentMatcher(['%'], [])),
+
+            'format.bold' => new Rule(new RegexMatcher('/\\\textbf({((?>[^{}]+|(?1))+)})/si', [
+                2 => Token::NAME
+            ])),
+            'format.italics' => new Rule(new RegexMatcher('/\\\textit({((?>[^{}]+|(?1))+)})/si', [
+                2 => Token::NAME
+            ])),
+
+            # math mode
+            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|[\d,]+))/'), [
+                'context' => ['string.math'],
+                'priority' => -2
+            ]),
         ];
     }
 

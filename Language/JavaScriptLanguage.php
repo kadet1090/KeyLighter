@@ -51,7 +51,7 @@ class JavaScriptLanguage extends Language
             ]),
 
             'comment' => new Rule(new CommentMatcher(['//'], [
-                ['/* ', '*/']
+                ['/*', '*/']
             ])),
 
             'call' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')\s*\(/iu'), ['priority' => -1]),
@@ -69,7 +69,9 @@ class JavaScriptLanguage extends Language
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
             'operator' => new Rule(new WordMatcher([
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0])
+            ], ['separated' => false]), ['priority' => 0]),
+
+//            'string.regex' => new Rule(new RegexMatcher('#\b/(.*?)/[gmixXsu\bUAJ]+#'))
         ];
     }
 

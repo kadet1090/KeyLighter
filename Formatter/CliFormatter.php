@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Utils\Console;
 
 /**
@@ -36,8 +37,10 @@ class CliFormatter implements FormatterInterface
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
     }
 
-    public function format($source, \Traversable $tokens)
+    public function format(TokenIterator $tokens)
     {
+        $source = $tokens->getSource();
+
         $result = '';
         $last = 0;
 

@@ -170,7 +170,7 @@ if($verbose > 1) {
     $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); });
     $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); });
     $formatted = benchmark('Formatting', function() use($formatter, $tokens, $source) {
-        return $formatter->format($source, new ArrayIterator($tokens));
+        return $formatter->format($tokens);
     });
 
     if(function_exists('xdebug_peak_memory_usage')) {

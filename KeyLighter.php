@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter;
 
-use ArrayIterator;
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
@@ -78,7 +77,7 @@ class KeyLighter
             $language = self::getLanguage($language);
         }
 
-        return $formatter->format($source, new ArrayIterator($language->parse($source)));
+        return $formatter->format($language->parse($source));
     }
 }
 
@@ -97,3 +96,4 @@ KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage',
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);

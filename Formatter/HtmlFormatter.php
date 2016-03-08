@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenIterator;
 
 /**
  * Class HtmlFormatter
@@ -24,8 +25,11 @@ use Kadet\Highlighter\Parser\Token;
  */
 class HtmlFormatter implements FormatterInterface
 {
-    public function format($source, \Traversable $tokens)
+
+    public function format(TokenIterator $tokens)
     {
+        $source = $tokens->getSource();
+
         $result = '';
         $last = 0;
 
