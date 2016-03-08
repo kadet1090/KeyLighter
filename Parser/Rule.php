@@ -56,7 +56,7 @@ class Rule
         $options = array_merge([
             'context'  => [],
             'priority' => 1,
-            'language' => null,
+            'language' => false,
             'factory'  => new TokenFactory('\Kadet\Highlighter\Parser\Token'),
         ], $options);
 

@@ -26,14 +26,14 @@ use Kadet\Highlighter\Parser\TokenFactory;
 
 class XmlLanguage extends Language
 {
-    const IDENTIFIER = '(?P<namespace>\w+:)?(?P<name>[\w\.]+)';
+    const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
     public function getRules()
     {
         return [
             'tag.open' => [
-                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag']]),
-                new CloseRule(new SubStringMatcher('>'), ['context' => ['!string']])
+                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
+                new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
 
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),

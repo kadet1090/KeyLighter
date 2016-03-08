@@ -54,7 +54,7 @@ class PhpLanguage extends Language
             'symbol.class' => [
                 new Rule(new RegexMatcher('/(?:class|new|use|extends)\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
-                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$]\w+)/i'), ['context' => ['comment.docblock']]),
+                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$\w]+)/i'), ['context' => ['comment.docblock']]),
             ],
 
             'symbol.interface' => [
@@ -103,7 +103,7 @@ class PhpLanguage extends Language
                 new RegexMatcher('/(\((?:int|integer|bool|boolean|float|double|real|string|array|object|unset)\))/')
             ),
 
-            'delimiter' => new Rule(new RegexMatcher('/(<\?php|\?>)/')),
+            'delimiter' => new Rule(new RegexMatcher('/(<\?php|<\?=|\?>)/')),
             'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
@@ -115,16 +115,17 @@ class PhpLanguage extends Language
 
     public function getOpenClose() {
         return [
-            new OpenRule(new SubStringMatcher('<?php'), [
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+            new OpenRule(new RegexMatcher('/(<\?php|<\?=)/si'), [
+                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
                 'priority' => 1000,
-                'context' => ['*'],
-                'inject'  => $this
+                'context'  => ['*'],
+                'inject'   => $this,
+                'language' => null
             ]),
             new CloseRule(new SubStringMatcher('?>'), [
-                'context' => ['!string', '!comment'],
+                'context'  => ['!string', '!comment'],
                 'priority' => 1000,
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
                 'language' => $this
             ])
         ];

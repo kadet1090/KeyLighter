@@ -166,7 +166,7 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if($rule->getLanguage() === null) {
+                if($rule->getLanguage() === false) {
                     $rule->setLanguage($this);
                 }
 
