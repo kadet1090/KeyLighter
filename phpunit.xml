@@ -1,0 +1,22 @@
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="KeyLighter">
+            <directory>./Tests/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./Formatter/</directory>
+            <directory suffix=".php">./Matcher/</directory>
+            <directory suffix=".php">./Parser/</directory>
+            <directory suffix=".php">./Utils/</directory>
+            <file>./KeyLighter.php</file>
+            <file>./Languages/Language.php</file>
+            <exclude>
+                <directory>./Tests/</directory>
+                <directory>./Styles/</directory>
+                <directory>./vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
