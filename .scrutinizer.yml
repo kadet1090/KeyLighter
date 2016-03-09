@@ -1,0 +1,10 @@
+filter:
+    excluded_paths:
+        - Tests/*
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=tests.coverage'
+                coverage:
+                    file: 'tests.coverage'
+                    format: 'php-clover'
