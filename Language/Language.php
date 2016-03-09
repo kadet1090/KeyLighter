@@ -68,10 +68,10 @@ abstract class Language
      *
      * @return TokenIterator
      */
-    public function parse($tokens = null)
+    public function parse($tokens = null, $additional = [])
     {
         if (is_string($tokens)) {
-            $tokens = $this->tokenize($tokens);
+            $tokens = $this->tokenize($tokens, $additional);
         } elseif(!$tokens instanceof TokenIterator) {
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
@@ -110,11 +110,10 @@ abstract class Language
                     $result[0]->setEnd($token);
 
                     if($result[0]->getRule()->postProcess) {
-                        $embed = $this
-                            ->parse(substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength()))
-                            ->getTokens($result[0]->pos);
+                        $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
 
-                        $result = array_merge($result, $embed);
+                        $tokens = $this->tokenize($source, $result, $result[0]->pos);
+                        $result = $this->parse($tokens)->getTokens();
                     }
 
                     # closing unclosed tokens
@@ -154,11 +153,11 @@ abstract class Language
      *
      * @return array
      */
-    private function _tokens($source)
+    private function _tokens($source, $additional = [], $offset = 0)
     {
-        $result = [];
         $this->_rules['language.' . $this->getIdentifier()] = $this->getOpenClose();
 
+        $result = [];
         foreach ($this->_rules as $name => $rules) {
             if (!is_array($rules)) {
                 $rules = [$rules];
@@ -179,12 +178,19 @@ abstract class Language
             $result = array_merge($result, $language->_tokens($source));
         }
 
-        return $result;
+        // Array map would be cool, but is a lot slower
+        if($offset) {
+            foreach ($result as $item) {
+                $item->pos += $offset;
+            }
+        }
+
+        return array_merge($result, $additional);
     }
 
-    public function tokenize($source)
+    public function tokenize($source, $additional = [], $offset = 0)
     {
-        $iterator = new TokenIterator($this->_tokens($source), $source);
+        $iterator = new TokenIterator($this->_tokens($source, $additional, $offset), $source);
         $iterator->sort();
         $iterator->rewind();
         return $iterator;

@@ -35,10 +35,8 @@ class LanguageToken extends Token
                 $valid = true;
             }
         } else {
-            $valid = (
-                $language === $this->_rule->getLanguage() ||
-                $language == $this->getStart()->getRule()->inject
-            ) && $this->_rule->validateContext($context);
+            $desired = ($this->getStart() !== null ? $this->getStart()->getRule()->inject : $this->_rule->getLanguage());
+            $valid = $language === $desired && $this->_rule->validateContext($context);
         }
         $this->setValid($valid);
     }

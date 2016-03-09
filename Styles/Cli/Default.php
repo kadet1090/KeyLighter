@@ -13,6 +13,8 @@
     'call'        => ['color' => 'cyan'],
     'parameter'   => ['color' => 'dark gray'],
 
+    'language'    => ['color' => 'white'],
+
     'comment.docblock'     => ['color' => 'dark gray'],
     'variable.property'    => ['color' => 'light blue'],
     'variable.namespace'   => ['color' => 'light blue'],

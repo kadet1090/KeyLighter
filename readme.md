@@ -37,7 +37,7 @@ Where:
 `$formatter` is implementation of `\Kadet\Highlighter\Formatter\FormatterInterface`.
 
 ### It works on CLI! And more!
-KeyLighter was originally designed as CLI highlighter for my own usage, 
+**KeyLighter** was originally designed as CLI highlighter for my own usage, 
 but then I decided that it should be able to generate any possible output, 
 currently supported:
 
@@ -158,7 +158,10 @@ class XmlLanguage extends Language
 I will try to write as many definitions as I only can, 
 but any PRs are welcome.
 
-### 
+### Embedding languages
+Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in  *php* and so on. **KeyLighter** can handle and highlight embedded languages without any problem.
+
+![Optimized for php7.0](http://kadet.net/keylighter/language-embedding.png)
 
 ### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg)
 Even though it wasn't supposed to be fastest code highlighter in PHP 
