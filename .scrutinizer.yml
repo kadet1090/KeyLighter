@@ -9,3 +9,5 @@ build:
                 coverage:
                     file: 'tests.coverage'
                     format: 'php-clover'
+    environment:
+        php: '5.6.9'
