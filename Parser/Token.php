@@ -90,7 +90,7 @@ class Token
         if ($a->pos === $b->pos) {
             $multiplier = $a->isEnd() ? -1 : 1;
 
-            if (($a->isStart() && !$b->isStart()) || ($a->isEnd() && !$b->isEnd())) {
+            if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
                 return $multiplier;
             } elseif (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
                 return $multiplier*$rule;

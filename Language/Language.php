@@ -171,7 +171,6 @@ abstract class Language
                 }
 
                 $rule->factory->setBase($name);
-
                 $result = array_merge($result, $rule->match($source));
             }
         }
@@ -208,8 +207,9 @@ abstract class Language
         return new Rule(
             new WholeMatcher(), [
                 'priority' => 1000,
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
-                'inject' => $this
+                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'inject'   => $this,
+                'language' => null
             ]
         );
     }

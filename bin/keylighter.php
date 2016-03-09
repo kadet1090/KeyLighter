@@ -86,7 +86,7 @@ if($argc == 1) {
 
     echo Console::styled(['color' => 'green'], 'Options: '), PHP_EOL;
     printTable([
-        ['-l, --language',    'language', 'Source Language to highlight, default: xml > php'],
+        ['-l, --language',    'language', 'Source Language to highlight, default: html > php'],
         ['-f, --format',      'format',   'Formatter used to highlight source, for example: html, default: cli'],
         ['-h, --help',         null,      'This screen'],
         ['-v, --verbose',     'level',    'Verbose mode'],
@@ -137,7 +137,7 @@ if(getOption(['-lf', '--formatters'], false, true)) {
     exit(0);
 }
 
-$language  = \Kadet\Highlighter\KeyLighter::getLanguage(getOption(['-l', '--language']) ?: 'php');
+$language  = \Kadet\Highlighter\KeyLighter::getLanguage(getOption(['-l', '--language']) ?: 'html > php');
 $verbose   = getOption(['-v', '--verbose'], true, 1)  ?: 0;
 $formatter = getFormatter(getOption(['-f', '--format'])) ?: \Kadet\Highlighter\KeyLighter::getDefaultFormatter();
 $silent    = getOption(['-s', '--silent'], false, true);

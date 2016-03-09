@@ -1,0 +1,60 @@
+// colors:
+@background: #181818;
+@foreground: white;
+
+@red:     #E26F90;
+@magenta: #D17BCA;
+@green:   #89B366;
+@brown:   #99764b;
+@violet:  #BD9CE0;
+@blue:    #336CAD;
+@orange:  #FF9700;
+@yellow:  #F4BD8C;
+
+@alt-red:     #F5A2B7;
+@alt-magenta: #E0A7DC;
+@alt-green:   #89B366;
+@alt-brown:   #ad916f;
+@alt-violet: #AD83E2;
+@alt-blue:    #6691C2;
+@alt-orange:  #c17200;
+@alt-yellow: #ffdebb;
+
+pre {
+  background: @background;
+  color: @foreground;
+  font-family: "Fira Code", monospace;
+  padding: 15px;
+
+  font-weight: 100;
+
+  font-size: 10pt;
+  
+  span.keyword    { color: @orange; }
+  span.operator   { color: @alt-orange; }
+  span.delimiter  { color: @alt-orange; }
+  span.string     { color: @alt-green; }
+  span.comment    { color: #555 }
+  span.number     { color: @red }
+  span.constant   { color: @alt-red }
+  span.call       { color: @yellow }
+
+  span.symbol     { color: @alt-yellow; }
+  span.variable   { color: @alt-violet;  }
+  span.annotation { color: @orange; }
+  span.parameter  { color: @alt-brown; }
+
+  span.annotation.arguments { color: @foreground; }
+  span.variable.splat       { color: @violet;  }
+  span.variable.property    { color: @violet; }
+  span.symbol.dotnet        { color: @alt-yellow; }
+
+  span.comment.docblock    { color: #666 }
+
+  span.tag { color: @alt-orange; }
+  span.symbol.tag { font-weight: bold }
+  span.attribute { color: @yellow; }
+
+  span.tag.namespace { color: @orange; font-weight: normal }
+  span.attribute.namespace { color: @alt-yellow; }
+}

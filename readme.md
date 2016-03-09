@@ -158,6 +158,8 @@ class XmlLanguage extends Language
 I will try to write as many definitions as I only can, 
 but any PRs are welcome.
 
+### 
+
 ### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg)
 Even though it wasn't supposed to be fastest code highlighter in PHP 
 it is still quite fast, up to about 7.5x faster than [GeSHi](http://geshi.org/).
@@ -170,11 +172,6 @@ There are still few things to do, you can find all of them (and even propose) on
 
 ### Tests
 As it was supposed to be weekend project I didn't write any tests for it, but obviously now they are necessary. 
-
-### Nesting languages (PARTIALLY DONE)
-Many languages can be injected inside others, for example CSS or JS in HTML, It should be supported. 
-Foundaments for that are done, it's possible to specify start and end tokens for languages, 
-but not possible to parse many languages at once.
 
 ## Thanks
 For [Maciej](https://github.com/ksiazkowicz), [Maciej](https://github.com/sobak) and Monika for all support, moral too.

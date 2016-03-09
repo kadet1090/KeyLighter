@@ -54,7 +54,7 @@ class PhpLanguage extends Language
             'symbol.class' => [
                 new Rule(new RegexMatcher('/(?:class|new|use|extends)\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
-                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$\w]+)/i'), ['context' => ['comment.docblock']]),
+                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
             ],
 
             'symbol.interface' => [
@@ -80,8 +80,8 @@ class PhpLanguage extends Language
             'constant' => new Rule(new WordMatcher(array_merge([
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__',
-            ], array_keys(get_defined_constants(true)["Core"])))),
-            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i')),
+            ], array_keys(get_defined_constants(true)["Core"]))), ['priority' => -2]),
+            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i'), ['priority' => -2]   ),
 
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
@@ -122,7 +122,7 @@ class PhpLanguage extends Language
                 'inject'   => $this,
                 'language' => null
             ]),
-            new CloseRule(new SubStringMatcher('?>'), [
+            new CloseRule(new RegexMatcher('/(\?>|$)/'), [
                 'context'  => ['!string', '!comment'],
                 'priority' => 1000,
                 'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),

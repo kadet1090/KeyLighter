@@ -41,11 +41,8 @@ class KeyLighter
             $name       = trim(substr($name, 0, $pos));
         }
 
-        if(!isset(self::$_languages[$name])) {
-            throw new \InvalidArgumentException("Language $name is not defined.");
-        }
-
-        return new self::$_languages[$name]([
+        $lang = isset(self::$_languages[$name]) ? self::$_languages[$name] : 'Kadet\\Highlighter\\Language\\PlainText';
+        return new $lang([
             'embedded' => $embedded
         ]);
     }
@@ -92,8 +89,8 @@ KeyLighter::setDefaultFormatter(
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'xaml']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\HtmlLanguage', ['html', 'htm']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowershellLanguage', ['powershell', 'posh']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowerShellLanguage', ['powershell', 'posh', 'ps1']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none', 'txt']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini']);
+KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini', 'cfg']);
 KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);
