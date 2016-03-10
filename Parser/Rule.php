@@ -64,7 +64,6 @@ class Rule
         $this->_options = $options;
 
         $this->factory->setRule($this);
-
     }
 
     public function setContext($rules)
@@ -173,7 +172,7 @@ class Rule
     }
 
     /**
-     * @return string
+     * @return Language
      */
     public function getLanguage()
     {
@@ -181,9 +180,9 @@ class Rule
     }
 
     /**
-     * @param string $language
+     * @param Language $language
      */
-    public function setLanguage($language)
+    public function setLanguage(Language $language)
     {
         $this->language = $language;
     }

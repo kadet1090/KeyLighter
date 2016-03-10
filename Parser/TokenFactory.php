@@ -22,7 +22,6 @@ class TokenFactory implements TokenFactoryInterface
     const END   = 0x2;
 
     private $_class;
-    private $_reflection;
     private $_base;
     private $_rule;
 
@@ -33,9 +32,8 @@ class TokenFactory implements TokenFactoryInterface
      *
      * @param $class
      */
-    public function __construct($class, $type = 0x3) {
+    public function __construct($class) {
         $this->_class = $class;
-        $this->_reflection = new \ReflectionClass($this->_class);
     }
 
     public function create($params) {

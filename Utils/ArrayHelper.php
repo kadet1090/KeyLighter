@@ -26,9 +26,7 @@ class ArrayHelper
     public static function rewindTo(array &$array, callable $test)
     {
         $result = 1;
-        while ((list($k, $v) = each($array)) && !($result = $test($k, $v))) {
-            ;
-        }
+        while ((list($k, $v) = each($array)) && !($result = $test($k, $v))); // Tak
 
         if ($result < 0) {
             prev($array);

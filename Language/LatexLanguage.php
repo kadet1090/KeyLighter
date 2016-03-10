@@ -34,7 +34,7 @@ class LatexLanguage extends Language
     public function getRules()
     {
         return [
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => ['*'], 'priority' => -1]),
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => ['!!'], 'priority' => -1]),
             /*'string' => [
                 new OpenRule(new SubStringMatcher('{'), ['context' => ['!!'], 'inside' => true, 'priority' => 0]),
                 new CloseRule(new SubStringMatcher('}'), ['inside' => true, 'priority' => -2])
@@ -56,7 +56,7 @@ class LatexLanguage extends Language
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
 
             'operator' => [
-                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => ['*']]),
+                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => ['!!']]),
                 new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
                     'context' => ['string.math'],
                     'priority' => -1
