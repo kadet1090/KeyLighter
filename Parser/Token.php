@@ -92,7 +92,7 @@ class Token
 
             if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
                 return $multiplier;
-            } elseif (($rule = Helper::cmp($b->_rule->getPriority(), $a->_rule->getPriority())) !== 0) {
+            } elseif (($rule = Helper::cmp($b->_rule->priority, $a->_rule->priority)) !== 0) {
                 return $multiplier*$rule;
             } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
                 return $multiplier*$rule;
@@ -126,7 +126,7 @@ class Token
     protected function validate(Language $language, $context)
     {
         $this->setValid(
-            $language === $this->_rule->getLanguage() &&
+            $language === $this->_rule->language &&
             $this->_rule->validateContext($context, $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : [])
         );
     }
@@ -210,6 +210,9 @@ class Token
         return $this->_length;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function dump($text = null)
     {
         $pos = StringHelper::positionToLine($text, $this->pos);

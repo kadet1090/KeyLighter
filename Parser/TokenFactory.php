@@ -33,7 +33,7 @@ class TokenFactory implements TokenFactoryInterface
      * @param $class
      */
     public function __construct($class) {
-        $this->_class = $class;
+        $this->setClass($class);
     }
 
     public function create($params) {
@@ -96,9 +96,15 @@ class TokenFactory implements TokenFactoryInterface
 
     /**
      * @param mixed $class
+     *
+     * @throws \InvalidArgumentException
      */
     public function setClass($class)
     {
+        if(!is_a($class, 'Kadet\Highlighter\Parser\Token', true)) {
+            throw new \InvalidArgumentException('$class must extend Kadet\Highlighter\Parser\Token');
+        }
+
         $this->_class = $class;
     }
 }

@@ -18,6 +18,11 @@ namespace Kadet\Highlighter\Parser;
 
 class OpenRule extends Rule
 {
+    /**
+     * @param $source
+     *
+     * @return Token[]
+     */
     public function match($source)
     {
         return array_filter(parent::match($source), function (Token $token) {

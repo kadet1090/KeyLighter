@@ -16,9 +16,10 @@
 namespace Kadet\Highlighter\Tests;
 
 
+use Kadet\Highlighter\Parser\CloseRule;
+use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
-use Kadet\Highlighter\Parser\TokenFactory;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,8 +49,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'language' => $language
         ]);
 
-        $this->assertSame($rule->getLanguage(), $language);
-        $this->assertSame($rule->getPriority(), 10);
+        $this->assertSame($rule->language, $language);
+        $this->assertSame($rule->priority, 10);
         $this->assertSame($rule->factory, $factory);
     }
 
@@ -112,5 +113,39 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validateContext(['second']));
         $this->assertTrue($rule->validateContext([]));
         $this->assertFalse($rule->validateContext(['other']));
+    }
+
+    public function testOpenRule() {
+        $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
+
+        $rule = new OpenRule($matcher);
+        $tokens = [
+            new Token(['token.name', 'pos' => 15, 'length' => 10, 'rule' => $rule]),
+            new Token(['token.name', 'pos' => 25, 'length' => 10, 'rule' => $rule]),
+        ];
+
+        $matcher->method('match')->willReturn($tokens);
+
+        $rule = new OpenRule($matcher);
+        foreach ($rule->match('source') as $item) {
+            $this->assertTrue($item->isStart());
+            $this->assertFalse($item->isEnd());
+        }
+    }
+
+    public function testCloseRule() {
+        $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
+
+        $rule = new CloseRule($matcher);
+        $tokens = [
+            new Token(['token.name', 'pos' => 15, 'length' => 10, 'rule' => $rule]),
+            new Token(['token.name', 'pos' => 25, 'length' => 10, 'rule' => $rule]),
+        ];
+
+        $matcher->method('match')->willReturn($tokens);
+        foreach ($rule->match('source') as $item) {
+            $this->assertTrue($item->isEnd());
+            $this->assertFalse($item->isStart());
+        }
     }
 }

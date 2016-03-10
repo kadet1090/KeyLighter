@@ -28,14 +28,14 @@ class LanguageToken extends Token
     {
         $valid = false;
         if ($this->isStart()) {
-            $lang = $this->_rule->getLanguage();
+            $lang = $this->_rule->language;
             if($lang === null && $this->getLanguage() !== $language) {
                 $valid = true;
             } elseif($language === $lang && $this->_rule->validateContext($context)) {
                 $valid = true;
             }
         } else {
-            $desired = ($this->getStart() !== null ? $this->getStart()->getRule()->inject : $this->_rule->getLanguage());
+            $desired = ($this->getStart() !== null ? $this->getStart()->getRule()->inject : $this->_rule->language);
             $valid = $language === $desired && $this->_rule->validateContext($context);
         }
         $this->setValid($valid);

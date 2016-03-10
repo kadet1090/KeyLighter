@@ -109,6 +109,11 @@ class Rule
         return [substr($rule, $pos), $type];
     }
 
+    /**
+     * @param $source
+     *
+     * @return Token[]
+     */
     public function match($source)
     {
         return $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
@@ -164,27 +169,6 @@ class Rule
                 unset($required[$remove]);
             }
         }
-    }
-
-    public function getPriority()
-    {
-        return $this->priority;
-    }
-
-    /**
-     * @return Language
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
-     * @param Language $language
-     */
-    public function setLanguage(Language $language)
-    {
-        $this->language = $language;
     }
 
     public function __get($option)

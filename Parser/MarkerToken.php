@@ -41,7 +41,7 @@ class MarkerToken extends Token
 
     protected function validate(Language $language, $context)
     {
-        if($language !== $this->getRule()->getLanguage()) {
+        if($language !== $this->getRule()->language) {
             return false;
         }
 

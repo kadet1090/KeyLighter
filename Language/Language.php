@@ -106,7 +106,7 @@ abstract class Language
             } else {
                 $start = $token->getStart();
 
-                if ($token instanceof LanguageToken && $token->getRule()->getLanguage() === $this) {
+                if ($token instanceof LanguageToken && $token->getRule()->language === $this) {
                     $result[0]->setEnd($token);
 
                     if($result[0]->getRule()->postProcess) {
@@ -165,8 +165,8 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if($rule->getLanguage() === false) {
-                    $rule->setLanguage($this);
+                if($rule->language === false) {
+                    $rule->language;
                 }
 
                 $rule->factory->setBase($name);
