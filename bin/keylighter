@@ -1,3 +1,4 @@
+#!/bin/env php
 <?php
 /**
  * Highlighter
@@ -17,7 +18,11 @@
 
 use Kadet\Highlighter\Utils\Console;
 
-require __DIR__.'/../vendor/autoload.php';
+if (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require __DIR__ . '/../../../autoload.php';
+} else {
+    require __DIR__.'/../vendor/autoload.php';
+}
 
 $title = Console::styled(['color' => 'yellow'], 'KeyLighter ').'v'.\Kadet\Highlighter\KeyLighter::VERSION.' by Kadet';
 $formatters = [
