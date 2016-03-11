@@ -42,6 +42,8 @@ class LatexLanguage extends Language
 
             'string.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
+                new Rule(new RegexMatcher('/(\\\\\(.*?\\\\\))/s')),
+                new Rule(new RegexMatcher('/(\\\\\[.*?\\\\\])/s')),
                 new Rule(
                     new RegexMatcher(
                         '/\\\begin{((?:' . implode('|', self::$mathEnvironments) . ')\*?)}(.*?)\\\end{\1}/s',

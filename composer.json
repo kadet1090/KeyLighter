@@ -21,6 +21,6 @@
     }
   },
   "bin": [
-    "bin/keylighter.php"
+    "bin/keylighter"
   ]
 }

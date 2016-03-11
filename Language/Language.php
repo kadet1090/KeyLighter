@@ -166,7 +166,7 @@ abstract class Language
             /** @var Rule $rule */
             foreach ($rules as $rule) {
                 if($rule->language === false) {
-                    $rule->language;
+                    $rule->language = $this;
                 }
 
                 $rule->factory->setBase($name);

@@ -69,6 +69,20 @@ function getOption($options, $value = true, $default = null) {
     return false;
 }
 
+function content($path) {
+    if(!($file = @fopen($path, 'r'))) {
+        return false;
+    }
+
+    $content = '';
+    while(!feof($file)) {
+        $content .= fgets($file);
+    }
+    fclose($file);
+
+    return $content;
+}
+
 function benchmark($description, callable $callable) {
     echo Console::styled(['color' => 'yellow'], $description.'... ');
     $start = microtime(true);
@@ -143,6 +157,7 @@ $formatter = getFormatter(getOption(['-f', '--format'])) ?: \Kadet\Highlighter\K
 $silent    = getOption(['-s', '--silent'], false, true);
 
 $file = reset($argv);
+$source = content($file);
 
 if($verbose > 0) {
     echo $title.PHP_EOL;
@@ -160,12 +175,11 @@ if($verbose > 0) {
     echo PHP_EOL;
 }
 
-if(!file_exists($file)) {
+if($source === false) {
     echo Console::styled(['color' => 'red'], 'File not exists.').PHP_EOL;
     die(1);
 }
 
-$source = file_get_contents($file);
 if($verbose > 1) {
     $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); });
     $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); });
