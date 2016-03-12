@@ -23,17 +23,14 @@ require_once __DIR__.'/../MatcherTestCase.php';
 class CommentMatcherTest extends MatcherTestCase
 {
     public function testSingleLine() {
-        $source = <<<SOURCE
-test // comment
-test # comment
-SOURCE;
+        $source = "test // comment\ntest # comment";
         $matcher = new CommentMatcher(['//', '#'], []);
 
         $this->assertTokens([
             ['start', 'pos' => 5],
-            ['end', 'pos' => 16],
-            ['start', 'pos' => 22],
-            ['end', 'pos' => 31],
+            ['end', 'pos' => 15],
+            ['start', 'pos' => 21],
+            ['end', 'pos' => 30],
         ], $matcher->match($source, $this->getFactory()));
     }
 
@@ -51,10 +48,8 @@ SOURCE;
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNamedSingle() {
-        $source = <<<SOURCE
-test /* test */ {# test2 #}
-SOURCE;
+    public function testNamedMulti() {
+        $source = "test /* test */ {# test2 #}";
         $matcher = new CommentMatcher([], ['first' => ['/*', '*/'], 'second' => ['{#', '#}']]);
 
         $this->assertTokens([
@@ -65,18 +60,15 @@ SOURCE;
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNamedMulti() {
-        $source = <<<SOURCE
-test // comment
-test # comment
-SOURCE;
+    public function testNamedSingle() {
+        $source = "test // comment\ntest # comment";
         $matcher = new CommentMatcher(['first' => '//', 'second' => '#'], []);
 
         $this->assertTokens([
             ['start', 'pos' => 5, 'name' => 'first'],
-            ['end', 'pos' => 16, 'name' => 'first'],
-            ['start', 'pos' => 22, 'name' => 'second'],
-            ['end', 'pos' => 31, 'name' => 'second'],
+            ['end', 'pos' => 15, 'name' => 'first'],
+            ['start', 'pos' => 21, 'name' => 'second'],
+            ['end', 'pos' => 30, 'name' => 'second'],
         ], $matcher->match($source, $this->getFactory()));
     }
 }
