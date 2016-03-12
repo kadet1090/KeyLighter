@@ -17,19 +17,6 @@ namespace Kadet\Highlighter\Utils;
 
 class StringHelper
 {
-    public static function findAll($haystack, $needle)
-    {
-        $pos = 0;
-        $results = [];
-
-        while (($pos = strpos($haystack, $needle, $pos)) !== false) {
-            $results[$pos] = $needle;
-            $pos += strlen($needle);
-        }
-
-        return $results;
-    }
-
     public static function positionToLine($source, $pos)
     {
         $source = substr($source, 0, $pos);
@@ -39,36 +26,8 @@ class StringHelper
         }
 
         return [
-            'line' => substr_count($source, PHP_EOL),
-            'pos'  => $pos - $last,
+            'line' => substr_count($source, PHP_EOL) + 1,
+            'pos'  => $pos - $last + 1,
         ];
-    }
-
-    public static function find($haystack, $needle, $offset = 0, &$match)
-    {
-        if (!is_array($needle)) {
-            $needle = [$needle];
-        }
-
-        $results = array_map(function ($str) use ($haystack, $offset) {
-            return [$str, strpos($haystack, $str, $offset)];
-        }, $needle);
-
-        if (count($results) === 0) {
-            return false;
-        }
-
-        $results = array_filter(
-            array_combine(ArrayHelper::column($results, 0), ArrayHelper::column($results, 1)),
-            function ($a) {
-                return $a !== false;
-            }
-        );
-        asort($results);
-        reset($results);
-
-        $match = key($results);
-
-        return current($results);
     }
 }
