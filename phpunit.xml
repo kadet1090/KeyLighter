@@ -11,7 +11,7 @@
             <directory suffix=".php">./Parser/</directory>
             <directory suffix=".php">./Utils/</directory>
             <file>./KeyLighter.php</file>
-            <file>./Languages/Language.php</file>
+            <file>./Language/Language.php</file>
             <exclude>
                 <directory>./Tests/</directory>
                 <directory>./Styles/</directory>

@@ -72,6 +72,8 @@ class Token
 
         if (isset($options['rule'])) {
             $this->setRule($options['rule']);
+        } else {
+            $this->setRule(new Rule());
         }
 
         if (isset($options['end'])) {
@@ -91,7 +93,13 @@ class Token
             $multiplier = $a->isEnd() ? -1 : 1;
 
             if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
-                return $multiplier;
+                if($a->getEnd() == $b) {
+                    return -1;
+                } elseif($a->getStart() == $b) {
+                    return 1;
+                } else {
+                    return $multiplier;
+                }
             } elseif (($rule = Helper::cmp($b->_rule->priority, $a->_rule->priority)) !== 0) {
                 return $multiplier*$rule;
             } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
