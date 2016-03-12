@@ -18,7 +18,9 @@
 
 use Kadet\Highlighter\Utils\Console;
 
+// For composer global instance
 if (file_exists(__DIR__ . '/../../../autoload.php')) {
+    /** @noinspection PhpIncludeInspection */ // Bug, we checked that it exist.
     require __DIR__ . '/../../../autoload.php';
 } else {
     require __DIR__.'/../vendor/autoload.php';
@@ -105,13 +107,13 @@ if($argc == 1) {
 
     echo Console::styled(['color' => 'green'], 'Options: '), PHP_EOL;
     printTable([
-        ['-l, --language',    'language', 'Source Language to highlight, default: html > php'],
-        ['-f, --format',      'format',   'Formatter used to highlight source, for example: html, default: cli'],
-        ['-h, --help',         null,      'This screen'],
-        ['-v, --verbose',     'level',    'Verbose mode'],
-        ['-lf, --formatters',  null,      'List available formatters'],
-        ['-ll, --languages',   null,      'List available languages'],
-        ['-s, --silent',       null,      'No output, '],
+        ['-l, --language',    'language', 'Source Language to highlight, default: html > php,'],
+        ['-f, --format',      'format',   'Formatter used to highlight source, for example: html, default: cli,'],
+        ['-h, --help',         null,      'This screen,'],
+        ['-v, --verbose',     'level',    'Verbose mode,'],
+        ['-lf, --formatters',  null,      'List available formatters,'],
+        ['-ll, --languages',   null,      'List available languages,'],
+        ['-s, --silent',       null,      'No output.'],
 
     ]);
     exit(0);

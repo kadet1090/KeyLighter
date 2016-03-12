@@ -119,9 +119,11 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
 
         $rule = new OpenRule($matcher);
+        $token = new Token(['token.name', 'pos' => 15, 'end' => new Token(['test', 'pos' => 25]), 'rule' => $rule]);
+
         $tokens = [
-            new Token(['token.name', 'pos' => 15, 'length' => 10, 'rule' => $rule]),
-            new Token(['token.name', 'pos' => 25, 'length' => 10, 'rule' => $rule]),
+            $token,
+            $token->getEnd(),
         ];
 
         $matcher->method('match')->willReturn($tokens);
@@ -137,9 +139,12 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
 
         $rule = new CloseRule($matcher);
+
+        $token = new Token(['token.name', 'pos' => 15, 'start' => new Token(['test', 'pos' => 25]), 'rule' => $rule]);
+
         $tokens = [
-            new Token(['token.name', 'pos' => 15, 'length' => 10, 'rule' => $rule]),
-            new Token(['token.name', 'pos' => 25, 'length' => 10, 'rule' => $rule]),
+            $token,
+            $token->getStart(),
         ];
 
         $matcher->method('match')->willReturn($tokens);
