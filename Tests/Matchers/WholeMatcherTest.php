@@ -15,7 +15,7 @@
 
 namespace Kadet\KeyLighter\Tests\Matchers;
 
-require_once __DIR__.'/../MatcherTestCase.php';
+require_once __DIR__ . '/../MatcherTestCase.php';
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\KeyLighter\Tests\MatcherTestCase;
