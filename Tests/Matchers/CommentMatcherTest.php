@@ -35,16 +35,12 @@ class CommentMatcherTest extends MatcherTestCase
     }
 
     public function testMultiLine() {
-        $source = <<<SOURCE
-test /*
-test
-*/
-SOURCE;
+        $source = "test /*\ntest\n*/";
         $matcher = new CommentMatcher([], [['/*', '*/']]);
 
         $this->assertTokens([
             ['start', 'pos' => 5],
-            ['end', 'pos' => 17],
+            ['end', 'pos' => 15],
         ], $matcher->match($source, $this->getFactory()));
     }
 
