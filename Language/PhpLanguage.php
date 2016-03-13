@@ -107,9 +107,6 @@ class PhpLanguage extends Language
             'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            /*'operator' => new Rule(new WordMatcher([
-                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0])*/
         ];
     }
 

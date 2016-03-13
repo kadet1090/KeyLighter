@@ -30,6 +30,7 @@ $title = Console::styled(['color' => 'yellow'], 'KeyLighter ').'v'.\Kadet\Highli
 $formatters = [
     'html' => new \Kadet\Highlighter\Formatter\HtmlFormatter(),
     'cli'  => new \Kadet\Highlighter\Formatter\CliFormatter(),
+    'debug'  => new \Kadet\Highlighter\Formatter\DebugFormatter(),
 ];
 
 function printTable($table, $spacing = 4) {
@@ -189,10 +190,25 @@ if($source === false) {
 
 if($verbose > 1) {
     $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); });
+
+    if($verbose > 3) {
+        echo Console::styled(['color' => 'green'], 'Token tree before parse:').PHP_EOL;
+        echo $formatters['debug']->format(clone $tokens, false);
+        echo PHP_EOL;
+    }
+
     $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); });
+
+    if($verbose > 2) {
+        echo Console::styled(['color' => 'green'], 'Token tree after parse:').PHP_EOL;
+        echo $formatters['debug']->format(clone $tokens);
+        echo PHP_EOL;
+    }
+
     $formatted = benchmark('Formatting', function() use($formatter, $tokens, $source) {
         return $formatter->format($tokens);
     });
+
 
     if(function_exists('xdebug_peak_memory_usage')) {
         echo Console::styled(['color' => 'green'], 'Max memory usage: ').number_format(xdebug_peak_memory_usage()/1024/1024, 4).'MBytes'.PHP_EOL;

@@ -19,6 +19,7 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
+use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
@@ -71,7 +72,14 @@ class JavaScriptLanguage extends Language
                 '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
             ], ['separated' => false]), ['priority' => 0]),
 
-//            'string.regex' => new Rule(new RegexMatcher('#\b/(.*?)/[gmixXsu\bUAJ]+#'))
+            'string.regex' => [
+                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#s')),
+                new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#s'), [
+                    'priority' => 1,
+                    'factory' => new TokenFactory('Kadet\Highlighter\Parser\MarkerToken'),
+                    'context' => ['!keyword.escape']
+                ])
+            ]
         ];
     }
 

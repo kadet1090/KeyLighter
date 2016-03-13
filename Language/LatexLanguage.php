@@ -35,10 +35,6 @@ class LatexLanguage extends Language
     {
         return [
             'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => ['!!'], 'priority' => -1]),
-            /*'string' => [
-                new OpenRule(new SubStringMatcher('{'), ['context' => ['!!'], 'inside' => true, 'priority' => 0]),
-                new CloseRule(new SubStringMatcher('}'), ['inside' => true, 'priority' => -2])
-            ],*/
 
             'string.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),

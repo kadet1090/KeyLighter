@@ -66,6 +66,9 @@ abstract class Language
      *
      * @param TokenIterator|string $tokens
      *
+     * @param array                $additional
+     * @param bool                 $embedded
+     *
      * @return TokenIterator
      */
     public function parse($tokens = null, $additional = [], $embedded = false)
