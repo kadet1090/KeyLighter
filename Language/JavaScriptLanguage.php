@@ -23,13 +23,25 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
+/**
+ * Class JavaScriptLanguage
+ *
+ * @package Kadet\Highlighter\Language
+ *
+ * @property bool $variables
+ */
 class JavaScriptLanguage extends Language
 {
+    protected $_options = [
+        'variables' => true,
+        'methods'   => true
+    ];
+
     const IDENTIFIER = '[\p{L}\p{Nl}$_][\p{L}\p{Nl}$\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*';
 
     public function getRules()
     {
-        return [
+        $rules = [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
@@ -39,12 +51,18 @@ class JavaScriptLanguage extends Language
                 'context' => ['!keyword.escape', '!comment', '!string'],
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
             ]),
+        ];
 
-            'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), ['priority' => -10000]),
-            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
-                'priority' => -2
-            ]),
+        if($this->variables) {
+            $rules = array_merge($rules, [
+                'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), ['priority' => -10000]),
+                'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
+                    'priority' => -2
+                ]),
+            ]);
+        }
 
+        $rules = array_merge($rules, [
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
@@ -73,14 +91,16 @@ class JavaScriptLanguage extends Language
             ], ['separated' => false]), ['priority' => 0]),
 
             'string.regex' => [
-                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#s')),
-                new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#s'), [
+                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m')),
+                new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
                     'priority' => 1,
                     'factory' => new TokenFactory('Kadet\Highlighter\Parser\MarkerToken'),
-                    'context' => ['!keyword.escape']
+                    'context' => ['!keyword.escape', 'string.regex']
                 ])
             ]
-        ];
+        ]);
+
+        return $rules;
     }
 
     public function getIdentifier()

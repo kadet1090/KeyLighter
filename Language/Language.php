@@ -40,7 +40,7 @@ abstract class Language
     /**
      * @var array
      */
-    private $_options = [];
+    protected $_options = [];
 
     /**
      * Language constructor.
@@ -50,7 +50,8 @@ abstract class Language
     public function __construct(array $options = []) {
         $this->_options  = array_merge([
             'embedded' => [],
-        ], $options);
+        ], $this->_options, $options);
+
         $this->_rules    = $this->getRules();
     }
 
@@ -243,5 +244,13 @@ abstract class Language
      */
     public function embed(Language $lang) {
         $this->_options['embedded'][] = $lang;
+    }
+
+    public function __get($name) {
+        return isset($this->_options[$name]) ? $this->_options[$name] : null;
+    }
+
+    public function __set($name, $value) {
+        $this->_options[$name] = $value;
     }
 }

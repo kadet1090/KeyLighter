@@ -1,4 +1,4 @@
-#!/bin/env php
+#!/usr/bin/env php
 <?php
 /**
  * Highlighter
@@ -167,6 +167,11 @@ $silent    = getOption(['-s', '--silent'], false, true);
 $file = reset($argv);
 $source = content($file);
 
+if($source === false) {
+    echo Console::styled(['color' => 'red'], 'File not exists.').PHP_EOL;
+    die(1);
+}
+
 if($verbose > 0) {
     echo $title.PHP_EOL;
     echo PHP_EOL;
@@ -179,13 +184,8 @@ if($verbose > 0) {
     }
 
     echo Console::styled(['color' => 'green'], 'Formatter: ').get_class($formatter).PHP_EOL;
-    echo Console::styled(['color' => 'green'], 'File:      ').$file.PHP_EOL;
+    echo Console::styled(['color' => 'green'], 'File:      ').$file.' (size: '.number_format(strlen($source) / 1024, 2).'kb)'.PHP_EOL;
     echo PHP_EOL;
-}
-
-if($source === false) {
-    echo Console::styled(['color' => 'red'], 'File not exists.').PHP_EOL;
-    die(1);
 }
 
 if($verbose > 1) {
