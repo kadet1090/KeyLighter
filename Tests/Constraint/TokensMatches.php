@@ -13,7 +13,7 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests\Constraint;
+namespace Kadet\Highlighter\Tests\Constraint;
 
 
 use Kadet\Highlighter\Parser\Token;

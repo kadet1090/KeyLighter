@@ -68,21 +68,22 @@ abstract class Language
      *
      * @return TokenIterator
      */
-    public function parse($tokens = null, $additional = [])
+    public function parse($tokens = null, $additional = [], $embedded = false)
     {
         if (is_string($tokens)) {
-            $tokens = $this->tokenize($tokens, $additional);
+            $tokens = $this->tokenize($tokens, $additional, $embedded);
         } elseif(!$tokens instanceof TokenIterator) {
+            // Todo: Own Exceptions
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
         $start = $tokens->current();
 
-        /** @var Token[] $result */
-        $result = [$start];
 
         $context = [];
-        $all = [];
+
+        /** @var Token[] $result */ $result = [$start];
+        /** @var Token[] $all */    $all    = [];
 
         /** @var Token $token */
         for($tokens->next(); $tokens->valid(); $tokens->next()) {
@@ -94,7 +95,7 @@ abstract class Language
 
             if ($token->isStart()) {
                 if ($token instanceof LanguageToken) {
-                    /** @noinspection PhpUndefinedMethodInspection bug */
+                    /** @var LanguageToken $token */
                     $result = array_merge(
                         $result,
                         $token->getInjected()->parse($tokens)->getTokens()
@@ -106,19 +107,22 @@ abstract class Language
             } else {
                 $start = $token->getStart();
 
+                /** @noinspection PhpUndefinedMethodInspection bug */
                 if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
                     $result[0]->setEnd($token);
 
                     if($result[0]->getRule()->postProcess) {
                         $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
 
-                        $tokens = $this->tokenize($source, $result, $result[0]->pos);
+                        $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
                         $result = $this->parse($tokens)->getTokens();
                     }
 
                     # closing unclosed tokens
                     foreach(array_reverse($context) as $hash => $name) {
-                        $result[$hash]->setEnd(new Token([$name, 'pos' => $token->pos]));
+                        $end = new Token([$name, 'pos' => $token->pos]);
+                        $all[$hash]->setEnd($end);
+                        $result[] = $end;
                     }
 
                     $result[] = $token;
@@ -149,16 +153,24 @@ abstract class Language
     /**
      * Tokenize source
      *
-     * @param $source
+     * @param       $source
+     *
+     * @param int   $offset
+     * @param array $additional
+     *
+     * @param bool  $embedded
      *
      * @return array
      */
-    private function _tokens($source, $additional = [], $offset = 0)
+    private function _tokens($source, $offset = 0, $additional = [], $embedded = false)
     {
-        $this->_rules['language.' . $this->getIdentifier()] = $this->getOpenClose();
+        $all = $this->_rules;
+        if(!$embedded) {
+            $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
+        }
 
         $result = [];
-        foreach ($this->_rules as $name => $rules) {
+        foreach ($all as $name => $rules) {
             if (!is_array($rules)) {
                 $rules = [$rules];
             }
@@ -170,27 +182,22 @@ abstract class Language
                 }
 
                 $rule->factory->setBase($name);
+                $rule->factory->setOffset($offset);
+
                 $result = array_merge($result, $rule->match($source));
             }
         }
 
         foreach($this->getEmbedded() as $language) {
-            $result = array_merge($result, $language->_tokens($source));
-        }
-
-        // Array map would be cool, but is a lot slower
-        if($offset) {
-            foreach ($result as $item) {
-                $item->pos += $offset;
-            }
+            $result = array_merge($result, $language->_tokens($source, $offset));
         }
 
         return array_merge($result, $additional);
     }
 
-    public function tokenize($source, $additional = [], $offset = 0)
+    public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
-        $iterator = new TokenIterator($this->_tokens($source, $additional, $offset), $source);
+        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded), $source);
         $iterator->sort();
         $iterator->rewind();
         return $iterator;
@@ -215,7 +222,8 @@ abstract class Language
                 'priority' => 1000,
                 'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
                 'inject'   => $this,
-                'language' => null
+                'language' => null,
+                'context'  => ['!!']
             ]
         );
     }

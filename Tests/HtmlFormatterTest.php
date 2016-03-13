@@ -13,7 +13,7 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests;
+namespace Kadet\Highlighter\Tests;
 
 
 use Kadet\Highlighter\Formatter\HtmlFormatter;

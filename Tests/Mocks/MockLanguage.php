@@ -13,7 +13,7 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests\Mocks;
+namespace Kadet\Highlighter\Tests\Mocks;
 
 
 use Kadet\Highlighter\Language\Language;

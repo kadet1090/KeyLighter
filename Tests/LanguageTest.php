@@ -13,13 +13,15 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests;
+namespace Kadet\Highlighter\Tests;
 
 require_once __DIR__.'/MatcherTestCase.php';
 require_once __DIR__.'/Mocks/MockLanguage.php';
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
+use Kadet\Highlighter\Parser\CloseRule;
+use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
@@ -137,5 +139,34 @@ class LanguageTest extends MatcherTestCase
                 ['end'  , 'pos' => 19, 'name' => 'language.embedded'],
             ['end'  , 'pos' => 19, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('keyword { keyword }')), true);
+    }
+
+    public function testUnclosedTokens() {
+        $language = new Mocks\MockLanguage(['rules' => [
+            'keyword' => new OpenRule(new SubStringMatcher('(')),
+        ]]);
+
+        $this->assertTokens([
+            ['start', 'pos' => 0, 'name' => 'language.mock'],
+                ['start', 'pos' => 3, 'name' => 'keyword'],
+                ['end'  , 'pos' => 7, 'name' => 'keyword'],
+            ['end'  , 'pos' => 7, 'name' => 'language.mock'],
+        ], iterator_to_array($language->parse('te ( st')), true);
+    }
+
+    public function testRangeTokens() {
+        $language = new Mocks\MockLanguage(['rules' => [
+            'keyword' => [
+                new OpenRule(new SubStringMatcher('(')),
+                new CloseRule(new SubStringMatcher(')'))
+            ],
+        ]]);
+
+        $this->assertTokens([
+            ['start', 'pos' => 0, 'name' => 'language.mock'],
+                ['start', 'pos' => 4, 'name' => 'keyword'],
+                ['end'  , 'pos' => 11, 'name' => 'keyword'],
+            ['end'  , 'pos' => 15, 'name' => 'language.mock'],
+        ], iterator_to_array($language->parse('foo ( bar ) foo')), true);
     }
 }

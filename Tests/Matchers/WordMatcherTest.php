@@ -13,12 +13,11 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests\Matchers;
+namespace Kadet\Highlighter\Tests\Matchers;
 
-require_once __DIR__ . '/../MatcherTestCase.php';
 
 use Kadet\Highlighter\Matcher\WordMatcher;
-use Kadet\KeyLighter\Tests\MatcherTestCase;
+use Kadet\Highlighter\Tests\MatcherTestCase;
 
 class WordMatcherTest extends MatcherTestCase
 {

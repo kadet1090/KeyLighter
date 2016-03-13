@@ -18,7 +18,8 @@
   "autoload": {
     "psr-4": {
       "Kadet\\Highlighter\\": "."
-    }
+    },
+    "files": ["./functions.php"]
   },
   "bin": [
     "bin/keylighter"

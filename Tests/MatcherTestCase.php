@@ -13,12 +13,11 @@
  * From Kadet with love.
  */
 
-namespace Kadet\KeyLighter\Tests;
+namespace Kadet\Highlighter\Tests;
 
-require_once __DIR__.'/Constraint/TokensMatches.php';
 
 use Kadet\Highlighter\Parser\TokenFactory;
-use Kadet\KeyLighter\Tests\Constraint\TokensMatches;
+use Kadet\Highlighter\Tests\Constraint\TokensMatches;
 use PHPUnit_Framework_Exception;
 
 class MatcherTestCase extends \PHPUnit_Framework_TestCase

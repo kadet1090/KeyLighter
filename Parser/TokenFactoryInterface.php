@@ -26,4 +26,5 @@ interface TokenFactoryInterface
     public function setRule($rule);
     public function setClass($class);
     public function setBase($base);
+    public function setOffset($base);
 }

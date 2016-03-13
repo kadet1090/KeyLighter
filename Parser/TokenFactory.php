@@ -24,6 +24,7 @@ class TokenFactory implements TokenFactoryInterface
     private $_class;
     private $_base;
     private $_rule;
+    private $_offset;
 
     private $_cache = [];
 
@@ -40,6 +41,10 @@ class TokenFactory implements TokenFactoryInterface
         $params[0] = !empty($params[0]) ? $this->getName($params[0]) : $this->_base;
         if(empty($params['rule'])) {
             $params['rule'] = $this->_rule;
+        }
+
+        if(isset($params['pos'])) {
+            $params['pos'] += $this->getOffset();
         }
 
         return new $this->_class($params);
@@ -93,6 +98,24 @@ class TokenFactory implements TokenFactoryInterface
     {
         return $this->_class;
     }
+
+    /**
+     * @return int
+     */
+    public function getOffset()
+    {
+        return $this->_offset;
+    }
+
+    /**
+     * @param int $offset
+     */
+    public function setOffset($offset)
+    {
+        $this->_offset = $offset;
+    }
+
+
 
     /**
      * @param mixed $class

@@ -19,29 +19,32 @@ use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Utils\Singleton;
 
 class KeyLighter
 {
+    use Singleton;
+
     const VERSION = '0.2.0';
 
     /** @var */
-    private static $_languages = [];
+    private $_languages = [];
     /** @var FormatterInterface */
-    private static $_formatter = null;
+    private $_formatter = null;
 
     /**
      * @param string $name
      *
      * @return Language
      */
-    public static function getLanguage($name) {
+    public function getLanguage($name) {
         $embedded = [];
         if(($pos = strpos($name, '>')) !== false) {
             $embedded[] = self::getLanguage(trim(substr($name, $pos + 1)));
             $name       = trim(substr($name, 0, $pos));
         }
 
-        $lang = isset(self::$_languages[$name]) ? self::$_languages[$name] : 'Kadet\\Highlighter\\Language\\PlainText';
+        $lang = isset($this->_languages[$name]) ? $this->_languages[$name] : 'Kadet\\Highlighter\\Language\\PlainText';
         return new $lang([
             'embedded' => $embedded
         ]);
@@ -51,46 +54,46 @@ class KeyLighter
      * @param Language|callable|string $language
      * @param $aliases
      */
-    public static function registerLanguage($language, $aliases) {
-        self::$_languages = array_merge(self::$_languages, array_fill_keys($aliases, $language));
+    public function registerLanguage($language, $aliases) {
+        $this->_languages = array_merge($this->_languages, array_fill_keys($aliases, $language));
     }
 
-    public static function setDefaultFormatter(FormatterInterface $formatter) {
-        self::$_formatter = $formatter;
+    public function setDefaultFormatter(FormatterInterface $formatter) {
+        $this->_formatter = $formatter;
     }
 
-    public static function registeredLanguages() {
-        return self::$_languages;
+    public function registeredLanguages() {
+        return $this->_languages;
     }
 
-    public static function getDefaultFormatter() {
-        return self::$_formatter;
+    public function getDefaultFormatter() {
+        return $this->_formatter;
     }
 
-    public static function highlight($source, $language, FormatterInterface $formatter = null) {
-        $formatter = $formatter ?: self::getDefaultFormatter();
+    public function highlight($source, $language, FormatterInterface $formatter = null) {
+        $formatter = $formatter ?: $this->getDefaultFormatter();
 
         if(!$language instanceof Language) {
-            $language = self::getLanguage($language);
+            $language = $this->getLanguage($language);
         }
 
         return $formatter->format($language->parse($source));
     }
+
+    public function __construct() {
+        $this->setDefaultFormatter(
+            php_sapi_name() === 'cli' ?
+                new CliFormatter() :
+                new HtmlFormatter()
+        );
+
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'xaml']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\HtmlLanguage', ['html', 'htm']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\PowerShellLanguage', ['powershell', 'posh', 'ps1']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none', 'txt']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini', 'cfg']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);
+    }
 }
-
-# Acts like static constructor
-
-KeyLighter::setDefaultFormatter(
-    php_sapi_name() === 'cli' ?
-        new CliFormatter() :
-        new HtmlFormatter()
-);
-
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'xaml']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\HtmlLanguage', ['html', 'htm']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PowerShellLanguage', ['powershell', 'posh', 'ps1']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none', 'txt']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini', 'cfg']);
-KeyLighter::registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);

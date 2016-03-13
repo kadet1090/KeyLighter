@@ -122,7 +122,7 @@ if($argc == 1) {
 unset($argv[0]);
 
 if(getOption(['-ll', '--languages'], false, true)) {
-    $languages = \Kadet\Highlighter\KeyLighter::registeredLanguages();
+    $languages = \Kadet\Highlighter\KeyLighter::get()->registeredLanguages();
 
     $result = [];
     foreach($languages as $alias => $class) {
@@ -158,9 +158,9 @@ if(getOption(['-lf', '--formatters'], false, true)) {
     exit(0);
 }
 
-$language  = \Kadet\Highlighter\KeyLighter::getLanguage(getOption(['-l', '--language']) ?: 'html > php');
+$language  = \Kadet\Highlighter\KeyLighter::get()->getLanguage(getOption(['-l', '--language']) ?: 'html > php');
 $verbose   = getOption(['-v', '--verbose'], true, 1)  ?: 0;
-$formatter = getFormatter(getOption(['-f', '--format'])) ?: \Kadet\Highlighter\KeyLighter::getDefaultFormatter();
+$formatter = getFormatter(getOption(['-f', '--format'])) ?: \Kadet\Highlighter\KeyLighter::get()->getDefaultFormatter();
 $silent    = getOption(['-s', '--silent'], false, true);
 
 $file = reset($argv);
@@ -200,7 +200,7 @@ if($verbose > 1) {
 
     echo PHP_EOL;
 } else {
-    $formatted = \Kadet\Highlighter\KeyLighter::highlight($source, $language, $formatter);
+    $formatted = \Kadet\Highlighter\KeyLighter::get()->highlight($source, $language, $formatter);
 }
 
 if(!$silent) {

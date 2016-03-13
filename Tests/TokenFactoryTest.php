@@ -49,6 +49,12 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('token', $factory->getBase());
     }
 
+    public function testOffset() {
+        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
+        $factory->setOffset(10);
+        $this->assertEquals(15, $factory->create(['token', 'pos' => 5])->pos);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
