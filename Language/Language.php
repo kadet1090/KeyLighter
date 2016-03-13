@@ -97,7 +97,7 @@ abstract class Language
                     /** @noinspection PhpUndefinedMethodInspection bug */
                     $result = array_merge(
                         $result,
-                        $token->getLanguage()->parse($tokens)->getTokens()
+                        $token->getInjected()->parse($tokens)->getTokens()
                     );
                 } else {
                     $all[spl_object_hash($token)] = $result[] = $token;
@@ -106,7 +106,7 @@ abstract class Language
             } else {
                 $start = $token->getStart();
 
-                if ($token instanceof LanguageToken && $token->getRule()->language === $this) {
+                if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
                     $result[0]->setEnd($token);
 
                     if($result[0]->getRule()->postProcess) {

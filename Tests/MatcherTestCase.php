@@ -19,16 +19,13 @@ require_once __DIR__.'/Constraint/TokensMatches.php';
 
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\KeyLighter\Tests\Constraint\TokensMatches;
-use PHPUnit_Util_InvalidArgumentHelper;
+use PHPUnit_Framework_Exception;
 
 class MatcherTestCase extends \PHPUnit_Framework_TestCase
 {
     public function assertTokens($expected, $actual, $message = '') {
         if(count($expected) !== count($actual)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(
-                2,
-                'Token count mismatches'
-            );
+            throw new PHPUnit_Framework_Exception('Token count mismatches');
         }
 
         $constraint = new TokensMatches($expected);

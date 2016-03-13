@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 
+use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
@@ -84,5 +85,28 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($token->isEnd());
         $this->assertFalse($close->isEnd());
+    }
+
+    public function testInvalidation() {
+        /** @var Language $language */
+        $language = $this->getMock('Kadet\Highlighter\Language\Language');
+
+        $token = new Token(['test.name', 'pos' => 15, 'length' => 10]);
+
+        $token->setValid(false);
+        $this->assertFalse($token->isValid($language));
+        $this->assertFalse($token->getEnd()->isValid($language));
+
+        $token->getEnd()->setValid(true);
+        $this->assertTrue($token->isValid($language));
+        $this->assertTrue($token->getEnd()->isValid($language));
+    }
+
+    public function testTokenValidation() {
+        /** @var Language $language */
+        $language = $this->getMock('Kadet\Highlighter\Language\Language');
+
+        $token = new Token(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
+        $this->assertTrue($token->isValid($language, []));
     }
 }

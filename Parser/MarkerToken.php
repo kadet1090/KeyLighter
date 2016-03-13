@@ -38,10 +38,10 @@ class MarkerToken extends Token
         return $this->_type;
     }
 
-
     protected function validate(Language $language, $context)
     {
         if($language !== $this->getRule()->language) {
+            $this->setValid(false);
             return false;
         }
 

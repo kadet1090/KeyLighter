@@ -173,7 +173,7 @@ class Rule
 
     public function __get($option)
     {
-        return $this->_options[$option];
+        return isset($this->_options[$option]) ? $this->_options[$option] : null;
     }
 
     public function __set($option, $value)
