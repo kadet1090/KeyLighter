@@ -13,9 +13,7 @@
             <file>./KeyLighter.php</file>
             <file>./Language/Language.php</file>
             <exclude>
-                <directory>./Tests/</directory>
-                <directory>./Styles/</directory>
-                <directory>./vendor/</directory>
+                <file>./Formatter/DebugFormatter.php</file>
             </exclude>
         </whitelist>
     </filter>

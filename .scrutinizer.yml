@@ -1,6 +1,7 @@
 filter:
     excluded_paths:
         - Tests/*
+        - Formatter/DebugFormatter.php
 build:
     tests:
         override:
