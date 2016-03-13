@@ -1,5 +1,5 @@
 ![Logo](http://kadet.net/keylighter/logo.png)
-# KeyLighter [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
+# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) ![Build](https://img.shields.io/scrutinizer/build/g/kadet1090/keylighter.svg?style=flat-square) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
@@ -27,7 +27,13 @@ Just like any other composer library add `kadet/keylighter` to your
 
 Simple usage example:
 ```php
-echo \Kadet\Highlighter\KeyLighter::highlight($source, $language, $formatter); 
+echo \Kadet\Highlighter\highlight($source, $language, $formatter);
+// or
+echo \Kadet\Highlighter\KeyLighter::get()->highlight($source, $language, $formatter);
+// or
+$keylighter = new \Kadet\Highlighter\KeyLighter([options]);
+echo $keylighter->highlight($source, $language, $formatter);
+
 ```
 Thats it, nothing more.
 
@@ -71,7 +77,7 @@ You can always write your own Formatter and use it for outputting data,
 I will describe writing formatters on wiki soon™.
 
 
-### It's context sensitive 
+### Context sensitive 
 Some of tokens are valid in some contexts, some not. This library 
 is context sensitive and you can define when they are valid.
 
@@ -163,18 +169,40 @@ Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in
 
 ![Optimized for php7.0](http://kadet.net/keylighter/language-embedding.png)
 
-### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg)
+### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg?style=flat-square)
 Even though it wasn't supposed to be fastest code highlighter in PHP 
 it is still quite fast, up to about 7.5x faster than [GeSHi](http://geshi.org/).
 It performs best on PHP 7 (more than 2x faster than GeSHi in every case).
 Unfortunately in some cases can be little bit slower than GeSHi (Some files on PHP 5.4)
 You can find more about performance in [wiki](https://github.com/kadet1090/KeyLighter/wiki/Performance).
 
-## Roadmap
-There are still few things to do, you can find all of them (and even propose) on [trello](https://trello.com/b/9I4CO0Te/highlighter). Most important are:
+### Comes with CLI App
+It's possible to install **KeyLighter** as global composer library
+```bash
+$ composer global require kadet/keylighter
+```
+Then you can use builtin simple cli highlighting app:
+```bash
+$ keylighter [options] file
+Options:
+        -l, --language       language    Source Language to highlight, default: html > php,
+        -f, --format         format      Formatter used to highlight source, for example: html, default: cli,
+        -h, --help                       This screen,
+        -v, --verbose        level       Verbose mode,
+        -lf, --formatters                List available formatters,
+        -ll, --languages                 List available languages,
+        -s, --silent                     No output.
+```
+If you want pipe into **KeyLighter** just specify `php://stdin` as file.
 
-### Tests
-As it was supposed to be weekend project I didn't write any tests for it, but obviously now they are necessary. 
+## Testing ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
+**KeyLighter** uses `phpunit` for testing:
+```bash
+$ phpunit
+```
+
+## Roadmap
+There are still few things to do, you can find all of them (and even propose) on [trello](https://trello.com/b/9I4CO0Te/highlighter).
 
 ## Thanks
 For [Maciej](https://github.com/ksiazkowicz), [Maciej](https://github.com/sobak) and Monika for all support, moral too.
