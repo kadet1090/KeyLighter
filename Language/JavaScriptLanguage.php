@@ -33,8 +33,7 @@ use Kadet\Highlighter\Parser\TokenFactory;
 class JavaScriptLanguage extends Language
 {
     protected $_options = [
-        'variables' => true,
-        'methods'   => true
+        'variables' => false,
     ];
 
     const IDENTIFIER = '[\p{L}\p{Nl}$_][\p{L}\p{Nl}$\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*';
@@ -51,14 +50,14 @@ class JavaScriptLanguage extends Language
                 'context' => ['!keyword.escape', '!comment', '!string'],
                 'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
             ]),
+            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
+                'priority' => -2
+            ]),
         ];
 
         if($this->variables) {
             $rules = array_merge($rules, [
                 'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), ['priority' => -10000]),
-                'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
-                    'priority' => -2
-                ]),
             ]);
         }
 
@@ -81,14 +80,12 @@ class JavaScriptLanguage extends Language
                 'while', 'yield', 'delete', 'export', 'import', 'public', 'return', 'static', 'switch',
                 'typeof', 'default', 'extends', 'finally', 'package', 'private', 'continue', 'debugger',
                 'function', 'arguments', 'interface', 'protected', 'implements', 'instanceof',
-            ]), ['context' => ['!string', '!variable', '!comment']]),
+            ]), ['context' => ['!string', '!comment']]),
 
             'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            'operator' => new Rule(new WordMatcher([
-                '->', '++', '--', '-', '+', '/', '*', '**', '||', '&&', '^', '%', '&', '@', '!', '|', ':', '.'
-            ], ['separated' => false]), ['priority' => 0]),
+            'operator' => new Rule(new RegexMatcher('/(\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
 
             'string.regex' => [
                 new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m')),

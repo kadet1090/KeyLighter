@@ -24,6 +24,7 @@ use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
 class EmbeddedLanguage extends Mocks\MockLanguage {
     public function getOpenClose()
@@ -168,5 +169,16 @@ class LanguageTest extends MatcherTestCase
                 ['end'  , 'pos' => 11, 'name' => 'keyword'],
             ['end'  , 'pos' => 15, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('foo ( bar ) foo')), true);
+    }
+
+    public function testOptions() {
+        $language = new MockLanguage([
+            'test' => 'foo'
+        ]);
+
+        $language->bar = 'foo';
+
+        $this->assertEquals('foo', $language->test);
+        $this->assertEquals('foo', $language->bar);
     }
 }

@@ -21,14 +21,24 @@ use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Utils\Singleton;
 
+/**
+ * KeyLighter helper class, used to simplify usage.
+ *
+ * @package Kadet\Highlighter
+ */
 class KeyLighter
 {
     use Singleton;
 
     const VERSION = '0.2.0';
 
-    /** @var */
+    /**
+     * Registered aliases
+     *
+     * @var string[]
+     */
     private $_languages = [];
+
     /** @var FormatterInterface */
     private $_formatter = null;
 
