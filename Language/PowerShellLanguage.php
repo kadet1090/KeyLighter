@@ -88,34 +88,34 @@ class PowerShellLanguage extends Language
                 'Else', 'Elseif', 'End', 'Exit', 'Filter', 'Finally', 'For', 'ForEach',
                 'From', 'Function', 'If', 'In', 'InlineScript', 'Hidden', 'Parallel', 'Param',
                 'Process', 'Return', 'Sequence', 'Switch', 'Throw', 'Trap', 'Try', 'Until', 'While', 'Workflow'
-            ])),
+            ]), ['priority' => 3]),
 
             'operator' => new Rule(new RegexMatcher('/(&|\-eq|\-ne|\-gt|\-ge|\-lt|\-le|\-ieq|\-ine|\-igt|\-ige|\-ilt|\-ile|\-ceq|\-cne|\-cgt|\-cge|\-clt|\-cle|\-like|\-notlike|\-match|\-notmatch|\-ilike|\-inotlike|\-imatch|\-inotmatch|\-clike|\-cnotlike|\-cmatch|\-cnotmatch|\-contains|\-notcontains|\-icontains|\-inotcontains|\-ccontains|\-cnotcontains|\-isnot|\-is|\-as|\-replace|\-ireplace|\-creplace|\-and|\-or|\-band|\-bor|\-not|\-bnot|\-f|\-casesensitive|\-exact|\-file|\-regex|\-wildcard)\b/i'), [
                 'context' => ['!string', '!comment']
             ]),
 
-            'parameter' => new Rule(new RegexMatcher('/(-\w+:?)\b/i'), [
+            'parameter' => new Rule(new RegexMatcher('/\s(-\w+:?)\b/i'), [
                 'priority' => 0,
                 'context' => ['!string', '!comment', '!call']
             ]),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';', '.', '::', '%'], ['separated' => false]), [
                 'priority' => 0,
-                'context' => ['!string', '!comment']
+                'context' => ['!string', '!comment', '!call']
             ]),
 
             'number' => [
                 new Rule(new RegexMatcher('/(-?(?:0x[0-9a-f]+|\d+)l?(?:kb|mb|gb|tb|pb)?)/i'), [
                     'priority' => 0,
-                    'context' => ['!string', '!comment', '!variable']
+                    'context' => ['!string', '!comment', '!variable', '!call']
                 ]),
                 new Rule(new RegexMatcher('/(-?(?>\d+)?\.\d+(?>d|l)(?>e(?:\+|-)?\d+)?(?:kb|mb|gb|tb|pb)?)/i'), [
                     'priority' => 0,
-                    'context' => ['!string', '!comment', '!variable']
+                    'context' => ['!string', '!comment', '!variable', '!call']
                 ])
             ],
 
-            'call' => new Rule(new RegexMatcher('/\b(\w+-\w+)\b/i'), ['priority' => 10])
+            'call' => new Rule(new RegexMatcher('/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*(\w[\w-\.]+)/i'), ['priority' => 2])
         ];
     }
 
