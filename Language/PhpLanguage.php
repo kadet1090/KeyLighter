@@ -20,6 +20,8 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
+use Kadet\Highlighter\Parser\LanguageToken;
+use Kadet\Highlighter\Parser\MarkerToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token;
@@ -32,12 +34,12 @@ class PhpLanguage extends Language
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(MarkerToken::className()),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(MarkerToken::className()),
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
@@ -113,7 +115,7 @@ class PhpLanguage extends Language
     public function getOpenClose() {
         return [
             new OpenRule(new RegexMatcher('/(<\?php|<\?=)/si'), [
-                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'factory'  => new TokenFactory(LanguageToken::className()),
                 'priority' => 1000,
                 'context'  => ['*'],
                 'inject'   => $this,
@@ -122,7 +124,7 @@ class PhpLanguage extends Language
             new CloseRule(new RegexMatcher('/(\?>|$)/'), [
                 'context'  => ['!string', '!comment'],
                 'priority' => 1000,
-                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'factory'  => new TokenFactory(LanguageToken::className()),
                 'language' => $this
             ])
         ];

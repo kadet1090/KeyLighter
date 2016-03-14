@@ -62,7 +62,7 @@ class KeyLighter
 
     /**
      * @param Language|callable|string $language
-     * @param $aliases
+     * @param array[string]            $aliases
      */
     public function registerLanguage($language, $aliases) {
         $this->_languages = array_merge($this->_languages, array_fill_keys($aliases, $language));

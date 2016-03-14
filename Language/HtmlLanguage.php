@@ -18,6 +18,7 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
+use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
@@ -30,13 +31,13 @@ class HtmlLanguage extends XmlLanguage
         return array_merge(parent::getRules(), [
             'language.'.$js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
-                    'factory'     => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                    'factory'     => new TokenFactory(LanguageToken::className()),
                     'inject'      => $js,
                     'language'    => $this,
                     'postProcess' => true
                 ]),
                 new CloseRule(new RegexMatcher('/()<\/script>/'), [
-                    'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                    'factory'  => new TokenFactory(LanguageToken::className()),
                     'language' => $js
                 ])
             ]

@@ -224,7 +224,7 @@ abstract class Language
         return new Rule(
             new WholeMatcher(), [
                 'priority' => 1000,
-                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'factory'  => new TokenFactory(LanguageToken::className()),
                 'inject'   => $this,
                 'language' => null,
                 'context'  => ['!!']

@@ -18,6 +18,7 @@ namespace Kadet\Highlighter\Formatter;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Utils\Console;
+use Kadet\Highlighter\Utils\StringHelper;
 
 /**
  * Class CliFormatter
@@ -26,6 +27,17 @@ use Kadet\Highlighter\Utils\Console;
  */
 class DebugFormatter implements FormatterInterface
 {
+    private $_styles;
+
+    /**
+     * CliFormatter constructor.
+     *
+     * @param $styles
+     */
+    public function __construct($styles = false) {
+        $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
+    }
+
     public function format(TokenIterator $tokens, $leveled = true)
     {
         $source = $tokens->getSource();
@@ -37,13 +49,7 @@ class DebugFormatter implements FormatterInterface
 
         /** @var Token $token */
         foreach ($tokens as $token) {
-            $content = trim(substr($source, $last, $token->pos - $last));
-            if(!empty($content)) {
-                if($leveled) {
-                    $result .= str_repeat('    ', $level);
-                }
-                $result .= $content.PHP_EOL;
-            }
+            $pos = StringHelper::positionToLine($source, $token->pos);
 
             if ($token->isStart()) {
                 if($leveled) {
@@ -51,11 +57,19 @@ class DebugFormatter implements FormatterInterface
                 }
 
                 $result .=
-                    Console::styled(['color' => 'green'], 'Open: ').
-                    Console::styled(['color' => 'yellow'], $token->name).' '.
+                    Console::styled(['color' => 'yellow'], 'Open  ').
+                    '['.$pos['line'].':'.$pos['pos'].'] '.
+                    Console::styled(['bold' => true], $token->name).' '.
                     Console::styled(['color' => 'blue'], get_class($token)).
                     PHP_EOL;
                 $level++;
+                $result .= Console::styled(self::getColor($token->name),
+                    ($leveled ? str_repeat('    ', $level) : null).
+                    implode(
+                        PHP_EOL.($leveled ? str_repeat('    ', $level) : null),
+                        explode(PHP_EOL, substr($source, $token->pos, $token->getLength()))
+                    ).
+                    PHP_EOL);
             } else {
                 $level--;
 
@@ -64,8 +78,9 @@ class DebugFormatter implements FormatterInterface
                 }
 
                 $result .=
-                    Console::styled(['color' => 'red'], 'Close: ').
-                    Console::styled(['color' => 'yellow'], $token->name).
+                    Console::styled(['color' => 'red'], 'Close ').
+                    '['.$pos['line'].':'.$pos['pos'].'] '.
+                    Console::styled(['bold' => true], $token->name).
                     PHP_EOL;
             }
 
@@ -74,5 +89,20 @@ class DebugFormatter implements FormatterInterface
         $result .= substr($source, $last).Console::reset();
 
         return $result;
+    }
+
+    public function getColor($token)
+    {
+        do {
+            if(isset($this->_styles[$token])) {
+                return $this->_styles[$token];
+            }
+
+            $token = explode('.', $token);
+            array_pop($token);
+            $token = implode('.', $token);
+        } while (!empty($token));
+
+        return null;
     }
 }

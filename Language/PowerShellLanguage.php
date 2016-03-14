@@ -17,10 +17,10 @@ namespace Kadet\Highlighter\Language;
 
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
-use Kadet\Highlighter\Matcher\QuoteMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
+use Kadet\Highlighter\Parser\MarkerToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -38,12 +38,12 @@ class PowerShellLanguage extends Language
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(MarkerToken::className()),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(MarkerToken::className()),
             ]),
 
             'variable' => [
