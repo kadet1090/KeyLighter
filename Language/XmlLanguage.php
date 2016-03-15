@@ -51,12 +51,12 @@ class XmlLanguage extends Language
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
 

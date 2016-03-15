@@ -31,13 +31,13 @@ class HtmlLanguage extends XmlLanguage
         return array_merge(parent::getRules(), [
             'language.'.$js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
-                    'factory'     => new TokenFactory(LanguageToken::className()),
+                    'factory'     => new TokenFactory(LanguageToken::class),
                     'inject'      => $js,
                     'language'    => $this,
                     'postProcess' => true
                 ]),
                 new CloseRule(new RegexMatcher('/()<\/script>/'), [
-                    'factory'  => new TokenFactory(LanguageToken::className()),
+                    'factory'  => new TokenFactory(LanguageToken::class),
                     'language' => $js
                 ])
             ]

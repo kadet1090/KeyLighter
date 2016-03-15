@@ -34,12 +34,12 @@ class PhpLanguage extends Language
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
@@ -115,7 +115,7 @@ class PhpLanguage extends Language
     public function getOpenClose() {
         return [
             new OpenRule(new RegexMatcher('/(<\?php|<\?=)/si'), [
-                'factory'  => new TokenFactory(LanguageToken::className()),
+                'factory'  => new TokenFactory(LanguageToken::class),
                 'priority' => 1000,
                 'context'  => ['*'],
                 'inject'   => $this,
@@ -124,7 +124,7 @@ class PhpLanguage extends Language
             new CloseRule(new RegexMatcher('/(\?>|$)/'), [
                 'context'  => ['!string', '!comment'],
                 'priority' => 1000,
-                'factory'  => new TokenFactory(LanguageToken::className()),
+                'factory'  => new TokenFactory(LanguageToken::class),
                 'language' => $this
             ])
         ];

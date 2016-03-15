@@ -38,12 +38,12 @@ class PowerShellLanguage extends Language
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::className()),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'variable' => [
