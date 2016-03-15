@@ -105,5 +105,6 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini', 'cfg']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\CssLanguage', ['css']);
     }
 }

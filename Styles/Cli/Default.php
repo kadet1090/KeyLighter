@@ -25,6 +25,11 @@
     'variable.scope'       => ['color' => 'light blue'],
     'variable.splat'       => ['color' => 'light blue'],
 
+    'symbol.selector.class' => ['color' => 'light red'],
+    'symbol.selector.id'    => ['color' => 'red'],
+    'symbol.selector.tag'   => ['color' => 'yellow'],
+    'symbol.selector.class.pseudo' => ['color' => 'light red'],
+
     'symbol.attribute.namespace'  => ['color' => 'magenta', 'bold' => true],
     'symbol.tag.namespace'        => ['color' => 'light yellow', 'bold' => true],
 ];

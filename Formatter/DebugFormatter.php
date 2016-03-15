@@ -103,6 +103,6 @@ class DebugFormatter implements FormatterInterface
             $token = implode('.', $token);
         } while (!empty($token));
 
-        return null;
+        return [];
     }
 }
