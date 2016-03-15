@@ -91,12 +91,12 @@ function content($path) {
     return $content;
 }
 
-function benchmark($description, callable $callable) {
+function benchmark($description, callable $callable, &$time = null) {
     echo Console::styled(['color' => 'yellow'], $description.'... ');
     $start = microtime(true);
         $return = $callable();
-    $done = microtime(true) - $start;
-    echo Console::styled(['color' => 'green'], 'Done! ').number_format($done, 3).'s'.PHP_EOL;
+    $time = microtime(true) - $start;
+    echo Console::styled(['color' => 'green'], 'Done! ').number_format($time, 3).'s'.PHP_EOL;
 
     return $return;
 }
@@ -189,7 +189,7 @@ if($verbose > 0) {
 }
 
 if($verbose > 1) {
-    $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); });
+    $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); }, $tokenization);
 
     if($verbose > 3) {
         echo Console::styled(['color' => 'green'], 'Token tree before parse:').PHP_EOL;
@@ -197,7 +197,7 @@ if($verbose > 1) {
         echo PHP_EOL;
     }
 
-    $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); });
+    $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); }, $parsing);
 
     if($verbose > 2) {
         echo Console::styled(['color' => 'green'], 'Token tree after parse:').PHP_EOL;
@@ -207,7 +207,11 @@ if($verbose > 1) {
 
     $formatted = benchmark('Formatting', function() use($formatter, $tokens, $source) {
         return $formatter->format($tokens);
-    });
+    }, $formatting);
+
+    $all = $tokenization + $parsing + $formatting;
+
+    echo Console::styled(['color' => 'green'], 'Overall: ').number_format($all, 3).'s, '.number_format(strlen($source)/$all, 1).' char/s'.PHP_EOL;
 
 
     if(function_exists('xdebug_peak_memory_usage')) {

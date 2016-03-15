@@ -18,7 +18,7 @@ namespace Kadet\Highlighter\Parser;
 
 use Kadet\Highlighter\Language\Language;
 
-class MarkerToken extends Token
+class ContextualToken extends Token
 {
     private $_type;
 

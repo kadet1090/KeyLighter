@@ -21,7 +21,7 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\MarkerToken;
+use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -57,21 +57,21 @@ class CssLanguage extends Language
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/")),
-            'symbol.selector.tag'    => new Rule(new RegexMatcher("/(?=(?>\\s|\\/|}|^)(\\w+).*\\{)/")),
+            'symbol.selector.tag'   => new Rule(new RegexMatcher("/(?=(?>\\s|\\/|}|^)(\\w+).*\\{)/")),
             'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/")),
 
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:$identifier)/")),
 
-            'number' => new Rule(new RegexMatcher("/-?([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
+            'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
                 'context' => ['declaration', '!constant.color']
             ]),
             'constant.property' => new Rule(new RegexMatcher("/($identifier):/"), ['context' => ['declaration']]),

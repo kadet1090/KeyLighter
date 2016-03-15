@@ -19,7 +19,7 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\MarkerToken;
+use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
@@ -51,12 +51,12 @@ class XmlLanguage extends Language
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
 

@@ -17,7 +17,7 @@ namespace Kadet\Highlighter\Tests;
 
 
 use Kadet\Highlighter\Language\Language;
-use Kadet\Highlighter\Parser\MarkerToken;
+use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 
 class MarkerTokenTest extends \PHPUnit_Framework_TestCase
@@ -27,10 +27,10 @@ class MarkerTokenTest extends \PHPUnit_Framework_TestCase
         $lang = $this->getMock('Kadet\Highlighter\Language\Language');
         $rule = new Rule(null, ['language' => $lang]);
 
-        $start    = new MarkerToken(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
+        $start    = new ContextualToken(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
         $startEnd = $start->getEnd();
 
-        $endStart = new MarkerToken(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
+        $endStart = new ContextualToken(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
         $end      = $endStart->getEnd();
 
         $this->assertTrue($start->isValid($lang, []));
@@ -49,10 +49,10 @@ class MarkerTokenTest extends \PHPUnit_Framework_TestCase
         $lang = $this->getMock('Kadet\Highlighter\Language\Language');
         $rule = new Rule(null, ['language' => $lang]);
 
-        $start    = new MarkerToken(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
+        $start    = new ContextualToken(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
         $startEnd = $start->getEnd();
 
-        $endStart = new MarkerToken(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
+        $endStart = new ContextualToken(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */

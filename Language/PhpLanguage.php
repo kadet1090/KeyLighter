@@ -21,7 +21,7 @@ use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\LanguageToken;
-use Kadet\Highlighter\Parser\MarkerToken;
+use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token;
@@ -34,12 +34,12 @@ class PhpLanguage extends Language
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(MarkerToken::className()),
+                'factory' => new TokenFactory(ContextualToken::className()),
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
