@@ -169,12 +169,35 @@ abstract class Language
      */
     private function _tokens($source, $offset = 0, $additional = [], $embedded = false)
     {
+        $result = new TokenList();
+
+        /** @var Language $language */
+        foreach($this->_rules($embedded) as $rule) {
+            $rule->factory->setOffset($offset);
+            foreach ($rule->match($source) as $token) {
+                $result->add($token);
+            }
+        }
+
+        return $result->batch($additional);
+    }
+
+    public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
+    {
+        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source);
+        return $iterator;
+    }
+
+    /**
+     * @param bool $embedded
+     *
+     * @return Rule[]
+     */
+    private function _rules($embedded = false) {
         $all = $this->_rules;
         if(!$embedded) {
             $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
         }
-
-        $result = new TokenList();
 
         // why this code sucks so much? Because RecursiveIterator performance such a lot more.
         foreach ($all as $name => $rules) {
@@ -189,30 +212,16 @@ abstract class Language
                 }
 
                 $rule->factory->setBase($name);
-                $rule->factory->setOffset($offset);
 
-                /** @var Token $token */
-                foreach ($rule->match($source) as $token) {
-                    if($token === null) {
-                        continue;
-                    }
-
-                    $result->add($token);
-                };
+                yield $rule;
             }
         }
 
         foreach($this->getEmbedded() as $language) {
-            $result->merge($language->_tokens($source, $offset));
+            foreach($language->_rules() as $rule) {
+                yield $rule;
+            }
         }
-
-        return $result->batch($additional);
-    }
-
-    public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
-    {
-        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source);
-        return $iterator;
     }
 
     /**

@@ -44,13 +44,6 @@ class TokenList
         return $this;
     }
 
-    public function merge(TokenList $list)
-    {
-        $this->_tokens = array_merge_recursive($this->_tokens, $list->_tokens);
-
-        return $this;
-    }
-
     public function batch(array $tokens)
     {
         foreach ($tokens as $token) {

@@ -61,7 +61,10 @@ class PhpLanguage extends Language
 
             'symbol.interface' => [
                 new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
-                new Rule(new RegexMatcher('/implements\s+([\w\\\]+)(?:,\s*([\w\\\]+))*/i')),
+                new Rule(new RegexMatcher('/implements\s+([\w\\\]+)(?:,\s*([\w\\\]+))*/i'), [
+                    1 => Token::NAME,
+                    2 => Token::NAME
+                ]),
             ],
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
