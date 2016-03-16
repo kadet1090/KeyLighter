@@ -15,9 +15,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
-use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 
@@ -115,7 +112,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validateContext(['other']));
     }
 
-    public function testOpenRule() {
+    /*public function testOpenRule() {
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
 
         $rule = new OpenRule($matcher);
@@ -152,5 +149,5 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($item->isEnd());
             $this->assertFalse($item->isStart());
         }
-    }
+    }*/
 }

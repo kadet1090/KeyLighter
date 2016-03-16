@@ -39,7 +39,7 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
     protected function matches($other)
     {
         // reset keys
-        $other = array_values($other);
+        $other = $this->getTokens($other);
         foreach($this->_tokens as $no => $desired) {
             if($this->_strict) {
                 if(!$this->testToken($desired, $other[$no])) {
@@ -102,6 +102,28 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
      */
     public function toString()
     {
-        return 'matches tokens';
+        return 'matches '.var_export($this->_tokens).' tokens';
+    }
+
+    private function getTokens($tokens) {
+        if(is_array($tokens)) {
+            return $tokens;
+        }
+
+        $return = [];
+        /** @var Token $token */
+        foreach($tokens as $token) {
+            if($start = $token->getStart()) {
+                $return[] = $start;
+            }
+
+            $return[] = $token;
+
+            if($end = $token->getEnd()) {
+                $return[] = $end;
+            }
+        }
+
+        return $return;
     }
 }

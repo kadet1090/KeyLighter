@@ -14,6 +14,7 @@
             <file>./Language/Language.php</file>
             <exclude>
                 <file>./Formatter/DebugFormatter.php</file>
+                <file>./Utils/Console.php</file>
             </exclude>
         </whitelist>
     </filter>

@@ -42,8 +42,4 @@ class TokenIterator extends \ArrayIterator
     public function getTokens() {
         return $this->getArrayCopy();
     }
-
-    public function sort() {
-        $this->uasort('\Kadet\Highlighter\Parser\Token::compare');
-    }
 }

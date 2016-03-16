@@ -17,17 +17,26 @@ namespace Kadet\Highlighter\Tests;
 
 
 use Kadet\Highlighter\Language\Language;
-use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @var TokenFactory
+     */
+    private $_factory;
+
+    public function setUp() {
+        $this->_factory = new TokenFactory(Token::class);
+    }
+
     public function testCreation()
     {
         $rule  = new Rule();
-        $token = new Token(['test.name', 'pos' => 10, 'index' => 10, 'rule' => $rule]);
+        $token = $this->_factory->create(['test.name', 'pos' => 10, 'index' => 10, 'rule' => $rule]);
 
         $this->assertEquals($token->name, 'test.name', 'Token name is invalid');
         $this->assertEquals($token->pos, 10, 'Position is invalid');
@@ -37,8 +46,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function testCreationWithStart()
     {
-        $start = new Token(['test.name', 'pos' => 5]);
-        $token = new Token(['test.name', 'pos' => 10, 'start' => $start]);
+        $start = $this->_factory->create(['test.name', 'pos' => 5]);
+        $token = $this->_factory->create(['test.name', 'pos' => 10, 'start' => $start]);
 
         $this->assertEquals($token->getStart(), $start, 'Token is not pointing to start.');
         $this->assertEquals($start->getEnd(), $token, 'Start is not pointing to token.');
@@ -46,8 +55,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function testCreationWithEnd()
     {
-        $end   = new Token(['test.name', 'pos' => 15]);
-        $token = new Token(['test.name', 'pos' => 10, 'end' => $end]);
+        $end   = $this->_factory->create(['test.name', 'pos' => 15]);
+        $token = $this->_factory->create(['test.name', 'pos' => 10, 'end' => $end]);
 
         $this->assertEquals($token->getEnd(), $end, 'Token is not pointing to end.');
         $this->assertEquals($end->getStart(), $token, 'End is not pointing to token.');
@@ -55,22 +64,22 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function testCreationWithLength()
     {
-        $token = new Token(['test.name', 'pos' => 15, 'length' => 10]);
+        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10]);
 
         $this->assertEquals($token->getEnd()->pos, 25, 'Token is not pointing to end.');
     }
 
     public function testLength()
     {
-        $token = new Token(['test.name', 'pos' => 15, 'length' => 10]);
+        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10]);
 
         $this->assertEquals($token->getLength(), 10, 'Length is invalid');
     }
 
     public function testIsStart()
     {
-        $token = new Token(['test.name', 'pos' => 10]);
-        $close = new Token(['test.name', 'pos' => 10, 'rule' => new CloseRule()]);
+        $token = $this->_factory->create(['test.name', 'pos' => 10]);
+        $close = $this->_factory->create(['test.name', 'pos' => 10, 'start' => false]);
 
         $this->assertTrue($token->isStart());
         $this->assertFalse($close->isStart());
@@ -78,10 +87,10 @@ class TokenTest extends \PHPUnit_Framework_TestCase
 
     public function testIsEnd()
     {
-        $token = new Token(['test.name', 'pos' => 15]);
-        new Token(['test.name', 'pos' => 10, 'end' => $token]);
+        $token = $this->_factory->create(['test.name', 'pos' => 15]);
+        $this->_factory->create(['test.name', 'pos' => 10, 'end' => $token]);
 
-        $close = new Token(['test.name', 'pos' => 10, 'rule' => new OpenRule()]);
+        $close = $this->_factory->create(['test.name', 'pos' => 10, 'end' => false]);
 
         $this->assertTrue($token->isEnd());
         $this->assertFalse($close->isEnd());
@@ -91,7 +100,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         /** @var Language $language */
         $language = $this->getMock('Kadet\Highlighter\Language\Language');
 
-        $token = new Token(['test.name', 'pos' => 15, 'length' => 10]);
+        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10]);
 
         $token->setValid(false);
         $this->assertFalse($token->isValid($language));
@@ -106,7 +115,7 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         /** @var Language $language */
         $language = $this->getMock('Kadet\Highlighter\Language\Language');
 
-        $token = new Token(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
+        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
         $this->assertTrue($token->isValid($language, []));
     }
 }

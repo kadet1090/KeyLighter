@@ -18,19 +18,29 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
 
 class HtmlFormatterTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var TokenFactory
+     */
+    private $_factory;
+
+    public function setUp() {
+        $this->_factory = new TokenFactory(Token::class);
+    }
+
     public function testRender() {
         $source = 'abc + test';
         $expected = <<<EXPECTED
 <span class="token">abc</span> <span class="operator">+</span> <span class="token second">test</span>
 EXPECTED;
 
-        $first    = new Token(['token', 'pos' => 0, 'length' => 3]);
-        $operator = new Token(['operator', 'pos' => 4, 'length' => 1]);
-        $second   = new Token(['token.second', 'pos' => 6, 'length' => 4]);
+        $first    = $this->_factory->create(['token', 'pos' => 0, 'length' => 3]);
+        $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
+        $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
 
         $iterator = new TokenIterator([
             $first, $first->getEnd(),
