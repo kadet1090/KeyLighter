@@ -28,6 +28,9 @@ class TokenFactory implements TokenFactoryInterface
 
     private $_cache = [];
 
+    public $type = 0x3;
+
+
     /**
      * TokenFactory constructor.
      *
@@ -44,10 +47,31 @@ class TokenFactory implements TokenFactoryInterface
         }
 
         if(isset($params['pos'])) {
-            $params['pos'] += $this->getOffset();
+            $params['pos'] += $this->_offset;
         }
 
-        return new $this->_class($params);
+        $end = null;
+
+        if (isset($params['length']) && ($this->type & self::END)) {
+            $end = $params;
+            $end['pos'] += $params['length'];
+
+            $params['end'] = new $this->_class($end);
+        }
+
+        $token = new $this->_class($params);
+
+        if($this->type == 0x3) {
+            return $token;
+        }
+
+        if($this->type === self::START) {
+            $token->setEnd(false);
+            return $token;
+        } else {
+            $token->getEnd()->setStart(false);
+            return $token->getEnd();
+        }
     }
 
     private function getName($name) {

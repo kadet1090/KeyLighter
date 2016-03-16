@@ -50,10 +50,11 @@ class Token
 
     /**
      * Token constructor.
+     *
+     * @param array $options
      */
     public function __construct(array $options)
     {
-        // Name
         if (isset($options[0])) {
             $this->name = $options[0];
         }
@@ -81,45 +82,37 @@ class Token
         }
 
         $this->id = ++self::$_id;
-
-        if (isset($options['length'])) {
-            new static([$this->name, 'pos' => $this->pos + $options['length'], 'start' => $this, 'rule' => $this->getRule()]);
-        }
     }
 
     public static function compare(Token $a, Token $b)
     {
-        if ($a->pos === $b->pos) {
-            $multiplier = $a->isEnd() ? -1 : 1;
+        $multiplier = $a->isEnd() ? -1 : 1;
 
-            if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
-                if($a->getEnd() == $b) {
-                    return -1;
-                } elseif($a->getStart() == $b) {
-                    return 1;
-                } else {
-                    return $multiplier;
-                }
-            } elseif (($rule = Helper::cmp($b->_rule->priority, $a->_rule->priority)) !== 0) {
-                return $multiplier*$rule;
-            } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
-                return $multiplier*$rule;
+        if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
+            if($a->getEnd() == $b) {
+                return -1;
+            } elseif($a->getStart() == $b) {
+                return 1;
             } else {
-                return $multiplier*($a->id < $b->id ? -1 : 1);
+                return $multiplier;
             }
+        } elseif (($rule = Helper::cmp($b->_rule->priority, $a->_rule->priority)) !== 0) {
+            return $multiplier*$rule;
+        } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
+            return $multiplier*$rule;
+        } else {
+            return $multiplier*($a->id < $b->id ? -1 : 1);
         }
-
-        return ($a->pos > $b->pos) ? 1 : -1;
     }
 
     public function isStart()
     {
-        return $this->_start === null && !($this->_rule instanceof CloseRule);
+        return $this->_start === null;
     }
 
     public function isEnd()
     {
-        return $this->_end === null && !($this->_rule instanceof OpenRule);
+        return $this->_end === null;
     }
 
     public function isValid(Language $language, $context = null)
@@ -143,9 +136,9 @@ class Token
     {
         $this->_valid = $valid;
 
-        if ($this->_end !== null) {
+        if ($this->_end) {
             $this->_end->_valid = $this->_valid;
-        } elseif ($this->_start !== null) {
+        } elseif ($this->_start) {
             $this->_start->_valid = $this->_valid;
         }
     }
@@ -159,15 +152,15 @@ class Token
     }
 
     /**
-     * @param Token $start
+     * @param Token|null|false $start
      */
-    public function setStart(Token $start = null)
+    public function setStart($start = null)
     {
         $this->_end = null;
         $this->_start = $start;
 
-        if ($start !== null) {
-            $this->_start->_end = $this;
+        if ($start instanceof Token) {
+            $start->_end = $this;
         }
     }
 
@@ -180,16 +173,16 @@ class Token
     }
 
     /**
-     * @param Token $end
+     * @param Token|null|false $end
      */
-    public function setEnd(Token $end = null)
+    public function setEnd($end = null)
     {
         $this->_start = null;
         $this->_end = $end;
         $this->_length = null;
 
-        if ($end !== null) {
-            $this->_end->_start = $this;
+        if ($end instanceof Token) {
+            $end->_start = $this;
         }
     }
 

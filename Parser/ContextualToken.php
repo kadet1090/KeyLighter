@@ -20,22 +20,9 @@ use Kadet\Highlighter\Language\Language;
 
 class ContextualToken extends Token
 {
-    private $_type;
-
     public function __construct($options)
     {
         parent::__construct($options);
-        $this->_type = parent::isStart();
-    }
-
-    public function isEnd()
-    {
-        return !$this->_type;
-    }
-
-    public function isStart()
-    {
-        return $this->_type;
     }
 
     protected function validate(Language $language, $context)
@@ -63,8 +50,8 @@ class ContextualToken extends Token
             }
         }
 
-        $this->_end->_start = null;
-        $this->_end = null;
+        $this->_end->_start = false;
+        $this->_end = false;
 
         return true;
     }

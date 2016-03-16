@@ -25,7 +25,7 @@ class LanguageToken extends Token
     }
 
     public function getLanguage() {
-        return $this->getStart() !== null ? $this->getStart()->getRule()->inject : $this->getRule()->language;
+        return $this->getStart() ? $this->getStart()->getRule()->inject : $this->getRule()->language;
     }
 
     protected function validate(Language $language, $context)

@@ -26,7 +26,7 @@ interface MatcherInterface
      * @param string                $source Source to match tokens
      * @param TokenFactoryInterface $factory
      *
-     * @return array
+     * @return \Iterator
      */
     public function match($source, TokenFactoryInterface $factory);
 }

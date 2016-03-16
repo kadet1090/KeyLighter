@@ -21,6 +21,7 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
+use Kadet\Highlighter\Parser\TokenList;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -132,7 +133,7 @@ abstract class Language
                     $result[] = $token;
                     break;
                 } else {
-                    if ($start !== null) {
+                    if ($start) {
                         unset($context[spl_object_hash($start)]);
                     } else {
                         /** @noinspection PhpUnusedParameterInspection */
@@ -164,7 +165,7 @@ abstract class Language
      *
      * @param bool  $embedded
      *
-     * @return array
+     * @return TokenList
      */
     private function _tokens($source, $offset = 0, $additional = [], $embedded = false)
     {
@@ -173,7 +174,9 @@ abstract class Language
             $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
         }
 
-        $result = [];
+        $result = new TokenList();
+
+        // why this code sucks so much? Because RecursiveIterator performance such a lot more.
         foreach ($all as $name => $rules) {
             if (!is_array($rules)) {
                 $rules = [$rules];
@@ -188,22 +191,27 @@ abstract class Language
                 $rule->factory->setBase($name);
                 $rule->factory->setOffset($offset);
 
-                $result = array_merge($result, $rule->match($source));
+                /** @var Token $token */
+                foreach ($rule->match($source) as $token) {
+                    if($token === null) {
+                        continue;
+                    }
+
+                    $result->add($token);
+                };
             }
         }
 
         foreach($this->getEmbedded() as $language) {
-            $result = array_merge($result, $language->_tokens($source, $offset));
+            $result->merge($language->_tokens($source, $offset));
         }
 
-        return array_merge($result, $additional);
+        return $result->batch($additional);
     }
 
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
-        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded), $source);
-        $iterator->sort();
-        $iterator->rewind();
+        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source);
         return $iterator;
     }
 
@@ -227,7 +235,7 @@ abstract class Language
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'inject'   => $this,
                 'language' => null,
-                'context'  => ['!!']
+                'context'  => ['!!'],
             ]
         );
     }

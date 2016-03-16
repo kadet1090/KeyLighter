@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Matcher;
 
-use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class RegexMatcher implements MatcherInterface
@@ -49,7 +48,6 @@ class RegexMatcher implements MatcherInterface
         preg_match_all($this->regex, $source, $matches, PREG_OFFSET_CAPTURE);
         $matches = array_intersect_key($matches, $this->groups);
 
-        $result = [];
         foreach ($matches as $id => $group) {
             $name = $this->groups[$id];
 
@@ -58,15 +56,8 @@ class RegexMatcher implements MatcherInterface
                     continue;
                 }
 
-                /** @var Token $token */
-                $token = $factory->create([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
-
-                $end = $token->getEnd();
-                $result[spl_object_hash($token)] = $token;
-                $result[spl_object_hash($end)]   = $end;
+                yield $factory->create([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
             }
         }
-
-        return $result;
     }
 }

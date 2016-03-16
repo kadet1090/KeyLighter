@@ -16,7 +16,6 @@
 namespace Kadet\Highlighter\Matcher;
 
 
-use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class WholeMatcher implements MatcherInterface
@@ -29,13 +28,10 @@ class WholeMatcher implements MatcherInterface
      *
      * @param TokenFactoryInterface $factory
      *
-     * @return array
+     * @return \Iterator
      */
     public function match($source, TokenFactoryInterface $factory)
     {
-        $token = $factory->create(['pos' => 0, 'length' => strlen($source)]);
-        $end = $token->getEnd();
-
-        return [spl_object_hash($token) => $token, spl_object_hash($end) => $end];
+        yield $factory->create(['pos' => 0, 'length' => strlen($source)]);
     }
 }

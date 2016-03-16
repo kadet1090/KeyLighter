@@ -25,14 +25,7 @@ class OpenRule extends Rule
      */
     public function match($source)
     {
-        return array_filter(parent::match($source), function (Token $token) {
-            if ($token->isStart()) {
-                $token->setEnd(null);
-
-                return true;
-            }
-
-            return false;
-        });
+        $this->factory->type = TokenFactory::START;
+        return parent::match($source);
     }
 }

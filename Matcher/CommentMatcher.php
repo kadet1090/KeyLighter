@@ -16,7 +16,6 @@
 namespace Kadet\Highlighter\Matcher;
 
 
-use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class CommentMatcher implements MatcherInterface
@@ -44,11 +43,10 @@ class CommentMatcher implements MatcherInterface
      *
      * @param TokenFactoryInterface $factory
      *
-     * @return array
+     * @return \Iterator
      */
     public function match($source, TokenFactoryInterface $factory)
     {
-        $result = [];
         $all = [];
 
         foreach ($this->multiLine as $name => $comment) {
@@ -71,14 +69,9 @@ class CommentMatcher implements MatcherInterface
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    $token = $factory->create(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
-                    $result[spl_object_hash($token)] = $token;
-                    $result[spl_object_hash($token->getEnd())] = $token->getEnd();
+                    yield $factory->create(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
                 }
             }
         }
-
-
-        return $result;
     }
 }

@@ -25,14 +25,7 @@ class CloseRule extends Rule
      */
     public function match($source)
     {
-        return array_filter(parent::match($source), function (Token $token) {
-            if ($token->isEnd()) {
-                $token->setStart(null);
-
-                return true;
-            }
-
-            return false;
-        });
+        $this->factory->type = TokenFactory::END;
+        return parent::match($source);
     }
 }
