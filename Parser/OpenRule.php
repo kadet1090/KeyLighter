@@ -25,7 +25,7 @@ class OpenRule extends Rule
      */
     public function match($source)
     {
-        $this->factory->type = TokenFactory::START;
+        $this->factory->setType(TokenFactory::START);
         return parent::match($source);
     }
 }

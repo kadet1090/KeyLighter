@@ -25,10 +25,9 @@ class TokenFactory implements TokenFactoryInterface
     private $_base;
     private $_rule;
     private $_offset;
+    private $_type = 0x3;
 
     private $_cache = [];
-
-    public $type = 0x3;
 
 
     /**
@@ -52,20 +51,21 @@ class TokenFactory implements TokenFactoryInterface
 
         $end = null;
 
-        if (isset($params['length']) && ($this->type & self::END)) {
+        if (isset($params['length']) && ($this->_type & self::END)) {
             $end = $params;
             $end['pos'] += $params['length'];
 
             $params['end'] = new $this->_class($end);
         }
 
+        /** @var Token $token */
         $token = new $this->_class($params);
 
-        if($this->type == 0x3) {
+        if($this->_type == 0x3) {
             return $token;
         }
 
-        if($this->type === self::START) {
+        if($this->_type === self::START) {
             $token->setEnd(false);
             return $token;
         } else {
@@ -153,5 +153,15 @@ class TokenFactory implements TokenFactoryInterface
         }
 
         $this->_class = $class;
+    }
+
+    public function setType($type)
+    {
+        $this->_type = $type;
+    }
+
+    public function getType()
+    {
+        return $this->_type;
     }
 }

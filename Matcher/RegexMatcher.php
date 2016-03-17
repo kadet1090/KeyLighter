@@ -41,7 +41,7 @@ class RegexMatcher implements MatcherInterface
      *
      * @param TokenFactoryInterface $factory
      *
-     * @return array
+     * @return \Generator
      */
     public function match($source, TokenFactoryInterface $factory)
     {

@@ -31,12 +31,12 @@ class Token
     public $index = 1;
 
     /**
-     * @var Token
+     * @var Token|null|false
      */
     protected $_end;
 
     /**
-     * @var Token
+     * @var Token|null|false
      */
     protected $_start;
 

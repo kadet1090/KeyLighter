@@ -28,7 +28,7 @@ class WholeMatcher implements MatcherInterface
      *
      * @param TokenFactoryInterface $factory
      *
-     * @return \Iterator
+     * @return \Generator
      */
     public function match($source, TokenFactoryInterface $factory)
     {

@@ -25,7 +25,7 @@ class CloseRule extends Rule
      */
     public function match($source)
     {
-        $this->factory->type = TokenFactory::END;
+        $this->factory->setType(TokenFactory::END);
         return parent::match($source);
     }
 }
