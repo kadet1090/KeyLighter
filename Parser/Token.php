@@ -22,7 +22,9 @@ use Kadet\Highlighter\Utils\StringHelper;
 
 class Token
 {
-    const NAME = null;
+    const NAME  = null;
+    const START = 0x1;
+    const END   = 0x2;
 
     protected static $_id = 0;
 

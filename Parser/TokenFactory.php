@@ -15,12 +15,13 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
+/**
+ * Factory used to handle various token creation.
+ *
+ * @package Kadet\Highlighter\Parser
+ */
 class TokenFactory implements TokenFactoryInterface
 {
-    const START = 0x1;
-    const END   = 0x2;
-
     private $_class;
     private $_base;
     private $_rule;
@@ -29,16 +30,20 @@ class TokenFactory implements TokenFactoryInterface
 
     private $_cache = [];
 
-
     /**
-     * TokenFactory constructor.
+     * Constructor
      *
-     * @param $class
+     * @param string $class {@see }
      */
     public function __construct($class) {
         $this->setClass($class);
     }
 
+    /**
+     * @param $params
+     *
+     * @return Token|null|false
+     */
     public function create($params) {
         $params[0] = !empty($params[0]) ? $this->getName($params[0]) : $this->_base;
         if(empty($params['rule'])) {
@@ -51,7 +56,7 @@ class TokenFactory implements TokenFactoryInterface
 
         $end = null;
 
-        if (isset($params['length']) && ($this->_type & self::END)) {
+        if (isset($params['length']) && ($this->_type & Token::END)) {
             $end = $params;
             $end['pos'] += $params['length'];
 
@@ -65,7 +70,7 @@ class TokenFactory implements TokenFactoryInterface
             return $token;
         }
 
-        if($this->_type === self::START) {
+        if($this->_type === Token::START) {
             $token->setEnd(false);
             return $token;
         } else {
