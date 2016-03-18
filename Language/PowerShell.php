@@ -25,7 +25,7 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class PowerShellLanguage extends Language
+class PowerShell extends Language
 {
 
     /**

@@ -31,7 +31,7 @@ use Kadet\Highlighter\Parser\TokenFactory;
  *
  * @property bool $variables
  */
-class JavaScriptLanguage extends Language
+class JavaScript extends Language
 {
     protected $_options = [
         'variables' => false,

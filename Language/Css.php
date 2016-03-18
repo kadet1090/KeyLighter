@@ -26,7 +26,7 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class CssLanguage extends Language
+class Css extends Language
 {
 
     /**

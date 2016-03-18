@@ -22,7 +22,7 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 
-class LatexLanguage extends Language
+class Latex extends Language
 {
     protected static $mathEnvironments = ['align', 'equation', 'math'];
 

@@ -25,7 +25,7 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class XmlLanguage extends Language
+class Xml extends Language
 {
     const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 

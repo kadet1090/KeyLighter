@@ -27,7 +27,7 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class PhpLanguage extends Language
+class Php extends Language
 {
     public function getRules()
     {

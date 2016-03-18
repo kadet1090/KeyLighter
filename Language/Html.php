@@ -22,11 +22,11 @@ use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class HtmlLanguage extends XmlLanguage
+class Html extends Xml
 {
     public function getRules()
     {
-        $js = new JavaScriptLanguage();
+        $js = new JavaScript();
 
         return array_merge(parent::getRules(), [
             'language.'.$js->getIdentifier() => [

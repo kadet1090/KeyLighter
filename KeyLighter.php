@@ -97,14 +97,14 @@ class KeyLighter
                 new HtmlFormatter()
         );
 
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\PhpLanguage', ['php']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\XmlLanguage', ['xml', 'xaml']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\HtmlLanguage', ['html', 'htm']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\PowerShellLanguage', ['powershell', 'posh', 'ps1']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Php', ['php']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Xml', ['xml', 'xaml']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Html', ['html', 'htm']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\PowerShell', ['powershell', 'posh', 'ps1']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none', 'txt']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\LatexLanguage', ['tex', 'latex']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\IniLanguage', ['ini', 'cfg']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\JavaScriptLanguage', ['js', 'jscript', 'javascript']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\CssLanguage', ['css']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Latex', ['tex', 'latex']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Ini', ['ini', 'cfg']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\JavaScript', ['js', 'jscript', 'javascript']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Css', ['css']);
     }
 }

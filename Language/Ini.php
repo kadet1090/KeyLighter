@@ -20,7 +20,7 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\Rule;
 
-class IniLanguage extends Language
+class Ini extends Language
 {
     /** @inheritdoc */
     public function getRules()
