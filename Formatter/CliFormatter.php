@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenIterator;
+use Kadet\Highlighter\Utils\ArrayHelper;
 use Kadet\Highlighter\Utils\Console;
 
 /**
@@ -48,7 +49,7 @@ class CliFormatter implements FormatterInterface
         foreach ($tokens as $token) {
             $result .= substr($source, $last, $token->pos - $last);
 
-            if (($style = self::getColor($token->name)) !== null) {
+            if (($style = ArrayHelper::resolve($this->_styles, $token->name)) !== null) {
                 $result .= $token->isStart() ? Console::open($style) : Console::close();
             }
 
@@ -58,20 +59,4 @@ class CliFormatter implements FormatterInterface
 
         return $result;
     }
-
-    public function getColor($token)
-    {
-        do {
-            if(isset($this->_styles[$token])) {
-                return $this->_styles[$token];
-            }
-
-            $token = explode('.', $token);
-            array_pop($token);
-            $token = implode('.', $token);
-        } while (!empty($token));
-
-        return null;
-    }
-
 }

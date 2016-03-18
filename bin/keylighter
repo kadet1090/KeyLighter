@@ -17,6 +17,7 @@
  */
 
 use Kadet\Highlighter\Utils\Console;
+use Kadet\Highlighter\Language as lang;
 
 // For composer global instance
 if (file_exists(__DIR__ . '/../../../autoload.php')) {
@@ -115,7 +116,6 @@ if($argc == 1) {
         ['-lf, --formatters',  null,      'List available formatters,'],
         ['-ll, --languages',   null,      'List available languages,'],
         ['-s, --silent',       null,      'No output.'],
-
     ]);
     exit(0);
 }

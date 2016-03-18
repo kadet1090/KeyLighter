@@ -40,4 +40,18 @@ class ArrayHelper
 
         return false;
     }
+
+    public static function resolve(array $array, $key, $fallback = null) {
+        do {
+            if(isset($array[$key])) {
+                return $array[$key];
+            }
+
+            $key = explode('.', $key);
+            array_pop($key);
+            $key = implode('.', $key);
+        } while (!empty($key));
+
+        return $fallback;
+    }
 }
