@@ -16,6 +16,7 @@
     'language'    => ['color' => 'white'],
 
     'symbol.class' => ['bold'  => true],
+    'symbol.type' => ['color'  => 'light red'],
 
     'comment.docblock'     => ['color' => 'dark gray'],
     'variable.property'    => ['color' => 'light blue'],

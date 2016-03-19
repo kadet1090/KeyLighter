@@ -26,6 +26,37 @@ use Kadet\Highlighter\Parser\TokenFactory;
 
 class Sql extends Language
 {
+    protected $_keywords = [
+        'ADD', 'ALL', 'ALLOCATE', 'ALTER', 'AND', 'ANY', 'ARE', 'AS', 'ASENSITIVE', 'ASYMMETRIC', 'AT',
+        'ATOMIC', 'AUTHORIZATION', 'BEGIN', 'BETWEEN', 'BOTH', 'BY', 'COMMENT',
+        'CALL', 'CALLED', 'CASCADED', 'CASE', 'CAST', 'CHECK', 'CLOB', 'CLOSE', 'COLLATE',
+        'COLUMN', 'COMMIT', 'CONDITION', 'CONNECT', 'CONSTRAINT', 'CONTINUE', 'CORRESPONDING', 'CREATE',
+        'CROSS', 'CUBE', 'CURRENT', 'CURSOR', 'CYCLE', 'DEALLOCATE', 'DECLARE', 'DEFAULT', 'DELETE',
+        'DEREF', 'DESCRIBE', 'DETERMINISTIC', 'DISCONNECT', 'DISTINCT', 'DO', 'DROP', 'DYNAMIC',
+        'EACH', 'ELEMENT', 'ELSE', 'ELSEIF', 'END', 'ESCAPE', 'EXCEPT', 'EXEC', 'EXECUTE', 'EXISTS', 'EXIT',
+        'EXTERNAL', 'FETCH', 'FILTER', 'FOR', 'FOREIGN', 'FREE', 'FROM', 'FULL', 'FUNCTION',
+        'GET', 'GLOBAL', 'GRANT', 'GROUP', 'GROUPING', 'HANDLER', 'HAVING', 'HOLD', 'IDENTITY', 'IF',
+        'IMMEDIATE', 'IN', 'INDICATOR', 'INNER', 'INOUT', 'INPUT', 'INSENSITIVE', 'INSERT',
+        'INTERSECT', 'INTERVAL', 'INTO', 'IS', 'ITERATE', 'LANGUAGE', 'LARGE', 'LATERAL', 'LEADING',
+        'LEAVE', 'LEFT', 'LIKE', 'LOCAL', 'LOOP', 'MATCH', 'MEMBER', 'MERGE', 'METHOD', 'MODIFIES',
+        'MODULE', 'MONTH', 'MULTISET', 'NATIONAL', 'NATURAL', 'NCHAR', 'NCLOB', 'NEW', 'NO', 'NONE', 'NOT',
+        'OF', 'OLD', 'ON', 'ONLY', 'OPEN', 'OR', 'ORDER', 'OUT','OUTER', 'OUTPUT', 'OVER',
+        'OVERLAPS', 'PARAMETER', 'PARTITION', 'PRECISION', 'PREPARE', 'PRIMARY', 'PROCEDURE', 'RANGE', 'READS',
+        'RECURSIVE', 'REF', 'REFERENCES', 'REFERENCING', 'RELEASE',
+        'REPEAT', 'RESIGNAL', 'RESULT', 'RETURN', 'RETURNS', 'REVOKE', 'RIGHT', 'ROLLBACK', 'ROLLUP', 'ROW',
+        'ROWS', 'SAVEPOINT', 'SCOPE', 'SCROLL', 'SEARCH', 'SECOND', 'SELECT', 'SENSITIVE', 'SESSION_USER',
+        'SET', 'SIGNAL', 'SIMILAR', 'SOME', 'SPECIFIC', 'SPECIFICTYPE', 'SQL', 'SQLEXCEPTION',
+        'SQLSTATE', 'SQLWARNING', 'START', 'STATIC', 'SUBMULTISET', 'SYMMETRIC', 'SYSTEM', 'SYSTEM_USER',
+        'TABLE', 'TABLESAMPLE', 'THEN', 'TO', 'TRAILING', 'TRANSLATION', 'TREAT', 'TRIGGER', 'UNDO', 'UNION',
+        'UNIQUE', 'UNKNOWN', 'UNNEST', 'UNTIL', 'UPDATE', 'USER', 'USING', 'VALUE', 'VALUES', 'VARYING', 'WHEN',
+        'WHENEVER', 'WHERE', 'WHILE', 'WINDOW', 'WITH', 'WITHIN', 'WITHOUT', 'KEY', 'ACTION'
+    ];
+
+    protected $_types = [
+        'ARRAY', 'BIGINT', 'BINARY', 'BIT', 'BLOB', 'BOOLEAN', 'CHAR', 'CHARACTER', 'DATE',
+        'DEC', 'DECIMAL', 'FLOAT', 'INT', 'INTEGER', 'INTERVAL', 'NUMBER', 'NUMERIC', 'REAL',
+        'SERIAL', 'SMALLINT', 'VARCHAR', 'VARYING', 'INT8', 'SERIAL8', 'TEXT'
+    ];
 
     /**
      * Tokenization rules definition
@@ -35,37 +66,8 @@ class Sql extends Language
     public function getRules()
     {
         return [
-            'keyword' => new Rule(new WordMatcher([
-                'ADD', 'ALL', 'ALLOCATE', 'ALTER', 'AND', 'ANY', 'ARE', 'AS', 'ASENSITIVE', 'ASYMMETRIC', 'AT',
-                'ATOMIC', 'AUTHORIZATION', 'BEGIN', 'BETWEEN', 'BOTH', 'BY', 'COMMENT',
-                'CALL', 'CALLED', 'CASCADED', 'CASE', 'CAST', 'CHECK', 'CLOB', 'CLOSE', 'COLLATE',
-                'COLUMN', 'COMMIT', 'CONDITION', 'CONNECT', 'CONSTRAINT', 'CONTINUE', 'CORRESPONDING', 'CREATE',
-                'CROSS', 'CUBE', 'CURRENT', 'CURSOR', 'CYCLE', 'DEALLOCATE', 'DECLARE', 'DEFAULT', 'DELETE',
-                'DEREF', 'DESCRIBE', 'DETERMINISTIC', 'DISCONNECT', 'DISTINCT', 'DO', 'DROP', 'DYNAMIC',
-                'EACH', 'ELEMENT', 'ELSE', 'ELSEIF', 'END', 'ESCAPE', 'EXCEPT', 'EXEC', 'EXECUTE', 'EXISTS', 'EXIT',
-                'EXTERNAL', 'FETCH', 'FILTER', 'FOR', 'FOREIGN', 'FREE', 'FROM', 'FULL', 'FUNCTION',
-                'GET', 'GLOBAL', 'GRANT', 'GROUP', 'GROUPING', 'HANDLER', 'HAVING', 'HOLD', 'IDENTITY', 'IF',
-                'IMMEDIATE', 'IN', 'INDICATOR', 'INNER', 'INOUT', 'INPUT', 'INSENSITIVE', 'INSERT',
-                'INTERSECT', 'INTERVAL', 'INTO', 'IS', 'ITERATE', 'LANGUAGE', 'LARGE', 'LATERAL', 'LEADING',
-                'LEAVE', 'LEFT', 'LIKE', 'LOCAL', 'LOOP', 'MATCH', 'MEMBER', 'MERGE', 'METHOD', 'MODIFIES',
-                'MODULE', 'MONTH', 'MULTISET', 'NATIONAL', 'NATURAL', 'NCHAR', 'NCLOB', 'NEW', 'NO', 'NONE', 'NOT',
-                'OF', 'OLD', 'ON', 'ONLY', 'OPEN', 'OR', 'ORDER', 'OUT','OUTER', 'OUTPUT', 'OVER',
-                'OVERLAPS', 'PARAMETER', 'PARTITION', 'PRECISION', 'PREPARE', 'PRIMARY', 'PROCEDURE', 'RANGE', 'READS',
-                'RECURSIVE', 'REF', 'REFERENCES', 'REFERENCING', 'RELEASE',
-                'REPEAT', 'RESIGNAL', 'RESULT', 'RETURN', 'RETURNS', 'REVOKE', 'RIGHT', 'ROLLBACK', 'ROLLUP', 'ROW',
-                'ROWS', 'SAVEPOINT', 'SCOPE', 'SCROLL', 'SEARCH', 'SECOND', 'SELECT', 'SENSITIVE', 'SESSION_USER',
-                'SET', 'SIGNAL', 'SIMILAR', 'SOME', 'SPECIFIC', 'SPECIFICTYPE', 'SQL', 'SQLEXCEPTION',
-                'SQLSTATE', 'SQLWARNING', 'START', 'STATIC', 'SUBMULTISET', 'SYMMETRIC', 'SYSTEM', 'SYSTEM_USER',
-                'TABLE', 'TABLESAMPLE', 'THEN', 'TO', 'TRAILING', 'TRANSLATION', 'TREAT', 'TRIGGER', 'UNDO', 'UNION',
-                'UNIQUE', 'UNKNOWN', 'UNNEST', 'UNTIL', 'UPDATE', 'USER', 'USING', 'VALUE', 'VALUES', 'VARYING', 'WHEN',
-                'WHENEVER', 'WHERE', 'WHILE', 'WINDOW', 'WITH', 'WITHIN', 'WITHOUT', 'KEY', 'ACTION'
-            ])),
-
-            'symbol.type' => new Rule(new WordMatcher([
-                'ARRAY', 'BIGINT', 'BINARY', 'BIT', 'BLOB', 'BOOLEAN', 'CHAR', 'CHARACTER', 'DATE',
-                'DEC', 'DECIMAL', 'FLOAT', 'INT', 'INTEGER', 'INTERVAL', 'NUMBER', 'NUMERIC', 'REAL',
-                'SERIAL', 'SMALLINT', 'VARCHAR', 'VARYING', 'INT8', 'SERIAL8', 'TEXT'
-            ])),
+            'keyword' => new Rule(new WordMatcher($this->_keywords, ['escape' => false])),
+            'symbol.type' => new Rule(new WordMatcher($this->_types, ['escape' => false])),
 
             'constant' => new Rule(new WordMatcher(['FALSE', 'TRUE', 'NULL'])),
 
@@ -79,9 +81,10 @@ class Sql extends Language
                     'factory' => new TokenFactory(ContextualToken::class)
                 ]),
             ],
-            'variable' => new Rule(new RegexMatcher('/([a-z]\w+)=/i')),
+
             'number' => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
             'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => 'string'])
         ];
     }
 
