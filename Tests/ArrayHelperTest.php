@@ -56,4 +56,15 @@ class ArrayHelperTest extends \PHPUnit_Framework_TestCase
             return $k == 'b' && $v == 3;
         }));
     }
+
+    public function testResolve() {
+        $styles = [
+            'token.first' => 'first',
+            'token' => 'token'
+        ];
+
+        $this->assertEquals('first', ArrayHelper::resolve($styles, 'token.first'));
+        $this->assertEquals('token', ArrayHelper::resolve($styles, 'token.second'));
+        $this->assertEquals('fallback', ArrayHelper::resolve($styles, 'smth', 'fallback'));
+    }
 }

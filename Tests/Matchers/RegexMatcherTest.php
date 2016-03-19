@@ -47,4 +47,21 @@ class RegexMatcherTest extends MatcherTestCase
             ['end', 'pos' => 4, 'name' => 'second'],
         ], $matcher->match($source, $this->getFactory()));
     }
+
+    public function testWithOptionalGroups() {
+        $matcher = new RegexMatcher('/(\w+)(?::(\d+))?/', [
+            1 => 'first',
+            2 => 'second'
+        ]);
+
+        $source = 'x:20 d:[]';
+        $this->assertTokens([
+            ['start', 'pos' => 0, 'name' => 'first'],
+            ['end', 'pos' => 1, 'name' => 'first'],
+            ['start', 'pos' => 2, 'name' => 'second'],
+            ['end', 'pos' => 4, 'name' => 'second'],
+            ['start', 'pos' => 5, 'name' => 'first'],
+            ['end', 'pos' => 6, 'name' => 'first']
+        ], $matcher->match($source, $this->getFactory()));
+    }
 }

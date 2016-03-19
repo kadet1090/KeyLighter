@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 
+use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter;
 use Kadet\Highlighter\KeyLighter;
@@ -97,6 +98,14 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $formatter->format($language->parse('if test')),
             KeyLighter::get()->highlight('if test', $language, $formatter)
+        );
+    }
+
+    public function testDefaultFormatter()
+    {
+        $this->assertInstanceOf(
+            php_sapi_name() === 'cli' ? CliFormatter::class : HtmlFormatter::class,
+            KeyLighter::get()->getDefaultFormatter()
         );
     }
 }

@@ -70,10 +70,6 @@ class Rule
     {
         $this->_context = [];
         foreach ($rules as $key => $rule) {
-            if (!is_int($key)) {
-                continue;
-            }
-
             list($plain, $type) = $this->_getContextRule($rule);
             $this->_context[$plain] = $type;
         }

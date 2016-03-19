@@ -40,6 +40,11 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
     {
         // reset keys
         $other = $this->getTokens($other);
+
+        if(count($other) != count($this->_tokens)) {
+            return false;
+        }
+
         foreach($this->_tokens as $no => $desired) {
             if($this->_strict) {
                 if(!$this->testToken($desired, $other[$no])) {

@@ -21,7 +21,7 @@ use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class MarkerTokenTest extends \PHPUnit_Framework_TestCase
+class ContextualTokenTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var TokenFactory
@@ -71,5 +71,26 @@ class MarkerTokenTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($endStart->isValid($lang, ['nope']));
         $this->assertFalse($end->isValid($lang, ['nope']));
+    }
+
+    public function testClose() {
+        /** @var Language $lang */
+        $lang = $this->getMock('Kadet\Highlighter\Language\Language');
+        $rule = new Rule(null, ['language' => $lang, 'context' => [
+            '!nope'
+        ]]);
+
+        $start    = $this->_factory->create(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
+        $startEnd = $start->getEnd();
+
+        $endStart = $this->_factory->create(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
+        $end      = $endStart->getEnd();
+
+        /** @noinspection PhpParamsInspection */
+        $this->assertFalse($start->isValid($this->getMock('Kadet\Highlighter\Language\Language'), ['nope']));
+        $this->assertFalse($startEnd->isValid($lang, ['nope']));
+
+        $this->assertFalse($endStart->isValid($lang, ['test', 'nope']));
+        $this->assertFalse($end->isValid($lang, ['test', 'nope']));
     }
 }

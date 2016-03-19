@@ -88,28 +88,12 @@ class TokenFactory implements TokenFactoryInterface
     }
 
     /**
-     * @return string
-     */
-    public function getBase()
-    {
-        return $this->_base;
-    }
-
-    /**
      * @param string $base
      */
     public function setBase($base)
     {
         $this->_cache = []; // invalidate cache
         $this->_base = $base;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRule()
-    {
-        return $this->_rule;
     }
 
     /**
@@ -121,30 +105,12 @@ class TokenFactory implements TokenFactoryInterface
     }
 
     /**
-     * @return mixed
-     */
-    public function getClass()
-    {
-        return $this->_class;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOffset()
-    {
-        return $this->_offset;
-    }
-
-    /**
      * @param int $offset
      */
     public function setOffset($offset)
     {
         $this->_offset = $offset;
     }
-
-
 
     /**
      * @param mixed $class
@@ -163,10 +129,5 @@ class TokenFactory implements TokenFactoryInterface
     public function setType($type)
     {
         $this->_type = $type;
-    }
-
-    public function getType()
-    {
-        return $this->_type;
     }
 }

@@ -52,7 +52,7 @@ class RegexMatcher implements MatcherInterface
             $name = $this->groups[$id];
 
             foreach ($group as $match) {
-                if ($match[1] === -1) {
+                if (empty($match) || $match[1] === -1) {
                     continue;
                 }
 

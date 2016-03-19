@@ -32,13 +32,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->setRule($rule);
 
         $token = $factory->create([]);
-        $this->assertEquals($rule, $factory->getRule());
         $this->assertEquals($rule, $token->getRule());
-    }
-
-    public function testGettingClass() {
-        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
-        $this->assertEquals('Kadet\Highlighter\Parser\Token', $factory->getClass());
     }
 
     public function testSubNaming() {
@@ -46,7 +40,6 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->setBase('token');
 
         $this->assertEquals('token.name', $factory->create(['$.name'])->name);
-        $this->assertEquals('token', $factory->getBase());
     }
 
     public function testOffset() {

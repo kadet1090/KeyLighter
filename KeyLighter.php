@@ -92,9 +92,7 @@ class KeyLighter
 
     public function __construct() {
         $this->setDefaultFormatter(
-            php_sapi_name() === 'cli' ?
-                new CliFormatter() :
-                new HtmlFormatter()
+            php_sapi_name() === 'cli' ? new CliFormatter() : new HtmlFormatter()
         );
 
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Php', ['php']);

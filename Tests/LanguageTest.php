@@ -181,4 +181,15 @@ class LanguageTest extends MatcherTestCase
         $this->assertEquals('foo', $language->test);
         $this->assertEquals('foo', $language->bar);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWrongArgumentForParse() {
+        $language = new MockLanguage([
+            'test' => 'foo'
+        ]);
+
+        $language->parse(1.23);
+    }
 }
