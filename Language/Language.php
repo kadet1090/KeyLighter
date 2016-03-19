@@ -32,6 +32,10 @@ use Kadet\Highlighter\Utils\ArrayHelper;
 abstract class Language
 {
     /**
+     * @var array
+     */
+    protected $_options = [];
+    /**
      * Tokenizer rules
      *
      * @var Rule[]
@@ -39,21 +43,19 @@ abstract class Language
     private $_rules;
 
     /**
-     * @var array
-     */
-    protected $_options = [];
-
-    /**
      * Language constructor.
      *
      * @param array $options
      */
-    public function __construct(array $options = []) {
-        $this->_options  = array_merge([
-            'embedded' => [],
-        ], $this->_options, $options);
+    public function __construct(array $options = [])
+    {
+        $this->_options = array_merge(
+            [
+                'embedded' => [],
+            ], $this->_options, $options
+        );
 
-        $this->_rules    = $this->getRules();
+        $this->_rules = $this->getRules();
     }
 
     /**
@@ -61,7 +63,7 @@ abstract class Language
      *
      * @return array
      */
-    public abstract function getRules();
+    abstract public function getRules();
 
     /**
      * Parses source and removes wrong tokens.
@@ -77,21 +79,21 @@ abstract class Language
     {
         if (is_string($tokens)) {
             $tokens = $this->tokenize($tokens, $additional, $embedded);
-        } elseif(!$tokens instanceof TokenIterator) {
+        } elseif (!$tokens instanceof TokenIterator) {
             // Todo: Own Exceptions
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
         $start = $tokens->current();
-
-
         $context = [];
 
-        /** @var Token[] $result */ $result = [$start];
-        /** @var Token[] $all */    $all    = [];
+        /** @var Token[] $result */
+        $result = [$start];
+        /** @var Token[] $all */
+        $all = [];
 
         /** @var Token $token */
-        for($tokens->next(); $tokens->valid(); $tokens->next()) {
+        for ($tokens->next(); $tokens->valid(); $tokens->next()) {
             $token = $tokens->current();
 
             if (!$token->isValid($this, $context)) {
@@ -116,7 +118,7 @@ abstract class Language
                 if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
                     $result[0]->setEnd($token);
 
-                    if($result[0]->getRule()->postProcess) {
+                    if ($result[0]->getRule()->postProcess) {
                         $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
 
                         $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
@@ -124,7 +126,7 @@ abstract class Language
                     }
 
                     # closing unclosed tokens
-                    foreach(array_reverse($context) as $hash => $name) {
+                    foreach (array_reverse($context) as $hash => $name) {
                         $end = new Token([$name, 'pos' => $token->pos]);
                         $all[$hash]->setEnd($end);
                         $result[] = $end;
@@ -137,7 +139,8 @@ abstract class Language
                         unset($context[spl_object_hash($start)]);
                     } else {
                         /** @noinspection PhpUnusedParameterInspection */
-                        $start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
+                        $start = ArrayHelper::find(
+                            array_reverse($context), function ($k, $v) use ($token) {
                             return $v === $token->name;
                         });
 
@@ -153,6 +156,15 @@ abstract class Language
         }
 
         return new TokenIterator($result, $tokens->getSource());
+    }
+
+    public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
+    {
+        $iterator = new TokenIterator(
+            $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source
+        );
+
+        return $iterator;
     }
 
     /**
@@ -172,7 +184,7 @@ abstract class Language
         $result = new TokenList();
 
         /** @var Language $language */
-        foreach($this->_rules($embedded) as $rule) {
+        foreach ($this->_rules($embedded) as $rule) {
             $rule->factory->setOffset($offset);
             foreach ($rule->match($source) as $token) {
                 $result->add($token);
@@ -182,20 +194,15 @@ abstract class Language
         return $result->batch($additional);
     }
 
-    public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
-    {
-        $iterator = new TokenIterator($this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source);
-        return $iterator;
-    }
-
     /**
      * @param bool $embedded
      *
      * @return Rule[]
      */
-    private function _rules($embedded = false) {
+    private function _rules($embedded = false)
+    {
         $all = $this->_rules;
-        if(!$embedded) {
+        if (!$embedded) {
             $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
         }
 
@@ -207,7 +214,7 @@ abstract class Language
 
             /** @var Rule $rule */
             foreach ($rules as $rule) {
-                if($rule->language === false) {
+                if ($rule->language === false) {
                     $rule->language = $this;
                 }
 
@@ -217,8 +224,8 @@ abstract class Language
             }
         }
 
-        foreach($this->getEmbedded() as $language) {
-            foreach($language->_rules() as $rule) {
+        foreach ($this->getEmbedded() as $language) {
+            foreach ($language->_rules() as $rule) {
                 yield $rule;
             }
         }
@@ -229,7 +236,7 @@ abstract class Language
      *
      * @return string
      */
-    public abstract function getIdentifier();
+    abstract public function getIdentifier();
 
     /**
      * Language range Rule(s)
@@ -252,22 +259,26 @@ abstract class Language
     /**
      * @return Language[]
      */
-    public function getEmbedded() {
+    public function getEmbedded()
+    {
         return $this->_options['embedded'];
     }
 
     /**
      * @param Language $lang
      */
-    public function embed(Language $lang) {
+    public function embed(Language $lang)
+    {
         $this->_options['embedded'][] = $lang;
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return isset($this->_options[$name]) ? $this->_options[$name] : null;
     }
 
-    public function __set($name, $value) {
+    public function __set($name, $value)
+    {
         $this->_options[$name] = $value;
     }
 }
