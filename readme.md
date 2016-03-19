@@ -13,38 +13,32 @@ Name "KeyLighter" is inspired by Key Light concept in photography and cinematogr
 
 KeyLighter is supposed to do the same thing - for code.
 
-# Requirements
- 
-PHP 5.4 and composer
+# Installation
+```
+$ composer require kadet/keylighter
+```
 
-Yep, that's all. You don't even need any not core PHP extensions.
+To use KeyLighter you just need PHP 5.5 or later, no special extensions required.
 
 ## Why KeyLighter?
 
 ### Simple to use
-Just like any other composer library add `kadet/keylighter` to your 
-`composer.json` require section, include autoload file and you're ready to go.
-
-Simple usage example:
 ```php
-echo \Kadet\Highlighter\highlight($source, $language, $formatter);
+use Kadet\Highlighter\Language;
+
+echo \Kadet\Highlighter\highlight($source, new Language\Php(), $formatter);
 // or
-echo \Kadet\Highlighter\KeyLighter::get()->highlight($source, $language, $formatter);
+echo \Kadet\Highlighter\KeyLighter::get()->highlight($source, new Language\Php(), $formatter);
 // or
 $keylighter = new \Kadet\Highlighter\KeyLighter([options]);
-echo $keylighter->highlight($source, $language, $formatter);
-
+echo $keylighter->highlight($source, new Language\Php(), $formatter);
 ```
-Thats it, nothing more.
 
-Where:
-`$language` is language, you can provide object of `\Kadet\Highlighter\Language\Language` type or registered alias (i.e. "xml"). It is even possible to embed one language in other: "xml > php" means php embedded in xml file. 
-
-`$formatter` is implementation of `\Kadet\Highlighter\Formatter\FormatterInterface`.
+You can find all available languages [here](https://github.com/kadet1090/KeyLighter/tree/master/Language) and formatters [here](https://github.com/kadet1090/KeyLighter/tree/master/Formatter).
 
 ### It works on CLI! And more!
-**KeyLighter** was originally designed as CLI highlighter for my own usage, 
-but then I decided that it should be able to generate any possible output, 
+**KeyLighter** was originally designed as CLI highlighter for my own usage,
+but then I decided that it should be able to generate any possible output,
 currently supported:
 
 #### Cli `\Kadet\Highlighter\Formatter\CliFormatter`
@@ -63,7 +57,7 @@ new \Kadet\Highlighter\Formatter\CliFormatter([
 #### HTML `\Kadet\Highlighter\Formatter\HtmlFormatter`
 ![HTML](http://kadet.net/keylighter/php-html.png)
 
-Every token is placed inside it's own `span` so it can be easily styled with css. 
+Every token is placed inside it's own `span` so it can be easily styled with css.
 
 ```html
 <span class="variable">$maxOption</span>
@@ -73,26 +67,26 @@ Every token is placed inside it's own `span` so it can be easily styled with css
 pre > span.variable { color: #F7750D; }
 ```
 #### Your own?
-You can always write your own Formatter and use it for outputting data, 
+You can always write your own Formatter and use it for outputting data,
 I will describe writing formatters on wiki soon™.
 
 
-### Context sensitive 
-Some of tokens are valid in some contexts, some not. This library 
+### Context sensitive
+Some of tokens are valid in some contexts, some not. This library
 is context sensitive and you can define when they are valid.
 
-In this case context mean just "inside of other token", 
-for example lets assume that `string` token is defined 
-as everything from " to next " and `keyword` is 
+In this case context mean just "inside of other token",
+for example lets assume that `string` token is defined
+as everything from " to next " and `keyword` is
 defined as 'sit' substring.
 
 ```js
 ↓ string:start     ↓ keyword:start
 "Lorem ipsum dolor sit amtet"
          keyword:end ↑      ↑ string:end
-         
+
 Token tree:
-        
+
 Token.name           Token.pos
 ------------------------------
 string:start         0
@@ -101,8 +95,8 @@ string:start         0
 string:end           30
 ```
 
-So as you can see `keyword` is inside of `string`, 
-and therefore is not valid and should be deleted. 
+So as you can see `keyword` is inside of `string`,
+and therefore is not valid and should be deleted.
 You can define tokens valid only in some context, or invalid in other.
 
 Oh, and token names are cascade it means that `string.single` is `string`,
@@ -112,7 +106,7 @@ Token validation rules will be described on wiki soon™.
 
 ### Write your own language definitions easily
 One of my main goals was ability to easily add new language definitions.
-Currently only supported languages are PHP and XML, 
+Currently only supported languages are PHP and XML,
 mainly because I needed them for testing purposes.
 
 For example XML definition looks like this:
@@ -161,7 +155,7 @@ class XmlLanguage extends Language
 }
 ```
 
-I will try to write as many definitions as I only can, 
+I will try to write as many definitions as I only can,
 but any PRs are welcome.
 
 ### Embedding languages
@@ -170,10 +164,10 @@ Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in
 ![Optimized for php7.0](http://kadet.net/keylighter/language-embedding.png)
 
 ### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg?style=flat-square)
-Even though it wasn't supposed to be fastest code highlighter in PHP 
-it is still quite fast, up to about 7.5x faster than [GeSHi](http://geshi.org/).
+Even though it wasn't supposed to be fastest code highlighter in PHP
+it is still quite fast, up to few times faster than [GeSHi](http://geshi.org/).
 It performs best on PHP 7 (more than 2x faster than GeSHi in every case).
-Unfortunately in some cases can be little bit slower than GeSHi (Some files on PHP 5.4)
+
 You can find more about performance in [wiki](https://github.com/kadet1090/KeyLighter/wiki/Performance).
 
 ### Comes with CLI App
