@@ -20,6 +20,36 @@ $ composer require kadet/keylighter
 
 To use KeyLighter you just need PHP 5.5 or later, no special extensions required.
 
+## Global installation
+It's possible to install **KeyLighter** as a global composer library
+```bash
+$ composer global require kadet/keylighter
+```
+Then you can use builtin simple cli highlighting app:
+```bash
+$ keylighter [options] file
+Options:
+        -l, --language       language    Source Language to highlight, default: html > php,
+        -f, --format         format      Formatter used to highlight source, for example: html, default: cli,
+        -h, --help                       This screen,
+        -v, --verbose        level       Verbose mode,
+        -lf, --formatters                List available formatters,
+        -ll, --languages                 List available languages,
+        -s, --silent                     No output.
+```
+If you want pipe into **KeyLighter** just specify `php://stdin` as file.
+
+### PowerShell
+You're using PowerShell on Windows? Cool! **KeyLighter** comes with integrated PowerShell module that makes CLI usage even better. Just import module (For example in profile), and you're ready to go.
+
+```powershell
+PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighter.psm1"
+```
+
+To use autocompletion features you will need to have PowerShell v5 (Comes with windows 10) or install [TabExpansionPlusPlus](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
+
+![Powershell Support](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-19_21-44-54-a2.png)
+
 ## Why KeyLighter?
 
 ### Simple to use
@@ -170,25 +200,6 @@ It performs best on PHP 7 (more than 2x faster than GeSHi in every case).
 
 You can find more about performance in [wiki](https://github.com/kadet1090/KeyLighter/wiki/Performance).
 
-### Comes with CLI App
-It's possible to install **KeyLighter** as global composer library
-```bash
-$ composer global require kadet/keylighter
-```
-Then you can use builtin simple cli highlighting app:
-```bash
-$ keylighter [options] file
-Options:
-        -l, --language       language    Source Language to highlight, default: html > php,
-        -f, --format         format      Formatter used to highlight source, for example: html, default: cli,
-        -h, --help                       This screen,
-        -v, --verbose        level       Verbose mode,
-        -lf, --formatters                List available formatters,
-        -ll, --languages                 List available languages,
-        -s, --silent                     No output.
-```
-If you want pipe into **KeyLighter** just specify `php://stdin` as file.
-
 ## Testing ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
 **KeyLighter** uses `phpunit` for testing:
 ```bash
@@ -200,3 +211,4 @@ There are still few things to do, you can find all of them (and even propose) on
 
 ## Thanks
 For [Maciej](https://github.com/ksiazkowicz), [Maciej](https://github.com/sobak) and Monika for all support, moral too.
+

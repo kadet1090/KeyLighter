@@ -22,7 +22,6 @@
     "files": ["./functions.php"]
   },
   "bin": [
-    "bin/keylighter",
-    "bin/KeyLighter.psm1"
+    "bin/keylighter"
   ]
 }
