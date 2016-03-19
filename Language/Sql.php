@@ -84,7 +84,7 @@ class Sql extends Language
 
             'number' => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
             'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => 'string'])
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => ['string']])
         ];
     }
 
