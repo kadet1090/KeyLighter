@@ -47,9 +47,7 @@ class ArrayHelper
                 return $array[$key];
             }
 
-            $key = explode('.', $key);
-            array_pop($key);
-            $key = implode('.', $key);
+            $key = StringHelper::pop($key);
         } while (!empty($key));
 
         return $fallback;

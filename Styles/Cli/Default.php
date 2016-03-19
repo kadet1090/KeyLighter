@@ -3,7 +3,7 @@
     'keyword'     => ['color' => 'yellow'],
     'operator'    => ['color' => 'yellow'],
     'annotation'  => ['color' => 'magenta'],
-    'symbol'      => ['bold'  => true],
+    'symbol'      => ['color' => 'magenta'],
     'variable'    => ['color' => 'blue'],
     'number'      => ['color' => 'light magenta'],
     'constant'    => ['color' => 'magenta'],
@@ -14,6 +14,8 @@
     'parameter'   => ['color' => 'dark gray'],
 
     'language'    => ['color' => 'white'],
+
+    'symbol.class' => ['bold'  => true],
 
     'comment.docblock'     => ['color' => 'dark gray'],
     'variable.property'    => ['color' => 'light blue'],

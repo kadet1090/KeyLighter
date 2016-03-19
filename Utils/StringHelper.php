@@ -30,4 +30,10 @@ class StringHelper
             'pos'  => $pos - $last + 1,
         ];
     }
+
+    public static function pop($string, $delimiter = '.') {
+        $array = explode($delimiter, $string);
+        array_pop($array);
+        return implode($delimiter, $array);
+    }
 }

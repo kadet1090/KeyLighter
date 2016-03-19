@@ -59,7 +59,7 @@ class Php extends Language
                 new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
             ],
 
-            'symbol.interface' => [
+            'symbol.class.interface' => [
                 new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/implements\s+([\w\\\]+)(?:,\s*([\w\\\]+))*/i'), [
                     1 => Token::NAME,
