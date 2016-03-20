@@ -66,7 +66,7 @@ class Css extends Language
             ]),
 
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/i")),
-            'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s{}]|^)(?=(\w+).*\{)/m')),
+            'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s}]|^)(?=(\w+).*\{)/m')),
             'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/i")),
 
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:{1,2}$identifier)/")),
