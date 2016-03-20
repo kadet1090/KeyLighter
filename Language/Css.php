@@ -22,6 +22,7 @@ use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\ContextualToken;
+use Kadet\Highlighter\Parser\MetaToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -32,36 +33,45 @@ class Css extends Language
     /**
      * Tokenization rules definition
      *
-     * @return array
+     * @return Rule[]|Rule[][]
      */
     public function getRules()
     {
         $identifier = '[\w-]+';
 
         return [
-            'declaration' => [
-                new OpenRule(new SubStringMatcher('{'), ['context' => ['!declaration.media', '!comment']]),
+            'meta.declaration' => [
+                new OpenRule(new SubStringMatcher('{'), [
+                    'context' => ['!meta.declaration.media', '!comment'],
+                    'factory' => new TokenFactory(MetaToken::class)
+                ]),
                 new CloseRule(new SubStringMatcher('}')),
             ],
 
-            'declaration.media' => [
-                new Rule(new RegexMatcher('/@media(.*?\{)/'), ['context' => Rule::everywhere()]),
+            'meta.declaration.media' => [
+                new Rule(new RegexMatcher('/@media(.*?\{)/'), [
+                    'context' => Rule::everywhere(),
+                    'factory' => new TokenFactory(MetaToken::class)
+                ]),
             ],
 
-            'declaration.rule' => [
-                new OpenRule(new RegexMatcher('/@media.*(\()/'), ['context' => ['declaration.media']]),
+            'meta.declaration.rule' => [
+                new OpenRule(new RegexMatcher('/@media.*(\()/'), [
+                    'context' => ['meta.declaration.media'],
+                    'factory' => new TokenFactory(MetaToken::class)
+                ]),
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
             'keyword.special' => new Rule(new RegexMatcher("/(@$identifier)/")),
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
+                'context' => ['!comment', '!string', '!comment'],
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!comment', '!string', '!comment'],
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
@@ -72,15 +82,20 @@ class Css extends Language
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:{1,2}$identifier)/")),
 
             'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
-                'context' => ['declaration', '!constant.color', '!comment']
+                'context' => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment'],
+                'priority' => 0
             ]),
-            'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), ['context' => ['declaration']]),
+            'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
+                'context' => ['meta.declaration', '!symbol', '!comment']
+            ]),
 
-            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => Rule::everywhere()]),
+            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => [
+                'meta.declaration', '!comment'
+            ]]),
 
-            'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{1,6})/i"), [
+            'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
                 'priority' => 2,
-                'context' => ['declaration', '!symbol.color']
+                'context' => ['meta.declaration', '!symbol.color', '!comment']
             ]),
 
             'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [

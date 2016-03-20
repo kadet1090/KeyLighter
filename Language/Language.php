@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\LanguageToken;
+use Kadet\Highlighter\Parser\MetaToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -61,7 +62,7 @@ abstract class Language
     /**
      * Tokenization rules definition
      *
-     * @return array
+     * @return Rule[]|Rule[][]
      */
     abstract public function getRules();
 
@@ -106,7 +107,9 @@ abstract class Language
                         $token->getInjected()->parse($tokens)->getTokens()
                     );
                 } else {
-                    $result[] = $token;
+                    if(!$token instanceof MetaToken) {
+                        $result[] = $token;
+                    }
                     $context[$tokens->key()] = $token->name;
                 }
             } else {
@@ -145,10 +148,13 @@ abstract class Language
                         if ($start !== false) {
                             $token->setStart($tokens[$start]);
                             unset($context[$start]);
+                            $start = $tokens[$start];
                         }
                     }
 
-                    $result[] = $token;
+                    if(!$start instanceof MetaToken) {
+                        $result[] = $token;
+                    }
                 }
             }
         }
