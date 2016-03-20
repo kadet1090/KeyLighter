@@ -49,7 +49,7 @@ class Css extends Language
             ],
 
             'declaration.rule' => [
-                new OpenRule(new SubStringMatcher('('), ['context' => ['declaration.media']]),
+                new OpenRule(new RegexMatcher('/@media.*(\()/'), ['context' => ['declaration.media']]),
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
@@ -65,25 +65,29 @@ class Css extends Language
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
-            'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/")),
-            'symbol.selector.tag'   => new Rule(new RegexMatcher("/(?=(?>\\s|\\/|\\}|^)(\\w+).*\\{)/m")),
-            'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/")),
+            'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/i")),
+            'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s{}]|^)(?=(\w+).*\{)/m')),
+            'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/i")),
 
-            'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:$identifier)/")),
+            'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:{1,2}$identifier)/")),
 
             'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
                 'context' => ['declaration', '!constant.color', '!comment']
             ]),
-            'constant.property' => new Rule(new RegexMatcher("/($identifier):/"), ['context' => ['declaration']]),
+            'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), ['context' => ['declaration']]),
 
-            'call' => new Rule(new RegexMatcher("/($identifier)\\(/"), ['context' => ['!!']]),
+            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => ['!!']]),
 
             'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{1,6})/i"), [
                 'priority' => 2,
                 'context' => ['declaration', '!symbol.color']
             ]),
 
-            'operator' => new Rule(new WordMatcher([':', '>', '+', '*', ';', ',', '!important'], ['separated' => false]), [
+            'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [
+                'context' => ['!comment']
+            ]),
+
+            'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), [
                 'context' => ['!comment']
             ]),
 
