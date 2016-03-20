@@ -26,12 +26,12 @@ class Scss extends Css
     public function getRules()
     {
         $rules = parent::getRules();
-        $rules['symbol.selector.tag'] = new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+).*\{)/m'), ['context' => ['!!']]);
-        $rules['symbol.selector.class']->setContext(['!number']);
-        $rules['symbol.selector.class.pseudo']->setContext(['!number']);
-        $rules['symbol.selector.id']->setContext(['!number']);
-        $rules['variable'] = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => ['!!']]);
-        $rules['operator.self'] = new Rule(new SubStringMatcher('&'), ['context' => ['!!']]);
+        $rules['symbol.selector.tag'] = new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+).*\{)/m'), ['context' => Rule::everywhere()]);
+        $rules['symbol.selector.class']->setContext(Rule::everywhere());
+        $rules['symbol.selector.class.pseudo']->setContext(Rule::everywhere());
+        $rules['symbol.selector.id']->setContext(Rule::everywhere());
+        $rules['variable'] = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => Rule::everywhere()]);
+        $rules['operator.self'] = new Rule(new SubStringMatcher('&'), ['context' => Rule::everywhere()]);
         return $rules;
     }
 

@@ -36,12 +36,12 @@ class LanguageToken extends Token
             $lang = $this->_rule->language;
             if($lang === null && $this->getInjected() !== $language) {
                 $valid = true;
-            } elseif($language === $lang && $this->_rule->validateContext($context)) {
+            } elseif($language === $lang && $this->_rule->validate($context)) {
                 $valid = true;
             }
         } else {
             $desired = $this->getLanguage();
-            $valid = $language === $desired && $this->_rule->validateContext($context);
+            $valid = $language === $desired && $this->_rule->validate($context);
         }
         $this->setValid($valid);
     }

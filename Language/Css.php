@@ -45,7 +45,7 @@ class Css extends Language
             ],
 
             'declaration.media' => [
-                new Rule(new RegexMatcher('/@media(.*?\{)/'), ['context' => ['!!']]),
+                new Rule(new RegexMatcher('/@media(.*?\{)/'), ['context' => Rule::everywhere()]),
             ],
 
             'declaration.rule' => [
@@ -76,7 +76,7 @@ class Css extends Language
             ]),
             'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), ['context' => ['declaration']]),
 
-            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => ['!!']]),
+            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => Rule::everywhere()]),
 
             'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{1,6})/i"), [
                 'priority' => 2,
@@ -91,7 +91,7 @@ class Css extends Language
                 'context' => ['!comment']
             ]),
 
-            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => ['!!']])
+            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => Rule::everywhere()])
         ];
     }
 

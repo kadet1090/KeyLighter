@@ -249,7 +249,7 @@ abstract class Language
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'inject'   => $this,
                 'language' => null,
-                'context'  => ['!!'],
+                'context'  => Rule::everywhere(),
             ]
         );
     }

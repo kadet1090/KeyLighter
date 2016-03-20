@@ -56,10 +56,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'context' => ['valid']
         ]);
 
-        $this->assertTrue($rule->validateContext(['valid']));
-        $this->assertTrue($rule->validateContext(['other', 'valid']));
-        $this->assertTrue($rule->validateContext(['other', 'valid', 'some']));
-        $this->assertFalse($rule->validateContext(['other', 'some']));
+        $this->assertTrue($rule->validate(['valid']));
+        $this->assertTrue($rule->validate(['other', 'valid']));
+        $this->assertTrue($rule->validate(['other', 'valid', 'some']));
+        $this->assertFalse($rule->validate(['other', 'some']));
     }
 
     public function testNotInContextValidation() {
@@ -67,9 +67,9 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'context' => ['!invalid']
         ]);
 
-        $this->assertTrue($rule->validateContext([]));
-        $this->assertTrue($rule->validateContext(['some']));
-        $this->assertFalse($rule->validateContext(['invalid']));
+        $this->assertTrue($rule->validate([]));
+        $this->assertTrue($rule->validate(['some']));
+        $this->assertFalse($rule->validate(['invalid']));
     }
 
     public function testInOneOfContextValidation() {
@@ -77,10 +77,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'context' => ['*first', '*second']
         ]);
 
-        $this->assertTrue($rule->validateContext(['first']));
-        $this->assertTrue($rule->validateContext(['second']));
-        $this->assertFalse($rule->validateContext([]));
-        $this->assertFalse($rule->validateContext(['other']));
+        $this->assertTrue($rule->validate(['first']));
+        $this->assertTrue($rule->validate(['second']));
+        $this->assertFalse($rule->validate([]));
+        $this->assertFalse($rule->validate(['other']));
     }
 
     public function testSubTokens() {
@@ -88,28 +88,28 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'context' => ['token.test', '!token']
         ]);
 
-        $this->assertTrue($rule->validateContext(['token.test']));
-        $this->assertFalse($rule->validateContext(['token']));
+        $this->assertTrue($rule->validate(['token.test']));
+        $this->assertFalse($rule->validate(['token']));
     }
 
     public function testInAll() {
         $rule = new Rule(null, [
-            'context' => ['!!']
+            'context' => Rule::everywhere()
         ]);
 
-        $this->assertTrue($rule->validateContext(['first']));
-        $this->assertTrue($rule->validateContext(['second']));
-        $this->assertTrue($rule->validateContext([]));
-        $this->assertTrue($rule->validateContext(['other']));
+        $this->assertTrue($rule->validate(['first']));
+        $this->assertTrue($rule->validate(['second']));
+        $this->assertTrue($rule->validate([]));
+        $this->assertTrue($rule->validate(['other']));
     }
 
     public function testInNone() {
         $rule = new Rule(null);
 
-        $this->assertFalse($rule->validateContext(['first']));
-        $this->assertFalse($rule->validateContext(['second']));
-        $this->assertTrue($rule->validateContext([]));
-        $this->assertFalse($rule->validateContext(['other']));
+        $this->assertFalse($rule->validate(['first']));
+        $this->assertFalse($rule->validate(['second']));
+        $this->assertTrue($rule->validate([]));
+        $this->assertFalse($rule->validate(['other']));
     }
 
     /*public function testOpenRule() {

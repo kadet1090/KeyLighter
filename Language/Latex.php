@@ -34,7 +34,7 @@ class Latex extends Language
     public function getRules()
     {
         return [
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => ['!!'], 'priority' => -1]),
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Rule::everywhere(), 'priority' => -1]),
 
             'string.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
@@ -54,7 +54,7 @@ class Latex extends Language
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
 
             'operator' => [
-                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => ['!!']]),
+                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => Rule::everywhere()]),
                 new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
                     'context' => ['string.math'],
                     'priority' => -1

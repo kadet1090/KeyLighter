@@ -29,6 +29,7 @@ use Kadet\Highlighter\Matcher\MatcherInterface;
  * @property integer               $priority
  * @property string                $type
  * @property TokenFactoryInterface $factory
+ *
  */
 class Rule
 {
@@ -43,6 +44,7 @@ class Rule
     private $_default = true;
 
     private $_options;
+    private $_validator;
 
     /**
      * @param MatcherInterface|null $matcher
@@ -68,11 +70,16 @@ class Rule
 
     public function setContext($rules)
     {
-        $this->_context = [];
-        foreach ($rules as $key => $rule) {
-            list($plain, $type) = $this->_getContextRule($rule);
-            $this->_context[$plain] = $type;
+        if(is_callable($rules)) {
+            $this->_validator = $rules;
+        } else {
+            $this->_context = [];
+            foreach ($rules as $key => $rule) {
+                list($plain, $type) = $this->_getContextRule($rule);
+                $this->_context[$plain] = $type;
+            }
         }
+
     }
 
     private function _getContextRule($rule)
@@ -115,8 +122,13 @@ class Rule
         return $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
     }
 
-    public function validateContext($context, array $additional = [])
+    public function validate($context, array $additional = [])
     {
+        if(is_callable($this->_validator)) {
+            $validator = $this->_validator;
+            return $validator($context, $additional);
+        }
+
         $required = array_merge($additional, $this->_context);
 
         if (empty($required)) {
@@ -175,5 +187,16 @@ class Rule
     public function __set($option, $value)
     {
         return $this->_options[$option] = $value;
+    }
+
+    public static function everywhere() {
+        static $callable;
+        if(!$callable) {
+            $callable = function() {
+                return true;
+            };
+        }
+
+        return $callable;
     }
 }
