@@ -40,7 +40,7 @@ class Css extends Language
 
         return [
             'declaration' => [
-                new OpenRule(new SubStringMatcher('{'), ['context' => ['!declaration.media']]),
+                new OpenRule(new SubStringMatcher('{'), ['context' => ['!declaration.media', '!comment']]),
                 new CloseRule(new SubStringMatcher('}')),
             ],
 
@@ -53,7 +53,7 @@ class Css extends Language
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
-            'keyword.control-sequence' => new Rule(new RegexMatcher("/(@$identifier)/")),
+            'keyword.special' => new Rule(new RegexMatcher("/(@$identifier)/")),
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
@@ -66,13 +66,13 @@ class Css extends Language
             ]),
 
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/")),
-            'symbol.selector.tag'   => new Rule(new RegexMatcher("/(?=(?>\\s|\\/|}|^)(\\w+).*\\{)/")),
+            'symbol.selector.tag'   => new Rule(new RegexMatcher("/(?=(?>\\s|\\/|\\}|^)(\\w+).*\\{)/m")),
             'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/")),
 
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:$identifier)/")),
 
             'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
-                'context' => ['declaration', '!constant.color']
+                'context' => ['declaration', '!constant.color', '!comment']
             ]),
             'constant.property' => new Rule(new RegexMatcher("/($identifier):/"), ['context' => ['declaration']]),
 
@@ -87,7 +87,7 @@ class Css extends Language
                 'context' => ['!comment']
             ]),
 
-            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]))
+            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => ['!!']])
         ];
     }
 

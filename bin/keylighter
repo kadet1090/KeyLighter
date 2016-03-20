@@ -168,7 +168,7 @@ $file = reset($argv);
 $source = content($file);
 
 if($source === false) {
-    echo Console::styled(['color' => 'red'], 'File not exists.').PHP_EOL;
+    echo Console::styled(['color' => 'red'], 'File does not exists.').PHP_EOL;
     die(1);
 }
 
@@ -189,6 +189,7 @@ if($verbose > 0) {
 }
 
 if($verbose > 1) {
+    $language->tokenize($source); // preload classes
     $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); }, $tokenization);
 
     if($verbose > 3) {
