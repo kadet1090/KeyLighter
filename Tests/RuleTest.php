@@ -112,6 +112,19 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['other']));
     }
 
+    public function testCallableValidator() {
+        $rule = new Rule(null, [
+            'context' => function($context) {
+                return in_array('bar', $context) && !in_array('foo', $context);
+            }
+        ]);
+
+        $this->assertFalse($rule->validate(['test']));
+        $this->assertTrue($rule->validate(['bar']));
+        $this->assertTrue($rule->validate(['bar', 'smth']));
+        $this->assertFalse($rule->validate(['bar', 'foo']));
+    }
+
     /*public function testOpenRule() {
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
 

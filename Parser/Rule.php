@@ -127,18 +127,20 @@ class Rule
         if(is_callable($this->_validator)) {
             $validator = $this->_validator;
             return $validator($context, $additional);
+        } else {
+            return $this->_validate($context, array_merge($additional, $this->_context));
         }
+    }
 
-        $required = array_merge($additional, $this->_context);
-
-        if (empty($required)) {
+    private function _validate($context, $rules) {
+        if (empty($rules)) {
             return count($context) === 0;
         }
 
         $result = $this->_default;
 
-        reset($required);
-        while (list($rule, $type) = each($required)) {
+        reset($rules);
+        while (list($rule, $type) = each($rules)) {
             $matched = !($type & self::CONTEXT_EXACTLY) ?
                 count(array_filter($context, function ($a) use ($rule) {
                     return $a === $rule || fnmatch($rule . '.*', $a);
@@ -156,11 +158,11 @@ class Rule
                 }
                 $result = true;
 
-                $this->_unsetUnnecessaryRules($rule, $required);
+                $this->_unsetUnnecessaryRules($rule, $rules);
             } elseif ($type & self::CONTEXT_IN_ONE_OF) {
                 if ($matched) {
                     $result = true;
-                    $this->_unsetUnnecessaryRules($rule, $required);
+                    $this->_unsetUnnecessaryRules($rule, $rules);
                 }
             }
         }
