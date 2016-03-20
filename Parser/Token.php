@@ -232,4 +232,8 @@ class Token
 
         return $result;
     }
+
+    public function __get($name) {
+        return $this->getRule()->$name;
+    }
 }

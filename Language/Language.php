@@ -89,8 +89,6 @@ abstract class Language
 
         /** @var Token[] $result */
         $result = [$start];
-        /** @var Token[] $all */
-        $all = [];
 
         /** @var Token $token */
         for ($tokens->next(); $tokens->valid(); $tokens->next()) {
@@ -108,8 +106,8 @@ abstract class Language
                         $token->getInjected()->parse($tokens)->getTokens()
                     );
                 } else {
-                    $all[spl_object_hash($token)] = $result[] = $token;
-                    $context[spl_object_hash($token)] = $token->name;
+                    $result[] = $token;
+                    $context[$tokens->key()] = $token->name;
                 }
             } else {
                 $start = $token->getStart();
@@ -118,7 +116,7 @@ abstract class Language
                 if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
                     $result[0]->setEnd($token);
 
-                    if ($result[0]->getRule()->postProcess) {
+                    if ($result[0]->postProcess) {
                         $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
 
                         $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
@@ -128,7 +126,7 @@ abstract class Language
                     # closing unclosed tokens
                     foreach (array_reverse($context) as $hash => $name) {
                         $end = new Token([$name, 'pos' => $token->pos]);
-                        $all[$hash]->setEnd($end);
+                        $tokens[$hash]->setEnd($end);
                         $result[] = $end;
                     }
 
@@ -145,7 +143,7 @@ abstract class Language
                         });
 
                         if ($start !== false) {
-                            $token->setStart($all[$start]);
+                            $token->setStart($tokens[$start]);
                             unset($context[$start]);
                         }
                     }
