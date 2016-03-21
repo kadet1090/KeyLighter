@@ -38,6 +38,11 @@ class JavaScript extends Language
 
     const IDENTIFIER = '[\p{L}\p{Nl}$_][\p{L}\p{Nl}$\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*';
 
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         $rules = [

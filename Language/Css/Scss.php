@@ -24,6 +24,8 @@ use Kadet\Highlighter\Parser\Rule;
 class Scss extends Css
 {
     /**
+     * Tokenization rules
+     *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function getRules()
@@ -45,7 +47,7 @@ class Scss extends Css
             $rules['comment'],
             new Rule(new CommentMatcher(['//'], []), ['context' => Rule::everywhere()])
         ];
-        
+
         return $rules;
     }
 

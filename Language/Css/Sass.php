@@ -23,7 +23,12 @@ use Kadet\Highlighter\Parser\TokenFactory;
 
 class Sass extends Scss
 {
-    
+
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         $rules                  = parent::getRules();

@@ -28,6 +28,11 @@ class Xml extends Language
 {
     const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         return [
@@ -65,7 +70,7 @@ class Xml extends Language
         ];
     }
 
-
+    /** {@inheritdoc} */
     public function getIdentifier()
     {
         return 'xml';

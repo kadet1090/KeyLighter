@@ -26,9 +26,9 @@ class Latex extends Language
     protected static $mathEnvironments = ['align', 'equation', 'math'];
 
     /**
-     * Tokenization rules definition
+     * Tokenization rules
      *
-     * @return array
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function getRules()
     {
@@ -76,11 +76,7 @@ class Latex extends Language
         ];
     }
 
-    /**
-     * Unique language identifier, for example 'php'
-     *
-     * @return string
-     */
+    /** {@inheritdoc} */
     public function getIdentifier()
     {
         return 'latex';

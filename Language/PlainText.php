@@ -19,20 +19,16 @@ class PlainText extends Language
 {
 
     /**
-     * Tokenization rules definition
+     * Tokenization rules
      *
-     * @return array
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function getRules()
     {
         return [];
     }
 
-    /**
-     * Unique language identifier, for example 'php'
-     *
-     * @return string
-     */
+    /** {@inheritdoc} */
     public function getIdentifier()
     {
         return 'plaintext';

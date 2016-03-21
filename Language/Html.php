@@ -23,6 +23,11 @@ use Kadet\Highlighter\Parser\TokenFactory;
 
 class Html extends Xml
 {
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         $js = new JavaScript();

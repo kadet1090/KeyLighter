@@ -21,7 +21,11 @@ use Kadet\Highlighter\Parser\Rule;
 
 class Ini extends Language
 {
-    /** @inheritdoc */
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         return [

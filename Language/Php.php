@@ -28,6 +28,11 @@ use Kadet\Highlighter\Parser\TokenFactory;
 
 class Php extends Language
 {
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         return [
@@ -114,6 +119,7 @@ class Php extends Language
         ];
     }
 
+    /** {@inheritdoc} */
     public function getOpenClose()
     {
         return [

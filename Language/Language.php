@@ -36,10 +36,11 @@ abstract class Language
      * @var array
      */
     protected $_options = [];
+
     /**
      * Tokenizer rules
      *
-     * @var Rule[]
+     * @var Rule[]|Rule[][]
      */
     private $_rules;
 
@@ -50,8 +51,7 @@ abstract class Language
      */
     public function __construct(array $options = [])
     {
-        $this->_options = array_merge(
-            [
+        $this->_options = array_merge([
                 'embedded' => [],
             ], $this->_options, $options
         );

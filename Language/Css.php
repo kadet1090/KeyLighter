@@ -30,9 +30,9 @@ class Css extends Language
 {
 
     /**
-     * Tokenization rules definition
+     * Tokenization rules
      *
-     * @return Rule[]|Rule[][]
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function getRules()
     {

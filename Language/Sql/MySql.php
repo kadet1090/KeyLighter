@@ -50,6 +50,11 @@ class MySql extends Sql
         'when', 'where', 'while', 'with', 'write', 'x509', 'xor', 'year_month', 'zerofill', 'auto_increment', 'engine'
     ];
 
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         return array_merge_recursive(parent::getRules(), [
@@ -59,6 +64,7 @@ class MySql extends Sql
         ]);
     }
 
+    /** {@inheritdoc} */
     public function getIdentifier()
     {
         return 'mysql';
