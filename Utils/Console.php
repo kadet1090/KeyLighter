@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Utils;
 
-
 class Console
 {
     /**
@@ -26,15 +25,17 @@ class Console
     /**
      * @return ConsoleHelper
      */
-    public static function get() {
-        if(!isset(self::$_instance)) {
+    public static function get()
+    {
+        if (!isset(self::$_instance)) {
             self::$_instance = new ConsoleHelper();
         }
 
         return self::$_instance;
     }
 
-    public static function styled($style, $text) {
+    public static function styled($style, $text)
+    {
         return self::get()->styled($style, $text);
     }
 
@@ -48,7 +49,8 @@ class Console
         return self::get()->close();
     }
 
-    public static function reset() {
+    public static function reset()
+    {
         return self::get()->reset();
     }
 }

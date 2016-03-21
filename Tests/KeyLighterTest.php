@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter;
@@ -26,7 +25,8 @@ use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
 class KeyLighterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testLanguageRegistering() {
+    public function testLanguageRegistering()
+    {
         $keylighter = new KeyLighter();
         $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockLanguage', ['mock', 'test']);
 
@@ -39,7 +39,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         ], $keylighter->registeredLanguages());
     }
 
-    public function testLanguageEmbedding() {
+    public function testLanguageEmbedding()
+    {
         $keylighter = new KeyLighter();
         $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockLanguage', ['mock']);
         $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockLanguage', ['test']);
@@ -51,7 +52,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHighlighting() {
+    public function testHighlighting()
+    {
         $keylighter = new KeyLighter();
 
         $formatter = new HtmlFormatter();
@@ -65,7 +67,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHighlightingWithRegisteredLanguage() {
+    public function testHighlightingWithRegisteredLanguage()
+    {
         $keylighter = new KeyLighter();
         $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockLanguage', ['mock']);
 
@@ -77,7 +80,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testFunction() {
+    public function testFunction()
+    {
         $formatter = new HtmlFormatter();
         $language  = new MockLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if'))
@@ -89,7 +93,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSingleton() {
+    public function testSingleton()
+    {
         $formatter = new HtmlFormatter();
         $language  = new MockLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if'))

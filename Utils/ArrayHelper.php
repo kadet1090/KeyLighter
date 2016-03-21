@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Utils;
 
-
 class ArrayHelper
 {
     public static function rearrange(array $array, array $keys)
@@ -41,9 +40,10 @@ class ArrayHelper
         return false;
     }
 
-    public static function resolve(array $array, $key, $fallback = null) {
+    public static function resolve(array $array, $key, $fallback = null)
+    {
         do {
-            if(isset($array[$key])) {
+            if (isset($array[$key])) {
                 return $array[$key];
             }
 

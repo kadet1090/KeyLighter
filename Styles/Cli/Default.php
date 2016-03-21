@@ -16,7 +16,7 @@
     'language'    => ['color' => 'white'],
 
     'symbol.class' => ['bold'  => true],
-    'symbol.type' => ['color'  => 'light red'],
+    'symbol.type'  => ['color'  => 'light red'],
 
     'comment.docblock'     => ['color' => 'dark gray'],
     'variable.property'    => ['color' => 'light blue'],
@@ -28,9 +28,9 @@
     'variable.scope'       => ['color' => 'light blue'],
     'variable.splat'       => ['color' => 'light blue'],
 
-    'symbol.selector.class' => ['color' => 'light red'],
-    'symbol.selector.id'    => ['color' => 'red'],
-    'symbol.selector.tag'   => ['color' => 'yellow'],
+    'symbol.selector.class'        => ['color' => 'light red'],
+    'symbol.selector.id'           => ['color' => 'red'],
+    'symbol.selector.tag'          => ['color' => 'yellow'],
     'symbol.selector.class.pseudo' => ['color' => 'light red'],
 
     'symbol.attribute.namespace'  => ['color' => 'magenta', 'bold' => true],

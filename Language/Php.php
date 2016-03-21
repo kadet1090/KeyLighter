@@ -14,7 +14,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -43,7 +42,7 @@ class Php extends Language
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
-            'string.nowdoc' => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
+            'string.nowdoc'  => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
                 'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
@@ -53,7 +52,7 @@ class Php extends Language
             ]),
 
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
-            'symbol.class' => [
+            'symbol.class'    => [
                 new Rule(new RegexMatcher('/(?:class|new|use|extends)\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
                 new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
@@ -86,7 +85,7 @@ class Php extends Language
                 '__CLASS__', '__DIR__', '__FILE__', '__FUNCTION__',
                 '__LINE__', '__METHOD__', '__NAMESPACE__', '__TRAIT__',
             ], array_keys(get_defined_constants(true)["Core"]))), ['priority' => -2]),
-            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i'), ['priority' => -2]   ),
+            'constant.static' => new Rule(new RegexMatcher('/(?:[\w\\\]+::|const\s+)(\w+)/i'), ['priority' => -2]),
 
             'keyword' => new Rule(new WordMatcher([
                 '__halt_compiler', 'abstract', 'and', 'array',
@@ -109,13 +108,14 @@ class Php extends Language
             ),
 
             'delimiter' => new Rule(new RegexMatcher('/(<\?php|<\?=|\?>)/')),
-            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
+            'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
         ];
     }
 
-    public function getOpenClose() {
+    public function getOpenClose()
+    {
         return [
             new OpenRule(new RegexMatcher('/(<\?php|<\?=)/si'), [
                 'factory'  => new TokenFactory(LanguageToken::class),

@@ -26,7 +26,8 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
-class EmbeddedLanguage extends Mocks\MockLanguage {
+class EmbeddedLanguage extends Mocks\MockLanguage
+{
     public function getOpenClose()
     {
         return new Rule(new RegexMatcher('/(\{.*?\})/'), [
@@ -41,23 +42,25 @@ class EmbeddedLanguage extends Mocks\MockLanguage {
 
 class LanguageTest extends MatcherTestCase
 {
-    public function testSimple() {
+    public function testSimple()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if')),
-            'number' => new Rule(new RegexMatcher('/(\d+)/')),
+            'number'  => new Rule(new RegexMatcher('/(\d+)/')),
         ]]);
 
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'keyword'],
-                ['end'  , 'pos' => 2, 'name' => 'keyword'],
+                ['end', 'pos' => 2, 'name' => 'keyword'],
                 ['start', 'pos' => 3, 'name' => 'number'],
-                ['end'  , 'pos' => 5, 'name' => 'number'],
+                ['end', 'pos' => 5, 'name' => 'number'],
             ['end', 'pos' => 5, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('if 12')), true);
     }
 
-    public function testManyRules() {
+    public function testManyRules()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword' => [
                 new Rule(new SubStringMatcher('if')),
@@ -68,14 +71,15 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'keyword'],
-                ['end'  , 'pos' => 2, 'name' => 'keyword'],
+                ['end', 'pos' => 2, 'name' => 'keyword'],
                 ['start', 'pos' => 3, 'name' => 'keyword'],
-                ['end'  , 'pos' => 5, 'name' => 'keyword'],
+                ['end', 'pos' => 5, 'name' => 'keyword'],
             ['end', 'pos' => 5, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('if or')), true);
     }
 
-    public function testNestedTokens() {
+    public function testNestedTokens()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'for' => new Rule(new SubStringMatcher('for')),
             'or'  => new Rule(new SubStringMatcher('or'), ['context' => ['for']]),
@@ -85,13 +89,14 @@ class LanguageTest extends MatcherTestCase
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'for'],
                     ['start', 'pos' => 1, 'name' => 'or'],
-                    ['end'  , 'pos' => 3, 'name' => 'or'],
-                ['end'  , 'pos' => 3, 'name' => 'for'],
-            ['end'  , 'pos' => 3, 'name' => 'language.mock'],
+                    ['end', 'pos' => 3, 'name' => 'or'],
+                ['end', 'pos' => 3, 'name' => 'for'],
+            ['end', 'pos' => 3, 'name' => 'language.mock'],
         ], iterator_to_array($language->tokenize('for')), true);
     }
 
-    public function testInvalidTokens() {
+    public function testInvalidTokens()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'for' => new Rule(new SubStringMatcher('for')),
             'or'  => new Rule(new SubStringMatcher('or')),
@@ -100,12 +105,13 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'for'],
-                ['end'  , 'pos' => 3, 'name' => 'for'],
-            ['end'  , 'pos' => 3, 'name' => 'language.mock'],
+                ['end', 'pos' => 3, 'name' => 'for'],
+            ['end', 'pos' => 3, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('for')), true);
     }
 
-    public function testLanguageEmbeddingByItself() {
+    public function testLanguageEmbeddingByItself()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('keyword')),
         ]]);
@@ -115,19 +121,20 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'keyword'],
-                ['end'  , 'pos' => 7, 'name' => 'keyword'],
+                ['end', 'pos' => 7, 'name' => 'keyword'],
                 ['start', 'pos' => 8, 'name' => 'language.embedded'],
-                ['end'  , 'pos' => 19, 'name' => 'language.embedded'],
-            ['end'  , 'pos' => 19, 'name' => 'language.mock'],
+                ['end', 'pos' => 19, 'name' => 'language.embedded'],
+            ['end', 'pos' => 19, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('keyword { keyword }')), true);
     }
 
-    public function testLanguageEmbeddingByParent() {
+    public function testLanguageEmbeddingByParent()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
-            'keyword' => new Rule(new SubStringMatcher('keyword')),
+            'keyword'           => new Rule(new SubStringMatcher('keyword')),
             'language.embedded' => new Rule(new RegexMatcher('/(\{.*?\})/'), [
-                'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
-                'inject'   => new EmbeddedLanguage(['name' => 'embedded']),
+                'factory'     => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'inject'      => new EmbeddedLanguage(['name' => 'embedded']),
                 'postProcess' => true
             ])
         ]]);
@@ -135,14 +142,15 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 0, 'name' => 'keyword'],
-                ['end'  , 'pos' => 7, 'name' => 'keyword'],
+                ['end', 'pos' => 7, 'name' => 'keyword'],
                 ['start', 'pos' => 8, 'name' => 'language.embedded'],
-                ['end'  , 'pos' => 19, 'name' => 'language.embedded'],
-            ['end'  , 'pos' => 19, 'name' => 'language.mock'],
+                ['end', 'pos' => 19, 'name' => 'language.embedded'],
+            ['end', 'pos' => 19, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('keyword { keyword }')), true);
     }
 
-    public function testUnclosedTokens() {
+    public function testUnclosedTokens()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword' => new OpenRule(new SubStringMatcher('(')),
         ]]);
@@ -150,12 +158,13 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 3, 'name' => 'keyword'],
-                ['end'  , 'pos' => 7, 'name' => 'keyword'],
-            ['end'  , 'pos' => 7, 'name' => 'language.mock'],
+                ['end', 'pos' => 7, 'name' => 'keyword'],
+            ['end', 'pos' => 7, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('te ( st')), true);
     }
 
-    public function testRangeTokens() {
+    public function testRangeTokens()
+    {
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword' => [
                 new OpenRule(new SubStringMatcher('(')),
@@ -166,12 +175,13 @@ class LanguageTest extends MatcherTestCase
         $this->assertTokens([
             ['start', 'pos' => 0, 'name' => 'language.mock'],
                 ['start', 'pos' => 4, 'name' => 'keyword'],
-                ['end'  , 'pos' => 11, 'name' => 'keyword'],
-            ['end'  , 'pos' => 15, 'name' => 'language.mock'],
+                ['end', 'pos' => 11, 'name' => 'keyword'],
+            ['end', 'pos' => 15, 'name' => 'language.mock'],
         ], iterator_to_array($language->parse('foo ( bar ) foo')), true);
     }
 
-    public function testOptions() {
+    public function testOptions()
+    {
         $language = new MockLanguage([
             'test' => 'foo'
         ]);
@@ -185,7 +195,8 @@ class LanguageTest extends MatcherTestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongArgumentForParse() {
+    public function testWrongArgumentForParse()
+    {
         $language = new MockLanguage([
             'test' => 'foo'
         ]);

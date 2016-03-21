@@ -35,7 +35,8 @@ class TokenFactory implements TokenFactoryInterface
      *
      * @param string $class {@see }
      */
-    public function __construct($class) {
+    public function __construct($class)
+    {
         $this->setClass($class);
     }
 
@@ -44,13 +45,14 @@ class TokenFactory implements TokenFactoryInterface
      *
      * @return Token|null|false
      */
-    public function create($params) {
+    public function create($params)
+    {
         $params[0] = !empty($params[0]) ? $this->getName($params[0]) : $this->_base;
-        if(empty($params['rule'])) {
+        if (empty($params['rule'])) {
             $params['rule'] = $this->_rule;
         }
 
-        if(isset($params['pos'])) {
+        if (isset($params['pos'])) {
             $params['pos'] += $this->_offset;
         }
 
@@ -66,20 +68,23 @@ class TokenFactory implements TokenFactoryInterface
         /** @var Token $token */
         $token = new $this->_class($params);
 
-        if($this->_type == 0x3) {
+        if ($this->_type == 0x3) {
             return $token;
         }
 
-        if($this->_type === Token::START) {
+        if ($this->_type === Token::START) {
             $token->setEnd(false);
+
             return $token;
         } else {
             $token->getEnd()->setStart(false);
+
             return $token->getEnd();
         }
     }
 
-    private function getName($name) {
+    private function getName($name)
+    {
         if (!isset($this->_cache[$name])) {
             $this->_cache[$name] = str_replace('$', $this->_base, $name);
         }
@@ -93,7 +98,7 @@ class TokenFactory implements TokenFactoryInterface
     public function setBase($base)
     {
         $this->_cache = []; // invalidate cache
-        $this->_base = $base;
+        $this->_base  = $base;
     }
 
     /**
@@ -119,7 +124,7 @@ class TokenFactory implements TokenFactoryInterface
      */
     public function setClass($class)
     {
-        if(!is_a($class, 'Kadet\Highlighter\Parser\Token', true)) {
+        if (!is_a($class, 'Kadet\Highlighter\Parser\Token', true)) {
             throw new \InvalidArgumentException('$class must extend Kadet\Highlighter\Parser\Token');
         }
 

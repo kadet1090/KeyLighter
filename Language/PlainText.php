@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 class PlainText extends Language
 {
 

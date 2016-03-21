@@ -15,16 +15,17 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 use Kadet\Highlighter\Language\Language;
 
 class LanguageToken extends Token
 {
-    public function getInjected() {
+    public function getInjected()
+    {
         return $this->getRule()->inject;
     }
 
-    public function getLanguage() {
+    public function getLanguage()
+    {
         return $this->getStart() ? $this->getStart()->getRule()->inject : $this->getRule()->language;
     }
 
@@ -34,14 +35,14 @@ class LanguageToken extends Token
 
         if ($this->isStart()) {
             $lang = $this->_rule->language;
-            if($lang === null && $this->getInjected() !== $language) {
+            if ($lang === null && $this->getInjected() !== $language) {
                 $valid = true;
-            } elseif($language === $lang && $this->_rule->validate($context)) {
+            } elseif ($language === $lang && $this->_rule->validate($context)) {
                 $valid = true;
             }
         } else {
             $desired = $this->getLanguage();
-            $valid = $language === $desired && $this->_rule->validate($context);
+            $valid   = $language === $desired && $this->_rule->validate($context);
         }
         $this->setValid($valid);
     }

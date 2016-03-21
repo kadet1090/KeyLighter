@@ -15,15 +15,15 @@
 
 namespace Kadet\Highlighter\Tests\Matchers;
 
-
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;
 
 class RegexMatcherTest extends MatcherTestCase
 {
-    public function testSimple() {
+    public function testSimple()
+    {
         $matcher = new RegexMatcher('/(\w+)/');
-        $source = 'word1 word2';
+        $source  = 'word1 word2';
 
         $this->assertTokens([
             ['start', 'pos' => 0],
@@ -33,7 +33,8 @@ class RegexMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testWithGroups() {
+    public function testWithGroups()
+    {
         $matcher = new RegexMatcher('/(\w+):(\w+)/', [
             1 => 'first',
             2 => 'second'
@@ -48,7 +49,8 @@ class RegexMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testWithOptionalGroups() {
+    public function testWithOptionalGroups()
+    {
         $matcher = new RegexMatcher('/(\w+)(?::(\d+))?/', [
             1 => 'first',
             2 => 'second'

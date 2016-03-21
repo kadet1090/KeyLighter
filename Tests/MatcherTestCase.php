@@ -15,19 +15,20 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Tests\Constraint\TokensMatches;
 
 class MatcherTestCase extends \PHPUnit_Framework_TestCase
 {
-    public function assertTokens($expected, $actual, $message = '') {
+    public function assertTokens($expected, $actual, $message = '')
+    {
         $constraint = new TokensMatches($expected);
 
         self::assertThat($actual, $constraint, $message);
     }
 
-    public function getFactory() {
+    public function getFactory()
+    {
         return new TokenFactory('Kadet\Highlighter\Parser\Token');
     }
 }

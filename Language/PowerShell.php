@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -48,28 +47,28 @@ class PowerShell extends Language
 
             'variable' => [
                 new Rule(new RegexMatcher('/[^\^](\$(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
-                    'context' => ['!string.single', '!comment'],
+                    'context'  => ['!string.single', '!comment'],
                     'priority' => 0
                 ]),
                 new Rule(new RegexMatcher('/[^\^](\$\{(?P<namespace>\w+:)?[a-z_]\w*\})/i'), [
-                    'context' => ['!string.single', '!comment'],
+                    'context'  => ['!string.single', '!comment'],
                     'priority' => 0
                 ]),
             ],
 
             'variable.splat' => new Rule(new RegexMatcher('/[^\^](\@(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
-                'context' => ['!string.single', '!comment'],
+                'context'  => ['!string.single', '!comment'],
                 'priority' => 0
             ]),
 
             'variable.special' => new Rule(new RegexMatcher('/(\$(?:\$|\^|\?|_|true|false|null))/i'), [
                 'priority' => 5,
-                'context' => ['!string.single', '!comment']
+                'context'  => ['!string.single', '!comment']
             ]),
 
             'variable.scope' => new Rule(null, ['context' => ['*variable']]),
 
-            'comment' => new Rule(new CommentMatcher(['#'], [['<#', '#>']])),
+            'comment'             => new Rule(new CommentMatcher(['#'], [['<#', '#>']])),
             'keyword.doc-section' => new Rule(new RegexMatcher('/[\s\n](\.\w+)/i'), [
                 'context' => ['comment']
             ]),
@@ -78,7 +77,7 @@ class PowerShell extends Language
 
             'annotation' => new Rule(
                 new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
-                    1 => Token::NAME,
+                    1           => Token::NAME,
                     'arguments' => '$.arguments'
                 ])
             ),
@@ -96,22 +95,22 @@ class PowerShell extends Language
 
             'parameter' => new Rule(new RegexMatcher('/\s(-\w+:?)\b/i'), [
                 'priority' => 0,
-                'context' => ['!string', '!comment', '!call']
+                'context'  => ['!string', '!comment', '!call']
             ]),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';', '.', '::', '%'], ['separated' => false]), [
                 'priority' => 0,
-                'context' => ['!string', '!comment', '!call']
+                'context'  => ['!string', '!comment', '!call']
             ]),
 
             'number' => [
                 new Rule(new RegexMatcher('/(-?(?:0x[0-9a-f]+|\d+)l?(?:kb|mb|gb|tb|pb)?)/i'), [
                     'priority' => 0,
-                    'context' => ['!string', '!comment', '!variable', '!call']
+                    'context'  => ['!string', '!comment', '!variable', '!call']
                 ]),
                 new Rule(new RegexMatcher('/(-?(?>\d+)?\.\d+(?>d|l)(?>e(?:\+|-)?\d+)?(?:kb|mb|gb|tb|pb)?)/i'), [
                     'priority' => 0,
-                    'context' => ['!string', '!comment', '!variable', '!call']
+                    'context'  => ['!string', '!comment', '!variable', '!call']
                 ])
             ],
 

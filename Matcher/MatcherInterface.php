@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Matcher;
 
-
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 interface MatcherInterface

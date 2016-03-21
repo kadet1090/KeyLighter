@@ -15,19 +15,20 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenIterator;
 
 class TokenIteratorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSourceReturning() {
+    public function testSourceReturning()
+    {
         $iterator = new TokenIterator([], 'source');
 
         $this->assertEquals('source', $iterator->getSource());
     }
 
-    public function testTokenReturning() {
+    public function testTokenReturning()
+    {
         $tokens = [
             new Token(['token.name', 'pos' => 15]),
             new Token(['token.name', 'pos' => 25]),

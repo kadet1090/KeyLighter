@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
@@ -56,7 +55,7 @@ class Latex extends Language
             'operator' => [
                 new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => Rule::everywhere()]),
                 new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
-                    'context' => ['string.math'],
+                    'context'  => ['string.math'],
                     'priority' => -1
                 ]),
             ],
@@ -71,7 +70,7 @@ class Latex extends Language
 
             # math mode
             'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|[\d,]+))/'), [
-                'context' => ['string.math'],
+                'context'  => ['string.math'],
                 'priority' => -2
             ]),
         ];

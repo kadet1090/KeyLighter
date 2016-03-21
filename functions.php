@@ -17,6 +17,7 @@ namespace Kadet\Highlighter;
 
 use Kadet\Highlighter\Formatter\FormatterInterface;
 
-function highlight($source, $language, FormatterInterface $formatter = null) {
+function highlight($source, $language, FormatterInterface $formatter = null)
+{
     return KeyLighter::get()->highlight($source, $language, $formatter);
 }

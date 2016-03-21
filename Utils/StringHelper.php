@@ -20,7 +20,7 @@ class StringHelper
     public static function positionToLine($source, $pos)
     {
         $source = substr($source, 0, $pos);
-        $last = strripos($source, PHP_EOL);
+        $last   = strripos($source, PHP_EOL);
         if ($last !== false) {
             $last += strlen(PHP_EOL);
         }
@@ -31,9 +31,11 @@ class StringHelper
         ];
     }
 
-    public static function pop($string, $delimiter = '.') {
+    public static function pop($string, $delimiter = '.')
+    {
         $array = explode($delimiter, $string);
         array_pop($array);
+
         return implode($delimiter, $array);
     }
 }

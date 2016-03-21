@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -66,7 +65,7 @@ class Sql extends Language
     public function getRules()
     {
         return [
-            'keyword' => new Rule(new WordMatcher($this->_keywords, ['escape' => false])),
+            'keyword'     => new Rule(new WordMatcher($this->_keywords, ['escape' => false])),
             'symbol.type' => new Rule(new WordMatcher($this->_types, ['escape' => false])),
 
             'constant' => new Rule(new WordMatcher(['FALSE', 'TRUE', 'NULL'])),
@@ -82,8 +81,8 @@ class Sql extends Language
                 ]),
             ],
 
-            'number' => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
-            'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
+            'number'         => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
+            'call'           => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
             'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => ['string']])
         ];
     }

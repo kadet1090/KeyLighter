@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 class TokenList
 {
     private $_tokens  = [];
@@ -53,10 +52,11 @@ class TokenList
         return $this;
     }
 
-    public function sort() {
+    public function sort()
+    {
         ksort($this->_tokens);
 
-        foreach(array_keys($this->_pending) as $position) {
+        foreach (array_keys($this->_pending) as $position) {
             uasort(
                 $this->_tokens[$position],
                 Token::class.'::compare'

@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -82,7 +81,7 @@ class Css extends Language
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:{1,2}$identifier)/")),
 
             'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
-                'context' => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment'],
+                'context'  => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment'],
                 'priority' => 0
             ]),
             'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
@@ -95,7 +94,7 @@ class Css extends Language
 
             'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
                 'priority' => 2,
-                'context' => ['meta.declaration', '!symbol.color', '!comment']
+                'context'  => ['meta.declaration', '!symbol.color', '!comment']
             ]),
 
             'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [

@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 use Kadet\Highlighter\Language\Language;
 
 class ContextualToken extends Token
@@ -27,8 +26,9 @@ class ContextualToken extends Token
 
     protected function validate(Language $language, $context)
     {
-        if($language !== $this->getRule()->language) {
+        if ($language !== $this->getRule()->language) {
             $this->setValid(false);
+
             return false;
         }
 
@@ -38,20 +38,20 @@ class ContextualToken extends Token
             if (!$this->getRule()->validate($context)) {
                 $this->setValid(false);
             } else {
-                $this->_valid = true;
+                $this->_valid       = true;
                 $this->_end->_valid = false;
             }
         } else {
             if (!$this->getRule()->validate($context, [$this->name => Rule::CONTEXT_IN])) {
                 $this->setValid(false);
             } else {
-                $this->_valid = false;
+                $this->_valid       = false;
                 $this->_end->_valid = true;
             }
         }
 
         $this->_end->_start = false;
-        $this->_end = false;
+        $this->_end         = false;
 
         return true;
     }

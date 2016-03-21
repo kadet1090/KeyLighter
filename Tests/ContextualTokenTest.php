@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
@@ -28,11 +27,13 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
      */
     private $_factory;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->_factory = new TokenFactory(ContextualToken::class);
     }
 
-    public function testValidation() {
+    public function testValidation()
+    {
         /** @var Language $lang */
         $lang = $this->getMock('Kadet\Highlighter\Language\Language');
         $rule = new Rule(null, ['language' => $lang]);
@@ -54,7 +55,8 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($startEnd->isEnd());
     }
 
-    public function testInvalid() {
+    public function testInvalid()
+    {
         /** @var Language $lang */
         $lang = $this->getMock('Kadet\Highlighter\Language\Language');
         $rule = new Rule(null, ['language' => $lang]);
@@ -73,7 +75,8 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($end->isValid($lang, ['nope']));
     }
 
-    public function testClose() {
+    public function testClose()
+    {
         /** @var Language $lang */
         $lang = $this->getMock('Kadet\Highlighter\Language\Language');
         $rule = new Rule(null, ['language' => $lang, 'context' => [

@@ -14,7 +14,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -40,12 +39,12 @@ class Xml extends Language
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
-                'name' => Token::NAME,
+                'name'      => Token::NAME,
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
             'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/', [
-                'name' => Token::NAME,
+                'name'      => Token::NAME,
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 

@@ -15,8 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 class MetaToken extends Token
 {
-
 }

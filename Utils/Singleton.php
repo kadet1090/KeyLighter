@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Utils;
 
-
 trait Singleton
 {
     /**
@@ -26,8 +25,9 @@ trait Singleton
     /**
      * @return static
      */
-    public static function get() {
-        if(!isset(self::$_instance)) {
+    public static function get()
+    {
+        if (!isset(self::$_instance)) {
             self::$_instance = new static();
         }
 

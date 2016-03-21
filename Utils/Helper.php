@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Utils;
 
-
 class Helper
 {
     public static function cmp($a, $b)

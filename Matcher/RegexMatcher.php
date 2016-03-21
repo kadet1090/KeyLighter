@@ -30,7 +30,7 @@ class RegexMatcher implements MatcherInterface
      */
     public function __construct($regex, array $groups = [1 => null])
     {
-        $this->regex = $regex;
+        $this->regex  = $regex;
         $this->groups = $groups;
     }
 

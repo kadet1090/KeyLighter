@@ -34,7 +34,8 @@ class DebugFormatter implements FormatterInterface
      *
      * @param $styles
      */
-    public function __construct($styles = false) {
+    public function __construct($styles = false)
+    {
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
     }
 
@@ -43,7 +44,7 @@ class DebugFormatter implements FormatterInterface
         $source = $tokens->getSource();
 
         $result = '';
-        $last = 0;
+        $last   = 0;
 
         $level = 0;
 
@@ -52,7 +53,7 @@ class DebugFormatter implements FormatterInterface
             $pos = StringHelper::positionToLine($source, $token->pos);
 
             if ($token->isStart()) {
-                if($leveled) {
+                if ($leveled) {
                     $result .= str_repeat('    ', $level);
                 }
 
@@ -62,18 +63,21 @@ class DebugFormatter implements FormatterInterface
                     Console::styled(['bold' => true], $token->name).' '.
                     Console::styled(['color' => 'blue'], get_class($token)).
                     PHP_EOL;
+                
                 $level++;
+
                 $result .= Console::styled(self::getColor($token->name),
                     ($leveled ? str_repeat('    ', $level) : null).
                     implode(
                         PHP_EOL.($leveled ? str_repeat('    ', $level) : null),
                         explode(PHP_EOL, substr($source, $token->pos, $token->getLength()))
                     ).
-                    PHP_EOL);
+                    PHP_EOL
+                );
             } else {
                 $level--;
 
-                if($leveled) {
+                if ($leveled) {
                     $result .= str_repeat('    ', $level);
                 }
 
@@ -94,7 +98,7 @@ class DebugFormatter implements FormatterInterface
     public function getColor($token)
     {
         do {
-            if(isset($this->_styles[$token])) {
+            if (isset($this->_styles[$token])) {
                 return $this->_styles[$token];
             }
 

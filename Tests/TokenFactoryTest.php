@@ -15,17 +15,18 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class TokenFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTokenCreation() {
+    public function testTokenCreation()
+    {
         $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
         $this->assertInstanceOf('Kadet\Highlighter\Parser\Token', $factory->create([]));
     }
 
-    public function testRuleInheriting() {
+    public function testRuleInheriting()
+    {
         $rule = $this->getMockBuilder('Kadet\Highlighter\Parser\Rule')->disableOriginalConstructor()->getMock();
 
         $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
@@ -35,14 +36,16 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule, $token->getRule());
     }
 
-    public function testSubNaming() {
+    public function testSubNaming()
+    {
         $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
         $factory->setBase('token');
 
         $this->assertEquals('token.name', $factory->create(['$.name'])->name);
     }
 
-    public function testOffset() {
+    public function testOffset()
+    {
         $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
         $factory->setOffset(10);
         $this->assertEquals(15, $factory->create(['token', 'pos' => 5])->pos);
@@ -51,7 +54,8 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testWrongClass() {
+    public function testWrongClass()
+    {
         new TokenFactory('wrong-class');
     }
 }

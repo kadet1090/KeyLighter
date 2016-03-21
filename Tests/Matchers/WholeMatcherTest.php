@@ -15,13 +15,13 @@
 
 namespace Kadet\Highlighter\Tests\Matchers;
 
-
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;
 
 class WholeMatcherTest extends MatcherTestCase
 {
-    public function testWholeMatcher() {
+    public function testWholeMatcher()
+    {
         $matcher = new WholeMatcher();
 
         $this->assertTokens([

@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language\Css;
 
-
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\MetaToken;
 use Kadet\Highlighter\Parser\Rule;
@@ -27,19 +26,19 @@ class Sass extends Scss
     
     public function getRules()
     {
-        $rules = parent::getRules();
+        $rules                  = parent::getRules();
         $rules['meta.selector'] = new Rule(new RegexMatcher('/(?=(?:\n+|^)(\h*)([^\h].*)\n+\1\h+)/', [
             2 => Token::NAME
         ]), [
-            'context' => Rule::everywhere(),
+            'context'  => Rule::everywhere(),
             'priority' => 3,
-            'factory' => new TokenFactory(MetaToken::class)
+            'factory'  => new TokenFactory(MetaToken::class)
         ]);
 
         $rules['meta.declaration'] = new Rule(new RegexMatcher('/\n((?:\h+.*?(?>\n|$)+)+)/'), [
-            'context' => Rule::everywhere(),
+            'context'  => Rule::everywhere(),
             'priority' => 2,
-            'factory' => new TokenFactory(MetaToken::class)
+            'factory'  => new TokenFactory(MetaToken::class)
         ]);
 
         $rules['meta.declaration.media'] = new Rule(new RegexMatcher('/@media(.*?)/'), [
@@ -55,6 +54,7 @@ class Sass extends Scss
         $rules['symbol.selector.id']->setContext(['meta.selector']);
         $rules['number']->setContext(['!meta.selector', '!symbol', '!constant', '!comment']);
         $rules['keyword.special']->setContext(['meta.selector']);
+
         return $rules;
     }
 

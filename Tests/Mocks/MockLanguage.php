@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests\Mocks;
 
-
 use Kadet\Highlighter\Language\Language;
 
 class MockLanguage extends Language
@@ -24,7 +23,8 @@ class MockLanguage extends Language
     private $range;
     private $name;
 
-    public function __construct(array $options) {
+    public function __construct(array $options)
+    {
         $options = array_merge([
             'rules' => [],
             'range' => parent::getOpenClose(),

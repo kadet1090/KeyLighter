@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Matcher\MatcherInterface;
 
@@ -70,16 +69,15 @@ class Rule
 
     public function setContext($rules)
     {
-        if(is_callable($rules)) {
+        if (is_callable($rules)) {
             $this->_validator = $rules;
         } else {
             $this->_context = [];
             foreach ($rules as $key => $rule) {
-                list($plain, $type) = $this->_getContextRule($rule);
+                list($plain, $type)     = $this->_getContextRule($rule);
                 $this->_context[$plain] = $type;
             }
         }
-
     }
 
     private function _getContextRule($rule)
@@ -96,7 +94,7 @@ class Rule
         }
 
         $type = 0;
-        $pos = 0;
+        $pos  = 0;
         foreach (str_split($rule) as $pos => $char) {
             if (!isset($types[$char])) {
                 break;
@@ -124,15 +122,17 @@ class Rule
 
     public function validate($context, array $additional = [])
     {
-        if(is_callable($this->_validator)) {
+        if (is_callable($this->_validator)) {
             $validator = $this->_validator;
+
             return $validator($context, $additional);
         } else {
             return $this->_validate($context, array_merge($additional, $this->_context));
         }
     }
 
-    private function _validate($context, $rules) {
+    private function _validate($context, $rules)
+    {
         if (empty($rules)) {
             return count($context) === 0;
         }
@@ -191,10 +191,11 @@ class Rule
         return $this->_options[$option] = $value;
     }
 
-    public static function everywhere() {
+    public static function everywhere()
+    {
         static $callable;
-        if(!$callable) {
-            $callable = function() {
+        if (!$callable) {
+            $callable = function () {
                 return true;
             };
         }

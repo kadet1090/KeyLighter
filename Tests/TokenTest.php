@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
@@ -29,7 +28,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
      */
     private $_factory;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->_factory = new TokenFactory(Token::class);
     }
 
@@ -96,7 +96,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($close->isEnd());
     }
 
-    public function testInvalidation() {
+    public function testInvalidation()
+    {
         /** @var Language $language */
         $language = $this->getMock('Kadet\Highlighter\Language\Language');
 
@@ -111,7 +112,8 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($token->getEnd()->isValid($language));
     }
 
-    public function testTokenValidation() {
+    public function testTokenValidation()
+    {
         /** @var Language $language */
         $language = $this->getMock('Kadet\Highlighter\Language\Language');
 

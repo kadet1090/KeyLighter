@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Matcher;
 
-
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class CommentMatcher implements MatcherInterface
@@ -32,7 +31,7 @@ class CommentMatcher implements MatcherInterface
     public function __construct(array $singleLine, array $multiLine)
     {
         $this->singleLine = $singleLine;
-        $this->multiLine = $multiLine;
+        $this->multiLine  = $multiLine;
     }
 
 
@@ -57,14 +56,14 @@ class CommentMatcher implements MatcherInterface
 
         foreach ($this->singleLine as $name => $comment) {
             $comment = preg_quote($comment, '/');
-            $all[] = [$name, "/{$comment}(.*)/"];
+            $all[]   = [$name, "/{$comment}(.*)/"];
         }
 
         foreach ($all as $i => $comment) {
             $matches = [];
 
-            $name = $comment[0];
-            $name = is_string($name) ? $name : null;
+            $name  = $comment[0];
+            $name  = is_string($name) ? $name : null;
             $regex = $comment[1];
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {

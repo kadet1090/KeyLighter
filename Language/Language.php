@@ -85,7 +85,7 @@ abstract class Language
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
-        $start = $tokens->current();
+        $start   = $tokens->current();
         $context = [];
 
         /** @var Token[] $result */
@@ -107,7 +107,7 @@ abstract class Language
                         $token->getInjected()->parse($tokens)->getTokens()
                     );
                 } else {
-                    if(!$token instanceof MetaToken) {
+                    if (!$token instanceof MetaToken) {
                         $result[] = $token;
                     }
                     $context[$tokens->key()] = $token->name;
@@ -152,7 +152,7 @@ abstract class Language
                         }
                     }
 
-                    if(!$start instanceof MetaToken) {
+                    if (!$start instanceof MetaToken) {
                         $result[] = $token;
                     }
                 }

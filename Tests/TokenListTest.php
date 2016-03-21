@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -28,11 +27,13 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
      */
     private $_factory;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->_factory = new TokenFactory(Token::class);
     }
 
-    public function testTokenSortingPositions() {
+    public function testTokenSortingPositions()
+    {
         $tokens = [
             $this->_factory->create(['token.name', 'pos' => 25]),
             $this->_factory->create(['token.name', 'pos' => 15]),
@@ -45,8 +46,9 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array_reverse($tokens), array_values($list->toArray()));
     }
 
-    public function testTokenSortingPriority() {
-        $tokens = [];
+    public function testTokenSortingPriority()
+    {
+        $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(['token.1', 'pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 3])]);
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(['token.2', 'pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 1])]);
@@ -66,8 +68,9 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTokenSortingIndex() {
-        $tokens = [];
+    public function testTokenSortingIndex()
+    {
+        $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(['token.1', 'pos' => 2, 'length' => 3, 'index' => 3]);
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(['token.2', 'pos' => 2, 'length' => 3, 'index' => 1]);
@@ -87,8 +90,9 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTokenSortingFallback() {
-        $tokens = [];
+    public function testTokenSortingFallback()
+    {
+        $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(['token.1', 'pos' => 2, 'length' => 3]);
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(['token.2', 'pos' => 2, 'length' => 3]);
@@ -108,8 +112,9 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTokenSortingEndProceedsStart() {
-        $tokens = [];
+    public function testTokenSortingEndProceedsStart()
+    {
+        $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(['token.1', 'pos' => 2, 'length' => 0]);
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(['token.3', 'pos' => 5, 'length' => 4]);
@@ -128,5 +133,4 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
             array_values($list->toArray())
         );
     }
-
 }

@@ -31,7 +31,7 @@ class HtmlFormatter implements FormatterInterface
         $source = $tokens->getSource();
 
         $result = '';
-        $last = 0;
+        $last   = 0;
 
         /** @var Token $token */
         foreach ($tokens as $token) {

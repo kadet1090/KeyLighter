@@ -34,7 +34,8 @@ class CliFormatter implements FormatterInterface
      *
      * @param $styles
      */
-    public function __construct($styles = false) {
+    public function __construct($styles = false)
+    {
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
     }
 
@@ -43,7 +44,7 @@ class CliFormatter implements FormatterInterface
         $source = $tokens->getSource();
 
         $result = '';
-        $last = 0;
+        $last   = 0;
 
         /** @var Token $token */
         foreach ($tokens as $token) {

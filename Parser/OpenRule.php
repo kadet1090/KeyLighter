@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 class OpenRule extends Rule
 {
     /**
@@ -26,6 +25,7 @@ class OpenRule extends Rule
     public function match($source)
     {
         $this->factory->setType(Token::START);
+
         return parent::match($source);
     }
 }

@@ -47,14 +47,16 @@ class KeyLighter
      *
      * @return Language
      */
-    public function getLanguage($name) {
+    public function getLanguage($name)
+    {
         $embedded = [];
-        if(($pos = strpos($name, '>')) !== false) {
+        if (($pos = strpos($name, '>')) !== false) {
             $embedded[] = self::getLanguage(trim(substr($name, $pos + 1)));
             $name       = trim(substr($name, 0, $pos));
         }
 
         $lang = isset($this->_languages[$name]) ? $this->_languages[$name] : 'Kadet\\Highlighter\\Language\\PlainText';
+
         return new $lang([
             'embedded' => $embedded
         ]);
@@ -64,33 +66,39 @@ class KeyLighter
      * @param Language|callable|string $language
      * @param array[string]            $aliases
      */
-    public function registerLanguage($language, $aliases) {
+    public function registerLanguage($language, $aliases)
+    {
         $this->_languages = array_merge($this->_languages, array_fill_keys($aliases, $language));
     }
 
-    public function setDefaultFormatter(FormatterInterface $formatter) {
+    public function setDefaultFormatter(FormatterInterface $formatter)
+    {
         $this->_formatter = $formatter;
     }
 
-    public function registeredLanguages() {
+    public function registeredLanguages()
+    {
         return $this->_languages;
     }
 
-    public function getDefaultFormatter() {
+    public function getDefaultFormatter()
+    {
         return $this->_formatter;
     }
 
-    public function highlight($source, $language, FormatterInterface $formatter = null) {
+    public function highlight($source, $language, FormatterInterface $formatter = null)
+    {
         $formatter = $formatter ?: $this->getDefaultFormatter();
 
-        if(!$language instanceof Language) {
+        if (!$language instanceof Language) {
             $language = $this->getLanguage($language);
         }
 
         return $formatter->format($language->parse($source));
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->setDefaultFormatter(
             php_sapi_name() === 'cli' ? new CliFormatter() : new HtmlFormatter()
         );

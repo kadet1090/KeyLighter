@@ -20,9 +20,10 @@ use Kadet\Highlighter\Parser\Token;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMatching() {
+    public function testMatching()
+    {
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
-        $tokens = [
+        $tokens  = [
             new Token(['token.name', 'pos' => 15])
         ];
 
@@ -33,7 +34,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule->match("source"), $tokens);
     }
 
-    public function testCreation() {
+    public function testCreation()
+    {
         $language = $this->getMock('Kadet\Highlighter\Language\Language');
         $factory  = $this
             ->getMockBuilder('Kadet\Highlighter\Parser\TokenFactory')
@@ -41,7 +43,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $rule = new Rule(null, [
-            'factory' => $factory,
+            'factory'  => $factory,
             'priority' => 10,
             'language' => $language
         ]);
@@ -51,7 +53,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($rule->factory, $factory);
     }
 
-    public function testInContextValidation() {
+    public function testInContextValidation()
+    {
         $rule = new Rule(null, [
             'context' => ['valid']
         ]);
@@ -62,7 +65,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['other', 'some']));
     }
 
-    public function testNotInContextValidation() {
+    public function testNotInContextValidation()
+    {
         $rule = new Rule(null, [
             'context' => ['!invalid']
         ]);
@@ -72,7 +76,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['invalid']));
     }
 
-    public function testInOneOfContextValidation() {
+    public function testInOneOfContextValidation()
+    {
         $rule = new Rule(null, [
             'context' => ['*first', '*second']
         ]);
@@ -83,7 +88,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['other']));
     }
 
-    public function testSubTokens() {
+    public function testSubTokens()
+    {
         $rule = new Rule(null, [
             'context' => ['token.test', '!token']
         ]);
@@ -92,7 +98,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['token']));
     }
 
-    public function testInAll() {
+    public function testInAll()
+    {
         $rule = new Rule(null, [
             'context' => Rule::everywhere()
         ]);
@@ -103,7 +110,8 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($rule->validate(['other']));
     }
 
-    public function testInNone() {
+    public function testInNone()
+    {
         $rule = new Rule(null);
 
         $this->assertFalse($rule->validate(['first']));
@@ -112,9 +120,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->validate(['other']));
     }
 
-    public function testCallableValidator() {
+    public function testCallableValidator()
+    {
         $rule = new Rule(null, [
-            'context' => function($context) {
+            'context' => function ($context) {
                 return in_array('bar', $context) && !in_array('foo', $context);
             }
         ]);

@@ -15,22 +15,24 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Utils\ConsoleHelper;
 
 class ConsoleHelperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testReset() {
+    public function testReset()
+    {
         $console = new ConsoleHelper();
         $this->assertEquals("\033[0m", $console->reset());
     }
 
-    public function testStyled() {
+    public function testStyled()
+    {
         $console = new ConsoleHelper();
         $this->assertEquals("\e[31mtest\033[0m", $console->styled(["color" =>"red"], "test"));
     }
 
-    public function testStacking() {
+    public function testStacking()
+    {
         $console = new ConsoleHelper();
         $this->assertEquals(
             "\033[31mtest\033[32mtest2\033[0m\033[31mtest3\033[0m",
@@ -45,12 +47,14 @@ class ConsoleHelperTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider stylesProvider
      */
-    public function testStyles($expected, $style) {
+    public function testStyles($expected, $style)
+    {
         $console = new ConsoleHelper();
         $this->assertEquals($expected, $console->open($style));
     }
 
-    public function stylesProvider() {
+    public function stylesProvider()
+    {
         return [
             'background red' => ["\033[41m", ["background" => "red"]],
             'bold'           => ["\033[1m",  ["bold" => true]],

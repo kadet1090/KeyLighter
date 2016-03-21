@@ -14,7 +14,6 @@
 
 namespace Kadet\Highlighter\Language;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -56,7 +55,7 @@ class JavaScript extends Language
             ]),
         ];
 
-        if($this->variables) {
+        if ($this->variables) {
             $rules = array_merge($rules, [
                 'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), ['priority' => -10000]),
             ]);
@@ -86,14 +85,14 @@ class JavaScript extends Language
             'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            'operator' => new Rule(new RegexMatcher('/(\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
+            'operator'             => new Rule(new RegexMatcher('/(\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
 
             'string.regex' => [
                 new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m')),
                 new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
                     'priority' => 1,
-                    'factory' => new TokenFactory(ContextualToken::class),
-                    'context' => ['!keyword.escape', 'string.regex']
+                    'factory'  => new TokenFactory(ContextualToken::class),
+                    'context'  => ['!keyword.escape', 'string.regex']
                 ])
             ]
         ]);

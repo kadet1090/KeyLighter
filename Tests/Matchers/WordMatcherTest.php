@@ -15,14 +15,14 @@
 
 namespace Kadet\Highlighter\Tests\Matchers;
 
-
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;
 
 class WordMatcherTest extends MatcherTestCase
 {
-    public function testSimple() {
-        $source = 'first second seconder';
+    public function testSimple()
+    {
+        $source  = 'first second seconder';
         $matcher = new WordMatcher(['first', 'second']);
 
         $this->assertTokens([
@@ -33,8 +33,9 @@ class WordMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNonSeparated() {
-        $source = 'first firster';
+    public function testNonSeparated()
+    {
+        $source  = 'first firster';
         $matcher = new WordMatcher(['first'], [
             'separated' => false
         ]);
@@ -47,8 +48,9 @@ class WordMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testCaseInsensitive() {
-        $source = 'first FIRST';
+    public function testCaseInsensitive()
+    {
+        $source  = 'first FIRST';
         $matcher = new WordMatcher(['first']);
 
         $this->assertTokens([
@@ -59,8 +61,9 @@ class WordMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testCaseSensitive() {
-        $source = 'first FIRST';
+    public function testCaseSensitive()
+    {
+        $source  = 'first FIRST';
         $matcher = new WordMatcher(['first'], [
             'case-sensitivity' => true
         ]);
@@ -71,8 +74,9 @@ class WordMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNonEscaped() {
-        $source = 'first abcdef';
+    public function testNonEscaped()
+    {
+        $source  = 'first abcdef';
         $matcher = new WordMatcher(['\w+'], [
             'escape' => false
         ]);

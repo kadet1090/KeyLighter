@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 class TokenIterator extends \ArrayIterator
 {
     private $_source;
@@ -39,7 +38,8 @@ class TokenIterator extends \ArrayIterator
         return $this->_source;
     }
 
-    public function getTokens() {
+    public function getTokens()
+    {
         return $this->getArrayCopy();
     }
 }

@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Tests\Matchers;
 
-
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;
 

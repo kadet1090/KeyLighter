@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Language\Sql;
 
-
 use Kadet\Highlighter\Language\Sql;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\ContextualToken;

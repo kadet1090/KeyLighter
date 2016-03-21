@@ -15,14 +15,14 @@
 
 namespace Kadet\Highlighter\Tests\Matchers;
 
-
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;
 
 class CommentMatcherTest extends MatcherTestCase
 {
-    public function testSingleLine() {
-        $source = "test // comment\ntest # comment";
+    public function testSingleLine()
+    {
+        $source  = "test // comment\ntest # comment";
         $matcher = new CommentMatcher(['//', '#'], []);
 
         $this->assertTokens([
@@ -33,8 +33,9 @@ class CommentMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testMultiLine() {
-        $source = "test /*\ntest\n*/";
+    public function testMultiLine()
+    {
+        $source  = "test /*\ntest\n*/";
         $matcher = new CommentMatcher([], [['/*', '*/']]);
 
         $this->assertTokens([
@@ -43,8 +44,9 @@ class CommentMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNamedMulti() {
-        $source = "test /* test */ {# test2 #}";
+    public function testNamedMulti()
+    {
+        $source  = "test /* test */ {# test2 #}";
         $matcher = new CommentMatcher([], ['first' => ['/*', '*/'], 'second' => ['{#', '#}']]);
 
         $this->assertTokens([
@@ -55,8 +57,9 @@ class CommentMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
-    public function testNamedSingle() {
-        $source = "test // comment\ntest # comment";
+    public function testNamedSingle()
+    {
+        $source  = "test // comment\ntest # comment";
         $matcher = new CommentMatcher(['first' => '//', 'second' => '#'], []);
 
         $this->assertTokens([

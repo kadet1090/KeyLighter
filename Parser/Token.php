@@ -15,7 +15,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Utils\Helper;
 use Kadet\Highlighter\Utils\StringHelper;
@@ -91,9 +90,9 @@ class Token
         $multiplier = $a->isEnd() ? -1 : 1;
 
         if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
-            if($a->getStart() == $b) {
+            if ($a->getStart() == $b) {
                 return 1;
-            } elseif($a->getEnd() == $b) {
+            } elseif ($a->getEnd() == $b) {
                 return -1;
             } else {
                 return $multiplier;
@@ -158,7 +157,7 @@ class Token
      */
     public function setStart($start = null)
     {
-        $this->_end = null;
+        $this->_end   = null;
         $this->_start = $start;
 
         if ($start instanceof Token) {
@@ -179,8 +178,8 @@ class Token
      */
     public function setEnd($end = null)
     {
-        $this->_start = null;
-        $this->_end = $end;
+        $this->_start  = null;
+        $this->_end    = $end;
         $this->_length = null;
 
         if ($end instanceof Token) {
@@ -233,7 +232,8 @@ class Token
         return $result;
     }
 
-    public function __get($name) {
+    public function __get($name)
+    {
         return $this->getRule()->$name;
     }
 }
