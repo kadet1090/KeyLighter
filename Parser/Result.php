@@ -40,10 +40,8 @@ class Result extends \ArrayObject implements Tokens
 
     public function merge($tokens)
     {
-        if($tokens instanceof Result) {
-            $tokens = $tokens->getArrayCopy();
+        foreach ($tokens as $token) {
+            $this->append($token);
         }
-
-        $this->exchangeArray(array_merge($this->getArrayCopy(), $tokens));
     }
 }

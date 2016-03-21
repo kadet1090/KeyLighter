@@ -114,11 +114,11 @@ abstract class Language
         $this->_iterator = $tokens;
 
         /** @var Token $token */
-        for ($this->_iterator->next(); $this->_iterator->valid(); $this->_iterator->next()) {
-            $token = $this->_iterator->current();
+        for ($tokens->next(); $tokens->valid(); $tokens->next()) {
+            $token = $tokens->current();
 
             if ($token->isValid($this, $this->_context)) {
-                if(!$this->_handleToken($token)) {
+                if($this->_handleToken($token) === false) {
                     break;
                 };
             }
@@ -288,7 +288,7 @@ abstract class Language
                     $start = ArrayHelper::find(array_reverse($this->_context), function ($k, $v) use ($token) {
                         return $v === $token->name;
                     });
-                    
+
                     if ($start !== false) {
                         $token->setStart($this->_iterator[$start]);
                         unset($this->_context[$start]);
