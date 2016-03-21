@@ -18,11 +18,12 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\LanguageToken;
 use Kadet\Highlighter\Parser\MetaToken;
+use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
-use Kadet\Highlighter\Parser\TokenList;
+use Kadet\Highlighter\Parser\UnprocessedTokens;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
@@ -45,6 +46,26 @@ abstract class Language
     private $_rules;
 
     /**
+     * @var array
+     */
+    private $_context;
+
+    /**
+     * @var Result
+     */
+    private $_result;
+
+    /**
+     * @var TokenIterator
+     */
+    private $_iterator;
+
+    /**
+     * @var LanguageToken
+     */
+    private $_start;
+
+    /**
      * Language constructor.
      *
      * @param array $options
@@ -52,9 +73,8 @@ abstract class Language
     public function __construct(array $options = [])
     {
         $this->_options = array_merge([
-                'embedded' => [],
-            ], $this->_options, $options
-        );
+            'embedded' => [],
+        ], $this->_options, $options);
 
         $this->_rules = $this->getRules();
     }
@@ -85,33 +105,33 @@ abstract class Language
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
-        $start   = $tokens->current();
-        $context = [];
-
-        /** @var Token[] $result */
-        $result = [$start];
+        // Reset variables to default state
+        $this->_start    = $tokens->current();
+        $this->_context  = [];
+        $this->_result   = new Result($tokens->getSource(), [
+            $this->_start
+        ]);
+        $this->_iterator = $tokens;
 
         /** @var Token $token */
-        for ($tokens->next(); $tokens->valid(); $tokens->next()) {
-            $token = $tokens->current();
+        for ($this->_iterator->next(); $this->_iterator->valid(); $this->_iterator->next()) {
+            $token = $this->_iterator->current();
 
-            if (!$token->isValid($this, $context)) {
-                continue;
+            if ($token->isValid($this, $this->_context)) {
+                if(!$this->_handleToken($token)) {
+                    break;
+                };
             }
-
-            $this->_handleToken($tokens, $token, $result, $context);
         }
 
-        return new TokenIterator($result, $tokens->getSource());
+        return $this->_result;
     }
 
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
-        $iterator = new TokenIterator(
+        return new TokenIterator(
             $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source
         );
-
-        return $iterator;
     }
 
     /**
@@ -124,11 +144,11 @@ abstract class Language
      *
      * @param bool  $embedded
      *
-     * @return TokenList
+     * @return UnprocessedTokens
      */
     private function _tokens($source, $offset = 0, $additional = [], $embedded = false)
     {
-        $result = new TokenList();
+        $result = new UnprocessedTokens();
 
         /** @var Language $language */
         foreach ($this->_rules($embedded) as $rule) {
@@ -229,68 +249,59 @@ abstract class Language
         $this->_options[$name] = $value;
     }
 
-    /**
-     * @param $tokens
-     * @param $token
-     * @param $result
-     * @param $context
-     */
-    protected function _handleToken(&$tokens, Token $token, &$result, &$context)
+    protected function _handleToken(Token $token)
     {
         if ($token->isStart()) {
             if ($token instanceof LanguageToken) {
-                /** @var LanguageToken $token */
-                $result = array_merge(
-                    $result,
-                    $token->getInjected()->parse($tokens)->getTokens()
-                );
+                $this->_result->merge($token->getInjected()->parse($this->_iterator));
             } else {
-                if (!$token instanceof MetaToken) {
-                    $result[] = $token;
-                }
-                $context[$tokens->key()] = $token->name;
+                $this->_result[] = $token;
+                $this->_context[$this->_iterator->key()] = $token->name;
             }
         } else {
             $start = $token->getStart();
 
             /** @noinspection PhpUndefinedMethodInspection bug */
             if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
-                $result[0]->setEnd($token);
+                $this->_start->setEnd($token);
 
-                if ($result[0]->postProcess) {
-                    $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
+                if ($this->_start->postProcess) {
+                    $source = substr($this->_iterator->getSource(), $this->_start->pos, $this->_start->getLength());
 
-                    $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
-                    $result = $this->parse($tokens)->getTokens();
+                    $tokens = $this->tokenize($source, $this->_result, $this->_start->pos, true);
+                    $this->_result = $this->parse($tokens);
                 }
 
                 # closing unclosed tokens
-                foreach (array_reverse($context) as $hash => $name) {
+                foreach (array_reverse($this->_context) as $hash => $name) {
                     $end = new Token([$name, 'pos' => $token->pos]);
-                    $tokens[$hash]->setEnd($end);
-                    $result[] = $end;
+                    $this->_iterator[$hash]->setEnd($end);
+                    $this->_result[] = $end;
                 }
 
-                $result[] = $token;
+                $this->_result[] = $token;
+                return false;
             } else {
                 if ($start) {
-                    unset($context[spl_object_hash($start)]);
+                    unset($this->_context[spl_object_hash($start)]);
                 } else {
-                    /** @noinspection PhpUnusedParameterInspection */;
-
-                    if (($start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
+                    $start = ArrayHelper::find(array_reverse($this->_context), function ($k, $v) use ($token) {
                         return $v === $token->name;
-                    })) !== false) {
-                        $token->setStart($tokens[$start]);
-                        unset($context[$start]);
-                        $start = $tokens[$start];
+                    });
+                    
+                    if ($start !== false) {
+                        $token->setStart($this->_iterator[$start]);
+                        unset($this->_context[$start]);
+                        $start = $this->_iterator[$start];
                     }
                 }
 
                 if (!$start instanceof MetaToken) {
-                    $result[] = $token;
+                    $this->_result[] = $token;
                 }
             }
         }
+
+        return true;
     }
 }

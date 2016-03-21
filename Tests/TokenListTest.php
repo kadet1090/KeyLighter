@@ -18,7 +18,7 @@ namespace Kadet\Highlighter\Tests;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
-use Kadet\Highlighter\Parser\TokenList;
+use Kadet\Highlighter\Parser\UnprocessedTokens;
 
 class TokenListTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
             $this->_factory->create(['token.name', 'pos' => 15]),
         ];
 
-        $list = new TokenList();
+        $list = new UnprocessedTokens();
         $list->batch($tokens);
         $list->sort();
 
@@ -56,7 +56,7 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         $tokens[4] = $token = $this->_factory->create(['token.3', 'pos' => 2, 'length' => 4, 'rule' => new Rule(null, ['priority' => 2])]);
         $tokens[5] = $token->getEnd();
 
-        $list = new TokenList();
+        $list = new UnprocessedTokens();
         $list->add($tokens[0]);
         $list->add($tokens[2]);
         $list->add($tokens[4]);
@@ -78,7 +78,7 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         $tokens[4] = $token = $this->_factory->create(['token.3', 'pos' => 2, 'length' => 4, 'index' => 2]);
         $tokens[5] = $token->getEnd();
 
-        $list = new TokenList();
+        $list = new UnprocessedTokens();
         $list->add($tokens[0]);
         $list->add($tokens[2]);
         $list->add($tokens[4]);
@@ -100,7 +100,7 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         $tokens[4] = $token = $this->_factory->create(['token.3', 'pos' => 2, 'length' => 4]);
         $tokens[5] = $token->getEnd();
 
-        $list = new TokenList();
+        $list = new UnprocessedTokens();
         $list->add($tokens[0]);
         $list->add($tokens[2]);
         $list->add($tokens[4]);
@@ -122,7 +122,7 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         $tokens[4] = $token = $this->_factory->create(['token.2', 'pos' => 2, 'length' => 3]);
         $tokens[5] = $token->getEnd();
 
-        $list = new TokenList();
+        $list = new UnprocessedTokens();
         $list->add($tokens[0]);
         $list->add($tokens[2]);
         $list->add($tokens[4]);

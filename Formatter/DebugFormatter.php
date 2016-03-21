@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token;
-use Kadet\Highlighter\Parser\TokenIterator;
+use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Utils\Console;
 use Kadet\Highlighter\Utils\StringHelper;
 
@@ -39,7 +39,7 @@ class DebugFormatter implements FormatterInterface
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
     }
 
-    public function format(TokenIterator $tokens, $leveled = true)
+    public function format(Tokens $tokens, $leveled = true)
     {
         $source = $tokens->getSource();
 
@@ -63,7 +63,7 @@ class DebugFormatter implements FormatterInterface
                     Console::styled(['bold' => true], $token->name).' '.
                     Console::styled(['color' => 'blue'], get_class($token)).
                     PHP_EOL;
-                
+
                 $level++;
 
                 $result .= Console::styled(self::getColor($token->name),

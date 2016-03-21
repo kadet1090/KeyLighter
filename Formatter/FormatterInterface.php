@@ -15,9 +15,9 @@
 
 namespace Kadet\Highlighter\Formatter;
 
-use Kadet\Highlighter\Parser\TokenIterator;
+use Kadet\Highlighter\Parser\Tokens;
 
 interface FormatterInterface
 {
-    public function format(TokenIterator $tokens);
+    public function format(Tokens $tokens);
 }

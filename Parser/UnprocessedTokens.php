@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Parser;
 
-class TokenList
+class UnprocessedTokens
 {
     private $_tokens  = [];
     private $_pending = [];
@@ -43,7 +43,7 @@ class TokenList
         return $this;
     }
 
-    public function batch(array $tokens)
+    public function batch($tokens)
     {
         foreach ($tokens as $token) {
             $this->_push($token);

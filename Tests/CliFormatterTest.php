@@ -16,9 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Formatter\CliFormatter;
+use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
-use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Utils\Console;
 
 class CliFormatterTest extends \PHPUnit_Framework_TestCase
@@ -44,11 +44,11 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
         $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
         $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
 
-        $iterator = new TokenIterator([
+        $iterator = new Result($source, [
             $first, $first->getEnd(),
             $operator, $operator->getEnd(),
             $second, $second->getEnd()
-        ], $source);
+        ]);
 
         $formatter = new CliFormatter([
            'token'    => ['color' => 'red'],

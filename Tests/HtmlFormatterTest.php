@@ -16,9 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Formatter\HtmlFormatter;
+use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
-use Kadet\Highlighter\Parser\TokenIterator;
 
 class HtmlFormatterTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,11 +43,11 @@ EXPECTED;
         $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
         $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
 
-        $iterator = new TokenIterator([
+        $iterator = new Result($source, [
             $first, $first->getEnd(),
             $operator, $operator->getEnd(),
             $second, $second->getEnd()
-        ], $source);
+        ]);
 
         $formatter = new HtmlFormatter();
         $this->assertEquals($expected, $formatter->format($iterator));
