@@ -33,7 +33,7 @@ class Php extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function getRules()  
     {
         return [
             'string.single' => new Rule(new SubStringMatcher('\''), [

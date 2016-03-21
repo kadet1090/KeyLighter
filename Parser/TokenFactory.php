@@ -43,7 +43,7 @@ class TokenFactory implements TokenFactoryInterface
     /**
      * @param $params
      *
-     * @return Token|null|false
+     * @return Token|null
      */
     public function create($params)
     {

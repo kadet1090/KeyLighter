@@ -99,64 +99,7 @@ abstract class Language
                 continue;
             }
 
-            if ($token->isStart()) {
-                if ($token instanceof LanguageToken) {
-                    /** @var LanguageToken $token */
-                    $result = array_merge(
-                        $result,
-                        $token->getInjected()->parse($tokens)->getTokens()
-                    );
-                } else {
-                    if (!$token instanceof MetaToken) {
-                        $result[] = $token;
-                    }
-                    $context[$tokens->key()] = $token->name;
-                }
-            } else {
-                $start = $token->getStart();
-
-                /** @noinspection PhpUndefinedMethodInspection bug */
-                if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
-                    $result[0]->setEnd($token);
-
-                    if ($result[0]->postProcess) {
-                        $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
-
-                        $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
-                        $result = $this->parse($tokens)->getTokens();
-                    }
-
-                    # closing unclosed tokens
-                    foreach (array_reverse($context) as $hash => $name) {
-                        $end = new Token([$name, 'pos' => $token->pos]);
-                        $tokens[$hash]->setEnd($end);
-                        $result[] = $end;
-                    }
-
-                    $result[] = $token;
-                    break;
-                } else {
-                    if ($start) {
-                        unset($context[spl_object_hash($start)]);
-                    } else {
-                        /** @noinspection PhpUnusedParameterInspection */
-                        $start = ArrayHelper::find(
-                            array_reverse($context), function ($k, $v) use ($token) {
-                            return $v === $token->name;
-                        });
-
-                        if ($start !== false) {
-                            $token->setStart($tokens[$start]);
-                            unset($context[$start]);
-                            $start = $tokens[$start];
-                        }
-                    }
-
-                    if (!$start instanceof MetaToken) {
-                        $result[] = $token;
-                    }
-                }
-            }
+            $this->_handleToken($tokens, $token, $result, $context);
         }
 
         return new TokenIterator($result, $tokens->getSource());
@@ -284,5 +227,70 @@ abstract class Language
     public function __set($name, $value)
     {
         $this->_options[$name] = $value;
+    }
+
+    /**
+     * @param $tokens
+     * @param $token
+     * @param $result
+     * @param $context
+     */
+    protected function _handleToken(&$tokens, Token $token, &$result, &$context)
+    {
+        if ($token->isStart()) {
+            if ($token instanceof LanguageToken) {
+                /** @var LanguageToken $token */
+                $result = array_merge(
+                    $result,
+                    $token->getInjected()->parse($tokens)->getTokens()
+                );
+            } else {
+                if (!$token instanceof MetaToken) {
+                    $result[] = $token;
+                }
+                $context[$tokens->key()] = $token->name;
+            }
+        } else {
+            $start = $token->getStart();
+
+            /** @noinspection PhpUndefinedMethodInspection bug */
+            if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
+                $result[0]->setEnd($token);
+
+                if ($result[0]->postProcess) {
+                    $source = substr($tokens->getSource(), $result[0]->pos, $result[0]->getLength());
+
+                    $tokens = $this->tokenize($source, $result, $result[0]->pos, true);
+                    $result = $this->parse($tokens)->getTokens();
+                }
+
+                # closing unclosed tokens
+                foreach (array_reverse($context) as $hash => $name) {
+                    $end = new Token([$name, 'pos' => $token->pos]);
+                    $tokens[$hash]->setEnd($end);
+                    $result[] = $end;
+                }
+
+                $result[] = $token;
+            } else {
+                if ($start) {
+                    unset($context[spl_object_hash($start)]);
+                } else {
+                    /** @noinspection PhpUnusedParameterInspection */;
+
+                    if (($start = ArrayHelper::find(array_reverse($context), function ($k, $v) use ($token) {
+                        return $v === $token->name;
+                    })) !== false) {
+                        $token->setStart($tokens[$start]);
+                        unset($context[$start]);
+                        $start = $tokens[$start];
+                    }
+                }
+
+                if (!$start instanceof MetaToken) {
+                    $result[] = $token;
+                }
+            }
+        }
     }
 }
