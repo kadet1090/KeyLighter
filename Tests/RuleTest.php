@@ -36,7 +36,11 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     public function testCreation()
     {
-        $language = $this->getMock('Kadet\Highlighter\Language\Language');
+        $language = $this
+            ->getMockBuilder('Kadet\Highlighter\Language\Language')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $factory  = $this
             ->getMockBuilder('Kadet\Highlighter\Parser\TokenFactory')
             ->disableOriginalConstructor()

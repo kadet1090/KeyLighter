@@ -32,10 +32,14 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $this->_factory = new TokenFactory(ContextualToken::class);
     }
 
+    private function getLanguageMock() {
+        return $this->getMockBuilder(Language::class)->disableOriginalConstructor()->getMock();
+    }
+
     public function testValidation()
     {
         /** @var Language $lang */
-        $lang = $this->getMock('Kadet\Highlighter\Language\Language');
+        $lang = $this->getLanguageMock();
         $rule = new Rule(null, ['language' => $lang]);
 
         $start    = $this->_factory->create(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
@@ -58,7 +62,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
     public function testInvalid()
     {
         /** @var Language $lang */
-        $lang = $this->getMock('Kadet\Highlighter\Language\Language');
+        $lang = $this->getLanguageMock();
         $rule = new Rule(null, ['language' => $lang]);
 
         $start    = $this->_factory->create(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
@@ -68,7 +72,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */
-        $this->assertFalse($start->isValid($this->getMock('Kadet\Highlighter\Language\Language'), ['nope']));
+        $this->assertFalse($start->isValid($this->getLanguageMock(), ['nope']));
         $this->assertFalse($startEnd->isValid($lang, ['nope']));
 
         $this->assertFalse($endStart->isValid($lang, ['nope']));
@@ -78,7 +82,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
     public function testClose()
     {
         /** @var Language $lang */
-        $lang = $this->getMock('Kadet\Highlighter\Language\Language');
+        $lang = $this->getLanguageMock();
         $rule = new Rule(null, ['language' => $lang, 'context' => [
             '!nope'
         ]]);
@@ -90,7 +94,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */
-        $this->assertFalse($start->isValid($this->getMock('Kadet\Highlighter\Language\Language'), ['nope']));
+        $this->assertFalse($start->isValid($this->getLanguageMock(), ['nope']));
         $this->assertFalse($startEnd->isValid($lang, ['nope']));
 
         $this->assertFalse($endStart->isValid($lang, ['test', 'nope']));

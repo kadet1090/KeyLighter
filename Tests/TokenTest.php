@@ -99,7 +99,10 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     public function testInvalidation()
     {
         /** @var Language $language */
-        $language = $this->getMock('Kadet\Highlighter\Language\Language');
+        $language = $this
+            ->getMockBuilder('Kadet\Highlighter\Language\Language')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10]);
 
@@ -115,7 +118,10 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     public function testTokenValidation()
     {
         /** @var Language $language */
-        $language = $this->getMock('Kadet\Highlighter\Language\Language');
+        $language = $this
+            ->getMockBuilder('Kadet\Highlighter\Language\Language')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
         $this->assertTrue($token->isValid($language, []));
