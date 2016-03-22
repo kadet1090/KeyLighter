@@ -118,7 +118,7 @@ abstract class Language
             $token = $tokens->current();
 
             if ($token->isValid($this, $this->_context)) {
-                if($this->_handleToken($token) === false) {
+                if(($token->isStart() ? $this->handleStart($token) : $this->handleEnd($token)) === false) {
                     break;
                 };
             }
@@ -249,56 +249,57 @@ abstract class Language
         $this->_options[$name] = $value;
     }
 
-    protected function _handleToken(Token $token)
-    {
-        if ($token->isStart()) {
-            if ($token instanceof LanguageToken) {
-                $this->_result->merge($token->getInjected()->parse($this->_iterator));
-            } else {
-                $this->_result[] = $token;
-                $this->_context[$this->_iterator->key()] = $token->name;
-            }
+    protected function handleStart(Token $token) {
+        if ($token instanceof LanguageToken) {
+            $this->_result->merge($token->getInjected()->parse($this->_iterator));
         } else {
-            $start = $token->getStart();
+            $this->_result[] = $token;
+            $this->_context[$this->_iterator->key()] = $token->name;
+        }
 
-            /** @noinspection PhpUndefinedMethodInspection bug */
-            if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
-                $this->_start->setEnd($token);
+        return true;
+    }
 
-                if ($this->_start->postProcess) {
-                    $source = substr($this->_iterator->getSource(), $this->_start->pos, $this->_start->getLength());
+    protected function handleEnd(Token $token) {
+        $start = $token->getStart();
 
-                    $tokens = $this->tokenize($source, $this->_result, $this->_start->pos, true);
-                    $this->_result = $this->parse($tokens);
-                }
+        /** @noinspection PhpUndefinedMethodInspection bug */
+        if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
+            $this->_start->setEnd($token);
 
-                # closing unclosed tokens
-                foreach (array_reverse($this->_context) as $hash => $name) {
-                    $end = new Token([$name, 'pos' => $token->pos]);
-                    $this->_iterator[$hash]->setEnd($end);
-                    $this->_result[] = $end;
-                }
+            if ($this->_start->postProcess) {
+                $source = substr($this->_iterator->getSource(), $this->_start->pos, $this->_start->getLength());
 
-                $this->_result[] = $token;
-                return false;
+                $tokens = $this->tokenize($source, $this->_result, $this->_start->pos, true);
+                $this->_result = $this->parse($tokens);
+            }
+
+            # closing unclosed tokens
+            foreach (array_reverse($this->_context) as $hash => $name) {
+                $end = new Token([$name, 'pos' => $token->pos]);
+                $this->_iterator[$hash]->setEnd($end);
+                $this->_result[] = $end;
+            }
+
+            $this->_result[] = $token;
+            return false;
+        } else {
+            if ($start) {
+                unset($this->_context[spl_object_hash($start)]);
             } else {
-                if ($start) {
-                    unset($this->_context[spl_object_hash($start)]);
-                } else {
-                    $start = ArrayHelper::find(array_reverse($this->_context), function ($k, $v) use ($token) {
-                        return $v === $token->name;
-                    });
+                $start = ArrayHelper::find(array_reverse($this->_context), function ($k, $v) use ($token) {
+                    return $v === $token->name;
+                });
 
-                    if ($start !== false) {
-                        $token->setStart($this->_iterator[$start]);
-                        unset($this->_context[$start]);
-                        $start = $this->_iterator[$start];
-                    }
+                if ($start !== false) {
+                    $token->setStart($this->_iterator[$start]);
+                    unset($this->_context[$start]);
+                    $start = $this->_iterator[$start];
                 }
+            }
 
-                if (!$start instanceof MetaToken) {
-                    $this->_result[] = $token;
-                }
+            if (!$start instanceof MetaToken) {
+                $this->_result[] = $token;
             }
         }
 
