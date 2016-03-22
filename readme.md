@@ -1,5 +1,5 @@
 ![Logo](http://kadet.net/keylighter/logo.png)
-# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) ![Build](https://img.shields.io/scrutinizer/build/g/kadet1090/keylighter.svg?style=flat-square) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
+# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) ![Build](https://img.shields.io/scrutinizer/build/g/kadet1090/keylighter.svg?style=flat-square) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
@@ -46,7 +46,7 @@ You're using PowerShell on Windows? Cool! **KeyLighter** comes with integrated P
 PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighter.psm1"
 ```
 
-To use autocompletion features you will need to have PowerShell v5 (Comes with windows 10) or install [TabExpansionPlusPlus](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
+To use autocompletion features you will need to have PowerShell v5 (Comes with windows 10) or install [TabExpansion++](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
 
 ![Powershell Support](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-19_21-44-54-a2.png)
 
