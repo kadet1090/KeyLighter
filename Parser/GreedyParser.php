@@ -59,6 +59,11 @@ class GreedyParser implements ParserInterface
         $this->_language = $language;
     }
 
+    /**
+     * @param TokenIterator $tokens
+     *
+     * @return Result
+     */
     public function process(TokenIterator $tokens) {
         // Reset variables to default state
         $this->_start    = $tokens->current();
@@ -95,8 +100,7 @@ class GreedyParser implements ParserInterface
 
     protected function handleEnd(Token $token) {
         $start = $token->getStart();
-
-        /** @noinspection PhpUndefinedMethodInspection bug */
+        
         if ($token instanceof LanguageToken && $token->getLanguage() === $this->_language) {
             $this->_start->setEnd($token);
 

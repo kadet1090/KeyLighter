@@ -17,6 +17,13 @@ namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
 
+/**
+ * Class LanguageToken
+ *
+ * @package Kadet\Highlighter\Parser\Token
+ *
+ * @property bool $postProcess True if language is post processed.
+ */
 class LanguageToken extends Token
 {
     public function getInjected()

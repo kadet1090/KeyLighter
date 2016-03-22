@@ -18,10 +18,11 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\GreedyParser;
 use Kadet\Highlighter\Parser\ParserInterface;
-use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
+use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Parser\UnprocessedTokens;
 
 /**
@@ -87,7 +88,7 @@ abstract class Language
      * @param array                $additional
      * @param bool                 $embedded
      *
-     * @return TokenIterator
+     * @return Tokens
      */
     public function parse($tokens = null, $additional = [], $embedded = false)
     {
@@ -111,12 +112,12 @@ abstract class Language
     /**
      * Tokenize source
      *
-     * @param       $source
+     * @param                    $source
      *
-     * @param int   $offset
-     * @param array $additional
+     * @param int                $offset
+     * @param array|\Traversable $additional
      *
-     * @param bool  $embedded
+     * @param bool               $embedded
      *
      * @return UnprocessedTokens
      */
