@@ -16,7 +16,8 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
-use Kadet\Highlighter\Parser\Greedy;
+use Kadet\Highlighter\Parser\GreedyParser;
+use Kadet\Highlighter\Parser\ParserInterface;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -43,7 +44,7 @@ abstract class Language
     private $_rules;
 
     /**
-     * @var Greedy
+     * @var GreedyParser
      */
     private $_parser;
 
@@ -55,11 +56,20 @@ abstract class Language
     public function __construct(array $options = [])
     {
         $this->_options = array_merge([
-            'embedded' => [],
+            'embedded' => []
         ], $this->_options, $options);
 
         $this->_rules = $this->getRules();
-        $this->_parser = new Greedy($this);
+
+        $this->_parser = $this->getParser();
+        $this->_parser->setLanguage($this);
+    }
+
+    /**
+     * @return ParserInterface
+     */
+    public function getParser() {
+        return new GreedyParser();
     }
 
     /**

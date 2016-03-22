@@ -22,7 +22,7 @@ use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
-class Greedy
+class GreedyParser implements ParserInterface
 {
     /**
      * @var array
@@ -49,7 +49,13 @@ class Greedy
      */
     private $_language;
 
-    public function __construct(Language $language) {
+    public function __construct(Language $language = null) {
+        if($language) {
+            $this->setLanguage($language);
+        }
+    }
+
+    public function setLanguage(Language $language) {
         $this->_language = $language;
     }
 
@@ -91,7 +97,7 @@ class Greedy
         $start = $token->getStart();
 
         /** @noinspection PhpUndefinedMethodInspection bug */
-        if ($token instanceof LanguageToken && $token->getLanguage() === $this) {
+        if ($token instanceof LanguageToken && $token->getLanguage() === $this->_language) {
             $this->_start->setEnd($token);
 
             if ($this->_start->postProcess) {
