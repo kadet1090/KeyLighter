@@ -16,11 +16,11 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
-use Kadet\Highlighter\Parser\LanguageToken;
-use Kadet\Highlighter\Parser\MetaToken;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
+use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\UnprocessedTokens;

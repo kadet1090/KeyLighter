@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Parser;
 
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Matcher\MatcherInterface;
+use Kadet\Highlighter\Parser\Token\Token;
 
 /**
  * Class Rule
@@ -58,7 +59,7 @@ class Rule
             'context'  => [],
             'priority' => 1,
             'language' => false,
-            'factory'  => new TokenFactory('\Kadet\Highlighter\Parser\Token'),
+            'factory'  => new TokenFactory(Token::class),
         ], $options);
 
         $this->setContext($options['context']);

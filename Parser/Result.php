@@ -16,6 +16,8 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Parser\Token\MetaToken;
+
 class Result extends \ArrayObject implements Tokens
 {
     private $_source;

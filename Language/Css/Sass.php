@@ -16,9 +16,9 @@
 namespace Kadet\Highlighter\Language\Css;
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Parser\MetaToken;
+use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class Sass extends Scss

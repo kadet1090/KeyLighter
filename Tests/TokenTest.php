@@ -17,7 +17,7 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class TokenTest extends \PHPUnit_Framework_TestCase

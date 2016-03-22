@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\UnprocessedTokens;
 

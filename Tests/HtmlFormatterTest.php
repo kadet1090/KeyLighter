@@ -17,7 +17,7 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Parser\Result;
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class HtmlFormatterTest extends \PHPUnit_Framework_TestCase

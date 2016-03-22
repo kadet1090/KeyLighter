@@ -13,8 +13,6 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Parser;
+namespace Kadet\Highlighter\Parser\Token;
 
-class MetaToken extends Token
-{
-}
+class MetaToken extends Token { }

@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Tests\Constraint\TokensMatches;
 
@@ -29,6 +30,6 @@ class MatcherTestCase extends \PHPUnit_Framework_TestCase
 
     public function getFactory()
     {
-        return new TokenFactory('Kadet\Highlighter\Parser\Token');
+        return new TokenFactory(Token::class);
     }
 }

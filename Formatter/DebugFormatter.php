@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Formatter;
 
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Utils\Console;
 use Kadet\Highlighter\Utils\StringHelper;

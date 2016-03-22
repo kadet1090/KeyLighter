@@ -14,6 +14,8 @@
  */
 namespace Kadet\Highlighter\Parser;
 
+use Kadet\Highlighter\Parser\Token\Token;
+
 interface TokenFactoryInterface
 {
     /**

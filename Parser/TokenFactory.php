@@ -15,6 +15,8 @@
 
 namespace Kadet\Highlighter\Parser;
 
+use Kadet\Highlighter\Parser\Token\Token;
+
 /**
  * Factory used to handle various token creation.
  *
@@ -124,8 +126,8 @@ class TokenFactory implements TokenFactoryInterface
      */
     public function setClass($class)
     {
-        if (!is_a($class, 'Kadet\Highlighter\Parser\Token', true)) {
-            throw new \InvalidArgumentException('$class must extend Kadet\Highlighter\Parser\Token');
+        if (!is_a($class, 'Kadet\Highlighter\Parser\Token\Token', true)) {
+            throw new \InvalidArgumentException('$class must extend Kadet\Highlighter\Parser\Token\Token');
         }
 
         $this->_class = $class;

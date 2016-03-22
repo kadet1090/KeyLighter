@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Tests\Constraint;
 
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 
 class TokensMatches extends \PHPUnit_Framework_Constraint
 {

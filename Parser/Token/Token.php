@@ -13,9 +13,10 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Parser;
+namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Utils\Helper;
 use Kadet\Highlighter\Utils\StringHelper;
 

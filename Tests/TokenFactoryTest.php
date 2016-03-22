@@ -15,21 +15,22 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class TokenFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testTokenCreation()
     {
-        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
-        $this->assertInstanceOf('Kadet\Highlighter\Parser\Token', $factory->create([]));
+        $factory = new TokenFactory(Token::class);
+        $this->assertInstanceOf(Token::class, $factory->create([]));
     }
 
     public function testRuleInheriting()
     {
         $rule = $this->getMockBuilder('Kadet\Highlighter\Parser\Rule')->disableOriginalConstructor()->getMock();
 
-        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
+        $factory = new TokenFactory(Token::class);
         $factory->setRule($rule);
 
         $token = $factory->create([]);
@@ -38,7 +39,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testSubNaming()
     {
-        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
+        $factory = new TokenFactory(Token::class);
         $factory->setBase('token');
 
         $this->assertEquals('token.name', $factory->create(['$.name'])->name);
@@ -46,7 +47,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testOffset()
     {
-        $factory = new TokenFactory('Kadet\Highlighter\Parser\Token');
+        $factory = new TokenFactory(Token::class);
         $factory->setOffset(10);
         $this->assertEquals(15, $factory->create(['token', 'pos' => 5])->pos);
     }

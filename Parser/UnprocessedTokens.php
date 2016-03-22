@@ -15,6 +15,8 @@
 
 namespace Kadet\Highlighter\Parser;
 
+use Kadet\Highlighter\Parser\Token\Token;
+
 class UnprocessedTokens
 {
     private $_tokens  = [];

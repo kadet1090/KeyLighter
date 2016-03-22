@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Language\Language;
-use Kadet\Highlighter\Parser\ContextualToken;
+use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
 

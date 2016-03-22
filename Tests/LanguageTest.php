@@ -23,6 +23,7 @@ use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
@@ -32,7 +33,7 @@ class EmbeddedLanguage extends Mocks\MockLanguage
     {
         return new Rule(new RegexMatcher('/(\{.*?\})/'), [
             'priority' => 1000,
-            'factory'  => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+            'factory'  => new TokenFactory(LanguageToken::class),
             'inject'   => $this,
             'language' => null,
             'context'  => ['*']
@@ -133,7 +134,7 @@ class LanguageTest extends MatcherTestCase
         $language = new Mocks\MockLanguage(['rules' => [
             'keyword'           => new Rule(new SubStringMatcher('keyword')),
             'language.embedded' => new Rule(new RegexMatcher('/(\{.*?\})/'), [
-                'factory'     => new TokenFactory('Kadet\\Highlighter\\Parser\\LanguageToken'),
+                'factory'     => new TokenFactory(LanguageToken::class),
                 'inject'      => new EmbeddedLanguage(['name' => 'embedded']),
                 'postProcess' => true
             ])

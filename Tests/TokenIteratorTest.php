@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
-use Kadet\Highlighter\Parser\Token;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenIterator;
 
 class TokenIteratorTest extends \PHPUnit_Framework_TestCase
