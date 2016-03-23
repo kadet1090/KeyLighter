@@ -37,6 +37,7 @@ class Rule
     const CONTEXT_NOT_IN    = 2;
     const CONTEXT_IN_ONE_OF = 4;
     const CONTEXT_EXACTLY   = 8;
+    const CONTEXT_ON_TOP    = 16;
 
     private $_matcher;
     private $_context = [];
@@ -88,6 +89,7 @@ class Rule
             '+' => self::CONTEXT_IN,
             '*' => self::CONTEXT_IN_ONE_OF,
             '@' => self::CONTEXT_EXACTLY,
+            '^' => self::CONTEXT_ON_TOP
         ];
 
         if (!isset($types[$rule[0]])) {
@@ -143,9 +145,7 @@ class Rule
         reset($rules);
         while (list($rule, $type) = each($rules)) {
             $matched = !($type & self::CONTEXT_EXACTLY) ?
-                count(array_filter($context, function ($a) use ($rule) {
-                    return $a === $rule || fnmatch($rule . '.*', $a);
-                })) > 0 :
+                !empty(preg_grep('/^'.preg_quote($rule).'(\.\w+)*/iS', $context)) :
                 in_array($rule, $context, true);
 
             if ($type & self::CONTEXT_NOT_IN) {
