@@ -28,6 +28,7 @@ class WordMatcher extends RegexMatcher
     {
         $options = array_merge([
             'escape'           => true,
+            'atomic'           => false,
             'separated'        => true,
             'case-sensitivity' => false,
         ], $options);
@@ -38,9 +39,14 @@ class WordMatcher extends RegexMatcher
             }, $words);
         }
 
-        $regex = '(' . implode('|', $words) . ')';
+        $regex = implode('|', $words);
+        if ($options['atomic']) {
+            $regex = "(?>$regex)";
+        }
+        $regex = "($regex)";
+
         if ($options['separated']) {
-            $regex = '\b' . $regex . '\b';
+            $regex = "\\b$regex\\b";
         }
 
         $regex = "/$regex/";

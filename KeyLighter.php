@@ -116,5 +116,6 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Css\\Sass', ['sass']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql', ['sql']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql\\MySql', ['mysql']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Perl', ['perl']);
     }
 }
