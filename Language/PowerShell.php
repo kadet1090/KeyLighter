@@ -103,11 +103,11 @@ class PowerShell extends Language
             ]),
 
             'number' => [
-                new Rule(new RegexMatcher('/(-?(?:0x[0-9a-f]+|\d+)l?(?:kb|mb|gb|tb|pb)?)/i'), [
+                new Rule(new RegexMatcher('/\b(-?(?:0x[0-9a-f]+|\d+)l?(?:kb|mb|gb|tb|pb)?)\b/i'), [
                     'priority' => 0,
                     'context'  => ['!string', '!comment', '!variable', '!call']
                 ]),
-                new Rule(new RegexMatcher('/(-?(?>\d+)?\.\d+(?>d|l)(?>e(?:\+|-)?\d+)?(?:kb|mb|gb|tb|pb)?)/i'), [
+                new Rule(new RegexMatcher('/\b(-?(?>\d+)?\.\d+(?>d|l)(?>e(?:\+|-)?\d+)?(?:kb|mb|gb|tb|pb)?)\b/i'), [
                     'priority' => 0,
                     'context'  => ['!string', '!comment', '!variable', '!call']
                 ])

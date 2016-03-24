@@ -91,7 +91,7 @@ class GreedyParser implements ParserInterface
         if ($token instanceof LanguageToken) {
             $this->_result->merge($token->getInjected()->parse($this->_iterator));
         } else {
-            $this->_result[] = $token;
+            $this->_result->append($token);
             $this->_context[$this->_iterator->key()] = $token->name;
         }
 
