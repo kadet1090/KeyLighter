@@ -43,7 +43,7 @@ If you want pipe into **KeyLighter** just specify `php://stdin` as file.
 You're using PowerShell on Windows? Cool! **KeyLighter** comes with integrated PowerShell module that makes CLI usage even better. Just import module (For example in profile), and you're ready to go.
 
 ```powershell
-PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighter.psm1"
+PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighter.psd1"
 ```
 
 To use autocompletion features you will need to have PowerShell v5 (Comes with windows 10) or install [TabExpansion++](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
