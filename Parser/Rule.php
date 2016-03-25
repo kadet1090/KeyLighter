@@ -41,7 +41,7 @@ class Rule
     /**
      * @var Validator
      */
-    private $_validator;
+    public $validator;
 
     /**
      * @param MatcherInterface|null $matcher
@@ -56,8 +56,7 @@ class Rule
             'context'  => [],
             'priority' => 1,
             'language' => false,
-            'factory'  => new TokenFactory(Token::class),
-            'closedBy' => false
+            'factory'  => new TokenFactory(Token::class)
         ], $options);
 
         $this->setContext($options['context']);
@@ -68,11 +67,11 @@ class Rule
 
     public function setContext($context) {
         if(is_array($context)) {
-            $this->_validator = new Validator($context);
+            $this->validator = new Validator($context);
         } elseif(is_callable($context)) {
-            $this->_validator = new DelegateValidator($context);
+            $this->validator = new DelegateValidator($context);
         }elseif($context instanceof Validator) {
-            $this->_validator = $context;
+            $this->validator = $context;
         } else {
             throw new \InvalidArgumentException('$context must be valid Validator');
         }
@@ -86,11 +85,6 @@ class Rule
     public function match($source)
     {
         return $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
-    }
-
-    public function validate($context, array $additional = [])
-    {
-        return $this->_validator->validate($context, $additional);
     }
 
     public function __get($option)

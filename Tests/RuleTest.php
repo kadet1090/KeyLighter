@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
+use Kadet\Highlighter\Parser\Validator\DelegateValidator;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
@@ -71,7 +72,6 @@ class RuleTest extends \PHPUnit_Framework_TestCase
             'context' => function() { return true; }
         ]);
 
-        $this->assertTrue($rule->validate(['test']));
-        $this->assertTrue($rule->validate([]));
+        $this->assertInstanceOf(DelegateValidator::class, $rule->validator);
     }
 }

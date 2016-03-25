@@ -19,7 +19,6 @@ use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Validator\Validator;
 use Kadet\Highlighter\Utils\Helper;
-use Kadet\Highlighter\Utils\StringHelper;
 
 class Token
 {
@@ -33,7 +32,9 @@ class Token
     public $name;
     public $closedBy;
     public $index = 1;
+    public $id;
 
+    # region >>> cache
     /**
      * @var Token|null|false
      */
@@ -46,11 +47,9 @@ class Token
 
     /** @var Rule */
     protected $_rule;
-
     protected $_valid;
     protected $_length;
-
-    public $id;
+    # endregion
 
     /**
      * Token constructor.
@@ -60,7 +59,8 @@ class Token
     public function __construct(array $options)
     {
         if (isset($options[0])) {
-            $this->name = $options[0];
+            $this->name     = $options[0];
+            $this->closedBy = $this->name;
         }
 
         if (isset($options['pos'])) {
@@ -87,8 +87,6 @@ class Token
 
         if (isset($options['closed-by'])) {
             $this->closedBy = $options['closed-by'];
-        } else {
-            $this->closedBy = $this->name;
         }
 
         $this->id = ++self::$_id;
@@ -138,7 +136,7 @@ class Token
     {
         $this->setValid(
             $language === $this->_rule->language &&
-            $this->_rule->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
+            $this->_rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
         );
     }
 
@@ -220,26 +218,6 @@ class Token
         }
 
         return $this->_length;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function dump($text = null)
-    {
-        $pos = StringHelper::positionToLine($text, $this->pos);
-        $pos = $pos['line'] . ':' . $pos['pos'];
-
-        if ($this->isStart()) {
-            $result = "Start ({$this->name}) $pos";
-            if ($text !== null && $this->_end !== null) {
-                $result .= "  \x02" . substr($text, $this->pos, $this->_end->pos - $this->pos) . "\x03";
-            }
-        } else {
-            $result = "End ({$this->name}) $pos";
-        }
-
-        return $result;
     }
 
     public function __get($name)

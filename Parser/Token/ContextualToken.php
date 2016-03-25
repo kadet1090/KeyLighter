@@ -36,14 +36,14 @@ class ContextualToken extends Token
         $start = !in_array($this->name, $context, false);
 
         if ($start) {
-            if (!$this->getRule()->validate($context)) {
+            if (!$this->_rule->validator->validate($context)) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = true;
                 $this->_end->_valid = false;
             }
         } else {
-            if (!$this->getRule()->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
+            if (!$this->_rule->validator->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = false;
