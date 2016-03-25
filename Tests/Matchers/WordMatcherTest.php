@@ -33,6 +33,22 @@ class WordMatcherTest extends MatcherTestCase
         ], $matcher->match($source, $this->getFactory()));
     }
 
+    public function testAtomic()
+    {
+        $source  = 'second seconder';
+        $matcher = new WordMatcher(['second', 'seconder'], [
+            'atomic'    => true,
+            'separated' => false
+        ]);
+
+        $this->assertTokens([
+            ['start', 'pos' => 0],
+            ['end', 'pos' => 6],
+            ['start', 'pos' => 7],
+            ['end', 'pos' => 13],
+        ], $matcher->match($source, $this->getFactory()));
+    }
+
     public function testNonSeparated()
     {
         $source  = 'first firster';

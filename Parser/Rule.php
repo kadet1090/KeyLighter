@@ -61,6 +61,7 @@ class Rule
             'priority' => 1,
             'language' => false,
             'factory'  => new TokenFactory(Token::class),
+            'closedBy' => false
         ], $options);
 
         $this->setContext($options['context']);

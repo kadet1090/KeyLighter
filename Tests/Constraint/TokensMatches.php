@@ -110,7 +110,7 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
      */
     public function toString()
     {
-        return 'matches '.var_export($this->_tokens).' tokens';
+        return 'matches '.var_export($this->_tokens, true).' tokens';
     }
 
     private function getTokens($tokens)

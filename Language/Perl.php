@@ -102,14 +102,18 @@ class Perl extends Language
             ],
 
             'string.regex' => [
-                new OpenRule(new RegexMatcher('#~\s*(/).*?/#m')),
-                new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
+                new OpenRule(new RegexMatcher('#~\s*[ms]?(/).*?/#m'), [
+                    'context' => Rule::everywhere()
+                ]),
+                new OpenRule(new RegexMatcher('#~\s*(s/).*?/#m')),
+
+                new Rule(new RegexMatcher('#(?=\/.*?(/[gimuy]{0,5}))#m'), [
                     'priority' => 1,
                     'factory'  => new TokenFactory(ContextualToken::class),
                     'context'  => ['!keyword.escape', 'string.regex']
                 ])
             ],
-
+            
             'symbol.iterator' => [
                 new Rule(new RegexMatcher('#(<\w+>)#s'))
             ]

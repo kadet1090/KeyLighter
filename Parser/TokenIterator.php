@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Parser;
 
-class TokenIterator extends \ArrayIterator
+class TokenIterator extends \ArrayIterator implements Tokens
 {
     private $_source;
 

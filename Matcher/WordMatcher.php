@@ -43,11 +43,12 @@ class WordMatcher extends RegexMatcher
         if ($options['atomic']) {
             $regex = "(?>$regex)";
         }
-        $regex = "($regex)";
 
         if ($options['separated']) {
             $regex = "\\b$regex\\b";
         }
+
+        $regex = "($regex)";
 
         $regex = "/$regex/";
         if (!$options['case-sensitivity']) {

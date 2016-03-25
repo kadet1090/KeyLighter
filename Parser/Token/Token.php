@@ -30,6 +30,7 @@ class Token
 
     public $pos;
     public $name;
+    public $closedBy;
     public $index = 1;
 
     /**
@@ -81,6 +82,12 @@ class Token
 
         if (isset($options['end'])) {
             $this->setEnd($options['end']);
+        }
+
+        if (isset($options['closed-by'])) {
+            $this->closedBy = $options['closed-by'];
+        } else {
+            $this->closedBy = $this->name;
         }
 
         $this->id = ++self::$_id;
@@ -162,6 +169,7 @@ class Token
         $this->_start = $start;
 
         if ($start instanceof Token) {
+            $this->_start->_length = null;
             $start->_end = $this;
         }
     }

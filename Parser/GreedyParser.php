@@ -125,7 +125,7 @@ class GreedyParser implements ParserInterface
                 unset($this->_context[spl_object_hash($start)]);
             } else {
                 $start = ArrayHelper::find(array_reverse($this->_context), function ($k, $v) use ($token) {
-                    return $v === $token->name;
+                    return $v === $token->closedBy;
                 });
 
                 if ($start !== false) {
