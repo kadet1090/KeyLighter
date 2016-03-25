@@ -74,8 +74,10 @@ class Rule
     {
         if (is_callable($rules)) {
             $this->_validator = $rules;
+        } elseif(empty($rules)) {
+            $this->_context = [ 'none' => self::CONTEXT_IN ];
         } else {
-            $this->_context = [];
+            $this->_context = [ 'none' => self::CONTEXT_NOT_IN ];
             foreach ($rules as $key => $rule) {
                 list($plain, $type)     = $this->_getContextRule($rule);
                 $this->_context[$plain] = $type;
@@ -137,8 +139,10 @@ class Rule
 
     private function _validate($context, $rules)
     {
-        if (empty($rules)) {
+        if ($rules['none'] === self::CONTEXT_IN) {
             return count($context) === 0;
+        } elseif($rules['none'] === self::CONTEXT_IN_ONE_OF && count($context) === 0) {
+            return true;
         }
 
         $result = $this->_default;

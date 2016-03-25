@@ -71,6 +71,10 @@ class Php extends Language
                 ]),
             ],
 
+            'symbol.namespace' => new Rule(new RegexMatcher('/(\\\{0,2}(?:\w+\\\{1,2})+\w+)/i'), [
+                'context' => ['*symbol', '*none']
+            ]),
+
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']
             ]),
