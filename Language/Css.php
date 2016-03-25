@@ -20,11 +20,12 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
-use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\ContextualToken;
+use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Css extends Language
 {
@@ -49,7 +50,7 @@ class Css extends Language
 
             'meta.declaration.media' => [
                 new Rule(new RegexMatcher('/@media(.*?\{)/'), [
-                    'context' => Rule::everywhere(),
+                    'context' => Validator::everywhere(),
                     'factory' => new TokenFactory(MetaToken::class)
                 ]),
             ],
@@ -105,7 +106,7 @@ class Css extends Language
                 'context' => ['!comment']
             ]),
 
-            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => Rule::everywhere()])
+            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => Validator::everywhere()])
         ];
     }
 

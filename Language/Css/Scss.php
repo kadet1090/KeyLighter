@@ -20,6 +20,7 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Scss extends Css
 {
@@ -32,7 +33,7 @@ class Scss extends Css
     {
         $rules                        = parent::getRules();
         $rules['symbol.selector.tag'] = new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+).*\{)/m'), [
-            'context' => Rule::everywhere()
+            'context' => Validator::everywhere()
         ]);
 
         $rules['symbol.selector.class']->setContext(['!symbol', '!string', '!number']);
@@ -40,12 +41,12 @@ class Scss extends Css
         $rules['symbol.selector.id']->setContext(['!symbol', '!string']);
         $rules['constant.color']->setContext(['!string', '!symbol']);
 
-        $rules['variable']      = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => Rule::everywhere()]);
-        $rules['operator.self'] = new Rule(new SubStringMatcher('&'), ['context' => Rule::everywhere()]);
+        $rules['variable']      = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => Validator::everywhere()]);
+        $rules['operator.self'] = new Rule(new SubStringMatcher('&'), ['context' => Validator::everywhere()]);
 
         $rules['comment'] = [
             $rules['comment'],
-            new Rule(new CommentMatcher(['//'], []), ['context' => Rule::everywhere()])
+            new Rule(new CommentMatcher(['//'], []), ['context' => Validator::everywhere()])
         ];
 
         return $rules;

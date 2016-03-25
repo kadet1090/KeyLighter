@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
-use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class ContextualToken extends Token
 {
@@ -43,7 +43,7 @@ class ContextualToken extends Token
                 $this->_end->_valid = false;
             }
         } else {
-            if (!$this->getRule()->validate($context, [$this->name => Rule::CONTEXT_IN])) {
+            if (!$this->getRule()->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = false;

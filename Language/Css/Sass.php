@@ -16,10 +16,11 @@
 namespace Kadet\Highlighter\Language\Css;
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Sass extends Scss
 {
@@ -35,19 +36,19 @@ class Sass extends Scss
         $rules['meta.selector'] = new Rule(new RegexMatcher('/(?=(?:\n+|^)(\h*)([^\h].*)\n+\1\h+)/', [
             2 => Token::NAME
         ]), [
-            'context'  => Rule::everywhere(),
+            'context'  => Validator::everywhere(),
             'priority' => 3,
             'factory'  => new TokenFactory(MetaToken::class)
         ]);
 
         $rules['meta.declaration'] = new Rule(new RegexMatcher('/\n((?:\h+.*?(?>\n|$)+)+)/'), [
-            'context'  => Rule::everywhere(),
+            'context'  => Validator::everywhere(),
             'priority' => 2,
             'factory'  => new TokenFactory(MetaToken::class)
         ]);
 
         $rules['meta.declaration.media'] = new Rule(new RegexMatcher('/@media(.*?)/'), [
-            'context' => Rule::everywhere(),
+            'context' => Validator::everywhere(),
             'factory' => new TokenFactory(MetaToken::class)
         ]);
 

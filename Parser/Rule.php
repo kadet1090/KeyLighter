@@ -18,6 +18,8 @@ namespace Kadet\Highlighter\Parser;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Matcher\MatcherInterface;
 use Kadet\Highlighter\Parser\Token\Token;
+use Kadet\Highlighter\Parser\Validator\DelegateValidator;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 /**
  * Class Rule
@@ -33,18 +35,12 @@ use Kadet\Highlighter\Parser\Token\Token;
  */
 class Rule
 {
-    const CONTEXT_IN        = 1;
-    const CONTEXT_NOT_IN    = 2;
-    const CONTEXT_IN_ONE_OF = 4;
-    const CONTEXT_EXACTLY   = 8;
-    const CONTEXT_ON_TOP    = 16;
-
     private $_matcher;
-    private $_context = [];
-
-    private $_default = true;
-
     private $_options;
+    
+    /**
+     * @var Validator
+     */
     private $_validator;
 
     /**
@@ -70,50 +66,16 @@ class Rule
         $this->factory->setRule($this);
     }
 
-    public function setContext($rules)
-    {
-        if (is_callable($rules)) {
-            $this->_validator = $rules;
-        } elseif(empty($rules)) {
-            $this->_context = [ 'none' => self::CONTEXT_IN ];
+    public function setContext($context) {
+        if(is_array($context)) {
+            $this->_validator = new Validator($context);
+        } elseif(is_callable($context)) {
+            $this->_validator = new DelegateValidator($context);
+        }elseif($context instanceof Validator) {
+            $this->_validator = $context;
         } else {
-            $this->_context = [ 'none' => self::CONTEXT_NOT_IN ];
-            foreach ($rules as $key => $rule) {
-                list($plain, $type)     = $this->_getContextRule($rule);
-                $this->_context[$plain] = $type;
-            }
+            throw new \InvalidArgumentException('$context must be valid Validator');
         }
-    }
-
-    private function _getContextRule($rule)
-    {
-        $types = [
-            '!' => self::CONTEXT_NOT_IN,
-            '+' => self::CONTEXT_IN,
-            '*' => self::CONTEXT_IN_ONE_OF,
-            '@' => self::CONTEXT_EXACTLY,
-            '^' => self::CONTEXT_ON_TOP
-        ];
-
-        if (!isset($types[$rule[0]])) {
-            return [$rule, self::CONTEXT_IN];
-        }
-
-        $type = 0;
-        $pos  = 0;
-        foreach (str_split($rule) as $pos => $char) {
-            if (!isset($types[$char])) {
-                break;
-            }
-
-            if ($types[$char] == self::CONTEXT_IN_ONE_OF) {
-                $this->_default = false;
-            }
-
-            $type |= $types[$char];
-        }
-
-        return [substr($rule, $pos), $type];
     }
 
     /**
@@ -128,63 +90,7 @@ class Rule
 
     public function validate($context, array $additional = [])
     {
-        if (is_callable($this->_validator)) {
-            $validator = $this->_validator;
-
-            return $validator($context, $additional);
-        } else {
-            return $this->_validate($context, array_merge($additional, $this->_context));
-        }
-    }
-
-    private function _validate($context, $rules)
-    {
-        if ($rules['none'] === self::CONTEXT_IN) {
-            return count($context) === 0;
-        } elseif($rules['none'] === self::CONTEXT_IN_ONE_OF && count($context) === 0) {
-            return true;
-        }
-
-        $result = $this->_default;
-
-        reset($rules);
-        while (list($rule, $type) = each($rules)) {
-            $matched = !($type & self::CONTEXT_EXACTLY) ?
-                !empty(preg_grep('/^'.preg_quote($rule).'(\.\w+)*/iS', $context)) :
-                in_array($rule, $context, true);
-
-            if ($type & self::CONTEXT_NOT_IN) {
-                if ($matched) {
-                    return false;
-                }
-                $result = true;
-            } elseif ($type & self::CONTEXT_IN) {
-                if (!$matched) {
-                    return false;
-                }
-                $result = true;
-
-                $this->_unsetUnnecessaryRules($rule, $rules);
-            } elseif ($type & self::CONTEXT_IN_ONE_OF) {
-                if ($matched) {
-                    $result = true;
-                    $this->_unsetUnnecessaryRules($rule, $rules);
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    private function _unsetUnnecessaryRules($rule, &$required)
-    {
-        if (strpos($rule, '.') !== false) {
-            foreach (array_filter(array_keys($this->_context), function ($key) use ($rule) {
-                return fnmatch($key . '.*', $rule);
-            }) as $remove) {
-                unset($required[$remove]);
-            }
-        }
+        return $this->_validator->validate($context, $additional);
     }
 
     public function __get($option)
@@ -195,17 +101,5 @@ class Rule
     public function __set($option, $value)
     {
         return $this->_options[$option] = $value;
-    }
-
-    public static function everywhere()
-    {
-        static $callable;
-        if (!$callable) {
-            $callable = function () {
-                return true;
-            };
-        }
-
-        return $callable;
     }
 }

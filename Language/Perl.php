@@ -27,6 +27,7 @@ use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Perl extends Language
 {
@@ -103,7 +104,7 @@ class Perl extends Language
 
             'string.regex' => [
                 new OpenRule(new RegexMatcher('#~\s*[ms]?(/).*?/#m'), [
-                    'context' => Rule::everywhere()
+                    'context' => Validator::everywhere()
                 ]),
                 new OpenRule(new RegexMatcher('#~\s*(s/).*?/#m')),
 

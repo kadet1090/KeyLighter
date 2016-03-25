@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Validator\Validator;
 use Kadet\Highlighter\Utils\Helper;
 use Kadet\Highlighter\Utils\StringHelper;
 
@@ -137,7 +138,7 @@ class Token
     {
         $this->setValid(
             $language === $this->_rule->language &&
-            $this->_rule->validate($context, $this->isEnd() ? [$this->name => Rule::CONTEXT_IN] : [])
+            $this->_rule->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
         );
     }
 

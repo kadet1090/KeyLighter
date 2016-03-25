@@ -24,6 +24,7 @@ use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Parser\UnprocessedTokens;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 /**
  * Class Language
@@ -193,7 +194,7 @@ abstract class Language
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'inject'   => $this,
                 'language' => null,
-                'context'  => Rule::everywhere(),
+                'context'  => Validator::everywhere(),
             ]
         );
     }

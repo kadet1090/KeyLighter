@@ -20,6 +20,7 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Latex extends Language
 {
@@ -33,7 +34,7 @@ class Latex extends Language
     public function getRules()
     {
         return [
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Rule::everywhere(), 'priority' => -1]),
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),
 
             'string.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
@@ -53,7 +54,9 @@ class Latex extends Language
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
 
             'operator' => [
-                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => Rule::everywhere()]),
+                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => Validator::everywhere(
+                )
+                ]),
                 new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
                     'context'  => ['string.math'],
                     'priority' => -1
