@@ -55,7 +55,35 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new Validator(['token.test', '!token']);
 
         $this->assertTrue($validator->validate(['token.test']));
+        $this->assertTrue($validator->validate(['token.test.smth']));
         $this->assertFalse($validator->validate(['token']));
+    }
+
+    public function testRegex()
+    {
+        $validator = new Validator(['+~token\.[ab]']);
+
+        $this->assertTrue($validator->validate(['token.a']));
+        $this->assertTrue($validator->validate(['token.b']));
+        $this->assertFalse($validator->validate(['token']));
+    }
+
+    public function testNotInRegex()
+    {
+        $validator = new Validator(['!~token\.[ab]']);
+
+        $this->assertFalse($validator->validate(['token.a']));
+        $this->assertFalse($validator->validate(['token.b']));
+        $this->assertTrue($validator->validate(['token']));
+    }
+
+    public function testExactly()
+    {
+        $validator = new Validator(['+@token']);
+
+        $this->assertFalse($validator->validate(['token.a']));
+        $this->assertFalse($validator->validate(['token.b']));
+        $this->assertTrue($validator->validate(['token']));
     }
 
     public function testInAll()

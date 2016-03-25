@@ -106,7 +106,7 @@ class Validator
             '+' => Validator::CONTEXT_IN,
             '*' => Validator::CONTEXT_IN_ONE_OF,
             '@' => Validator::CONTEXT_EXACTLY,
-            '^' => Validator::CONTEXT_ON_TOP,
+//            '^' => Validator::CONTEXT_ON_TOP,
             '~' => Validator::CONTEXT_REGEX
         ];
 
@@ -126,7 +126,7 @@ class Validator
 
         $rule = substr($rule, $pos);
 
-        if($rule & self::CONTEXT_REGEX) {
+        if($type & self::CONTEXT_REGEX) {
             $rule = "/^$rule(\\.\\w+)?/i";
         }
 
@@ -134,9 +134,9 @@ class Validator
     }
 
     private function _matches($context, $rule, $type) {
-        if($rule & self::CONTEXT_EXACTLY) {
-            return in_array($context, $rule, true);
-        } elseif($rule & self::CONTEXT_REGEX) {
+        if($type & self::CONTEXT_EXACTLY) {
+            return in_array($rule, $context, true);
+        } elseif($type & self::CONTEXT_REGEX) {
             foreach($context as $item) {
                 if(preg_match($rule, $item)) {
                     return true;

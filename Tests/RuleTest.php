@@ -57,42 +57,21 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($rule->factory, $factory);
     }
 
-    /*public function testOpenRule() {
-        $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
-
-        $rule = new OpenRule($matcher);
-        $token = new Token(['token.name', 'pos' => 15, 'end' => new Token(['test', 'pos' => 25]), 'rule' => $rule]);
-
-        $tokens = [
-            $token,
-            $token->getEnd(),
-        ];
-
-        $matcher->method('match')->willReturn($tokens);
-
-        $rule = new OpenRule($matcher);
-        foreach ($rule->match('source') as $item) {
-            $this->assertTrue($item->isStart());
-            $this->assertFalse($item->isEnd());
-        }
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testThrowsOnWrongValidator() {
+        new Rule(null, [
+            'context' => 'nope'
+        ]);
     }
 
-    public function testCloseRule() {
-        $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
+    public function testAcceptsCallableAsContext() {
+        $rule = new Rule(null, [
+            'context' => function() { return true; }
+        ]);
 
-        $rule = new CloseRule($matcher);
-
-        $token = new Token(['token.name', 'pos' => 15, 'start' => new Token(['test', 'pos' => 25]), 'rule' => $rule]);
-
-        $tokens = [
-            $token,
-            $token->getStart(),
-        ];
-
-        $matcher->method('match')->willReturn($tokens);
-        foreach ($rule->match('source') as $item) {
-            $this->assertTrue($item->isEnd());
-            $this->assertFalse($item->isStart());
-        }
-    }*/
+        $this->assertTrue($rule->validate(['test']));
+        $this->assertTrue($rule->validate([]));
+    }
 }
