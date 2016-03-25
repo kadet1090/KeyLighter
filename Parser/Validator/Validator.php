@@ -52,7 +52,7 @@ class Validator
         }
     }
 
-    private function _clean($rule, $type, &$required)
+    private function _clean($rule, &$required)
     {
         if (strpos($rule, '.') !== false) {
             foreach (array_filter(array_keys($required), function ($key) use ($rule) {
@@ -87,11 +87,11 @@ class Validator
                 }
                 $result = true;
 
-                $this->_clean($rule, $type, $rules);
+                $this->_clean($rule, $rules);
             } elseif ($type & Validator::CONTEXT_IN_ONE_OF) {
                 if ($matched) {
                     $result = true;
-                    $this->_clean($rule, $type, $rules);
+                    $this->_clean($rule, $rules);
                 }
             }
         }
