@@ -24,6 +24,7 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\MetaToken;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
@@ -38,6 +39,11 @@ class Css extends Language
     public function getRules()
     {
         $identifier = '[\w-]+';
+        $at = [
+            'charset', 'import', 'namespace',
+            'media', 'supports', 'document', 'page', 'font-face', 'keyframes', 'viewport', 'counter-style',
+            'font-feature-values', 'swash', 'ornaments', 'annotation', 'stylistic', 'styleset', 'character-variant'
+        ];
 
         return [
             'meta.declaration' => [
@@ -63,35 +69,41 @@ class Css extends Language
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
-            'keyword.special' => new Rule(new RegexMatcher("/(@$identifier)/")),
+            'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:'.implode('|', $at).'))/'), [
+                'priority' => 2
+            ]),
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['!comment', '!string', '!comment'],
+                'context' => $this->everywhere(),
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['!comment', '!string', '!comment'],
+                'context' => $this->everywhere(),
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/i")),
-            'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s}]|^)(?=(\w+).*\{)/m')),
+            'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s}]|^)(?=(\w+)[^;]*\{)/ms')),
             'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/i")),
 
             'symbol.selector.class.pseudo' => new Rule(new RegexMatcher("/(:{1,2}$identifier)/")),
 
             'number' => new Rule(new RegexMatcher("/([-+]?[0-9]*\\.?[0-9]+([\\w%]+)?)/"), [
-                'context'  => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment'],
+                'context'  => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment', '!string'],
                 'priority' => 0
             ]),
             'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
-                'context' => ['meta.declaration', '!symbol', '!comment']
+                'context' => ['meta.declaration', '!symbol', '!comment'],
+                'priority' => 0
             ]),
 
-            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\(/"), ['context' => [
-                'meta.declaration', '!comment'
-            ]]),
+            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\((.*?)\\)/", [
+                1 => Token::NAME,
+                2 => 'string.argument'
+            ]), [
+                'context' => ['meta.declaration', '!comment', '!string']
+            ]),
 
             'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
                 'priority' => 2,
@@ -99,14 +111,14 @@ class Css extends Language
             ]),
 
             'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [
-                'context' => ['!comment']
+                'context' => $this->everywhere()
             ]),
 
-            'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), [
-                'context' => ['!comment']
+            'operator.punctuation' => new Rule(new SubStringMatcher(';', ['separated' => false]), [
+                'context' => $this->everywhere()
             ]),
 
-            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => Validator::everywhere()])
+            'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => $this->everywhere()])
         ];
     }
 
@@ -118,5 +130,14 @@ class Css extends Language
     public function getIdentifier()
     {
         return 'css';
+    }
+
+    protected function everywhere() {
+        static $validator;
+        if (!$validator) {
+            $validator = new Validator(['!string', '!comment']);
+        }
+
+        return $validator;
     }
 }

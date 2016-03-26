@@ -214,7 +214,7 @@ class Token
     public function getLength()
     {
         if ($this->_length === null) {
-            $this->_length = $this->_end === null ? 0 : $this->_end->pos - $this->pos;
+            $this->_length = !$this->_end ? 0 : $this->_end->pos - $this->pos;
         }
 
         return $this->_length;

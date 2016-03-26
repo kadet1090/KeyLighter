@@ -58,8 +58,6 @@ class Sass extends Scss
         $rules['symbol.selector.class']->setContext(['meta.selector']);
         $rules['symbol.selector.class.pseudo']->setContext(['meta.selector']);
         $rules['symbol.selector.id']->setContext(['meta.selector']);
-        $rules['number']->setContext(['!meta.selector', '!symbol', '!constant', '!comment']);
-        $rules['keyword.special']->setContext(['meta.selector']);
 
         return $rules;
     }

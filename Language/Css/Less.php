@@ -15,10 +15,11 @@
 
 namespace Kadet\Highlighter\Language\Css;
 
+
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\Rule;
 
-class Scss extends PreProcessor
+class Less extends PreProcessor
 {
     /**
      * Tokenization rules
@@ -27,18 +28,17 @@ class Scss extends PreProcessor
      */
     public function getRules()
     {
-        $rules                        = parent::getRules();
-        $rules['symbol.selector.tag'] = new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
-            'context' => ['!symbol', '!string', '!number']
+        $rules = parent::getRules();
+        $rules['variable'] = new Rule(new RegexMatcher('/(@[\w-]+)/'), [
+            'context'  => ['!comment', '!keyword'],
+            'priority' => -1
         ]);
-        
-        $rules['variable']      = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => $this->everywhere()]);
 
         return $rules;
     }
 
     public function getIdentifier()
     {
-        return 'scss';
+        return 'less';
     }
 }
