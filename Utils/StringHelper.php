@@ -20,13 +20,13 @@ class StringHelper
     public static function positionToLine($source, $pos)
     {
         $source = substr($source, 0, $pos);
-        $last   = strripos($source, PHP_EOL);
+        $last   = strripos($source, "\n"); // \n is both in UNIX and Windows
         if ($last !== false) {
-            $last += strlen(PHP_EOL);
+            $last += strlen("\n");
         }
 
         return [
-            'line' => substr_count($source, PHP_EOL) + 1,
+            'line' => substr_count($source, "\n") + 1,
             'pos'  => $pos - $last + 1,
         ];
     }

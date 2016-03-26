@@ -38,7 +38,7 @@ class Css extends Language
      */
     public function getRules()
     {
-        $identifier = '[\w-]+';
+        $identifier = '-?[_a-zA-Z]+[_a-zA-Z0-9-]*';
         $at = [
             'charset', 'import', 'namespace',
             'media', 'supports', 'document', 'page', 'font-face', 'keyframes', 'viewport', 'counter-style',
@@ -69,7 +69,7 @@ class Css extends Language
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
-            'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:'.implode('|', $at).'))/'), [
+            'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:-[a-z]+-)?(?:'.implode('|', $at).'))/'), [
                 'priority' => 2
             ]),
 
@@ -98,11 +98,11 @@ class Css extends Language
                 'priority' => 0
             ]),
 
-            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\((.*?)\\)/", [
+            'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\((?:(?P<string>[a-z].*?)|.*?)\\)/", [
                 1 => Token::NAME,
-                2 => 'string.argument'
+                'string' => 'string.argument'
             ]), [
-                'context' => ['meta.declaration', '!comment', '!string']
+                'context' => ['meta.declaration', '!comment', '!string', '!keyword']
             ]),
 
             'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [

@@ -45,22 +45,22 @@ class PowerShell extends Language
             ]),
 
             'variable' => [
-                new Rule(new RegexMatcher('/[^\^](\$(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
-                    'context'  => ['!string.single', '!comment'],
+                new Rule(new RegexMatcher('/(?<!`)(\$(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
+                    'context'  => ['!string.single', '!comment', '!variable'],
                     'priority' => 0
                 ]),
-                new Rule(new RegexMatcher('/[^\^](\$\{(?P<namespace>\w+:)?[a-z_]\w*\})/i'), [
-                    'context'  => ['!string.single', '!comment'],
+                new Rule(new RegexMatcher('/[^`](\$\{(?P<namespace>\w+:)?.*?\})/i'), [
+                    'context'  => ['!string.single', '!comment', '!variable'],
                     'priority' => 0
                 ]),
             ],
 
-            'variable.splat' => new Rule(new RegexMatcher('/[^\^](\@(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
+            'variable.splat' => new Rule(new RegexMatcher('/[^`](\@(?P<namespace>\w+:)?[a-z_]\w*)/i'), [
                 'context'  => ['!string.single', '!comment'],
                 'priority' => 0
             ]),
 
-            'variable.special' => new Rule(new RegexMatcher('/(\$(?:\$|\^|\?|_|true|false|null))/i'), [
+            'variable.special' => new Rule(new RegexMatcher('/(\$(?:\$|\^|\?|_|true|false|null))\b/i'), [
                 'priority' => 5,
                 'context'  => ['!string.single', '!comment']
             ]),
@@ -72,7 +72,7 @@ class PowerShell extends Language
                 'context' => ['comment']
             ]),
 
-            'symbol.dotnet' => new Rule(new RegexMatcher('/\[([\w\.]+(?:\[\])?)\]/si')),
+            'symbol.dotnet' => new Rule(new RegexMatcher('/(\[[a-z][\w\.]*(?:\[\])?\])/si')),
 
             'annotation' => new Rule(
                 new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
@@ -113,7 +113,7 @@ class PowerShell extends Language
                 ])
             ],
 
-            'call' => new Rule(new RegexMatcher('/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*(\w[\w-\.]+)/i'), ['priority' => 2])
+            'call' => new Rule(new RegexMatcher('/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*((?:\w+\\\)?\w[\w-\.]+)/i'), ['priority' => 2])
         ];
     }
 
