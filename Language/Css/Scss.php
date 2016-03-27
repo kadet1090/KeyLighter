@@ -29,12 +29,12 @@ class Scss extends PreProcessor
     {
         parent::setupRules();
 
-        $this->removeRule('symbol.selector.tag');
-        $this->addRule('symbol.selector.tag', new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
+        $this->rules->remove('symbol.selector.tag');
+        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
             'context' => ['!symbol', '!string', '!number']
         ]));
 
-        $this->addRule('variable', new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => $this->everywhere()]));
+        $this->rules->add('variable', new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => $this->everywhere()]));
     }
 
     public function getIdentifier()

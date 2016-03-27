@@ -33,20 +33,20 @@ abstract class PreProcessor extends Css
     {
         parent::setupRules();
 
-        $this->rule('symbol.selector.class')->setContext($this->outside());
-        $this->rule('symbol.selector.tag')->setContext($this->outside());
-        $this->rule('symbol.selector.class.pseudo')->setContext($this->outside());
-        $this->rule('symbol.selector.id')->setContext($this->outside());
+        $this->rules->rule('symbol.selector.class')->setContext($this->outside());
+        $this->rules->rule('symbol.selector.tag')->setContext($this->outside());
+        $this->rules->rule('symbol.selector.class.pseudo')->setContext($this->outside());
+        $this->rules->rule('symbol.selector.id')->setContext($this->outside());
 
-        $this->rule('constant.color')->setContext(['!string', '!symbol', '!comment']);
-        $this->rule('number')->setContext(['!comment', '!symbol', '!constant', '!string', '!variable']);
-        $this->rule('call')->setContext(['!comment', '!symbol', '!constant', '!string']);
+        $this->rules->rule('constant.color')->setContext(['!string', '!symbol', '!comment']);
+        $this->rules->rule('number')->setContext(['!comment', '!symbol', '!constant', '!string', '!variable']);
+        $this->rules->rule('call')->setContext(['!comment', '!symbol', '!constant', '!string']);
 
-        $this->addRule('operator.self', new Rule(new SubStringMatcher('&'), ['context' => $this->everywhere()]));
+        $this->rules->add('operator.self', new Rule(new SubStringMatcher('&'), ['context' => $this->everywhere()]));
 
-        $this->addRule(
+        $this->rules->add(
             'comment.multiline',
-            new Rule(new CommentMatcher(['//'], []), ['context' => $this->rule('comment')->validator])
+            new Rule(new CommentMatcher(['//'], []), ['context' => $this->rules->rule('comment')->validator])
         );
     }
 

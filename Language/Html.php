@@ -33,7 +33,7 @@ class Html extends Xml
         parent::setupRules();
 
         $js = new JavaScript();
-        $this->addRules([
+        $this->rules->addMany([
             'language.'.$js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
                     'factory'     => new TokenFactory(LanguageToken::class),

@@ -107,7 +107,9 @@ class GreedyParser implements ParserInterface
             if ($this->_start->postProcess) {
                 $source = substr($this->_iterator->getSource(), $this->_start->pos, $this->_start->getLength());
 
-                $tokens = $this->_start->getInjected()->tokenize($source, $this->_result, $this->_start->pos, true);
+                $tokens = $this->_start->getInjected()->tokenize(
+                    $source, $this->_result, $this->_start->pos, Language::EMBEDDED_BY_PARENT
+                );
                 $this->_result = $this->_start->getInjected()->parse($tokens);
             }
 

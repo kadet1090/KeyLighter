@@ -64,7 +64,7 @@ class Sql extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'keyword'     => new Rule(new WordMatcher($this->_keywords, ['escape' => false])),
             'symbol.type' => new Rule(new WordMatcher($this->_types, ['escape' => false])),
 

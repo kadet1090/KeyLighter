@@ -34,12 +34,12 @@ class Sass extends Scss
     {
         parent::setupRules();
 
-        $this->removeRule('meta.selector');
-        $this->removeRule('meta.declaration');
-        $this->removeRule('meta.declaration.media');
-        $this->removeRule('meta.selector.tag');
+        $this->rules->remove('meta.selector');
+        $this->rules->remove('meta.declaration');
+        $this->rules->remove('meta.declaration.media');
+        $this->rules->remove('meta.selector.tag');
 
-        $this->addRule('meta.selector', new Rule(new RegexMatcher('/(?=(?:\n+|^)(\h*)([^\h].*)\n+\1\h+)/', [
+        $this->rules->add('meta.selector', new Rule(new RegexMatcher('/(?=(?:\n+|^)(\h*)([^\h].*)\n+\1\h+)/', [
             2 => Token::NAME
         ]), [
             'context'  => Validator::everywhere(),
@@ -47,24 +47,24 @@ class Sass extends Scss
             'factory'  => new TokenFactory(MetaToken::class)
         ]));
 
-        $this->addRule('meta.declaration', new Rule(new RegexMatcher('/\n((?:\h+.*?(?>\n|$)+)+)/'), [
+        $this->rules->add('meta.declaration', new Rule(new RegexMatcher('/\n((?:\h+.*?(?>\n|$)+)+)/'), [
             'context'  => Validator::everywhere(),
             'priority' => 2,
             'factory'  => new TokenFactory(MetaToken::class)
         ]));
 
-        $this->addRule('meta.declaration.media', new Rule(new RegexMatcher('/@media(.*?)/'), [
+        $this->rules->add('meta.declaration.media', new Rule(new RegexMatcher('/@media(.*?)/'), [
             'context' => Validator::everywhere(),
             'factory' => new TokenFactory(MetaToken::class)
         ]));
 
-        $this->addRule('symbol.selector.tag', new Rule(new RegexMatcher('/([\w-]+)/'), [
+        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/([\w-]+)/'), [
             'context' => ['meta.selector', '!symbol', '!meta.declaration.media'],
         ]));
 
-        $this->rule('symbol.selector.class')->setContext(['meta.selector']);
-        $this->rule('symbol.selector.class.pseudo')->setContext(['meta.selector']);
-        $this->rule('symbol.selector.id')->setContext(['meta.selector']);
+        $this->rules->rule('symbol.selector.class')->setContext(['meta.selector']);
+        $this->rules->rule('symbol.selector.class.pseudo')->setContext(['meta.selector']);
+        $this->rules->rule('symbol.selector.id')->setContext(['meta.selector']);
     }
 
     public function getIdentifier()

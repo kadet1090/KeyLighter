@@ -19,7 +19,7 @@ use Kadet\Highlighter\Language\Language;
 
 class MockLanguage extends Language
 {
-    private $rules;
+    private $_rules;
     private $range;
     private $name;
 
@@ -27,11 +27,11 @@ class MockLanguage extends Language
     {
         $options = array_merge([
             'rules' => [],
-            'range' => parent::getOpenClose(),
+            'range' => parent::getEnds(true),
             'name'  => 'mock',
         ], $options);
 
-        $this->rules = $options['rules'];
+        $this->_rules = $options['rules'];
         $this->range = $options['range'];
         $this->name  = $options['name'];
         parent::__construct($options);
@@ -45,10 +45,10 @@ class MockLanguage extends Language
      */
     public function setupRules()
     {
-        $this->addRules($this->rules);
+        $this->rules->addMany($this->_rules);
     }
 
-    public function getOpenClose()
+    public function getEnds($embedded)
     {
         return $this->range;
     }

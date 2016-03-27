@@ -19,6 +19,7 @@ use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\GreedyParser;
 use Kadet\Highlighter\Parser\ParserInterface;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Rules;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\TokenIterator;
@@ -33,6 +34,10 @@ use Kadet\Highlighter\Parser\Validator\Validator;
  */
 abstract class Language
 {
+    const NOT_EMBEDDED       = false;
+    const EMBEDDED           = true;
+    const EMBEDDED_BY_PARENT = 2;
+
     /**
      * @var array
      */
@@ -41,9 +46,9 @@ abstract class Language
     /**
      * Tokenizer rules
      *
-     * @var Rule[][]
+     * @var Rules
      */
-    private $_rules;
+    public $rules;
 
     /**
      * @var GreedyParser
@@ -57,10 +62,12 @@ abstract class Language
      */
     public function __construct(array $options = [])
     {
+
         $this->_options = array_merge([
             'embedded' => []
         ], $this->_options, $options);
 
+        $this->rules = new Rules($this);
         $this->setupRules();
 
         $this->_parser = $this->getParser();
@@ -142,85 +149,19 @@ abstract class Language
      */
     private function _rules($embedded = false)
     {
-        $all = $this->_rules;
-        if (!$embedded) {
-            $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
+        $rules = clone $this->rules;
+        if(is_bool($embedded)) {
+            $rules->addMany(['language.'.$this->getIdentifier() => $this->getEnds($embedded)]);
         }
 
-        foreach (call_user_func_array('array_merge', $all) as $rule) {
+        foreach ($rules->all() as $rule) {
             yield $rule;
         }
 
         foreach ($this->getEmbedded() as $language) {
-            foreach ($language->_rules() as $rule) {
+            foreach ($language->_rules(true) as $rule) {
                 yield $rule;
             }
-        }
-    }
-
-    private function _getName($name, $prefix) {
-        if(is_int($name)) {
-            return $prefix;
-        } else {
-            return $prefix ? "$prefix.$name" : $name;
-        }
-    }
-
-    public function addRules(array $rules, $prefix = null) {
-        foreach($rules as $name => $rule) {
-            $name = $this->_getName($name, $prefix);
-
-            if($rule instanceof Rule) {
-                $this->addRule($name, $rule);
-            } elseif(is_array($rule)) {
-                $this->addRules($rule, $name);
-            } else {
-                throw new \LogicException(); // todo: exception, message
-            }
-        }
-    }
-
-    public function addRule($name, Rule $rule) {
-        if(!isset($this->_rules[$name])) {
-            $this->_rules[$name] = [];
-        }
-
-        if ($rule->language === false) {
-            $rule->language = $this;
-        }
-
-        $rule->factory->setBase($name);
-        $this->_rules[$name][] = $rule;
-    }
-
-    /**
-     * @param     $name
-     * @param int $index
-     *
-     * @return \Kadet\Highlighter\Parser\Rule
-     */
-    public function &rule($name, $index = 0) {
-        return $this->rules($name)[$index];
-    }
-
-    /**
-     * @param $name
-     *
-     * @return \Kadet\Highlighter\Parser\Rule[]
-     */
-    public function &rules($name) {
-        if(!isset($this->_rules[$name])) {
-            throw new \InvalidArgumentException();
-        }
-
-        return $this->_rules[$name];
-    }
-
-    public function removeRule($name, $index = null) {
-        if($index === null) {
-            unset($this->_rules[$name]);
-        } else {
-            unset($this->_rules[$name][$index]);
         }
     }
 
@@ -234,11 +175,13 @@ abstract class Language
     /**
      * Language range Rule(s)
      *
-     * @return Rule|Rule[]
+     * @param $embedded
+     *
+     * @return Rule|\Kadet\Highlighter\Parser\Rule[]
      */
-    public function getOpenClose()
+    public function getEnds($embedded = false)
     {
-        return [new Rule(
+        return new Rule(
             new WholeMatcher(), [
                 'priority' => 1000,
                 'factory'  => new TokenFactory(LanguageToken::class),
@@ -246,7 +189,7 @@ abstract class Language
                 'language' => null,
                 'context'  => Validator::everywhere(),
             ]
-        )];
+        );
     }
 
     /**

@@ -41,7 +41,7 @@ class Perl extends Language
         $identifier = '\w+';
         $number = '[+-]?(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?';
 
-        return [
+        $this->rules->addMany([
             'comment' => new Rule(new CommentMatcher(['#'], [])),
 
             'keyword' => new Rule(new WordMatcher([
@@ -118,7 +118,7 @@ class Perl extends Language
             'symbol.iterator' => [
                 new Rule(new RegexMatcher('#(<\w+>)#s'))
             ]
-        ];
+        ]);
     }
 
     /**
@@ -131,10 +131,10 @@ class Perl extends Language
         return 'perl';
     }
 
-    public function getOpenClose()
+    public function getEnds($embedded = false)
     {
         return [
-            parent::getOpenClose(),
+            parent::getEnds($embedded),
             new CloseRule(new SubStringMatcher('__END__'), [
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'language' => $this

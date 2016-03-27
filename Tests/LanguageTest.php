@@ -29,7 +29,7 @@ use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
 class EmbeddedLanguage extends Mocks\MockLanguage
 {
-    public function getOpenClose()
+    public function getEnds($embedded)
     {
         return new Rule(new RegexMatcher('/(\{.*?\})/'), [
             'priority' => 1000,

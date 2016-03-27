@@ -35,7 +35,7 @@ class Php extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory(ContextualToken::class),
@@ -124,9 +124,9 @@ class Php extends Language
     }
 
     /** {@inheritdoc} */
-    public function getOpenClose()
+    public function getEnds($embedded = false)
     {
-        return [
+        return $embedded ? [
             new OpenRule(new RegexMatcher('/(<\?php|<\?=)/si'), [
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'priority' => 1000,
@@ -140,7 +140,7 @@ class Php extends Language
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'language' => $this
             ])
-        ];
+        ] : parent::getEnds(false);
     }
 
     public function getIdentifier()

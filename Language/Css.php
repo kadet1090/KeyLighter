@@ -45,7 +45,7 @@ class Css extends Language
             'font-feature-values', 'swash', 'ornaments', 'annotation', 'stylistic', 'styleset', 'character-variant'
         ];
 
-        $this->addRules([
+        $this->rules->addMany([
             'meta.declaration' => [
                 new OpenRule(new SubStringMatcher('{'), [
                     'context' => ['!meta.declaration.media', '!comment'],

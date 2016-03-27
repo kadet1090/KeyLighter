@@ -28,7 +28,7 @@ class Ini extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'comment'        => new Rule(new CommentMatcher([';'], [])),
             'symbol.section' => new Rule(new RegexMatcher('/(\[[\.\w]+\])/i')),
             'variable'       => new Rule(new RegexMatcher('/([\.\w]+)\s*=/i')),

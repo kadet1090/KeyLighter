@@ -45,7 +45,7 @@ class JavaScript extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory(ContextualToken::class),
@@ -67,7 +67,7 @@ class JavaScript extends Language
 
             'comment' => new Rule(new CommentMatcher(['//'], [
                 ['/*', '*/']
-            ])),
+            ]), ['priority' => 3]),
 
             'call' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')\s*\(/iu'), ['priority' => -1]),
 
@@ -79,13 +79,15 @@ class JavaScript extends Language
                 'function', 'arguments', 'interface', 'protected', 'implements', 'instanceof',
             ]), ['context' => ['!string', '!comment']]),
 
-            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
+            'number' => new Rule(new RegexMatcher('/\b(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))\b/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
             'operator'             => new Rule(new RegexMatcher('/(\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
 
             'string.regex' => [
-                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m')),
+                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m'), [
+                    'context' => ['!comment']
+                ]),
                 new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
                     'priority' => 1,
                     'factory'  => new TokenFactory(ContextualToken::class),
@@ -93,8 +95,8 @@ class JavaScript extends Language
                 ])
             ],
 
-            'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), [
-                'priority' => -10000,
+            'variable' => new Rule(new RegexMatcher('/\b(?<!\.)(' . self::IDENTIFIER . ':?)/iu'), [
+                'priority' => -1,
                 'enabled'  => $this->variables
             ])
         ]);

@@ -33,7 +33,7 @@ class Latex extends Language
      */
     public function setupRules()
     {
-        return [
+        $this->rules->addMany([
             'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),
 
             'string.math' => [
@@ -76,7 +76,7 @@ class Latex extends Language
                 'context'  => ['string.math'],
                 'priority' => -2
             ]),
-        ];
+        ]);
     }
 
     /** {@inheritdoc} */

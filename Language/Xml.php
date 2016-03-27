@@ -35,7 +35,7 @@ class Xml extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'tag.open'  => [
                 new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])

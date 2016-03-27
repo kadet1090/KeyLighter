@@ -33,7 +33,7 @@ class PowerShell extends Language
      */
     public function setupRules()
     {
-        $this->addRules([
+        $this->rules->addMany([
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
                 'factory' => new TokenFactory(ContextualToken::class),
