@@ -71,10 +71,10 @@ class Sql extends Language
             'comment' => new Rule(new CommentMatcher(['#', '--'], [['/*', '*/']])),
 
             'string' => [
-                new Rule(new SubStringMatcher('\''), [
+                'single' => new Rule(new SubStringMatcher('\''), [
                     'factory' => new TokenFactory(ContextualToken::class)
                 ]),
-                new Rule(new SubStringMatcher('"'), [
+                'double' => new Rule(new SubStringMatcher('"'), [
                     'factory' => new TokenFactory(ContextualToken::class)
                 ]),
             ],

@@ -2,12 +2,12 @@
 /**
  * Highlighter
  *
- * Copyright (C) 2015, Some right reserved.
- * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
+ * Copyright (C) 2016, Some right reserved.
+ * @author Kacper "Kadet" Donat <kacper@kadet.net>
  *
  * Contact with author:
- * Xmpp: kadet@jid.pl
- * E-mail: kadet1090@gmail.com
+ * Xmpp: me@kadet.net
+ * E-mail: contact@kadet.net
  *
  * From Kadet with love.
  */
@@ -69,9 +69,15 @@ class Php extends Language
                 ]),
             ],
 
-            'symbol.namespace' => new Rule(new RegexMatcher('/(\\\{0,2}(?:\w+\\\{1,2})+\w+)/i'), [
-                'context' => ['*symbol', '*none']
-            ]),
+            'symbol.namespace' => [
+                /*new Rule(new RegexMatcher('/(\\\{0,2}(?:\w+\\\{1,2})+)\w+/i'), [
+                    'context' => ['*symbol', '*none']
+                ]),*/
+
+                new Rule(new RegexMatcher('/namespace\s*(\\\{0,2}(?:\w+\\\{1,2})+\w+);/i'), [
+                    'context' => ['*symbol', '*none']
+                ]),
+            ],
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']

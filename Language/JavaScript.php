@@ -2,12 +2,12 @@
 /**
  * Highlighter
  *
- * Copyright (C) 2015, Some right reserved.
- * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
+ * Copyright (C) 2016, Some right reserved.
+ * @author Kacper "Kadet" Donat <kacper@kadet.net>
  *
  * Contact with author:
- * Xmpp: kadet@jid.pl
- * E-mail: kadet1090@gmail.com
+ * Xmpp: me@kadet.net
+ * E-mail: contact@kadet.net
  *
  * From Kadet with love.
  */

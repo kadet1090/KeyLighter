@@ -113,7 +113,7 @@ class Css extends Language
                 'context' => $this->everywhere()
             ]),
 
-            'operator.punctuation' => new Rule(new SubStringMatcher(';', ['separated' => false]), [
+            'operator.punctuation' => new Rule(new SubStringMatcher(';'), [
                 'context' => $this->everywhere()
             ]),
 

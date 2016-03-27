@@ -2,13 +2,13 @@
 /**
  * Highlighter
  *
- * Copyright (C) 2015, Some right reserved.
+ * Copyright (C) 2016, Some right reserved.
  *
- * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
+ * @author Kacper "Kadet" Donat <kacper@kadet.net>
  *
  * Contact with author:
- * Xmpp: kadet@jid.pl
- * E-mail: kadet1090@gmail.com
+ * Xmpp: me@kadet.net
+ * E-mail: contact@kadet.net
  *
  * From Kadet with love.
  */
@@ -28,7 +28,7 @@ class Ini extends Language
     {
         $this->rules->addMany([
             'comment'        => new Rule(new CommentMatcher([';'], [])),
-            'symbol.section' => new Rule(new RegexMatcher('/(\[[\.\w]+\])/i')),
+            'symbol.section' => new Rule(new RegexMatcher('/(\[.*?])/i')),
             'variable'       => new Rule(new RegexMatcher('/([\.\w]+)\s*=/i')),
             'number'         => new Rule(new RegexMatcher('/(-?\d+)/i')),
 

@@ -2,13 +2,13 @@
 /**
  * Highlighter
  *
- * Copyright (C) 2015, Some right reserved.
+ * Copyright (C) 2016, Some right reserved.
  *
- * @author Kacper "Kadet" Donat <kadet1090@gmail.com>
+ * @author Kacper "Kadet" Donat <kacper@kadet.net>
  *
  * Contact with author:
- * Xmpp: kadet@jid.pl
- * E-mail: kadet1090@gmail.com
+ * Xmpp:   me@kadet.net
+ * E-mail: contact@kadet.net
  *
  * From Kadet with love.
  */
@@ -25,7 +25,6 @@ use Kadet\Highlighter\Parser\Tokens;
  */
 class HtmlFormatter implements FormatterInterface
 {
-
     public function format(Tokens $tokens)
     {
         $source = $tokens->getSource();

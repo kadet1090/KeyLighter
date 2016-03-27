@@ -1,5 +1,5 @@
 ![Logo](http://kadet.net/keylighter/logo.png)
-# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) ![Build](https://img.shields.io/scrutinizer/build/g/kadet1090/keylighter.svg?style=flat-square) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
+# KeyLighter [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat-square)](https://packagist.org/packages/kadet/keylighter) [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) ![Build](https://img.shields.io/scrutinizer/build/g/kadet1090/keylighter.svg?style=flat-square) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
@@ -72,7 +72,7 @@ but then I decided that it should be able to generate any possible output,
 currently supported:
 
 #### Cli `\Kadet\Highlighter\Formatter\CliFormatter`
-![CLI](http://kadet.net/keylighter/php-cli.png)
+![CLI](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-27_19-19-25-af.png)
 
 It can even be styled, default styles are stored in `Styles\Cli\Default.php`, but you can just pass additional argument into constructor:
 
@@ -85,7 +85,7 @@ new \Kadet\Highlighter\Formatter\CliFormatter([
 ```
 
 #### HTML `\Kadet\Highlighter\Formatter\HtmlFormatter`
-![HTML](http://kadet.net/keylighter/php-html.png)
+![HTML](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-27_19-27-17-b1.png)
 
 Every token is placed inside it's own `span` so it can be easily styled with css.
 

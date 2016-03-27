@@ -32,10 +32,8 @@ class Sass extends Scss
     {
         parent::setupRules();
 
-        $this->rules->remove('meta.selector');
         $this->rules->remove('meta.declaration');
         $this->rules->remove('meta.declaration.media');
-        $this->rules->remove('meta.selector.tag');
 
         $this->rules->add('meta.selector', new Rule(new RegexMatcher('/(?=(?:\n+|^)(\h*)([^\h].*)\n+\1\h+)/', [
             2 => Token::NAME
@@ -51,16 +49,17 @@ class Sass extends Scss
             'factory'  => new TokenFactory(MetaToken::class)
         ]));
 
-        $this->rules->add('meta.declaration.media', new Rule(new RegexMatcher('/@media(.*?)/'), [
+        $this->rules->add('meta.declaration.media', new Rule(new RegexMatcher('/@media(.*?)\n/'), [
             'context' => Validator::everywhere(),
             'factory' => new TokenFactory(MetaToken::class)
         ]));
 
-        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/([\w-]+)/'), [
+        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/\b([a-z-][\w-]*)/'), [
             'context' => ['meta.selector', '!symbol', '!meta.declaration.media'],
         ]));
 
         $this->rules->rule('symbol.selector.class')->setContext(['meta.selector']);
+        $this->rules->rule('keyword.at-rule')->setContext(['meta.selector']);
         $this->rules->rule('symbol.selector.class.pseudo')->setContext(['meta.selector']);
         $this->rules->rule('symbol.selector.id')->setContext(['meta.selector']);
     }
