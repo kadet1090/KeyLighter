@@ -30,8 +30,6 @@ class Php extends Language
 {
     /**
      * Tokenization rules
-     *
-     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function setupRules()
     {

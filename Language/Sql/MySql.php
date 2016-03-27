@@ -52,16 +52,13 @@ class MySql extends Sql
 
     /**
      * Tokenization rules
-     *
-     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
     public function setupRules()
     {
-        return array_merge_recursive(parent::setupRules(), [
-            'symbol' => new Rule(new SubStringMatcher('`'), [
-                'factory' => new TokenFactory(ContextualToken::class)
-            ])
-        ]);
+        parent::setupRules();
+        $this->rules->add('symbol', new Rule(new SubStringMatcher('`'), [
+            'factory' => new TokenFactory(ContextualToken::class)
+        ]));
     }
 
     /** {@inheritdoc} */

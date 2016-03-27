@@ -33,8 +33,6 @@ class Perl extends Language
 {
     /**
      * Tokenization rules definition
-     *
-     * @return Rule[]|Rule[][]
      */
     public function setupRules()
     {
