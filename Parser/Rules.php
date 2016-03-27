@@ -86,7 +86,7 @@ class Rules extends \ArrayObject
      *
      * @return \Kadet\Highlighter\Parser\Rule[]
      */
-    public function &rules($name)
+    public function rules($name)
     {
         if (!isset($this[$name])) {
             throw new \InvalidArgumentException();

@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\Validator\DelegateValidator;
@@ -73,5 +74,19 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertInstanceOf(DelegateValidator::class, $rule->validator);
+    }
+
+    public function testDisable() {
+        $rule = new Rule(new WholeMatcher());
+
+        $rule->disable();
+        $this->assertEmpty($rule->match('source'));
+    }
+
+    public function testEnable() {
+        $rule = new Rule(new WholeMatcher(), ['enabled' => false]);
+
+        $rule->enable();
+        $this->assertNotEmpty($rule->match('source'));
     }
 }

@@ -25,18 +25,19 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 use Kadet\Highlighter\Tests\Mocks\MockLanguage;
 
 class EmbeddedLanguage extends Mocks\MockLanguage
 {
-    public function getEnds($embedded)
+    public function getEnds($embedded = false)
     {
         return new Rule(new RegexMatcher('/(\{.*?\})/'), [
             'priority' => 1000,
             'factory'  => new TokenFactory(LanguageToken::class),
             'inject'   => $this,
             'language' => null,
-            'context'  => ['*']
+            'context'  => Validator::everywhere()
         ]);
     }
 }

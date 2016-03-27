@@ -32,8 +32,8 @@ class MockLanguage extends Language
         ], $options);
 
         $this->_rules = $options['rules'];
-        $this->range = $options['range'];
-        $this->name  = $options['name'];
+        $this->range  = $options['range'];
+        $this->name   = $options['name'];
         parent::__construct($options);
     }
 
@@ -48,12 +48,11 @@ class MockLanguage extends Language
         $this->rules->addMany($this->_rules);
     }
 
-    public function getEnds($embedded)
+    public function getEnds($embedded = false)
     {
         return $this->range;
     }
-
-
+    
     /**
      * Unique language identifier, for example 'php'
      *

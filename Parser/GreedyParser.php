@@ -49,12 +49,6 @@ class GreedyParser implements ParserInterface
      */
     private $_language;
 
-    public function __construct(Language $language = null) {
-        if($language) {
-            $this->setLanguage($language);
-        }
-    }
-
     public function setLanguage(Language $language) {
         $this->_language = $language;
     }
