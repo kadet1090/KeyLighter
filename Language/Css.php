@@ -93,7 +93,8 @@ class Css extends Language
                 'context'  => ['meta.declaration', '!constant.color', '!comment', '!symbol', '!comment', '!string'],
                 'priority' => 0
             ]),
-            'constant.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
+            
+            'symbol.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
                 'context' => ['meta.declaration', '!symbol', '!comment'],
                 'priority' => 0
             ]),

@@ -142,42 +142,51 @@ mainly because I needed them for testing purposes.
 For example XML definition looks like this:
 ```php
 <?php
-class XmlLanguage extends Language
+class Xml extends Language
 {
-    const TAG_REGEX = '\w+(?::\w+)?';
+    const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
+    /**
+     * Tokenization rules
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
+     */
     public function getRules()
     {
         return [
-            'tag.open' => [
-                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag']]),
-                new CloseRule(new SubStringMatcher('>'), ['priority' => -1, 'context' => ['!string']])
+            'tag.open'  => [
+                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
+                new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
+            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
-                'tag' => Token::NAME,
+                'name'      => Token::NAME,
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
             'symbol.attribute' => new Rule(new RegexMatcher('/' . self::IDENTIFIER . '=/', [
-                'tag' => Token::NAME,
+                'name'      => Token::NAME,
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'string.double' => new Rule(new SubStringMatcher('"'), [
                 'context' => ['tag'],
-                'factory' => new TokenFactory('Kadet\\Highlighter\\Parser\\MarkerToken'),
+                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
-            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:\w+)>)/')),
+            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
+
+            'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
         ];
     }
 
+    /** {@inheritdoc} */
     public function getIdentifier()
     {
         return 'xml';

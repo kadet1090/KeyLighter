@@ -36,11 +36,10 @@ class Xml extends Language
     public function getRules()
     {
         return [
-            'tag.open' => [
+            'tag.open'  => [
                 new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
-
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
 
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
@@ -62,7 +61,6 @@ class Xml extends Language
                 'context' => ['tag'],
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
-
 
             'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
 
