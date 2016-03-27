@@ -33,9 +33,9 @@ class Xml extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return [
+        $this->addRules([
             'tag.open'  => [
                 new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
@@ -65,7 +65,7 @@ class Xml extends Language
             'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
 
             'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
-        ];
+        ]);
     }
 
     /** {@inheritdoc} */

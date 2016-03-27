@@ -36,7 +36,7 @@ class Perl extends Language
      *
      * @return Rule[]|Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
         $identifier = '\w+';
         $number = '[+-]?(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?';

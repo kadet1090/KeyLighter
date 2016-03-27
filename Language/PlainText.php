@@ -20,13 +20,8 @@ class PlainText extends Language
 
     /**
      * Tokenization rules
-     *
-     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
-    {
-        return [];
-    }
+    public function setupRules() { }
 
     /** {@inheritdoc} */
     public function getIdentifier()

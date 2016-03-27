@@ -36,7 +36,7 @@ class Css extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
         $identifier = '-?[_a-zA-Z]+[_a-zA-Z0-9-]*';
         $at = [
@@ -45,7 +45,7 @@ class Css extends Language
             'font-feature-values', 'swash', 'ornaments', 'annotation', 'stylistic', 'styleset', 'character-variant'
         ];
 
-        return [
+        $this->addRules([
             'meta.declaration' => [
                 new OpenRule(new SubStringMatcher('{'), [
                     'context' => ['!meta.declaration.media', '!comment'],
@@ -120,7 +120,7 @@ class Css extends Language
             ]),
 
             'comment' => new Rule(new CommentMatcher([], [['/*', '*/']]), ['context' => $this->everywhere()])
-        ];
+        ]);
     }
 
     /**

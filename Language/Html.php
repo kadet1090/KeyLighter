@@ -28,11 +28,12 @@ class Html extends Xml
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        $js = new JavaScript();
+        parent::setupRules();
 
-        return array_merge(parent::getRules(), [
+        $js = new JavaScript();
+        $this->addRules([
             'language.'.$js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
                     'factory'     => new TokenFactory(LanguageToken::class),

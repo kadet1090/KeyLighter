@@ -31,7 +31,7 @@ class Latex extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
         return [
             'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),

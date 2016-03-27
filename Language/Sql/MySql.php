@@ -55,9 +55,9 @@ class MySql extends Sql
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return array_merge_recursive(parent::getRules(), [
+        return array_merge_recursive(parent::setupRules(), [
             'symbol' => new Rule(new SubStringMatcher('`'), [
                 'factory' => new TokenFactory(ContextualToken::class)
             ])

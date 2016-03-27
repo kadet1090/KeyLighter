@@ -37,7 +37,8 @@ class Rule
 {
     private $_matcher;
     private $_options;
-    
+    private $_enabled = true;
+
     /**
      * @var Validator
      */
@@ -56,11 +57,13 @@ class Rule
             'context'  => [],
             'priority' => 1,
             'language' => false,
-            'factory'  => new TokenFactory(Token::class)
+            'factory'  => new TokenFactory(Token::class),
+            'enabled'  => true
         ], $options);
 
         $this->setContext($options['context']);
         $this->_options = $options;
+        $this->_enabled = $options['enabled'];
 
         $this->factory->setRule($this);
     }
@@ -84,7 +87,7 @@ class Rule
      */
     public function match($source)
     {
-        return $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
+        return $this->_enabled && $this->_matcher !== null ? $this->_matcher->match($source, $this->factory) : [];
     }
 
     public function __get($option)
@@ -95,5 +98,13 @@ class Rule
     public function __set($option, $value)
     {
         return $this->_options[$option] = $value;
+    }
+
+    public function enable() {
+        $this->_enabled = true;
+    }
+
+    public function disable() {
+        $this->_enabled = false;
     }
 }

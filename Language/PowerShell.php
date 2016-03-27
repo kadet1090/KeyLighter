@@ -31,9 +31,9 @@ class PowerShell extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return [
+        $this->addRules([
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string'],
                 'factory' => new TokenFactory(ContextualToken::class),
@@ -114,7 +114,7 @@ class PowerShell extends Language
             ],
 
             'call' => new Rule(new RegexMatcher('/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*((?:\w+\\\)?\w[\w-\.]+)/i'), ['priority' => 2])
-        ];
+        ]);
     }
 
     /** {@inheritdoc} */

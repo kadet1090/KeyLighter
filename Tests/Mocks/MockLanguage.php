@@ -43,9 +43,9 @@ class MockLanguage extends Language
      *
      * @return array
      */
-    public function getRules()
+    public function setupRules()
     {
-        return $this->rules;
+        $this->addRules($this->rules);
     }
 
     public function getOpenClose()

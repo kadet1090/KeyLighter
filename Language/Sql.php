@@ -62,9 +62,9 @@ class Sql extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return [
+        $this->addRules([
             'keyword'     => new Rule(new WordMatcher($this->_keywords, ['escape' => false])),
             'symbol.type' => new Rule(new WordMatcher($this->_types, ['escape' => false])),
 
@@ -84,7 +84,7 @@ class Sql extends Language
             'number'         => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
             'call'           => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
             'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => ['string']])
-        ];
+        ]);
     }
 
     /** {@inheritdoc} */

@@ -26,13 +26,13 @@ class Less extends PreProcessor
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        $rules = parent::getRules();
-        $rules['variable'] = new Rule(new RegexMatcher('/(@[\w-]+)/'), [
+        $rules = parent::setupRules();
+        $this->addRule('variable', new Rule(new RegexMatcher('/(@[\w-]+)/'), [
             'context'  => ['!comment', '!keyword'],
             'priority' => -1
-        ]);
+        ]));
 
         return $rules;
     }

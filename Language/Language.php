@@ -41,7 +41,7 @@ abstract class Language
     /**
      * Tokenizer rules
      *
-     * @var Rule[]|Rule[][]
+     * @var Rule[][]
      */
     private $_rules;
 
@@ -61,7 +61,7 @@ abstract class Language
             'embedded' => []
         ], $this->_options, $options);
 
-        $this->_rules = $this->getRules();
+        $this->setupRules();
 
         $this->_parser = $this->getParser();
         $this->_parser->setLanguage($this);
@@ -75,11 +75,9 @@ abstract class Language
     }
 
     /**
-     * Tokenization rules definition
-     *
-     * @return Rule[]|Rule[][]
+     * Tokenization rules setup
      */
-    abstract public function getRules();
+    abstract public function setupRules();
 
     /**
      * Parses source and removes wrong tokens.
@@ -149,28 +147,80 @@ abstract class Language
             $all['language.' . $this->getIdentifier()] = $this->getOpenClose();
         }
 
-        // why this code sucks so much? Because RecursiveIterator performance such a lot more.
-        foreach ($all as $name => $rules) {
-            if (!is_array($rules)) {
-                $rules = [$rules];
-            }
-
-            /** @var Rule $rule */
-            foreach ($rules as $rule) {
-                if ($rule->language === false) {
-                    $rule->language = $this;
-                }
-
-                $rule->factory->setBase($name);
-
-                yield $rule;
-            }
+        foreach (call_user_func_array('array_merge', $all) as $rule) {
+            yield $rule;
         }
 
         foreach ($this->getEmbedded() as $language) {
             foreach ($language->_rules() as $rule) {
                 yield $rule;
             }
+        }
+    }
+
+    private function _getName($name, $prefix) {
+        if(is_int($name)) {
+            return $prefix;
+        } else {
+            return $prefix ? "$prefix.$name" : $name;
+        }
+    }
+
+    public function addRules(array $rules, $prefix = null) {
+        foreach($rules as $name => $rule) {
+            $name = $this->_getName($name, $prefix);
+
+            if($rule instanceof Rule) {
+                $this->addRule($name, $rule);
+            } elseif(is_array($rule)) {
+                $this->addRules($rule, $name);
+            } else {
+                throw new \LogicException(); // todo: exception, message
+            }
+        }
+    }
+
+    public function addRule($name, Rule $rule) {
+        if(!isset($this->_rules[$name])) {
+            $this->_rules[$name] = [];
+        }
+
+        if ($rule->language === false) {
+            $rule->language = $this;
+        }
+
+        $rule->factory->setBase($name);
+        $this->_rules[$name][] = $rule;
+    }
+
+    /**
+     * @param     $name
+     * @param int $index
+     *
+     * @return \Kadet\Highlighter\Parser\Rule
+     */
+    public function &rule($name, $index = 0) {
+        return $this->rules($name)[$index];
+    }
+
+    /**
+     * @param $name
+     *
+     * @return \Kadet\Highlighter\Parser\Rule[]
+     */
+    public function &rules($name) {
+        if(!isset($this->_rules[$name])) {
+            throw new \InvalidArgumentException();
+        }
+
+        return $this->_rules[$name];
+    }
+
+    public function removeRule($name, $index = null) {
+        if($index === null) {
+            unset($this->_rules[$name]);
+        } else {
+            unset($this->_rules[$name][$index]);
         }
     }
 
@@ -188,7 +238,7 @@ abstract class Language
      */
     public function getOpenClose()
     {
-        return new Rule(
+        return [new Rule(
             new WholeMatcher(), [
                 'priority' => 1000,
                 'factory'  => new TokenFactory(LanguageToken::class),
@@ -196,7 +246,7 @@ abstract class Language
                 'language' => null,
                 'context'  => Validator::everywhere(),
             ]
-        );
+        )];
     }
 
     /**

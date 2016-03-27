@@ -43,9 +43,9 @@ class JavaScript extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        $rules = [
+        $this->addRules([
             'string.single' => new Rule(new SubStringMatcher('\''), [
                 'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory(ContextualToken::class),
@@ -58,15 +58,7 @@ class JavaScript extends Language
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
                 'priority' => -2
             ]),
-        ];
 
-        if ($this->variables) {
-            $rules = array_merge($rules, [
-                'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), ['priority' => -10000]),
-            ]);
-        }
-
-        $rules = array_merge($rules, [
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
@@ -99,10 +91,13 @@ class JavaScript extends Language
                     'factory'  => new TokenFactory(ContextualToken::class),
                     'context'  => ['!keyword.escape', 'string.regex']
                 ])
-            ]
-        ]);
+            ],
 
-        return $rules;
+            'variable' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')/iu'), [
+                'priority' => -10000,
+                'enabled'  => $this->variables
+            ])
+        ]);
     }
 
     public function getIdentifier()

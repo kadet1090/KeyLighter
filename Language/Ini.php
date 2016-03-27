@@ -26,16 +26,16 @@ class Ini extends Language
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return [
+        $this->addRules([
             'comment'        => new Rule(new CommentMatcher([';'], [])),
             'symbol.section' => new Rule(new RegexMatcher('/(\[[\.\w]+\])/i')),
             'variable'       => new Rule(new RegexMatcher('/([\.\w]+)\s*=/i')),
             'number'         => new Rule(new RegexMatcher('/(-?\d+)/i')),
 
             'string' => new Rule(new RegexMatcher('/=\h*(.*)/i')),
-        ];
+        ]);
     }
 
     /** @inheritdoc */

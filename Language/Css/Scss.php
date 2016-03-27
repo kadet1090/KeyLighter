@@ -25,16 +25,16 @@ class Scss extends PreProcessor
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        $rules                        = parent::getRules();
-        $rules['symbol.selector.tag'] = new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
-            'context' => ['!symbol', '!string', '!number']
-        ]);
-        
-        $rules['variable']      = new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => $this->everywhere()]);
+        parent::setupRules();
 
-        return $rules;
+        $this->removeRule('symbol.selector.tag');
+        $this->addRule('symbol.selector.tag', new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
+            'context' => ['!symbol', '!string', '!number']
+        ]));
+
+        $this->addRule('variable', new Rule(new RegexMatcher('/(\$[\w-]+)/'), ['context' => $this->everywhere()]));
     }
 
     public function getIdentifier()

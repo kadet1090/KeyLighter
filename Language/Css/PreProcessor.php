@@ -20,6 +20,7 @@ use Kadet\Highlighter\Language\Css;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 abstract class PreProcessor extends Css
 {
@@ -28,25 +29,28 @@ abstract class PreProcessor extends Css
      *
      * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        $rules = parent::getRules();
+        parent::setupRules();
 
-        $rules['symbol.selector.class']->setContext(['!symbol', '!string', '!number', '!comment']);
-        $rules['symbol.selector.tag']->setContext(['!symbol', '!string', '!number', '!comment']);
-        $rules['symbol.selector.class.pseudo']->setContext(['!symbol', '!string', '!number', '!comment']);
-        $rules['symbol.selector.id']->setContext(['!symbol', '!string', '!constant', '!comment']);
-        $rules['constant.color']->setContext(['!string', '!symbol', '!comment']);
+        $this->rule('symbol.selector.class')->setContext($this->outside());
+        $this->rule('symbol.selector.tag')->setContext($this->outside());
+        $this->rule('symbol.selector.class.pseudo')->setContext($this->outside());
+        $this->rule('symbol.selector.id')->setContext($this->outside());
 
-        $rules['operator.self'] = new Rule(new SubStringMatcher('&'), ['context' => $this->everywhere()]);
-        $rules['number']->setContext(['!comment', '!symbol', '!constant', '!string', '!variable']);
-        $rules['call'] ->setContext(['!comment', '!symbol', '!constant', '!string']);
+        $this->rule('constant.color')->setContext(['!string', '!symbol', '!comment']);
+        $this->rule('number')->setContext(['!comment', '!symbol', '!constant', '!string', '!variable']);
+        $this->rule('call')->setContext(['!comment', '!symbol', '!constant', '!string']);
 
-        $rules['comment'] = [
-            $rules['comment'],
-            new Rule(new CommentMatcher(['//'], []), ['context' => $rules['comment']->validator])
-        ];
+        $this->addRule('operator.self', new Rule(new SubStringMatcher('&'), ['context' => $this->everywhere()]));
 
-        return $rules;
+        $this->addRule(
+            'comment.multiline',
+            new Rule(new CommentMatcher(['//'], []), ['context' => $this->rule('comment')->validator])
+        );
+    }
+
+    protected function outside() {
+        return new Validator(['!symbol', '!string', '!number', '!comment', '!constant']);
     }
 }
