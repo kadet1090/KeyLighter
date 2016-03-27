@@ -26,13 +26,12 @@ class Less extends PreProcessor
      */
     public function setupRules()
     {
-        $rules = parent::setupRules();
+        parent::setupRules();
+        
         $this->rules->add('variable', new Rule(new RegexMatcher('/(@[\w-]+)/'), [
             'context'  => ['!comment', '!keyword'],
             'priority' => -1
         ]));
-
-        return $rules;
     }
 
     public function getIdentifier()

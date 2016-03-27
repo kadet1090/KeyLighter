@@ -21,7 +21,7 @@ interface TokenFactoryInterface
     /**
      * @param $params
      *
-     * @return Token|null
+     * @return Token|null|false
      */
     public function create($params);
 
