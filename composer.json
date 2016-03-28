@@ -1,7 +1,6 @@
 {
   "name": "kadet/keylighter",
   "description": "Yet another syntax highlighter for PHP",
-  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
@@ -13,7 +12,7 @@
     "php": ">=5.5.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.2.*"
+    "phpunit/phpunit": "5.1.*"
   },
   "autoload": {
     "psr-4": {
