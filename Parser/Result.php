@@ -46,4 +46,9 @@ class Result extends \ArrayObject implements Tokens
             $this->append($token);
         }
     }
+
+    public function getTokens()
+    {
+        return $this->getArrayCopy();
+    }
 }

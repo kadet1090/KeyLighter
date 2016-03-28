@@ -34,7 +34,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->setRule($rule);
 
         $token = $factory->create([]);
-        $this->assertEquals($rule, $token->getRule());
+        $this->assertEquals($rule, $token->rule);
     }
 
     public function testSubNaming()

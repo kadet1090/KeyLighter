@@ -16,8 +16,7 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
-use Kadet\Highlighter\Parser\GreedyParser;
-use Kadet\Highlighter\Parser\ParserInterface;
+use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Rules;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
@@ -49,12 +48,7 @@ abstract class Language
      * @var Rules
      */
     public $rules;
-
-    /**
-     * @var GreedyParser
-     */
-    private $_parser;
-
+    
     /**
      * Language constructor.
      *
@@ -69,16 +63,6 @@ abstract class Language
 
         $this->rules = new Rules($this);
         $this->setupRules();
-
-        $this->_parser = $this->getParser();
-        $this->_parser->setLanguage($this);
-    }
-
-    /**
-     * @return ParserInterface
-     */
-    public function getParser() {
-        return new GreedyParser();
     }
 
     /**
@@ -105,7 +89,22 @@ abstract class Language
             throw new \InvalidArgumentException('$tokens must be string or TokenIterator');
         }
 
-        return $this->_parser->process($tokens);
+        return $this->_process($tokens);
+    }
+
+    private function _process(TokenIterator $tokens) {
+        $context  = [];
+        $result   = new Result($tokens->getSource(), [
+            $tokens->current()
+        ]);
+
+        for ($tokens->next(); $tokens->valid(); $tokens->next()) {
+            if(!$tokens->current()->process($context, $this, $result, $tokens)) {
+                break;
+            }
+        }
+
+        return $result;
     }
 
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
