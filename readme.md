@@ -1,5 +1,5 @@
 ![Logo](http://kadet.net/keylighter/logo.png)
-# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) [![Travis](https://img.shields.io/travis/kadet1090/keylighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
+# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) [![Travis](https://img.shields.io/travis/kadet1090/KeyLighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
