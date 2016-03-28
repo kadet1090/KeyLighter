@@ -12,8 +12,5 @@ matrix:
     - php: hhvm
     - php: nightly
 
-before_script:
-  - phpenv config-rm xdebug.ini
-
 install:
   - composer install
