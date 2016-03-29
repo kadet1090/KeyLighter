@@ -27,6 +27,7 @@ class ConsoleHelper
         'underlined' => false,
         'dim'        => false,
         'blink'      => false,
+        'reset'      => false,
     ];
 
     public function styled($style, $text)
@@ -38,19 +39,19 @@ class ConsoleHelper
     {
         if (!empty($this->_current)) {
             $this->_stack[] = $this->_current;
-            $style          = array_diff($style, $this->_current);
+            $style          = array_diff_assoc($style, $this->_current);
         }
 
         $this->_current = array_merge($this->_current, $style);
 
-        return $this->_set(array_diff($this->_current, $this->_default));
+        return $this->_set(array_diff_assoc($this->_current, $this->_default));
     }
 
     public function close()
     {
         $this->_current = empty($this->_stack) ? $this->_default : array_pop($this->_stack);
 
-        return "\033[0m".$this->_set(array_diff($this->_current, $this->_default));
+        return "\033[0m".$this->_set(array_diff_assoc($this->_current, $this->_default));
     }
 
     private function _color($name, $bg = false)

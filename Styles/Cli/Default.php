@@ -13,7 +13,7 @@
     'call'        => ['color' => 'cyan'],
     'parameter'   => ['color' => 'dark gray'],
 
-    'language'    => ['color' => 'white'],
+    'language'    => ['color' => 'default'],
 
     'symbol.class' => ['bold'  => true],
     'symbol.type'  => ['color'  => 'light red'],
