@@ -76,7 +76,8 @@ class C extends Language
                     'context' => ['!comment']
                 ]),
                 'single' => new Rule(new SubStringMatcher('\''), [
-                    'factory'  => new TokenFactory(ContextualToken::class)
+                    'factory'  => new TokenFactory(ContextualToken::class),
+                    'context' => ['!comment']
                 ]),
                 new Rule(new RegexMatcher('/(<.*?>)/'), [
                     'context' => ['preprocessor']

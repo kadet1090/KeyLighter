@@ -62,7 +62,7 @@ class Xml extends Language
 
             'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
 
-            'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
+            'constant.entity' => new Rule(new RegexMatcher('/(&(?:\#\d+|[a-z])+;)/si')),
         ]);
     }
 

@@ -30,7 +30,8 @@ class Html extends Xml
     {
         parent::setupRules();
 
-        $js = new JavaScript();
+        $css = new Css();
+        $js  = new JavaScript();
         $this->rules->addMany([
             'language.'.$js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
@@ -42,6 +43,18 @@ class Html extends Xml
                 new CloseRule(new RegexMatcher('/()<\/script>/'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'language' => $js
+                ])
+            ],
+            'language.'.$css->getIdentifier() => [
+                new OpenRule(new RegexMatcher('/<style.*?>()/'), [
+                    'factory'     => new TokenFactory(LanguageToken::class),
+                    'inject'      => $css,
+                    'language'    => $this,
+                    'postProcess' => true
+                ]),
+                new CloseRule(new RegexMatcher('/()<\/style>/'), [
+                    'factory'  => new TokenFactory(LanguageToken::class),
+                    'language' => $css
                 ])
             ]
         ]);
