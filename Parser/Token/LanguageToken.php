@@ -55,37 +55,37 @@ class LanguageToken extends Token
         }
         $this->setValid($valid);
     }
+    
 
-    public function process(array &$context, Language $language, Result $result, TokenIterator $tokens)
+    protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens)
     {
-        if(!$this->isValid($language, $context)) {
-            return true;
-        }
-
-        if($this->isStart()) {
-            $result->merge($this->getInjected()->parse($tokens));
-        } else {
-            $this->setStart($result[0]);
-
-            if ($this->_start->postProcess) {
-                $source = substr($tokens->getSource(), $this->_start->pos, $this->_start->getLength());
-                $tokens = $this->_start->getInjected()->tokenize(
-                    $source, $result, $this->_start->pos, Language::EMBEDDED_BY_PARENT
-                );
-                $result->exchangeArray($this->_start->getInjected()->parse($tokens)->getTokens());
-            }
-
-            # closing unclosed tokens
-            foreach (array_reverse($context) as $hash => $name) {
-                $end = new Token([$name, 'pos' => $this->pos]);
-                $tokens[$hash]->setEnd($end);
-                $result->append($end);
-            }
-
-            $result->append($this);
-            return false;
-        }
+        $result->merge($this->getInjected()->parse($tokens));
 
         return true;
     }
+
+    protected function processEnd(array &$context, Language $language, Result $result, TokenIterator $tokens)
+    {
+        $this->setStart($result[0]);
+
+        if ($this->_start->postProcess) {
+            $source = substr($tokens->getSource(), $this->_start->pos, $this->_start->getLength());
+            $tokens = $this->_start->getInjected()->tokenize(
+                $source, $result, $this->_start->pos, Language::EMBEDDED_BY_PARENT
+            );
+            $result->exchangeArray($this->_start->getInjected()->parse($tokens)->getTokens());
+        }
+
+        # closing unclosed tokens
+        foreach (array_reverse($context) as $hash => $name) {
+            $end = new Token([$name, 'pos' => $this->pos]);
+            $tokens[$hash]->setEnd($end);
+            $result->append($end);
+        }
+
+        $result->append($this);
+        return false;
+    }
+
+
 }

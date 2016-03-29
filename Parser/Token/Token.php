@@ -194,34 +194,42 @@ class Token
      *
      * todo: Documentation
      *
-     * @return bool Continue?
+     * @return bool Return true to continue processing, false to return already processed tokens.
      */
     public function process(array &$context, Language $language, Result $result, TokenIterator $tokens) {
         if(!$this->isValid($language, $context)) {
             return true;
         }
 
-        if($this->isStart()) {
-            $result->append($this);
-            $context[$tokens->key()] = $this->name;
+        return $this->isStart() ?
+            $this->processStart($context, $language, $result, $tokens) :
+            $this->processEnd($context, $language, $result, $tokens);
+    }
+
+    protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens) {
+        $result->append($this);
+        $context[$tokens->key()] = $this->name;
+
+        return true;
+    }
+
+    protected function processEnd(array &$context, Language $language, Result $result, TokenIterator $tokens) {
+        if($this->_start) {
+            unset($context[spl_object_hash($this->_start)]);
         } else {
-            if($this->_start) {
-                unset($context[spl_object_hash($this->_start)]);
-            } else {
-                $start = ArrayHelper::find(array_reverse($context), function ($k, $v) {
-                    return $v === $this->closedBy;
-                });
+            $start = ArrayHelper::find(array_reverse($context), function ($k, $v) {
+                return $v === $this->closedBy;
+            });
 
-                if ($start !== false) {
-                    $this->setStart($tokens[$start]);
+            if ($start !== false) {
+                $this->setStart($tokens[$start]);
 
-                    unset($context[$start]);
-                }
+                unset($context[$start]);
             }
+        }
 
-            if (!$this->_start instanceof MetaToken) {
-                $result->append($this);
-            }
+        if (!$this->_start instanceof MetaToken) {
+            $result->append($this);
         }
 
         return true;
