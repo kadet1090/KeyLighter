@@ -113,7 +113,7 @@ class Token
     {
         $this->setValid(
             $language === $this->rule->language &&
-            $this->rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
+            $this->rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN_ONE_OF] : [])
         );
     }
 
