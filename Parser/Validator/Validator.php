@@ -37,6 +37,10 @@ class Validator
     }
 
     public function validate(array $context, $additional = []) {
+        if(empty($this->_rules) && empty($additional)) {
+            return true;
+        }
+
         return $this->_validate($context, $additional + $this->_rules);
     }
 
@@ -63,16 +67,11 @@ class Validator
         }
     }
 
-    protected function _validate($context, $rules) {
-        if(empty($rules)) {
-            return true;
-        }
-
+    protected function _validate($context, $rules, $result = false) {
         if(empty($context)) {
             $context = ['none'];
         }
 
-        $result = false; // At least one rule must match
         while(list($rule, $type) = each($rules)) {
             $matched = $this->_matches($context, $rule, $type);
 

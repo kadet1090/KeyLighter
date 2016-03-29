@@ -16,8 +16,6 @@
 namespace Kadet\Highlighter\Parser;
 
 
-use Kadet\Highlighter\Parser\Token\MetaToken;
-
 class Result extends \ArrayObject implements Tokens
 {
     private $_source;
@@ -31,13 +29,6 @@ class Result extends \ArrayObject implements Tokens
     public function getSource()
     {
         return $this->_source;
-    }
-
-    public function append($value)
-    {
-        if(!$value instanceof MetaToken) {
-            parent::append($value);
-        }
     }
 
     public function merge($tokens)

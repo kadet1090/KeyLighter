@@ -36,6 +36,6 @@ class DelegateValidator extends Validator
     public function validate(array $context, $additional = [])
     {
         $callable = $this->_callable;
-        return $callable($context) && parent::validate($context, $additional);
+        return $this->_validate($context, $additional, $callable($context));
     }
 }

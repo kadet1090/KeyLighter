@@ -15,4 +15,16 @@
 
 namespace Kadet\Highlighter\Parser\Token;
 
-class MetaToken extends Token { }
+use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Result;
+use Kadet\Highlighter\Parser\TokenIterator;
+
+class MetaToken extends Token
+{
+    protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens)
+    {
+        $context[$tokens->key()] = $this->name;
+        
+        return true;
+    }
+}

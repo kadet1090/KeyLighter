@@ -43,7 +43,7 @@ class ContextualToken extends Token
                 $this->_end->_valid = false;
             }
         } else {
-            if (!$this->rule->validator->validate($context, [$this->name => Validator::CONTEXT_IN ])) {
+            if (!$this->rule->validator->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = false;
