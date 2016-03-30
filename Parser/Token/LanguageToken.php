@@ -77,9 +77,9 @@ class LanguageToken extends Token
         }
 
         # closing unclosed tokens
-        foreach (array_reverse($context) as $hash => $name) {
+        foreach (array_reverse($context, true) as $id => $name) {
             $end = new Token([$name, 'pos' => $this->pos]);
-            $tokens[$hash]->setEnd($end);
+            $tokens[$id]->setEnd($end);
             $result->append($end);
         }
 

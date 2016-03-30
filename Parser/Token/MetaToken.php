@@ -23,7 +23,7 @@ class MetaToken extends Token
 {
     protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens)
     {
-        $context[$tokens->key()] = $this->name;
+        $context[$this->id] = $this->name;
         
         return true;
     }

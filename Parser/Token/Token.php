@@ -208,16 +208,16 @@ class Token
 
     protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens) {
         $result->append($this);
-        $context[$tokens->key()] = $this->name;
+        $context[$this->id] = $this->name;
 
         return true;
     }
 
     protected function processEnd(array &$context, Language $language, Result $result, TokenIterator $tokens) {
         if($this->_start) {
-            unset($context[spl_object_hash($this->_start)]);
+            unset($context[$this->_start->id]);
         } else {
-            $start = ArrayHelper::find(array_reverse($context), function ($k, $v) {
+            $start = ArrayHelper::find(array_reverse($context, true), function ($k, $v) {
                 return $v === $this->closedBy;
             });
 

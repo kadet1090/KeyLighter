@@ -30,7 +30,7 @@ class UnprocessedTokens
             $this->_pending[$token->pos] = true;
         }
 
-        $this->_tokens[$token->pos][spl_object_hash($token)] = $token;
+        $this->_tokens[$token->pos][$token->id] = $token;
 
         return $this;
     }
@@ -71,6 +71,6 @@ class UnprocessedTokens
 
     public function toArray()
     {
-        return call_user_func_array('array_merge', $this->_tokens);
+        return call_user_func_array('array_replace', $this->_tokens);
     }
 }

@@ -27,7 +27,7 @@ use Kadet\Highlighter\Parser\TokenIterator;
  *
  * @property array $closes
  */
-class TerminatorToken extends Token
+class TerminatorToken extends MetaToken
 {
     protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens)
     {
