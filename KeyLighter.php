@@ -119,5 +119,6 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql\\MySql', ['mysql']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Perl', ['perl']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\C', ['c']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Python\\Django', ['django']);
     }
 }

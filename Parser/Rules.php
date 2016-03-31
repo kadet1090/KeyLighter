@@ -111,4 +111,20 @@ class Rules extends \ArrayObject
 
         return call_user_func_array('array_merge', $items);
     }
+
+    /**
+     * @return Language
+     */
+    public function getLanguage()
+    {
+        return $this->_language;
+    }
+
+    /**
+     * @param Language $language
+     */
+    public function setLanguage(Language $language = null)
+    {
+        $this->_language = $language;
+    }
 }

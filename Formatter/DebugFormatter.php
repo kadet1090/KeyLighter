@@ -59,7 +59,6 @@ class DebugFormatter implements FormatterInterface
 
                 $result .=
                     Console::styled(['color' => 'yellow'], 'Open  ').
-                    Console::styled(['color' => 'green'], "({$token->id})").
                     '['.$pos['line'].':'.$pos['pos'].'] '.
                     Console::styled(['bold' => true], $token->name).' '.
                     Console::styled(['color' => 'blue'], get_class($token)).
