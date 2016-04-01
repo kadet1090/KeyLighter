@@ -17,6 +17,7 @@ namespace Kadet\Highlighter\Parser\Token;
 
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\TokenIterator;
 
@@ -29,14 +30,14 @@ use Kadet\Highlighter\Parser\TokenIterator;
  */
 class TerminatorToken extends MetaToken
 {
-    protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens)
+    protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
         return true; // That type of token makes no sense as start, just omit it.
     }
 
-    protected function processEnd(array &$context, Language $language, Result $result, TokenIterator $tokens)
+    protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
-        foreach(array_filter($context, function ($name) {
+        foreach(array_filter($context->stack, function ($name) {
             return in_array($name, $this->closes);
         }) as $hash => $name) {
             $end = new Token([$name, 'pos' => $this->pos]);

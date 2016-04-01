@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\WholeMatcher;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Rules;
@@ -93,7 +94,7 @@ abstract class Language
     }
 
     private function _process(TokenIterator $tokens) {
-        $context  = [];
+        $context  = new Context();
         $result   = new Result($tokens->getSource(), [
             $tokens->current()
         ]);

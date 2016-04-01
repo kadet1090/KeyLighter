@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenIterator;
@@ -187,7 +188,7 @@ class Token
     }
 
     /**
-     * @param array         $context
+     * @param Context       $context
      * @param Language      $language
      * @param Result        $result
      * @param TokenIterator $tokens
@@ -196,8 +197,8 @@ class Token
      *
      * @return bool Return true to continue processing, false to return already processed tokens.
      */
-    public function process(array &$context, Language $language, Result $result, TokenIterator $tokens) {
-        if(!$this->isValid($language, $context)) {
+    public function process(Context $context, Language $language, Result $result, TokenIterator $tokens) {
+        if(!$this->isValid($language, $context->stack)) {
             return true;
         }
 
@@ -206,25 +207,25 @@ class Token
             $this->processEnd($context, $language, $result, $tokens);
     }
 
-    protected function processStart(array &$context, Language $language, Result $result, TokenIterator $tokens) {
+    protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens) {
         $result->append($this);
-        $context[$this->id] = $this->name;
+        $context->stack[$this->id] = $this->name;
 
         return true;
     }
 
-    protected function processEnd(array &$context, Language $language, Result $result, TokenIterator $tokens) {
+    protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens) {
         if($this->_start) {
-            unset($context[$this->_start->id]);
+            unset($context->stack[$this->_start->id]);
         } else {
-            $start = ArrayHelper::find(array_reverse($context, true), function ($k, $v) {
+            $start = ArrayHelper::find(array_reverse($context->stack, true), function ($k, $v) {
                 return $v === $this->closedBy;
             });
 
             if ($start !== false) {
                 $this->setStart($tokens[$start]);
 
-                unset($context[$start]);
+                unset($context->stack[$start]);
             }
         }
 
