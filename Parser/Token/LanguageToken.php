@@ -67,7 +67,7 @@ class LanguageToken extends Token
 
     protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
-        $this->setStart($result[0]);
+        $this->setStart($result->getStart());
 
         if ($this->_start->postProcess) {
             $source = substr($tokens->getSource(), $this->_start->pos, $this->_start->getLength());

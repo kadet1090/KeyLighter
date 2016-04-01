@@ -94,10 +94,8 @@ abstract class Language
     }
 
     private function _process(TokenIterator $tokens) {
-        $context  = new Context();
-        $result   = new Result($tokens->getSource(), [
-            $tokens->current()
-        ]);
+        $context  = new Context($this);
+        $result   = new Result($tokens->getSource(), $tokens->current());
 
         for ($tokens->next(); $tokens->valid(); $tokens->next()) {
             if(!$tokens->current()->process($context, $this, $result, $tokens)) {
