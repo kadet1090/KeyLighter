@@ -21,7 +21,6 @@ use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Validator\Validator;
-use Kadet\Highlighter\Utils\ArrayHelper;
 use Kadet\Highlighter\Utils\Helper;
 
 class Token
@@ -101,19 +100,19 @@ class Token
         return $this->_end === null;
     }
 
-    public function isValid(Language $language, $context = null)
+    public function isValid(Context $context = null)
     {
         if ($this->_valid === null) {
-            $this->validate($language, $context);
+            $this->validate($context);
         }
 
         return $this->_valid;
     }
 
-    protected function validate(Language $language, $context)
+    protected function validate(Context $context)
     {
         $this->setValid(
-            $language === $this->rule->language &&
+            $context->language === $this->rule->language &&
             $this->rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
         );
     }
@@ -198,7 +197,7 @@ class Token
      * @return bool Return true to continue processing, false to return already processed tokens.
      */
     public function process(Context $context, Language $language, Result $result, TokenIterator $tokens) {
-        if(!$this->isValid($language, $context->stack)) {
+        if(!$this->isValid($context)) {
             return true;
         }
 
@@ -209,20 +208,16 @@ class Token
 
     protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens) {
         $result->append($this);
-        $context->stack[$this->id] = $this->name;
+        $context->push($this);
 
         return true;
     }
 
     protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens) {
         if($this->_start) {
-            unset($context->stack[$this->_start->id]);
+            $context->pop($this->_start);
         } else {
-            $start = ArrayHelper::find(array_reverse($context->stack, true), function ($k, $v) {
-                return $v === $this->closedBy;
-            });
-
-            if ($start !== false) {
+            if (($start = $context->find($this->closedBy)) !== false) {
                 $this->setStart($tokens[$start]);
 
                 unset($context->stack[$start]);

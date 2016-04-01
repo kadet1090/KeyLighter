@@ -39,20 +39,20 @@ class LanguageToken extends Token
         return $this->getStart() ? $this->getStart()->rule->inject : $this->rule->language;
     }
 
-    protected function validate(Language $language, $context)
+    protected function validate(Context $context)
     {
         $valid = false;
 
         if ($this->isStart()) {
             $lang = $this->rule->language;
-            if ($lang === null && $this->getInjected() !== $language) {
+            if ($lang === null && $this->getInjected() !== $context->language) {
                 $valid = true;
-            } elseif ($language === $lang && $this->rule->validator->validate($context)) {
+            } elseif ($context->language === $lang && $this->rule->validator->validate($context)) {
                 $valid = true;
             }
         } else {
             $desired = $this->getLanguage();
-            $valid   = $language === $desired && $this->rule->validator->validate($context);
+            $valid   = $context->language === $desired && $this->rule->validator->validate($context);
         }
         $this->setValid($valid);
     }

@@ -16,6 +16,8 @@
 namespace Kadet\Highlighter\Parser\Validator;
 
 
+use Kadet\Highlighter\Parser\Context;
+
 class DelegateValidator extends Validator
 {
     /**
@@ -33,9 +35,9 @@ class DelegateValidator extends Validator
         $this->_callable = $callable;
     }
 
-    public function validate(array $context, $additional = [])
+    public function validate(Context $context, $additional = [])
     {
         $callable = $this->_callable;
-        return $this->_validate($context, $additional, $callable($context));
+        return ($result = $callable($context)) && $this->_validate($context->stack, $additional, $result);
     }
 }
