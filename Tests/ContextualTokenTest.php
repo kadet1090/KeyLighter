@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -48,10 +49,10 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $endStart = $this->_factory->create(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
         $end      = $endStart->getEnd();
 
-        $this->assertTrue($start->isValid($lang, []));
-        $this->assertFalse($startEnd->isValid($lang, ['test']));
-        $this->assertFalse($endStart->isValid($lang, ['test']));
-        $this->assertTrue($end->isValid($lang, ['test']));
+        $this->assertTrue($start->isValid(Context::fromArray([], $lang)));
+        $this->assertFalse($startEnd->isValid(Context::fromArray(['test'], $lang)));
+        $this->assertFalse($endStart->isValid(Context::fromArray(['test'], $lang)));
+        $this->assertTrue($end->isValid(Context::fromArray(['test'], $lang)));
 
         $this->assertTrue($start->isStart());
         $this->assertTrue($endStart->isStart());
@@ -72,11 +73,11 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */
-        $this->assertFalse($start->isValid($this->getLanguageMock(), ['nope']));
-        $this->assertFalse($startEnd->isValid($lang, ['nope']));
+        $this->assertFalse($start->isValid(Context::fromArray(['nope'], $this->getLanguageMock())));
+        $this->assertFalse($startEnd->isValid(Context::fromArray(['nope'], $lang)));
 
-        $this->assertFalse($endStart->isValid($lang, ['nope']));
-        $this->assertFalse($end->isValid($lang, ['nope']));
+        $this->assertFalse($endStart->isValid(Context::fromArray(['nope'], $lang)));
+        $this->assertFalse($end->isValid(Context::fromArray(['nope'], $lang)));
     }
 
     public function testClose()
@@ -94,10 +95,10 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */
-        $this->assertFalse($start->isValid($this->getLanguageMock(), ['nope']));
-        $this->assertFalse($startEnd->isValid($lang, ['nope']));
+        $this->assertFalse($start->isValid(Context::fromArray(['nope'], $this->getLanguageMock())));
+        $this->assertFalse($startEnd->isValid(Context::fromArray(['nope'], $lang)));
 
-        $this->assertFalse($endStart->isValid($lang, ['test', 'nope']));
-        $this->assertFalse($end->isValid($lang, ['test', 'nope']));
+        $this->assertFalse($endStart->isValid(Context::fromArray(['test', 'nope'], $lang)));
+        $this->assertFalse($end->isValid(Context::fromArray(['test', 'nope'], $lang)));
     }
 }

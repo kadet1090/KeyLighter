@@ -44,7 +44,8 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
         $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
         $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
 
-        $iterator = new Result($source, [
+        $iterator = new Result($source);
+        $iterator->merge([
             $first, $first->getEnd(),
             $operator, $operator->getEnd(),
             $second, $second->getEnd()

@@ -24,7 +24,7 @@ class Context
     public $stack = [];
     public $language;
 
-    public function __construct(Language $language) {
+    public function __construct(Language $language = null) {
         $this->language = $language;
     }
 
@@ -50,5 +50,11 @@ class Context
 
     public function has($name) {
         return in_array($name, $this->stack, true);
+    }
+
+    public static function fromArray(array $array, Language $language = null) {
+        $context = new Context($language);
+        $context->stack = $array;
+        return $context;
     }
 }

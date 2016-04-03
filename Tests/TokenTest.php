@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -107,12 +108,12 @@ class TokenTest extends \PHPUnit_Framework_TestCase
         $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10]);
 
         $token->setValid(false);
-        $this->assertFalse($token->isValid($language));
-        $this->assertFalse($token->getEnd()->isValid($language));
+        $this->assertFalse($token->isValid(Context::fromArray([], $language)));
+        $this->assertFalse($token->getEnd()->isValid(Context::fromArray([], $language)));
 
         $token->getEnd()->setValid(true);
-        $this->assertTrue($token->isValid($language));
-        $this->assertTrue($token->getEnd()->isValid($language));
+        $this->assertTrue($token->isValid(Context::fromArray([], $language)));
+        $this->assertTrue($token->getEnd()->isValid(Context::fromArray([], $language)));
     }
 
     public function testTokenValidation()
@@ -124,6 +125,6 @@ class TokenTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
-        $this->assertTrue($token->isValid($language, []));
+        $this->assertTrue($token->isValid(Context::fromArray([], $language)));
     }
 }
