@@ -100,7 +100,7 @@ class Token
         return $this->_end === null;
     }
 
-    public function isValid(Context $context = null)
+     public function isValid(Context $context)
     {
         if ($this->_valid === null) {
             $this->validate($context);
