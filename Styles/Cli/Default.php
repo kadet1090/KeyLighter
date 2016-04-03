@@ -18,6 +18,8 @@
     'symbol.class' => ['bold'  => true],
     'symbol.type'  => ['color'  => 'light red'],
 
+    'constant.color' => ['color' => 'light yellow'],
+
     'comment.docblock'     => ['color' => 'dark gray'],
     'variable.property'    => ['color' => 'light blue'],
     'variable.namespace'   => ['color' => 'light blue'],

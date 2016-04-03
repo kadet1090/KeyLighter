@@ -104,10 +104,18 @@ class Css extends Language
                 'context' => ['meta.declaration', '!comment', '!string', '!keyword']
             ]),
 
-            'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
-                'priority' => 2,
-                'context'  => ['meta.declaration', '!symbol.color', '!comment']
-            ]),
+            'constant.color' => [
+                new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
+                    'priority' => 2,
+                    'context'  => ['meta.declaration', '!comment']
+                ]),
+                new Rule(new WordMatcher([
+                    'white', 'silver', 'gray', 'black', 'red', 'maroon', 'yellow', 'olive',
+                    'lime', 'green', 'aqua', 'teal', 'blue', 'navy', 'fuchsia', 'purple'
+                ]), [
+                    'context'  => ['meta.declaration', '!comment']
+                ]),
+            ],
 
             'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [
                 'context' => $this->everywhere()
