@@ -30,6 +30,14 @@ use Kadet\Highlighter\Parser\TokenIterator;
  */
 class TerminatorToken extends MetaToken
 {
+    protected function validate(Context $context)
+    {
+        $this->setValid(
+            $context->language === $this->rule->language &&
+            $this->rule->validator->validate($context)
+        );
+    }
+
     protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
         return true; // That type of token makes no sense as start, just omit it.
@@ -44,7 +52,7 @@ class TerminatorToken extends MetaToken
             $tokens[$hash]->setEnd($end);
             $result->append($end);
 
-            unset($context[$hash]);
+            unset($context->stack[$hash]);
         }
 
         return true;
