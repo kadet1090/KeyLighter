@@ -44,7 +44,7 @@ class ConsoleHelper
 
         $this->_current = array_merge($this->_current, $style);
 
-        return $this->_set(array_diff_assoc($this->_current, $this->_default));
+        return "\033[0m".$this->_set(array_diff_assoc($this->_current, $this->_default));
     }
 
     public function close()

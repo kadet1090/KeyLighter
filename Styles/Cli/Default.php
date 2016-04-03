@@ -14,6 +14,7 @@
     'parameter'    => ['color' => 'dark gray'],
     'preprocessor' => ['color' => 'dark gray'],
     'language'     => ['color' => 'default'],
+    'expression'   => ['color' => 'default'],
 
     'symbol.class' => ['bold'  => true],
     'symbol.type'  => ['color'  => 'light red'],

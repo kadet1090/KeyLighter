@@ -24,6 +24,7 @@ use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\TerminatorToken;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
@@ -46,13 +47,32 @@ class Python extends Language
 
             'operator' => new Rule(
                 new RegexMatcher('/([-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~])|\b(or|and|not)\b/'), [
-                    'priority' => 0
+                    'priority' => -1
                 ]
             ),
 
-            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
-                'priority' => -2
+            'expression' => new Rule(new RegexMatcher('/\{(\S+)\}/'), [
+                'context' => ['string']
             ]),
+
+            'variable' => [
+                new Rule(new RegexMatcher('/[^\w.]([a-z_]\w*)\.\w/i')),
+                'property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
+                    'priority' => -2,
+                    'context' => ['*none', '*expression']
+                ]),
+            ],
+
+
+            'symbol' => [
+                new Rule(new RegexMatcher('/import\s+([a-z_][\w.]*)(?:\s*,\s*([a-z_][\w.]*))*/i', [
+                    1 => Token::NAME,
+                    2 => Token::NAME,
+                ])),
+                'library' => new Rule(new RegexMatcher('/from\s+([a-z_][\w.]*)\s+import/i', [
+                    1 => Token::NAME,
+                ]))
+            ],
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/'), [
                 'context' => Validator::everywhere()
@@ -74,16 +94,16 @@ class Python extends Language
             ]),
 
             'number' => new Rule(
-                new RegexMatcher('/\b(-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?)\b/')
+                new RegexMatcher('/(-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?)\b/')
             ),
 
             'string' => [
                 'single-line' => [
-                    'double' => new Rule(new RegexMatcher('/[^"](")[^"]/'), [
+                    'double' => new Rule(new RegexMatcher('/(?:^|[^"])(")(?=[^"]|$)/'), [
                         'factory' => new TokenFactory(ContextualToken::class),
                         'context' => $standard,
                     ]),
-                    'single' => new Rule(new RegexMatcher('/[^\'](\')[^\']/'), [
+                    'single' => new Rule(new RegexMatcher('/(?:^|[^\'])(\')(?=[^\']|$)/'), [
                         'factory' => new TokenFactory(ContextualToken::class),
                         'context' => $standard,
                     ]),
