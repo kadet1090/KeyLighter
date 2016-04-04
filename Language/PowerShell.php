@@ -17,29 +17,21 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
-use Kadet\Highlighter\Parser\TokenFactory;
 
 class PowerShell extends Language
 {
+    
     /**
      * Tokenization rules
      */
     public function setupRules()
     {
         $this->rules->addMany([
-            'string.single' => new Rule(new SubStringMatcher('\''), [
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
                 'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'variable' => [

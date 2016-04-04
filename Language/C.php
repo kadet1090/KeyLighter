@@ -18,19 +18,17 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\TerminatorToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
 class C extends Language
 {
-
+    
     /**
      * Tokenization rules setup
      */
@@ -70,19 +68,13 @@ class C extends Language
                 ]
             ),
 
-            'string' => [
-                'double' => new Rule(new SubStringMatcher('"'), [
-                    'factory' => new TokenFactory(ContextualToken::class),
-                    'context' => ['!comment']
-                ]),
-                'single' => new Rule(new SubStringMatcher('\''), [
-                    'factory'  => new TokenFactory(ContextualToken::class),
-                    'context' => ['!comment']
-                ]),
+            'string' => array_merge([
                 new Rule(new RegexMatcher('/(<.*?>)/'), [
                     'context' => ['preprocessor']
                 ])
-            ],
+            ], CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => ['!keyword.escape', '!comment', '!string'],
+            ])),
 
             'symbol.type' => [
                 new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*\*\s*)\w+\s*[=();,]/')),

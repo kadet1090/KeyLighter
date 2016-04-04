@@ -28,10 +28,10 @@ class CommentMatcher implements MatcherInterface
      * @param array $singleLine
      * @param array $multiLine
      */
-    public function __construct(array $singleLine, array $multiLine = [])
+    public function __construct(array $singleLine = null, array $multiLine = null)
     {
-        $this->singleLine = $singleLine;
-        $this->multiLine  = $multiLine;
+        $this->singleLine = $singleLine ?: [];
+        $this->multiLine  = $multiLine  ?: [];
     }
 
 

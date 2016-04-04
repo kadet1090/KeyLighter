@@ -50,14 +50,14 @@ class Django extends Language
             'variable' => [
                 new OpenRule(new SubStringMatcher('{{'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
-                    'priority' => 10000,
+                    'priority' => 1000,
                     'inject'   => $this,
                     'context'  => Validator::everywhere(),
                     'language' => null
                 ]),
                 new CloseRule(new SubStringMatcher('}}'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
-                    'priority' => 10000,
+                    'priority' => 1000,
                     'language' => $this
                 ]),
             ],
@@ -65,27 +65,27 @@ class Django extends Language
                 new OpenRule(new SubStringMatcher('{%'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'inject'   => $this,
-                    'priority' => 10000,
+                    'priority' => 1000,
                     'context'  => Validator::everywhere(),
                     'language' => null
                 ]),
                 new CloseRule(new SubStringMatcher('%}'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'language' => $this,
-                    'priority' => 10000,
+                    'priority' => 1000,
                 ]),
             ],
             'comment' => [
                 new OpenRule(new SubStringMatcher('{#'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'inject'   => $this,
-                    'priority' => 10000,
+                    'priority' => 1000,
                     'language' => null
                 ]),
                 new CloseRule(new SubStringMatcher('#}'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'language' => $this,
-                    'priority' => 10000,
+                    'priority' => 1000,
                 ]),
             ]
         ];

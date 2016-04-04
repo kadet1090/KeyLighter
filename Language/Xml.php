@@ -18,11 +18,9 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
-use Kadet\Highlighter\Parser\TokenFactory;
 
 class Xml extends Language
 {
@@ -50,19 +48,10 @@ class Xml extends Language
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
-
             'constant.entity' => new Rule(new RegexMatcher('/(&(?:\#\d+|[a-z])+;)/si')),
+
+            'comment' => new Rule(new CommentMatcher(null, [['<!--', '-->']])),
+            'string'  => CommonFeatures::strings(['single' => '\'', 'double' => '"'], ['context' => ['tag']]),
         ]);
     }
 

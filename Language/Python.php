@@ -63,7 +63,6 @@ class Python extends Language
                 ]),
             ],
 
-
             'symbol' => [
                 new Rule(new RegexMatcher('/import\s+([a-z_][\w.]*)(?:\s*,\s*([a-z_][\w.]*))*/i', [
                     1 => Token::NAME,

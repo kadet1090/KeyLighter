@@ -22,7 +22,6 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
@@ -42,8 +41,12 @@ class Css extends Language
             'media', 'supports', 'document', 'page', 'font-face', 'keyframes', 'viewport', 'counter-style',
             'font-feature-values', 'swash', 'ornaments', 'annotation', 'stylistic', 'styleset', 'character-variant'
         ];
-
+        
         $this->rules->addMany([
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => $this->everywhere()
+            ]),
+
             'meta.declaration' => [
                 new OpenRule(new SubStringMatcher('{'), [
                     'context' => ['!meta.declaration.media', '!comment'],
@@ -69,16 +72,6 @@ class Css extends Language
 
             'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:-[a-z]+-)?(?:'.implode('|', $at).'))/'), [
                 'priority' => 2
-            ]),
-
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => $this->everywhere(),
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => $this->everywhere(),
-                'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/i")),
