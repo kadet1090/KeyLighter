@@ -19,11 +19,12 @@ use Kadet\Highlighter\Parser\Token\Token;
 interface TokenFactoryInterface
 {
     /**
-     * @param $params
+     * @param       $name
+     * @param array $params
      *
-     * @return Token|null|false
+     * @return false|Token|null
      */
-    public function create($params);
+    public function create($name, $params = []);
 
     public function setRule($rule);
     public function setClass($class);

@@ -33,7 +33,6 @@ class Token
 
     public $pos;
     public $name;
-    public $closedBy;
     public $index = 1;
     public $id;
     public $rule;
@@ -56,35 +55,14 @@ class Token
     /**
      * Token constructor.
      *
+     * @param null  $name
      * @param array $options
      */
-    public function __construct(array $options)
+    public function __construct($name = null, array $options = [])
     {
-        if (isset($options[0])) {
-            $this->name     = $options[0];
-            $this->closedBy = $this->name;
-        }
-
-        if (isset($options['pos'])) {
-            $this->pos = $options['pos'];
-        }
-
-        if (isset($options['index'])) {
-            $this->index = $options['index'];
-        }
-
-        if (isset($options['start'])) {
-            $this->setStart($options['start']);
-        }
-
-        $this->rule = isset($options['rule']) ? $options['rule'] : new Rule();
-
-        if (isset($options['end'])) {
-            $this->setEnd($options['end']);
-        }
-
-        if (isset($options['closed-by'])) {
-            $this->closedBy = $options['closed-by'];
+        $this->name = $name;
+        foreach($options as $name => $value) {
+            $this->$name = $value;
         }
 
         $this->id = ++self::$_id;
@@ -217,7 +195,7 @@ class Token
         if($this->_start) {
             $context->pop($this->_start);
         } else {
-            if (($start = $context->find($this->closedBy)) !== false) {
+            if (($start = $context->find($this->name)) !== false) {
                 $this->setStart($tokens[$start]);
 
                 unset($context->stack[$start]);

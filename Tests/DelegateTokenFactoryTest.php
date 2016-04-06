@@ -32,7 +32,7 @@ class DelegateTokenFactoryTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('call')->with($child, $params);
 
         $factory = new DelegateTokenFactory([$mock, 'call'], $child);
-        $factory->create($params);
+        $factory->create(null, $params);
     }
 
     public function testMethodDelegation()

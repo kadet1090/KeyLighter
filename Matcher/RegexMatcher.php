@@ -56,7 +56,7 @@ class RegexMatcher implements MatcherInterface
                     continue;
                 }
 
-                yield $factory->create([$name, 'pos' => $match[1], 'length' => strlen($match[0])]);
+                yield $factory->create($name, ['pos' => $match[1], 'length' => strlen($match[0])]);
             }
         }
     }

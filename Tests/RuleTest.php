@@ -26,7 +26,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     {
         $matcher = $this->getMock('Kadet\Highlighter\Matcher\MatcherInterface');
         $tokens  = [
-            new Token(['token.name', 'pos' => 15])
+            new Token(null, ['token.name', 'pos' => 15])
         ];
 
         $matcher->method('match')->willReturn($tokens);

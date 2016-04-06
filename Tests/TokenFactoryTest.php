@@ -23,7 +23,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
     public function testTokenCreation()
     {
         $factory = new TokenFactory(Token::class);
-        $this->assertInstanceOf(Token::class, $factory->create([]));
+        $this->assertInstanceOf(Token::class, $factory->create(null, []));
     }
 
     public function testRuleInheriting()
@@ -33,7 +33,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new TokenFactory(Token::class);
         $factory->setRule($rule);
 
-        $token = $factory->create([]);
+        $token = $factory->create(null, []);
         $this->assertEquals($rule, $token->rule);
     }
 
@@ -42,14 +42,14 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new TokenFactory(Token::class);
         $factory->setBase('token');
 
-        $this->assertEquals('token.name', $factory->create(['$.name'])->name);
+        $this->assertEquals('token.name', $factory->create(null, ['$.name'])->name);
     }
 
     public function testOffset()
     {
         $factory = new TokenFactory(Token::class);
         $factory->setOffset(10);
-        $this->assertEquals(15, $factory->create(['token', 'pos' => 5])->pos);
+        $this->assertEquals(15, $factory->create(null, ['token', 'pos' => 5])->pos);
     }
 
     /**

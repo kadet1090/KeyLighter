@@ -30,8 +30,8 @@ use Kadet\Highlighter\Parser\TokenIterator;
  */
 class LanguageToken extends Token
 {
-    public function __construct(array $options) {
-        parent::__construct($options);
+    public function __construct($name, $options = []) {
+        parent::__construct($name, $options);
         if(isset($options['inject'])) {
             $this->inject = $options['inject'];
         }
@@ -82,7 +82,7 @@ class LanguageToken extends Token
 
         # closing unclosed tokens
         foreach (array_reverse($context->stack, true) as $id => $name) {
-            $end = new Token([$name, 'pos' => $this->pos]);
+            $end = new Token(null, [$name, 'pos' => $this->pos]);
             $tokens[$id]->setEnd($end);
             $result->append($end);
         }

@@ -30,8 +30,8 @@ class TokenIteratorTest extends \PHPUnit_Framework_TestCase
     public function testTokenReturning()
     {
         $tokens = [
-            new Token(['token.name', 'pos' => 15]),
-            new Token(['token.name', 'pos' => 25]),
+            new Token(null, ['token.name', 'pos' => 15]),
+            new Token(null, ['token.name', 'pos' => 25]),
         ];
 
         $iterator = new TokenIterator($tokens, 'source');

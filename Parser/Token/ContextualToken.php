@@ -20,9 +20,9 @@ use Kadet\Highlighter\Parser\Validator\Validator;
 
 class ContextualToken extends Token
 {
-    public function __construct($options)
+    public function __construct($name, $options = [])
     {
-        parent::__construct($options);
+        parent::__construct($name, $options);
     }
 
     protected function validate(Context $context)

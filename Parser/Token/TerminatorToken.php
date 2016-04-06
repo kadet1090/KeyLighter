@@ -48,7 +48,7 @@ class TerminatorToken extends MetaToken
         foreach(array_filter($context->stack, function ($name) {
             return in_array($name, $this->closes);
         }) as $hash => $name) {
-            $end = new Token([$name, 'pos' => $this->pos]);
+            $end = new Token(null, [$name, 'pos' => $this->pos]);
             $tokens[$hash]->setEnd($end);
             $result->append($end);
 

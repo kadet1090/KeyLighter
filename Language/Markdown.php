@@ -27,6 +27,10 @@ use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Markdown extends Language
 {
+    protected $_options = [
+        'variables' => false,
+    ];
+
     /**
      * Tokenization rules setup
      */
@@ -63,16 +67,18 @@ class Markdown extends Language
                     '/^```(.*?)\r?\n(.*?)\r?\n^```/ms',
                     function($match, TokenFactoryInterface $factory) {
                         $lang = KeyLighter::get()->getLanguage($match[1][0]);
-                        yield $factory->create(['pos' => $match[0][1], 'length' => strlen($match[0][0])]);
-                        yield $factory->create([
+                        yield $factory->create(null, ['pos' => $match[0][1], 'length' => strlen($match[0][0])]);
+                        yield $factory->create(
+                            null, [
                             "language.{$lang->getIdentifier()}",
-                            'pos'         => $match[2][1],
-                            'length'      => strlen($match[2][0]),
+                            'pos'           => $match[2][1],
+                            'length'        => strlen($match[2][0]),
                             'postProcessed' => true,
-                            'inject'      => $lang,
-                            'class'       => LanguageToken::class,
-                            'language'    => $this
-                        ]);
+                            'inject'        => $lang,
+                            'class'         => LanguageToken::class,
+                            'language'      => $this
+                        ]
+                        );
                     }
                 ), [
                     'context'     => Validator::everywhere(),
