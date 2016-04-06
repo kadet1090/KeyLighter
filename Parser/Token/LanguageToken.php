@@ -39,7 +39,7 @@ class LanguageToken extends Token
 
     public function getLanguage()
     {
-        return $this->getStart() ? $this->getStart()->rule->inject : $this->rule->language;
+        return $this->getStart() ? $this->getStart()->inject : $this->rule->language;
     }
 
     protected function validate(Context $context)

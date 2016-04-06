@@ -181,7 +181,7 @@ abstract class Language
     {
         return new Rule(
             new WholeMatcher(), [
-                'priority' => 1000,
+                'priority' => 10000,
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'inject'   => $this,
                 'language' => null,
