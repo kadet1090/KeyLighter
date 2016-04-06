@@ -68,6 +68,10 @@ class TokenFactory implements TokenFactoryInterface
             $params['class'] = $this->_class;
         }
 
+        return $this->link($name, $params);
+    }
+
+    private function link($name, $params) {
         if($this->_type & Token::START) {
             if(!isset($params['start'])) {
                 $params['start'] = new $params['class']($name, $params);
@@ -86,6 +90,8 @@ class TokenFactory implements TokenFactoryInterface
 
                 /** @var Token $end */
                 $params['end'] = new $params['class']($name, $end);
+            } elseif(!isset($params['end'])) {
+                $params['end'] = new $params['class']($name, $params);
             }
 
             if($this->_type === Token::END) {
