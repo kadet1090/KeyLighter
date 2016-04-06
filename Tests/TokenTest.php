@@ -20,6 +20,7 @@ use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class TokenTest extends \PHPUnit_Framework_TestCase
 {
@@ -124,7 +125,15 @@ class TokenTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, ['language' => $language])]);
-        $this->assertTrue($token->isValid(Context::fromArray([], $language)));
+        $validator = $this->getMock(Validator::class);
+        $context   = Context::fromArray([], $language);
+
+        $validator->expects($this->once())->method('validate')->with($context, []);
+
+        $token = $this->_factory->create(['test.name', 'pos' => 15, 'length' => 10, 'rule' => new Rule(null, [
+            'language' => $language,
+            'context'  => $validator
+        ])]);
+        $token->isValid($context);
     }
 }

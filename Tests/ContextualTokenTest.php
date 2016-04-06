@@ -36,50 +36,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
     private function getLanguageMock() {
         return $this->getMockBuilder(Language::class)->disableOriginalConstructor()->getMock();
     }
-
-    public function testValidation()
-    {
-        /** @var Language $lang */
-        $lang = $this->getLanguageMock();
-        $rule = new Rule(null, ['language' => $lang]);
-
-        $start    = $this->_factory->create(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
-        $startEnd = $start->getEnd();
-
-        $endStart = $this->_factory->create(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
-        $end      = $endStart->getEnd();
-
-        $this->assertTrue($start->isValid(Context::fromArray([], $lang)));
-        $this->assertFalse($startEnd->isValid(Context::fromArray(['test'], $lang)));
-        $this->assertFalse($endStart->isValid(Context::fromArray(['test'], $lang)));
-        $this->assertTrue($end->isValid(Context::fromArray(['test'], $lang)));
-
-        $this->assertTrue($start->isStart());
-        $this->assertTrue($endStart->isStart());
-        $this->assertTrue($end->isEnd());
-        $this->assertTrue($startEnd->isEnd());
-    }
-
-    public function testInvalid()
-    {
-        /** @var Language $lang */
-        $lang = $this->getLanguageMock();
-        $rule = new Rule(null, ['language' => $lang]);
-
-        $start    = $this->_factory->create(['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
-        $startEnd = $start->getEnd();
-
-        $endStart = $this->_factory->create(['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
-        $end      = $endStart->getEnd();
-
-        /** @noinspection PhpParamsInspection */
-        $this->assertFalse($start->isValid(Context::fromArray(['nope'], $this->getLanguageMock())));
-        $this->assertFalse($startEnd->isValid(Context::fromArray(['nope'], $lang)));
-
-        $this->assertFalse($endStart->isValid(Context::fromArray(['nope'], $lang)));
-        $this->assertFalse($end->isValid(Context::fromArray(['nope'], $lang)));
-    }
-
+    
     public function testClose()
     {
         /** @var Language $lang */

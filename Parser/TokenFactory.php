@@ -37,7 +37,7 @@ class TokenFactory implements TokenFactoryInterface
      *
      * @param string $class {@see }
      */
-    public function __construct($class)
+    public function __construct($class, $options = [])
     {
         $this->setClass($class);
     }

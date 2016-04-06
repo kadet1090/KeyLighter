@@ -43,7 +43,7 @@
     'format.italics'   => ['color' => 'light magenta', 'italic' => true],
     'format.monospace' => ['color' => 'dark gray'],
     'format.list'      => ['color' => 'yellow'],
-    'format.header'    => ['color' => 'blue', 'bold' => true],
+    'format.header'    => ['color' => 'red', 'bold' => true],
 
-    'format.block.quote'  => ['color' => 'green'],
+    'format.block.code'  => ['color' => 'light yellow'],
 ];
