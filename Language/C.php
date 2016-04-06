@@ -41,10 +41,10 @@ class C extends Language
                 'while',
             ])),
 
-            'meta.newline' => new CloseRule(new RegexMatcher('/()\r?\n/'), [
+            'meta.newline' => new CloseRule(new RegexMatcher('/()$/m'), [
                 'factory' => new TokenFactory(TerminatorToken::class),
                 'context' => ['!keyword.escape', '*string', '*call.preprocessor'],
-                'closes'  => ['string.double', 'preprocessor']
+                'closes'  => ['string.double', 'preprocessor'],
             ]),
 
             'preprocessor' => new OpenRule(new RegexMatcher('/^(#)/m'), [
