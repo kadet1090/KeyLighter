@@ -35,8 +35,8 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
     public function testTokenSortingPositions()
     {
         $tokens = [
-            $this->_factory->create(null, ['token.name', 'pos' => 25]),
-            $this->_factory->create(null, ['token.name', 'pos' => 15]),
+            $this->_factory->create('token.name', ['pos' => 25]),
+            $this->_factory->create('token.name', ['pos' => 15]),
         ];
 
         $list = new UnprocessedTokens();
@@ -50,15 +50,15 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
     {
         $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(
-            null, ['token.1', 'pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 3])]
+            'token.1', ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 3])]
         );
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(
-            null, ['token.2', 'pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 1])]
+            'token.2', ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 1])]
         );
         $tokens[3] = $token->getEnd();
         $tokens[4] = $token = $this->_factory->create(
-            null, ['token.3', 'pos' => 2, 'length' => 4, 'rule' => new Rule(null, ['priority' => 2])]
+            'token.3', ['pos' => 2, 'length' => 4, 'rule' => new Rule(null, ['priority' => 2])]
         );
         $tokens[5] = $token->getEnd();
 
@@ -77,11 +77,11 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
     public function testTokenSortingIndex()
     {
         $tokens    = [];
-        $tokens[0] = $token = $this->_factory->create(null, ['token.1', 'pos' => 2, 'length' => 3, 'index' => 3]);
+        $tokens[0] = $token = $this->_factory->create('token.1', ['pos' => 2, 'length' => 3, 'index' => 3]);
         $tokens[1] = $token->getEnd();
-        $tokens[2] = $token = $this->_factory->create(null, ['token.2', 'pos' => 2, 'length' => 3, 'index' => 1]);
+        $tokens[2] = $token = $this->_factory->create('token.2', ['pos' => 2, 'length' => 3, 'index' => 1]);
         $tokens[3] = $token->getEnd();
-        $tokens[4] = $token = $this->_factory->create(null, ['token.3', 'pos' => 2, 'length' => 4, 'index' => 2]);
+        $tokens[4] = $token = $this->_factory->create('token.3', ['pos' => 2, 'length' => 4, 'index' => 2]);
         $tokens[5] = $token->getEnd();
 
         $list = new UnprocessedTokens();
@@ -99,11 +99,11 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
     public function testTokenSortingFallback()
     {
         $tokens    = [];
-        $tokens[0] = $token = $this->_factory->create(null, ['token.1', 'pos' => 2, 'length' => 3]);
+        $tokens[0] = $token = $this->_factory->create('token.1', ['token.1', 'pos' => 2, 'length' => 3]);
         $tokens[1] = $token->getEnd();
-        $tokens[2] = $token = $this->_factory->create(null, ['token.2', 'pos' => 2, 'length' => 3]);
+        $tokens[2] = $token = $this->_factory->create('token.2', ['pos' => 2, 'length' => 3]);
         $tokens[3] = $token->getEnd();
-        $tokens[4] = $token = $this->_factory->create(null, ['token.3', 'pos' => 2, 'length' => 4]);
+        $tokens[4] = $token = $this->_factory->create('token.3', ['pos' => 2, 'length' => 4]);
         $tokens[5] = $token->getEnd();
 
         $list = new UnprocessedTokens();
@@ -121,11 +121,11 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
     public function testTokenSortingEndProceedsStart()
     {
         $tokens    = [];
-        $tokens[0] = $token = $this->_factory->create(null, ['token.1', 'pos' => 2, 'length' => 0]);
+        $tokens[0] = $token = $this->_factory->create('token.1', ['pos' => 2, 'length' => 0]);
         $tokens[1] = $token->getEnd();
-        $tokens[2] = $token = $this->_factory->create(null, ['token.3', 'pos' => 5, 'length' => 4]);
+        $tokens[2] = $token = $this->_factory->create('token.3', ['pos' => 5, 'length' => 4]);
         $tokens[3] = $token->getEnd();
-        $tokens[4] = $token = $this->_factory->create(null, ['token.2', 'pos' => 2, 'length' => 3]);
+        $tokens[4] = $token = $this->_factory->create('token.2', ['pos' => 2, 'length' => 3]);
         $tokens[5] = $token->getEnd();
 
         $list = new UnprocessedTokens();

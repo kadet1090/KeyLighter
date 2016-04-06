@@ -42,7 +42,7 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new TokenFactory(Token::class);
         $factory->setBase('token');
 
-        $this->assertEquals('token.name', $factory->create(null, ['$.name'])->name);
+        $this->assertEquals('token.name', $factory->create('$.name')->name);
     }
 
     public function testOffset()

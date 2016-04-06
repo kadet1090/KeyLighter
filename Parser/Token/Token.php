@@ -60,10 +60,17 @@ class Token
      */
     public function __construct($name = null, array $options = [])
     {
-        $this->name = $name;
-        foreach($options as $name => $value) {
-            $this->$name = $value;
+        $this->name     = $name;
+
+        if (isset($options['pos'])) {
+            $this->pos = $options['pos'];
         }
+
+        if (isset($options['index'])) {
+            $this->index = $options['index'];
+        }
+
+        $this->rule = isset($options['rule']) ? $options['rule'] : new Rule();
 
         $this->id = ++self::$_id;
     }

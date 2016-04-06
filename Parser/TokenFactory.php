@@ -61,14 +61,14 @@ class TokenFactory implements TokenFactoryInterface
         }
 
         $class = isset($params['class']) ? $params['class'] : $this->_class;
-        $end   = isset($params['end'])   ? $params['end']   : false;
-        $start = isset($params['start']) ? $params['start'] : false;
+        $end   = isset($params['end'])   ? $params['end']   : null;
+        $start = isset($params['start']) ? $params['start'] : null;
 
         // we don't want to pass that into token
         unset($params['class'], $params['end'], $params['start']);
 
         if($this->_type & Token::START) {
-            if(!$start) {
+            if($start === null) {
                 $start = new $class($name, $params);
             }
 
@@ -88,11 +88,11 @@ class TokenFactory implements TokenFactoryInterface
 
                 /** @var Token $end */
                 $end = new $class($name, $end);
-            } elseif(!$end) {
+            } elseif($end === null) {
                 $end = new $class($name, $params);
             }
 
-            if($this->_type === Token::END) {
+            if($this->_type === Token::END || $start === null) {
                 $end->setStart(false);
                 return $end;
             }
