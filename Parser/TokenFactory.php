@@ -50,7 +50,11 @@ class TokenFactory implements TokenFactoryInterface
      */
     public function create($name, $params = [ ])
     {
-        $name = $name !== null ? $this->getName($name) : $this->_base;
+        if ($name !== null) {
+            $name = $this->getName($name);
+        } else {
+            $name = $this->_base;
+        }
 
         if (!isset($params['rule'])) {
             $params['rule'] = $this->_rule;
@@ -60,46 +64,38 @@ class TokenFactory implements TokenFactoryInterface
             $params['pos'] += $this->_offset;
         }
 
-        $class = isset($params['class']) ? $params['class'] : $this->_class;
-        $end   = isset($params['end'])   ? $params['end']   : null;
-        $start = isset($params['start']) ? $params['start'] : null;
-
-        // we don't want to pass that into token
-        unset($params['class'], $params['end'], $params['start']);
+        if (!isset($params['class'])) {
+            $params['class'] = $this->_class;
+        }
 
         if($this->_type & Token::START) {
-            if($start === null) {
-                $start = new $class($name, $params);
+            if(!isset($params['start'])) {
+                $params['start'] = new $params['class']($name, $params);
             }
 
             if($this->_type === Token::START) {
-                $start->setEnd(false);
-                return $start;
+                $params['start']->setEnd(false);
+                return $params['start'];
             }
         }
 
         if($this->_type & Token::END) {
             if (isset($params['length'])) {
-                $length = $params['length'];
-                unset($params['length']);
-
                 $end = $params;
-                $end['pos'] += $length;
+                $end['pos'] += $params['length'];
 
                 /** @var Token $end */
-                $end = new $class($name, $end);
-            } elseif($end === null) {
-                $end = new $class($name, $params);
+                $params['end'] = new $params['class']($name, $end);
             }
 
-            if($this->_type === Token::END || $start === null) {
-                $end->setStart(false);
-                return $end;
+            if($this->_type === Token::END) {
+                $params['end']->setStart(false);
+                return $params['end'];
             }
         }
 
-        $start->setEnd($end);
-        return $start;
+        $params['start']->setEnd($params['end']);
+        return $params['start'];
     }
 
     private function getName($name)
