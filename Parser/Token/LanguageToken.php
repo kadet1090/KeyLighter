@@ -25,13 +25,16 @@ use Kadet\Highlighter\Parser\TokenIterator;
  *
  * @package Kadet\Highlighter\Parser\Token
  *
- * @property bool $postProcess True if language is post processed.
+ * @property bool     $postProcess True if language is post processed.
+ * @property Language $inject
  */
 class LanguageToken extends Token
 {
-    public function getInjected()
-    {
-        return $this->rule->inject;
+    public function __construct(array $options) {
+        parent::__construct($options);
+        if(isset($options['inject'])) {
+            $this->inject = $options['inject'];
+        }
     }
 
     public function getLanguage()
@@ -45,7 +48,7 @@ class LanguageToken extends Token
 
         if ($this->isStart()) {
             $lang = $this->rule->language;
-            if ($lang === null && $this->getInjected() !== $context->language) {
+            if ($lang === null && $this->inject !== $context->language) {
                 $valid = true;
             } elseif ($context->language === $lang && $this->rule->validator->validate($context)) {
                 $valid = true;
@@ -60,7 +63,7 @@ class LanguageToken extends Token
 
     protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
-        $result->merge($this->getInjected()->parse($tokens));
+        $result->merge($this->inject->parse($tokens));
 
         return true;
     }
@@ -71,10 +74,10 @@ class LanguageToken extends Token
 
         if ($this->_start->postProcess) {
             $source = substr($tokens->getSource(), $this->_start->pos, $this->_start->getLength());
-            $tokens = $this->_start->getInjected()->tokenize(
+            $tokens = $this->_start->inject->tokenize(
                 $source, $result, $this->_start->pos, Language::EMBEDDED_BY_PARENT
             );
-            $result->exchangeArray($this->_start->getInjected()->parse($tokens)->getTokens());
+            $result->exchangeArray($this->_start->inject->parse($tokens)->getTokens());
         }
 
         # closing unclosed tokens

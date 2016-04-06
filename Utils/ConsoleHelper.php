@@ -107,7 +107,7 @@ class ConsoleHelper
             return $this->_style($style, $name);
         }, array_keys($style), $style)).'m';
 
-        return $escape === "\e[m" ? null : "\033[0m".$escape;
+        return $escape === "\e[m" ? null : $escape;
     }
 
     public function reset()

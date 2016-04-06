@@ -103,7 +103,9 @@ class PowerShell extends Language
                 ])
             ],
 
-            'call' => new Rule(new RegexMatcher('/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*((?:\w+\\\)?\w[\w-\.]+)/i'), ['priority' => 2])
+            'call' => new Rule(new RegexMatcher(
+                '/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*((?:\w+\\\)?\w[\w-\.]+)/i'
+            ), ['priority' => 2])
         ]);
     }
 

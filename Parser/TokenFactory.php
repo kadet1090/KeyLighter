@@ -58,17 +58,21 @@ class TokenFactory implements TokenFactoryInterface
             $params['pos'] += $this->_offset;
         }
 
+        if (!isset($params['class'])) {
+            $params['class'] = $this->_class;
+        }
+
         $end = null;
 
         if (isset($params['length']) && ($this->_type & Token::END)) {
             $end = $params;
             $end['pos'] += $params['length'];
 
-            $params['end'] = new $this->_class($end);
+            $params['end'] = new $params['class']($end);
         }
 
         /** @var Token $token */
-        $token = new $this->_class($params);
+        $token = new $params['class']($params);
 
         if ($this->_type == 0x3) {
             return $token;
