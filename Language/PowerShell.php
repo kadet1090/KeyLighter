@@ -104,8 +104,10 @@ class PowerShell extends Language
             ],
 
             'call' => new Rule(new RegexMatcher(
-                '/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter)\s*((?:\w+\\\)?\w[\w-\.]+)/i'
-            ), ['priority' => 2])
+                '/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter|^PS>)\s*((?:\w+\\\)?\w[\w-\.]+)/im'
+            ), ['priority' => 2]),
+
+            'delimiter.prompt' => new Rule(new RegexMatcher('/^(PS>)/im'), ['priority' => 4]),
         ]);
     }
 
