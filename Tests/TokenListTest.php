@@ -74,28 +74,6 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testTokenSortingIndex()
-    {
-        $tokens    = [];
-        $tokens[0] = $token = $this->_factory->create('token.1', ['pos' => 2, 'length' => 3, 'index' => 3]);
-        $tokens[1] = $token->getEnd();
-        $tokens[2] = $token = $this->_factory->create('token.2', ['pos' => 2, 'length' => 3, 'index' => 1]);
-        $tokens[3] = $token->getEnd();
-        $tokens[4] = $token = $this->_factory->create('token.3', ['pos' => 2, 'length' => 4, 'index' => 2]);
-        $tokens[5] = $token->getEnd();
-
-        $list = new UnprocessedTokens();
-        $list->add($tokens[0]);
-        $list->add($tokens[2]);
-        $list->add($tokens[4]);
-        $list->sort();
-
-        $this->assertEquals(
-            [$tokens[0], $tokens[4], $tokens[2], $tokens[3], $tokens[1], $tokens[5]],
-            array_values($list->toArray())
-        );
-    }
-
     public function testTokenSortingFallback()
     {
         $tokens    = [];

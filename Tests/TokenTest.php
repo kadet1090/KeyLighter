@@ -38,11 +38,10 @@ class TokenTest extends \PHPUnit_Framework_TestCase
     public function testCreation()
     {
         $rule  = new Rule();
-        $token = $this->_factory->create('test.name', ['pos' => 10, 'index' => 10, 'rule' => $rule]);
+        $token = $this->_factory->create('test.name', ['pos' => 10, 'rule' => $rule]);
 
         $this->assertEquals($token->name, 'test.name', 'Token name is invalid');
         $this->assertEquals($token->pos, 10, 'Position is invalid');
-        $this->assertEquals($token->index, 10, 'Index is invalid');
         $this->assertEquals($token->rule, $rule, 'Rule is invalid');
     }
 
