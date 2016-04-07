@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\Language\Python;
 
 
-use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
@@ -27,7 +27,7 @@ use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Django extends Language
+class Django extends GreedyLanguage
 {
 
     /**

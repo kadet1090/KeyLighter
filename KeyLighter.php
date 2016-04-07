@@ -18,6 +18,7 @@ namespace Kadet\Highlighter;
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
+use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Utils\Singleton;
 
@@ -90,7 +91,7 @@ class KeyLighter
     {
         $formatter = $formatter ?: $this->getDefaultFormatter();
 
-        if (!$language instanceof Language) {
+        if (!$language instanceof GreedyLanguage) {
             $language = $this->getLanguage($language);
         }
 

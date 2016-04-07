@@ -21,7 +21,7 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 
-class PowerShell extends Language
+class PowerShell extends GreedyLanguage
 {
     
     /**

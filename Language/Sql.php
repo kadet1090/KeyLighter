@@ -20,7 +20,7 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 
-class Sql extends Language
+class Sql extends GreedyLanguage
 {
     
     protected $_keywords = [

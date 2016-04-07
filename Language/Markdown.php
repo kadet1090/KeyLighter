@@ -25,7 +25,7 @@ use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Markdown extends Language
+class Markdown extends GreedyLanguage
 {
     protected $_options = [
         'variables' => false,

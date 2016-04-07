@@ -21,7 +21,7 @@ use Kadet\Highlighter;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Tests\Mocks\MockLanguage;
+use Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage;
 
 class KeyLighterTest extends \PHPUnit_Framework_TestCase
 {
@@ -57,7 +57,7 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         $keylighter = new KeyLighter();
 
         $formatter = new HtmlFormatter();
-        $language  = new MockLanguage(['rules' => [
+        $language  = new MockGreedyLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if'))
         ]]);
 
@@ -83,7 +83,7 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
     public function testFunction()
     {
         $formatter = new HtmlFormatter();
-        $language  = new MockLanguage(['rules' => [
+        $language  = new MockGreedyLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if'))
         ]]);
 
@@ -96,7 +96,7 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
     public function testSingleton()
     {
         $formatter = new HtmlFormatter();
-        $language  = new MockLanguage(['rules' => [
+        $language  = new MockGreedyLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if'))
         ]]);
 

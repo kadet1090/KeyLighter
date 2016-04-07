@@ -22,7 +22,7 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 
-class Xml extends Language
+class Xml extends GreedyLanguage
 {
     const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 

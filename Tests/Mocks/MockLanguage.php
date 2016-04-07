@@ -15,9 +15,9 @@
 
 namespace Kadet\Highlighter\Tests\Mocks;
 
-use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Language\GreedyLanguage;
 
-class MockLanguage extends Language
+class MockGreedyLanguage extends GreedyLanguage
 {
     private $_rules;
     private $range;

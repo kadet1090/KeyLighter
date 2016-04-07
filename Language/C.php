@@ -26,7 +26,7 @@ use Kadet\Highlighter\Parser\Token\TerminatorToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class C extends Language
+class C extends GreedyLanguage
 {
     
     /**

@@ -29,7 +29,7 @@ use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Perl extends Language
+class Perl extends GreedyLanguage
 {
     
     /**

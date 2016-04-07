@@ -19,7 +19,7 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\Rule;
 
-class Ini extends Language
+class Ini extends GreedyLanguage
 {
     /**
      * Tokenization rules

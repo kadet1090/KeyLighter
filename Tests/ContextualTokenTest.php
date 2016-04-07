@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
@@ -34,7 +35,7 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
     }
 
     private function getLanguageMock() {
-        return $this->getMockBuilder(Language::class)->disableOriginalConstructor()->getMock();
+        return $this->getMockBuilder(GreedyLanguage::class)->disableOriginalConstructor()->getMock();
     }
     
     public function testClose()

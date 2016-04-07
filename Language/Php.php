@@ -24,7 +24,7 @@ use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 
-class Php extends Language
+class Php extends GreedyLanguage
 {
     
     /**

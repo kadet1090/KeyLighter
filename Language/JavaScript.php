@@ -29,7 +29,7 @@ use Kadet\Highlighter\Parser\TokenFactory;
  *
  * @property bool $variables
  */
-class JavaScript extends Language
+class JavaScript extends GreedyLanguage
 {
     
     protected $_options = [
