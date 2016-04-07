@@ -35,6 +35,7 @@ class Token
     public $name;
     public $id;
     public $rule;
+    public $options;
 
     # region >>> cache
     /**
@@ -59,13 +60,13 @@ class Token
      */
     public function __construct($name = null, array $options = [])
     {
-        $this->name     = $name;
-
         if (isset($options['pos'])) {
             $this->pos = $options['pos'];
         }
 
-        $this->rule = isset($options['rule']) ? $options['rule'] : new Rule();
+        $this->name     = $name;
+        $this->rule     = isset($options['rule']) ? $options['rule'] : new Rule();
+        $this->options &= $options;
 
         $this->id = ++self::$_id;
     }
