@@ -157,7 +157,7 @@ abstract class GreedyLanguage implements Language
 
         // todo: interface
         foreach ($this->getEmbedded() as $language) {
-            foreach ($language->_rules(true) as $rule) {
+            foreach ($language instanceof GreedyLanguage ? $language->_rules(true) : $language->getEnds(true) as $rule) {
                 yield $rule;
             }
         }

@@ -69,7 +69,7 @@ class CommentMatcher implements MatcherInterface
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
                     yield $factory->create(
-                        $name, ['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i]
+                        $name, ['pos' => $match[1], 'length' => strlen($match[0])]
                     );
                 }
             }

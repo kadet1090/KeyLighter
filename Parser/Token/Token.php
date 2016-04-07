@@ -33,7 +33,6 @@ class Token
 
     public $pos;
     public $name;
-    public $index = 1;
     public $id;
     public $rule;
 
@@ -64,10 +63,6 @@ class Token
 
         if (isset($options['pos'])) {
             $this->pos = $options['pos'];
-        }
-
-        if (isset($options['index'])) {
-            $this->index = $options['index'];
         }
 
         $this->rule = isset($options['rule']) ? $options['rule'] : new Rule();
@@ -230,9 +225,7 @@ class Token
             }
         } elseif (($rule = Helper::cmp($b->rule->priority, $a->rule->priority)) !== 0) {
             return $multiplier*$rule;
-        } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
-            return $multiplier*$rule;
-        } else {
+        }  else {
             return $multiplier*($a->id < $b->id ? -1 : 1);
         }
     }
