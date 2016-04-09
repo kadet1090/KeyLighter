@@ -96,6 +96,8 @@ class ConsoleHelper
                 return $value ? 1 : 21;
             case 'dim':
                 return $value ? 2 : 22;
+            case 'italic':
+                return $value ? 3 : 23;
             case 'underline':
                 return $value ? 4 : 24;
             case 'blink':

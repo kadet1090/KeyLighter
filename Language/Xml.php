@@ -33,7 +33,7 @@ class Xml extends GreedyLanguage
     {
         $this->rules->addMany([
             'tag.open'  => [
-                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
+                new OpenRule(new RegexMatcher('/(<\w+)[:\/>:\s]/')),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
