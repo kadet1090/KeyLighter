@@ -48,5 +48,5 @@
     'format.block.code'  => ['color' => 'light yellow'],
 
     'symbol.link' => ['color' => 'light magenta'],
-    'symbol.url'        => ['color' => 'magenta']
+    'symbol.url'  => ['color' => 'magenta']
 ];
