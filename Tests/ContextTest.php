@@ -82,6 +82,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
 
         $context->push($token);
         $this->assertSame($token->id, $context->find('token.name'));
+        $this->assertFalse($context->find('foo'));
     }
     
     public function getLanguageMock() {

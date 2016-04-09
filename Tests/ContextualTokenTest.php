@@ -46,10 +46,10 @@ class ContextualTokenTest extends \PHPUnit_Framework_TestCase
             '!nope'
         ]]);
 
-        $start    = $this->_factory->create(null, ['test', 'pos' => 10, 'length' => 1, 'rule' => $rule]);
+        $start    = $this->_factory->create('test', ['pos' => 10, 'length' => 1, 'rule' => $rule]);
         $startEnd = $start->getEnd();
 
-        $endStart = $this->_factory->create(null, ['test', 'pos' => 12, 'length' => 1, 'rule' => $rule]);
+        $endStart = $this->_factory->create('test', ['pos' => 12, 'length' => 1, 'rule' => $rule]);
         $end      = $endStart->getEnd();
 
         /** @noinspection PhpParamsInspection */
