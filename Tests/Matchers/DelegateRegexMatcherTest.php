@@ -28,14 +28,11 @@ class DelegateRegexMatcherTest extends MatcherTestCase
         $factory = $this->getFactory();
 
         $mock->method('test')->willReturn([]);
-        $mock->expects($this->once())->method('test')->with(
-            [
-                0 => ['<foo:bar>', 0],
-                1 => ['foo', 1],
-                2 => ['bar', 5],
-            ],
-            $factory
-        );
+        $mock->expects($this->once())->method('test')->with([
+            0 => ['<foo:bar>', 0],
+            1 => ['foo', 1],
+            2 => ['bar', 5],
+        ], $factory);
 
         $matcher = new DelegateRegexMatcher('/<(\w+):(\w+)>/i', [$mock, 'test']);
 

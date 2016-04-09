@@ -39,10 +39,6 @@ class Validator
     }
 
     public function validate(Context $context, $additional = []) {
-        if(empty($this->_rules) && empty($additional)) {
-            return true;
-        }
-
         return $this->_validate($context->stack, $additional + $this->_rules);
     }
 
