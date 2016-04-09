@@ -41,7 +41,7 @@ class Markdown extends Html
         $this->rules->validator = new Validator(
             ['!format.block.code', '!format.monospace', '!keyword.escape', '!operator', '!tag']
         );
-        
+
         $this->rules->addMany([
             'format.header' => [
                 new Rule(new RegexMatcher('/^\s{0,3}(#+.+?)$/m')),
@@ -52,14 +52,15 @@ class Markdown extends Html
                     'italics' => Token::NAME
                 ]
             ),
-            'format.emphasis'  => new Rule(
+            'format.bold'  => new Rule(
                 new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\n]|(?:(?P<i>[*_]{2})(?>[^*_\n]|(?&bold))*?\g{i}))+\g{b})/', [
                     'bold' => Token::NAME
                 ])
             ),
             'format.strike'    => new Rule(new RegexMatcher('/(~~.+?~~)/')),
             'format.monospace' => [
-                new Rule(new RegexMatcher('/(``.*?``)|[^`](`[^`]+?`)/')),
+                new Rule(new RegexMatcher('/(?:[^`]|^)(`.*?`)/')),
+                new Rule(new RegexMatcher('/(``.*?``)/')),
                 new Rule(new RegexMatcher('/^((?:(?: {4,}|\t).*?(?>\n|$)+?)+)/m')),
             ],
 
@@ -96,7 +97,7 @@ class Markdown extends Html
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/')),
 
-            'operator.horizontal' => new Rule(new RegexMatcher('/^\s{0,3}(([-*_])( ?\2)+)$/m'), [
+            'operator.horizontal' => new Rule(new RegexMatcher('/^\s{,3}(([-*_])( ?\2)+)$/m'), [
                 'priority' => 2
             ]),
 

@@ -39,7 +39,7 @@
     'symbol.attribute.namespace'  => ['color' => 'magenta', 'bold' => true],
     'symbol.tag.namespace'        => ['color' => 'light yellow', 'bold' => true],
 
-    'format.emphasis'  => ['color' => 'magenta'],
+    'format.bold'      => ['color' => 'magenta'],
     'format.italics'   => ['color' => 'light magenta', 'italic' => true],
     'format.monospace' => ['color' => 'dark gray'],
     'format.list'      => ['color' => 'yellow'],
