@@ -24,7 +24,7 @@ class MetaToken extends Token
 {
     protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
-        $context->stack[$this->id] = $this->name;
+        $context->push($this);
         
         return true;
     }

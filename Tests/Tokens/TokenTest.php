@@ -13,7 +13,7 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Tests;
+namespace Kadet\Highlighter\Tests\Tokens;
 
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Context;
@@ -22,7 +22,7 @@ use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class TokenTest extends \PHPUnit_Framework_TestCase
+class TokenTest extends TokenTestCase
 {
 
     /**

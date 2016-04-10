@@ -13,7 +13,7 @@
  * From Kadet with love.
  */
 
-namespace Kadet\Highlighter\Tests;
+namespace Kadet\Highlighter\Tests\Tokens;
 
 use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;

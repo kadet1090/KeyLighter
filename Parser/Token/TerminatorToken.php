@@ -57,5 +57,4 @@ class TerminatorToken extends MetaToken
 
         return true;
     }
-
 }
