@@ -56,7 +56,7 @@ class CommentMatcher implements MatcherInterface
 
         foreach ($this->singleLine as $name => $comment) {
             $comment = preg_quote($comment, '/');
-            $all[]   = [$name, "/({$comment}.*?)$/m"];
+            $all[]   = [$name, "/({$comment}.*?)\\R/"];
         }
 
         foreach ($all as $i => $comment) {
