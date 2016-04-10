@@ -51,12 +51,12 @@ class CommentMatcher implements MatcherInterface
         foreach ($this->multiLine as $name => $comment) {
             $comment = array_map(function ($e) { return preg_quote($e, '/'); }, $comment);
 
-            $all[] = [$name, "/{$comment[0]}(.*?){$comment[1]}/ms"];
+            $all[] = [$name, "/({$comment[0]}(.*?){$comment[1]})/ms"];
         }
 
         foreach ($this->singleLine as $name => $comment) {
             $comment = preg_quote($comment, '/');
-            $all[]   = [$name, "/{$comment}.*?\\R/"];
+            $all[]   = [$name, "/({$comment}.*?)$/m"];
         }
 
         foreach ($all as $i => $comment) {
@@ -67,7 +67,7 @@ class CommentMatcher implements MatcherInterface
             $regex = $comment[1];
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
-                foreach ($matches[0] as $match) {
+                foreach ($matches[1] as $match) {
                     yield $factory->create(
                         $name, ['pos' => $match[1], 'length' => strlen($match[0])]
                     );
