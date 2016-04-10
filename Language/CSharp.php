@@ -46,7 +46,7 @@ class CSharp extends C
             'object', 'operator', 'out', 'override', 'partial', 'params', 'private', 'protected', 'public', 'readonly', 'ref',
             'return', 'sealed', 'short', 'sizeof', 'stackalloc', 'static', 'string', 'struct', 'switch', 'throw', 'try',
             'typeof', 'unchecked', 'unsafe', 'using', 'virtual', 'volatile', 'var', 'while', 'yield',
-            '__makeref', '__reftype', '__refvalue', '__arglist'
+            '__makeref', '__reftype', '__refvalue', '__arglist', 'get', 'set'
         ])));
 
         $this->rules->add('symbol.class', new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*[*&]\s*)\w+\s*[={}();,]/')));
