@@ -29,8 +29,9 @@ use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Perl extends Language
+class Perl extends GreedyLanguage
 {
+    
     /**
      * Tokenization rules definition
      */
@@ -40,7 +41,11 @@ class Perl extends Language
         $number = '[+-]?(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?';
 
         $this->rules->addMany([
-            'comment' => new Rule(new CommentMatcher(['#'], [])),
+            'string'  => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => ['!keyword', '!comment', '!string', '!language', '!number'],
+            ]),
+
+            'comment' => new Rule(new CommentMatcher(['#'])),
 
             'keyword' => new Rule(new WordMatcher([
                 'case', 'continue', 'do', 'else', 'elsif', 'for', 'foreach',
@@ -48,16 +53,6 @@ class Perl extends Language
                 'unless', 'until', 'while', 'use', 'print', 'new', 'BEGIN',
                 'sub', 'CHECK', 'INIT', 'END', 'return', 'exit'
             ])),
-
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['!keyword', '!comment', '!string', '!language', '!number'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['!keyword', '!comment', '!string', '!language', '!number'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
 
             'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/'), [
                 'context' => ['string']

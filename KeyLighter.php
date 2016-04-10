@@ -18,6 +18,7 @@ namespace Kadet\Highlighter;
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
+use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Utils\Singleton;
 
@@ -30,7 +31,7 @@ class KeyLighter
 {
     use Singleton;
 
-    const VERSION = '0.7.0';
+    const VERSION = '0.8.0-dev';
 
     /**
      * Registered aliases
@@ -90,7 +91,7 @@ class KeyLighter
     {
         $formatter = $formatter ?: $this->getDefaultFormatter();
 
-        if (!$language instanceof Language) {
+        if (!$language instanceof GreedyLanguage) {
             $language = $this->getLanguage($language);
         }
 
@@ -118,5 +119,9 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql', ['sql']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql\\MySql', ['mysql']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Perl', ['perl']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\C', ['c']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Python', ['python', 'py']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Python\\Django', ['django']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Markdown', ['markdown', 'md']);
     }
 }

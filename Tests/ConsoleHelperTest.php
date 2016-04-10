@@ -35,7 +35,7 @@ class ConsoleHelperTest extends \PHPUnit_Framework_TestCase
     {
         $console = new ConsoleHelper();
         $this->assertEquals(
-            "\033[31mtest\033[32mtest2\033[0m\033[31mtest3\033[0m",
+            "\e[31mtest\e[32mtest2\e[0m\e[31mtest3\e[0m",
             $console->open(["color" => "red"]).
                 "test".
                     $console->open(["color" => "green"])."test2".$console->close().
@@ -59,6 +59,7 @@ class ConsoleHelperTest extends \PHPUnit_Framework_TestCase
             'background red' => ["\033[41m", ["background" => "red"]],
             'bold'           => ["\033[1m",  ["bold" => true]],
             'dim'            => ["\033[2m",  ["dim" => true]],
+            'italic'         => ["\033[3m",  ["italic" => true]],
             'underline'      => ["\033[4m",  ["underline" => true]],
             'blink'          => ["\033[5m",  ["blink" => true]],
             'invert'         => ["\033[7m",  ["invert" => true]],

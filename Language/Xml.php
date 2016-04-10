@@ -18,13 +18,11 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
-use Kadet\Highlighter\Parser\TokenFactory;
 
-class Xml extends Language
+class Xml extends GreedyLanguage
 {
     const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
@@ -35,7 +33,7 @@ class Xml extends Language
     {
         $this->rules->addMany([
             'tag.open'  => [
-                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
+                new OpenRule(new RegexMatcher('/(<\w+)[:\/>:\s]/')),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
@@ -50,19 +48,10 @@ class Xml extends Language
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
+            'constant.entity' => new Rule(new RegexMatcher('/(&(?:\#\d+|[a-z])+;)/si')),
 
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
-
-            'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
+            'comment' => new Rule(new CommentMatcher(null, [['<!--', '-->']])),
+            'string'  => CommonFeatures::strings(['single' => '\'', 'double' => '"'], ['context' => ['tag']]),
         ]);
     }
 

@@ -42,7 +42,7 @@ class Rule
     /**
      * @var Validator
      */
-    public $validator;
+    public $validator = false;
 
     /**
      * @param MatcherInterface|null $matcher
@@ -54,14 +54,16 @@ class Rule
 
         // Default options:
         $options = array_merge([
-            'context'  => [],
             'priority' => 1,
             'language' => false,
             'factory'  => new TokenFactory(Token::class),
             'enabled'  => true
         ], $options);
 
-        $this->setContext($options['context']);
+        if(isset($options['context'])) {
+            $this->setContext($options['context']);
+        }
+        
         $this->_options = $options;
         $this->_enabled = $options['enabled'];
 

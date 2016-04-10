@@ -15,7 +15,7 @@
 
 namespace Kadet\Highlighter\Language;
 
-class PlainText extends Language
+class PlainText extends GreedyLanguage
 {
 
     /**

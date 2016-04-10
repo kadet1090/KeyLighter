@@ -16,7 +16,10 @@
 namespace Kadet\Highlighter\Parser\Token;
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
+use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Validator\Validator;
 use Kadet\Highlighter\Utils\Helper;
 
@@ -30,23 +33,21 @@ class Token
 
     public $pos;
     public $name;
-    public $closedBy;
-    public $index = 1;
     public $id;
+    public $rule;
+    public $options;
 
     # region >>> cache
     /**
-     * @var Token|null|false
+     * @var static|null|false
      */
     protected $_end;
 
     /**
-     * @var Token|null|false
+     * @var static|null|false
      */
     protected $_start;
 
-    /** @var Rule */
-    protected $_rule;
     protected $_valid;
     protected $_length;
     # endregion
@@ -54,63 +55,20 @@ class Token
     /**
      * Token constructor.
      *
+     * @param null  $name
      * @param array $options
      */
-    public function __construct(array $options)
+    public function __construct($name = null, array $options = [])
     {
-        if (isset($options[0])) {
-            $this->name     = $options[0];
-            $this->closedBy = $this->name;
-        }
-
         if (isset($options['pos'])) {
             $this->pos = $options['pos'];
         }
 
-        if (isset($options['index'])) {
-            $this->index = $options['index'];
-        }
-
-        if (isset($options['start'])) {
-            $this->setStart($options['start']);
-        }
-
-        if (isset($options['rule'])) {
-            $this->setRule($options['rule']);
-        } else {
-            $this->setRule(new Rule());
-        }
-
-        if (isset($options['end'])) {
-            $this->setEnd($options['end']);
-        }
-
-        if (isset($options['closed-by'])) {
-            $this->closedBy = $options['closed-by'];
-        }
+        $this->name     = $name;
+        $this->rule     = isset($options['rule']) ? $options['rule'] : new Rule();
+        $this->options &= $options;
 
         $this->id = ++self::$_id;
-    }
-
-    public static function compare(Token $a, Token $b)
-    {
-        $multiplier = $a->isEnd() ? -1 : 1;
-
-        if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
-            if ($a->getStart() == $b) {
-                return 1;
-            } elseif ($a->getEnd() == $b) {
-                return -1;
-            } else {
-                return $multiplier;
-            }
-        } elseif (($rule = Helper::cmp($b->_rule->priority, $a->_rule->priority)) !== 0) {
-            return $multiplier*$rule;
-        } elseif (($rule = Helper::cmp($b->index, $a->index)) !== 0) {
-            return $multiplier*$rule;
-        } else {
-            return $multiplier*($a->id < $b->id ? -1 : 1);
-        }
     }
 
     public function isStart()
@@ -123,20 +81,20 @@ class Token
         return $this->_end === null;
     }
 
-    public function isValid(Language $language, $context = null)
+     public function isValid(Context $context)
     {
         if ($this->_valid === null) {
-            $this->validate($language, $context);
+            $this->validate($context);
         }
 
         return $this->_valid;
     }
 
-    protected function validate(Language $language, $context)
+    protected function validate(Context $context)
     {
         $this->setValid(
-            $language === $this->_rule->language &&
-            $this->_rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
+            $context->language === $this->rule->language &&
+            $this->rule->validator->validate($context, $this->isEnd() ? [$this->name => Validator::CONTEXT_IN] : [])
         );
     }
 
@@ -152,7 +110,7 @@ class Token
     }
 
     /**
-     * @return mixed
+     * @return Token|null|false
      */
     public function getStart()
     {
@@ -174,7 +132,7 @@ class Token
     }
 
     /**
-     * @return Token|null
+     * @return Token|null|false
      */
     public function getEnd()
     {
@@ -195,22 +153,6 @@ class Token
         }
     }
 
-    /**
-     * @return Rule
-     */
-    public function getRule()
-    {
-        return $this->_rule;
-    }
-
-    /**
-     * @param Rule $rule
-     */
-    public function setRule(Rule $rule)
-    {
-        $this->_rule = $rule;
-    }
-
     public function getLength()
     {
         if ($this->_length === null) {
@@ -222,6 +164,70 @@ class Token
 
     public function __get($name)
     {
-        return $this->getRule()->$name;
+        return $this->rule->$name;
+    }
+
+    /**
+     * @param Context       $context
+     * @param Language      $language
+     * @param Result        $result
+     * @param TokenIterator $tokens
+     *
+     * todo: Documentation
+     *
+     * @return bool Return true to continue processing, false to return already processed tokens.
+     */
+    public function process(Context $context, Language $language, Result $result, TokenIterator $tokens) {
+        if(!$this->isValid($context)) {
+            return true;
+        }
+
+        return $this->isStart() ?
+            $this->processStart($context, $language, $result, $tokens) :
+            $this->processEnd($context, $language, $result, $tokens);
+    }
+
+    protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens) {
+        $result->append($this);
+        $context->push($this);
+
+        return true;
+    }
+
+    protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens) {
+        if($this->_start) {
+            $context->pop($this->_start);
+        } else {
+            if (($start = $context->find($this->name)) !== false) {
+                $this->setStart($tokens[$start]);
+
+                unset($context->stack[$start]);
+            }
+        }
+
+        if (!$this->_start instanceof MetaToken) {
+            $result->append($this);
+        }
+
+        return true;
+    }
+
+    public static function compare(Token $a, Token $b)
+    {
+        $multiplier = $a->isEnd() ? -1 : 1;
+
+        if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
+            if ($a->getStart() == $b) {
+                return 1;
+            } if ($a->getEnd() == $b) {
+                return -1;
+            } else {
+                return $multiplier;
+            }
+        } elseif (($rule = Helper::cmp($b->rule->priority, $a->rule->priority)) !== 0) {
+            return $multiplier*$rule;
+        }  else {
+            return $multiplier*($a->id < $b->id ? -1 : 1);
+        }
     }
 }

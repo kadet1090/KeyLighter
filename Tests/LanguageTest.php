@@ -26,9 +26,9 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
-use Kadet\Highlighter\Tests\Mocks\MockLanguage;
+use Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage;
 
-class EmbeddedLanguage extends Mocks\MockLanguage
+class EmbeddedLanguage extends Mocks\MockGreedyLanguage
 {
     public function getEnds($embedded = false)
     {
@@ -44,9 +44,10 @@ class EmbeddedLanguage extends Mocks\MockLanguage
 
 class LanguageTest extends MatcherTestCase
 {
+
     public function testSimple()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('if')),
             'number'  => new Rule(new RegexMatcher('/(\d+)/')),
         ]]);
@@ -63,7 +64,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testManyRules()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword' => [
                 new Rule(new SubStringMatcher('if')),
                 new Rule(new SubStringMatcher('or')),
@@ -82,7 +83,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testNestedTokens()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'for' => new Rule(new SubStringMatcher('for')),
             'or'  => new Rule(new SubStringMatcher('or'), ['context' => ['for']]),
         ]]);
@@ -99,7 +100,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testInvalidTokens()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'for' => new Rule(new SubStringMatcher('for')),
             'or'  => new Rule(new SubStringMatcher('or')),
         ]]);
@@ -114,7 +115,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testLanguageEmbeddingByItself()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword' => new Rule(new SubStringMatcher('keyword')),
         ]]);
 
@@ -132,7 +133,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testLanguageEmbeddingByParent()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword'           => new Rule(new SubStringMatcher('keyword')),
             'language.embedded' => new Rule(new RegexMatcher('/(\{.*?\})/'), [
                 'factory'     => new TokenFactory(LanguageToken::class),
@@ -153,7 +154,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testUnclosedTokens()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword' => new OpenRule(new SubStringMatcher('(')),
         ]]);
 
@@ -167,7 +168,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testRangeTokens()
     {
-        $language = new Mocks\MockLanguage(['rules' => [
+        $language = new Mocks\MockGreedyLanguage(['rules' => [
             'keyword' => [
                 new OpenRule(new SubStringMatcher('(')),
                 new CloseRule(new SubStringMatcher(')'))
@@ -184,7 +185,7 @@ class LanguageTest extends MatcherTestCase
 
     public function testOptions()
     {
-        $language = new MockLanguage([
+        $language = new MockGreedyLanguage([
             'test' => 'foo'
         ]);
 
@@ -199,7 +200,7 @@ class LanguageTest extends MatcherTestCase
      */
     public function testWrongArgumentForParse()
     {
-        $language = new MockLanguage([
+        $language = new MockGreedyLanguage([
             'test' => 'foo'
         ]);
 

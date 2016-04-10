@@ -35,11 +35,12 @@ class DelegateTokenFactory implements TokenFactoryInterface
     }
 
     /**
-     * @param $params
+     * @param       $name
+     * @param array $params
      *
      * @return Token|null
      */
-    public function create($params)
+    public function create($name, $params = [])
     {
         $callable = $this->_callable;
         return $callable($this->_factory, $params);

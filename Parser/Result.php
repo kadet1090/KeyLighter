@@ -16,16 +16,19 @@
 namespace Kadet\Highlighter\Parser;
 
 
-use Kadet\Highlighter\Parser\Token\MetaToken;
+use Kadet\Highlighter\Parser\Token\Token;
 
 class Result extends \ArrayObject implements Tokens
 {
     private $_source;
+    private $_start;
 
-    public function __construct($source, $input = [])
+    public function __construct($source, Token $start = null)
     {
         $this->_source = $source;
-        parent::__construct($input, 0, \ArrayIterator::class);
+        $this->_start  = $start;
+
+        parent::__construct($start !== null ? [ $start->id => $start ] : [], 0, \ArrayIterator::class);
     }
 
     public function getSource()
@@ -33,17 +36,20 @@ class Result extends \ArrayObject implements Tokens
         return $this->_source;
     }
 
-    public function append($value)
-    {
-        if(!$value instanceof MetaToken) {
-            parent::append($value);
-        }
-    }
-
     public function merge($tokens)
     {
         foreach ($tokens as $token) {
             $this->append($token);
         }
+    }
+
+    public function getTokens()
+    {
+        return $this->getArrayCopy();
+    }
+
+    public function getStart()
+    {
+        return $this->_start;
     }
 }

@@ -17,10 +17,12 @@ namespace Kadet\Highlighter\Parser;
 
 
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Rules extends \ArrayObject
 {
     private $_language;
+    public $validator;
 
     /**
      * Rules constructor.
@@ -30,6 +32,7 @@ class Rules extends \ArrayObject
     public function __construct($language)
     {
         $this->_language = $language;
+        $this->validator = new Validator();
     }
 
     public function addMany(array $rules, $prefix = null)
@@ -64,6 +67,10 @@ class Rules extends \ArrayObject
 
         if ($rule->language === false) {
             $rule->language = $this->_language;
+        }
+
+        if ($rule->validator === false) {
+            $rule->validator = $this->validator;
         }
 
         $rule->factory->setBase($name);
@@ -110,5 +117,21 @@ class Rules extends \ArrayObject
         if(empty($items)) return [];
 
         return call_user_func_array('array_merge', $items);
+    }
+
+    /**
+     * @return Language
+     */
+    public function getLanguage()
+    {
+        return $this->_language;
+    }
+
+    /**
+     * @param Language $language
+     */
+    public function setLanguage(Language $language = null)
+    {
+        $this->_language = $language;
     }
 }

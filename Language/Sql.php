@@ -17,14 +17,12 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\TokenFactory;
 
-class Sql extends Language
+class Sql extends GreedyLanguage
 {
+    
     protected $_keywords = [
         'ADD', 'ALL', 'ALLOCATE', 'ALTER', 'AND', 'ANY', 'ARE', 'AS', 'ASENSITIVE', 'ASYMMETRIC', 'AT',
         'ATOMIC', 'AUTHORIZATION', 'BEGIN', 'BETWEEN', 'BOTH', 'BY', 'COMMENT',
@@ -67,17 +65,9 @@ class Sql extends Language
             'symbol.type' => new Rule(new WordMatcher($this->_types, ['escape' => false])),
 
             'constant' => new Rule(new WordMatcher(['FALSE', 'TRUE', 'NULL'])),
-
-            'comment' => new Rule(new CommentMatcher(['#', '--'], [['/*', '*/']])),
-
-            'string' => [
-                'single' => new Rule(new SubStringMatcher('\''), [
-                    'factory' => new TokenFactory(ContextualToken::class)
-                ]),
-                'double' => new Rule(new SubStringMatcher('"'), [
-                    'factory' => new TokenFactory(ContextualToken::class)
-                ]),
-            ],
+            'comment'  => new Rule(new CommentMatcher(['#', '--'], [['/*', '*/']])),
+            
+            'string'   => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
 
             'number'         => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
             'call'           => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),

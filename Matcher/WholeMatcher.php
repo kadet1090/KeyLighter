@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Matcher;
 
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class WholeMatcher implements MatcherInterface
@@ -31,6 +32,6 @@ class WholeMatcher implements MatcherInterface
      */
     public function match($source, TokenFactoryInterface $factory)
     {
-        yield $factory->create(['pos' => 0, 'length' => strlen($source)]);
+        yield $factory->create(Token::NAME, ['pos' => 0, 'length' => strlen($source)]);
     }
 }

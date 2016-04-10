@@ -30,6 +30,14 @@ class ConsoleHelper
         'reset'      => false,
     ];
 
+    /**
+     * ConsoleHelper constructor.
+     */
+    public function __construct() {
+        $this->_current = $this->_default;
+    }
+
+
     public function styled($style, $text)
     {
         return $this->open($style).$text.$this->close();
@@ -37,14 +45,12 @@ class ConsoleHelper
 
     public function open($style)
     {
-        if (!empty($this->_current)) {
-            $this->_stack[] = $this->_current;
-            $style          = array_diff_assoc($style, $this->_current);
-        }
+        $this->_stack[] = $this->_current;
+        $style          = array_diff_assoc($style, $this->_current);
 
         $this->_current = array_merge($this->_current, $style);
 
-        return $this->_set(array_diff_assoc($this->_current, $this->_default));
+        return $this->_set($style);
     }
 
     public function close()
@@ -90,6 +96,8 @@ class ConsoleHelper
                 return $value ? 1 : 21;
             case 'dim':
                 return $value ? 2 : 22;
+            case 'italic':
+                return $value ? 3 : 23;
             case 'underline':
                 return $value ? 4 : 24;
             case 'blink':

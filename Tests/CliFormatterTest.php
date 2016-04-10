@@ -40,11 +40,12 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
             Console::open(['color' => 'blue']).'+'.Console::close().' '.
             Console::open(['color' => 'red']).'test'.Console::close().Console::reset();
 
-        $first    = $this->_factory->create(['token', 'pos' => 0, 'length' => 3]);
-        $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
-        $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
+        $first    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);
+        $operator = $this->_factory->create('operator', ['pos' => 4, 'length' => 1]);
+        $second   = $this->_factory->create('token.second', ['pos' => 6, 'length' => 4]);
 
-        $iterator = new Result($source, [
+        $iterator = new Result($source);
+        $iterator->merge([
             $first, $first->getEnd(),
             $operator, $operator->getEnd(),
             $second, $second->getEnd()

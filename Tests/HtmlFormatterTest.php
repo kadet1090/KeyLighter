@@ -39,11 +39,12 @@ class HtmlFormatterTest extends \PHPUnit_Framework_TestCase
 <span class="token">abc</span> <span class="operator">+</span> <span class="token second">test</span>
 EXPECTED;
 
-        $first    = $this->_factory->create(['token', 'pos' => 0, 'length' => 3]);
-        $operator = $this->_factory->create(['operator', 'pos' => 4, 'length' => 1]);
-        $second   = $this->_factory->create(['token.second', 'pos' => 6, 'length' => 4]);
+        $first    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);
+        $operator = $this->_factory->create('operator', ['pos' => 4, 'length' => 1]);
+        $second   = $this->_factory->create('token.second', ['pos' => 6, 'length' => 4]);
 
-        $iterator = new Result($source, [
+        $iterator = new Result($source);
+        $iterator->merge([
             $first, $first->getEnd(),
             $operator, $operator->getEnd(),
             $second, $second->getEnd()

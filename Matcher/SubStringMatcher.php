@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Matcher;
 
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class SubStringMatcher implements MatcherInterface
@@ -47,7 +48,7 @@ class SubStringMatcher implements MatcherInterface
         $len = strlen($this->_substr);
 
         while (($pos = strpos($source, $this->_substr, $pos)) !== false) {
-            yield $factory->create(['pos' => $pos, 'length' => $len]);
+            yield $factory->create(Token::NAME, ['pos' => $pos, 'length' => $len]);
 
             $pos += $len;
         }

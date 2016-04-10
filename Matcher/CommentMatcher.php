@@ -28,10 +28,10 @@ class CommentMatcher implements MatcherInterface
      * @param array $singleLine
      * @param array $multiLine
      */
-    public function __construct(array $singleLine, array $multiLine)
+    public function __construct(array $singleLine = null, array $multiLine = null)
     {
-        $this->singleLine = $singleLine;
-        $this->multiLine  = $multiLine;
+        $this->singleLine = $singleLine ?: [];
+        $this->multiLine  = $multiLine  ?: [];
     }
 
 
@@ -68,7 +68,9 @@ class CommentMatcher implements MatcherInterface
 
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[0] as $match) {
-                    yield $factory->create(['pos' => $match[1], 'length' => strlen($match[0]), 'index' => $i, $name]);
+                    yield $factory->create(
+                        $name, ['pos' => $match[1], 'length' => strlen($match[0])]
+                    );
                 }
             }
         }

@@ -16,6 +16,8 @@
 namespace Kadet\Highlighter\Parser\Validator;
 
 
+use Kadet\Highlighter\Parser\Context;
+
 class Validator
 {
     const CONTEXT_NOT_IN    = 2;
@@ -36,8 +38,8 @@ class Validator
         $this->setRules($rules);
     }
 
-    public function validate(array $context, $additional = []) {
-        return $this->_validate($context, $additional + $this->_rules);
+    public function validate(Context $context, $additional = []) {
+        return $this->_validate($context->stack, $additional + $this->_rules);
     }
 
     public function setRules($rules)
@@ -63,16 +65,11 @@ class Validator
         }
     }
 
-    protected function _validate($context, $rules) {
-        if(empty($rules)) {
-            return true;
-        }
-
+    protected function _validate($context, $rules, $result = false) {
         if(empty($context)) {
             $context = ['none'];
         }
 
-        $result = false; // At least one rule must match
         while(list($rule, $type) = each($rules)) {
             $matched = $this->_matches($context, $rule, $type);
 

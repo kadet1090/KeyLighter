@@ -22,13 +22,12 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Css extends Language
+class Css extends GreedyLanguage
 {
 
     /**
@@ -42,8 +41,12 @@ class Css extends Language
             'media', 'supports', 'document', 'page', 'font-face', 'keyframes', 'viewport', 'counter-style',
             'font-feature-values', 'swash', 'ornaments', 'annotation', 'stylistic', 'styleset', 'character-variant'
         ];
-
+        
         $this->rules->addMany([
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => $this->everywhere()
+            ]),
+
             'meta.declaration' => [
                 new OpenRule(new SubStringMatcher('{'), [
                     'context' => ['!meta.declaration.media', '!comment'],
@@ -71,16 +74,6 @@ class Css extends Language
                 'priority' => 2
             ]),
 
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => $this->everywhere(),
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => $this->everywhere(),
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
             'symbol.selector.id'    => new Rule(new RegexMatcher("/(#$identifier)/i")),
             'symbol.selector.tag'   => new Rule(new RegexMatcher('/(?>[\s}]|^)(?=(\w+)[^;]*\{)/ms')),
             'symbol.selector.class' => new Rule(new RegexMatcher("/(\\.$identifier)/i")),
@@ -104,10 +97,18 @@ class Css extends Language
                 'context' => ['meta.declaration', '!comment', '!string', '!keyword']
             ]),
 
-            'constant.color' => new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
-                'priority' => 2,
-                'context'  => ['meta.declaration', '!symbol.color', '!comment']
-            ]),
+            'constant.color' => [
+                new Rule(new RegexMatcher("/(#[0-9a-f]{3,6})/i"), [
+                    'priority' => 2,
+                    'context'  => ['meta.declaration', '!comment']
+                ]),
+                new Rule(new WordMatcher([
+                    'white', 'silver', 'gray', 'black', 'red', 'maroon', 'yellow', 'olive',
+                    'lime', 'green', 'aqua', 'teal', 'blue', 'navy', 'fuchsia', 'purple'
+                ]), [
+                    'context'  => ['meta.declaration', '!comment']
+                ]),
+            ],
 
             'operator' => new Rule(new WordMatcher(['>', '+', '*', '!important'], ['separated' => false]), [
                 'context' => $this->everywhere()

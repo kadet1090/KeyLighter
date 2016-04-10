@@ -19,4 +19,5 @@ namespace Kadet\Highlighter\Parser;
 interface Tokens extends \Traversable
 {
     public function getSource();
+    public function getTokens();
 }

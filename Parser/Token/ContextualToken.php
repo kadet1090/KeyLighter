@@ -15,35 +15,28 @@
 
 namespace Kadet\Highlighter\Parser\Token;
 
-use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
 class ContextualToken extends Token
 {
-    public function __construct($options)
+    protected function validate(Context $context)
     {
-        parent::__construct($options);
-    }
-
-    protected function validate(Language $language, $context)
-    {
-        if ($language !== $this->getRule()->language) {
+        if ($context->language !== $this->rule->language) {
             $this->setValid(false);
 
             return false;
         }
 
-        $start = !in_array($this->name, $context, false);
-
-        if ($start) {
-            if (!$this->_rule->validator->validate($context)) {
+        if (!$context->has($this->name)) {
+            if (!$this->rule->validator->validate($context)) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = true;
                 $this->_end->_valid = false;
             }
         } else {
-            if (!$this->_rule->validator->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
+            if (!$this->rule->validator->validate($context, [ $this->name => Validator::CONTEXT_IN ])) {
                 $this->setValid(false);
             } else {
                 $this->_valid       = false;

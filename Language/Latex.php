@@ -22,7 +22,7 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
-class Latex extends Language
+class Latex extends GreedyLanguage
 {
     protected static $mathEnvironments = ['align', 'equation', 'math'];
 

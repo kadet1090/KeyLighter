@@ -16,7 +16,6 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
-use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
@@ -30,8 +29,9 @@ use Kadet\Highlighter\Parser\TokenFactory;
  *
  * @property bool $variables
  */
-class JavaScript extends Language
+class JavaScript extends GreedyLanguage
 {
+    
     protected $_options = [
         'variables' => false,
     ];
@@ -44,15 +44,10 @@ class JavaScript extends Language
     public function setupRules()
     {
         $this->rules->addMany([
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
-                'factory' => new TokenFactory(ContextualToken::class),
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => ['!keyword.escape', '!comment', '!string'],
             ]),
 
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['!keyword.escape', '!comment', '!string'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
                 'priority' => -2
             ]),

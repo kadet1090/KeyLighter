@@ -70,7 +70,7 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
             return false;
         }
 
-        if (isset($desired['rule']) && $desired['rule'] !== $actual->getRule()) {
+        if (isset($desired['rule']) && $desired['rule'] !== $actual->rule) {
             return false;
         }
 
