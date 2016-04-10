@@ -95,8 +95,8 @@ class TokenListTest extends \PHPUnit_Framework_TestCase
             array_values($list->toArray())
         );
     }
-
-    public function testTokenSortingEndProceedsStart()
+    
+    public function testTokenSortingEndPrecedesStart()
     {
         $tokens    = [];
         $tokens[0] = $token = $this->_factory->create('token.1', ['pos' => 2, 'length' => 0]);
