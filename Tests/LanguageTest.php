@@ -44,6 +44,7 @@ class EmbeddedLanguage extends Mocks\MockGreedyLanguage
 
 class LanguageTest extends MatcherTestCase
 {
+
     public function testSimple()
     {
         $language = new Mocks\MockGreedyLanguage(['rules' => [

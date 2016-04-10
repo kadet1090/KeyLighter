@@ -108,6 +108,18 @@ class RulesTest extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    public function testLanguage()
+    {
+        $first  = $this->getLanguageMock();
+        $second = $this->getLanguageMock();
+
+        $rules = new Rules($first);
+        $this->assertSame($first, $rules->getLanguage());
+        
+        $rules->setLanguage($second);
+        $this->assertSame($second, $rules->getLanguage());
+    }
+
     /**
      * @return Language
      */
