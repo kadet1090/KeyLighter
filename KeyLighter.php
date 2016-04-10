@@ -121,6 +121,7 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Perl', ['perl']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\C', ['c']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Cpp', ['cpp', 'c++']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\CSharp', ['cs', 'csharp', 'c#']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Python', ['python', 'py']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Python\\Django', ['django']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Markdown', ['markdown', 'md']);

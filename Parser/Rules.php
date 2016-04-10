@@ -101,7 +101,7 @@ class Rules extends \ArrayObject
 
         return $this[$name];
     }
-
+    
     public function remove($name, $index = null)
     {
         if ($index === null) {
