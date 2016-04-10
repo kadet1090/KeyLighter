@@ -36,10 +36,11 @@ class CSharp extends C
         ]));
 
         $this->rules->remove('keyword');
+        $this->rules->remove('operator');
         $this->rules->remove('symbol.type', 0);
 
         $this->rules->add('keyword', new Rule(new WordMatcher([
-            'abstract', 'as', 'base', 'bool', 'break', 'case', 'catch', 'char', 'checked', 'class', 'const', 'continue',
+            'abstract', 'as', 'base', 'break', 'case', 'catch', 'char', 'checked', 'class', 'const', 'continue',
             'default', 'delegate', 'do', 'else', 'enum', 'event', 'explicit', 'extern', 'finally', 'fixed', 'for',
             'foreach', 'goto', 'if', 'implicit', 'in', 'interface', 'internal', 'is', 'lock', 'namespace', 'new',
             'object', 'operator', 'out', 'override', 'partial', 'params', 'private', 'protected', 'public', 'readonly', 'ref',
@@ -53,6 +54,9 @@ class CSharp extends C
 
         $this->rules->add('variable.special', new Rule(new RegexMatcher('/\b(this)\b/')));
         $this->rules->add('constant.special', new Rule(new WordMatcher(['true', 'false', 'null'])));
+
+        $this->rules->add('operator', new Rule(new RegexMatcher('/([!+-\/*&^<>=]=?)/')));
+        $this->rules->add('operator.scope', new Rule(new RegexMatcher('/\w(\??\.)\w/')));
     }
 
     public function getIdentifier()
