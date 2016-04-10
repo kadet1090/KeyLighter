@@ -58,7 +58,7 @@ class C extends GreedyLanguage
                 new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
             ],
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/'), [
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/s'), [
                 'context' => Validator::everywhere()
             ]),
 

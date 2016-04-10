@@ -7,9 +7,7 @@ and easy to use as it only can, but with performance in mind.
 ## Name
 Name "KeyLighter" is inspired by Key Light concept in photography and cinematography.
 
-    The key light is the first and usually most important light that a photographer, 
-    cinematographer, lighting cameraman, or other scene composer will use in a lighting setup. 
-    The purpose of the key light is to highlight the form and dimension of the subject.
+> The key light is the first and usually most important light that a photographer, cinematographer, lighting cameraman, or other scene composer will use in a lighting setup. The purpose of the key light is to highlight the form and dimension of the subject.
 
 KeyLighter is supposed to do the same thing - for code.
 
