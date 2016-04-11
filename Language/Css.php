@@ -87,7 +87,7 @@ class Css extends GreedyLanguage
             
             'symbol.property' => new Rule(new RegexMatcher("/($identifier:)/"), [
                 'context' => ['meta.declaration', '!symbol', '!comment'],
-                'priority' => 0
+                'priority' => 2
             ]),
 
             'call' => new Rule(new RegexMatcher("/($identifier)\\s*\\((?:(?P<string>[a-z].*?)|.*?)\\)/", [
@@ -106,7 +106,7 @@ class Css extends GreedyLanguage
                     'white', 'silver', 'gray', 'black', 'red', 'maroon', 'yellow', 'olive',
                     'lime', 'green', 'aqua', 'teal', 'blue', 'navy', 'fuchsia', 'purple'
                 ]), [
-                    'context'  => ['meta.declaration', '!comment']
+                    'context'  => ['meta.declaration', '!comment', '!symbol', '!variable']
                 ]),
             ],
 
