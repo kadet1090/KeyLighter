@@ -19,6 +19,7 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\Token;
 
 class CSharp extends C
 {
@@ -42,14 +43,21 @@ class CSharp extends C
             '__makeref', '__reftype', '__refvalue', '__arglist', 'get', 'set'
         ]));
 
-        $this->rules->add('symbol.class', new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*[*&]\s*)\w+\s*[={}();,]/')));
-        $this->rules->add('symbol.class.template', new Rule(new RegexMatcher('/(\w+)\s*<.*?>/')));
+        $this->rules->addMany([
+            'symbol.class'          => new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*[*&]\s*)\w+\s*[={}();,]/')),
+            'symbol.class.template' => new Rule(new RegexMatcher('/(\w+)\s*<.*?>/')),
+            'variable.special'      => new Rule(new RegexMatcher('/\b(this)\b/')),
+            'constant.special'      => new Rule(new WordMatcher(['true', 'false', 'null'])),
+            'operator'              => new Rule(new RegexMatcher('/([!+-\/*&|^<>=]{1,2}=?)/')),
+            'operator.scope'        => new Rule(new RegexMatcher('/\w(\??\.)\w/')),
 
-        $this->rules->add('variable.special', new Rule(new RegexMatcher('/\b(this)\b/')));
-        $this->rules->add('constant.special', new Rule(new WordMatcher(['true', 'false', 'null'])));
-
-        $this->rules->add('operator', new Rule(new RegexMatcher('/([!+-\/*&^<>=]=?)/')));
-        $this->rules->add('operator.scope', new Rule(new RegexMatcher('/\w(\??\.)\w/')));
+            'annotation' => new Rule(
+                new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
+                    1           => Token::NAME,
+                    'arguments' => '$.arguments'
+                ])
+            ),
+        ]);
     }
 
     public function getIdentifier()
