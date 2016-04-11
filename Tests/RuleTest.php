@@ -15,6 +15,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Matcher\MatcherInterface;
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
@@ -88,5 +89,22 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
         $rule->enable();
         $this->assertNotEmpty($rule->match('source'));
+    }
+
+    public function testMatcherReturning() {
+        $matcher = $this->getMock(MatcherInterface::class);
+
+        $rule = new Rule($matcher);
+        $this->assertSame($matcher, $rule->getMatcher());
+    }
+
+    public function testMatcherExchange()
+    {
+        $matcher = $this->getMock(MatcherInterface::class);
+
+        $rule = new Rule($this->getMock(MatcherInterface::class));
+        $rule->setMatcher($matcher);
+        
+        $this->assertSame($matcher, $rule->getMatcher());
     }
 }

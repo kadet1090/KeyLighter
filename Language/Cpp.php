@@ -27,22 +27,17 @@ class Cpp extends C
     {
         parent::setupRules();
 
-        $this->rules->remove('keyword');
-        $this->rules->remove('symbol.type', 0);
+        $this->rules->remove('symbol.type', 0); // symbol.type[0] stands for universal type matching in arguments
 
-        $this->rules->add('keyword', new Rule(
-            new WordMatcher([
-                'auto', 'align(?:as|of)', 'and(?:_eq)?', 'asm', 'auto', 'bit(and|or)', 'break', 'case', 'catch', 'class',
-                'compl', 'concept', 'const(?:_cast|expr)?', 'continue', 'decltype', 'default', 'delete', 'do', 'double',
-                'dynamic_cast', 'else', 'enum', 'explicit', 'export', 'extern', 'for', 'friend', 'goto', 'if', 'inline',
-                'mutable', 'namespace', 'new', 'noexcept', 'not(?:_eq|ptr)', 'operator', 'or(?:_eq)?', 'private',
-                'protected', 'public', 'register', 'reinterpret_cast', 'requires', 'return', 'sizeof',
-                'static(?:_assert|_cast)?', 'struct', 'switch', 'template', 'thread_local', 'throw', 'try', 'typedef',
-                'typeid', 'typename', 'union', 'using', 'virtual', 'volatile', 'while', 'xor(?:_eq)?',
-            ], ['escape' => false]), [
-                'priority' => 2
-            ]
-        ));
+        $this->rules->rule('keyword')->setMatcher(new WordMatcher([
+            'auto', 'align(?:as|of)', 'and(?:_eq)?', 'asm', 'auto', 'bit(and|or)', 'break', 'case', 'catch', 'class',
+            'compl', 'concept', 'const(?:_cast|expr)?', 'continue', 'decltype', 'default', 'delete', 'do', 'double',
+            'dynamic_cast', 'else', 'enum', 'explicit', 'export', 'extern', 'for', 'friend', 'goto', 'if', 'inline',
+            'mutable', 'namespace', 'new', 'noexcept', 'not(?:_eq|ptr)', 'operator', 'or(?:_eq)?', 'private',
+            'protected', 'public', 'register', 'reinterpret_cast', 'requires', 'return', 'sizeof',
+            'static(?:_assert|_cast)?', 'struct', 'switch', 'template', 'thread_local', 'throw', 'try', 'typedef',
+            'typeid', 'typename', 'union', 'using', 'virtual', 'volatile', 'while', 'xor(?:_eq)?',
+        ], ['escape' => false]));
 
         $this->rules->add('symbol.type', new Rule(new WordMatcher(['bool', 'wchar'])));
         $this->rules->add('constant.special', new Rule(new WordMatcher(['false', 'null', 'true'])));

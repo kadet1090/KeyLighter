@@ -18,7 +18,6 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
-use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
 
 class CSharp extends C
@@ -27,19 +26,13 @@ class CSharp extends C
     {
         parent::setupRules();
 
-        $this->rules->remove('preprocessor');
-        $this->rules->remove('call.preprocessor');
+        $this->rules->rule('preprocessor')->setMatcher(new RegexMatcher('/^\s*(#)/m'));
+        $this->rules->rule('call.preprocessor')->setMatcher(new RegexMatcher('/^\s*#(\w+)/m'));
 
-        $this->rules->add('preprocessor', new OpenRule(new RegexMatcher('/^\s*(#)/m')));
-        $this->rules->add('call.preprocessor', new Rule(new RegexMatcher('/^\s*#(\w+)/m'), [
-            'context' => ['preprocessor']
-        ]));
+        $this->rules->remove('operator'); // & and *
+        $this->rules->remove('symbol.type', 0); // symbol.type[0] stands for universal type matching in arguments
 
-        $this->rules->remove('keyword');
-        $this->rules->remove('operator');
-        $this->rules->remove('symbol.type', 0);
-
-        $this->rules->add('keyword', new Rule(new WordMatcher([
+        $this->rules->rule('keyword')->setMatcher(new WordMatcher([
             'abstract', 'as', 'base', 'break', 'case', 'catch', 'char', 'checked', 'class', 'const', 'continue',
             'default', 'delegate', 'do', 'else', 'enum', 'event', 'explicit', 'extern', 'finally', 'fixed', 'for',
             'foreach', 'goto', 'if', 'implicit', 'in', 'interface', 'internal', 'is', 'lock', 'namespace', 'new',
@@ -47,7 +40,7 @@ class CSharp extends C
             'return', 'sealed', 'short', 'sizeof', 'stackalloc', 'static', 'string', 'struct', 'switch', 'throw', 'try',
             'typeof', 'unchecked', 'unsafe', 'using', 'virtual', 'volatile', 'var', 'while', 'yield',
             '__makeref', '__reftype', '__refvalue', '__arglist', 'get', 'set'
-        ])));
+        ]));
 
         $this->rules->add('symbol.class', new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*[*&]\s*)\w+\s*[={}();,]/')));
         $this->rules->add('symbol.class.template', new Rule(new RegexMatcher('/(\w+)\s*<.*?>/')));

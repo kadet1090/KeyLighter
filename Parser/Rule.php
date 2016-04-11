@@ -35,14 +35,13 @@ use Kadet\Highlighter\Parser\Validator\Validator;
  */
 class Rule
 {
-    private $_matcher;
-    private $_options;
-    private $_enabled = true;
-
     /**
      * @var Validator
      */
     public $validator = false;
+    private $_matcher;
+    private $_options;
+    private $_enabled = true;
 
     /**
      * @param MatcherInterface|null $matcher
@@ -57,29 +56,40 @@ class Rule
             'priority' => 1,
             'language' => false,
             'factory'  => new TokenFactory(Token::class),
-            'enabled'  => true
+            'enabled'  => true,
         ], $options);
 
-        if(isset($options['context'])) {
+        if (isset($options['context'])) {
             $this->setContext($options['context']);
         }
-        
+
         $this->_options = $options;
         $this->_enabled = $options['enabled'];
 
         $this->factory->setRule($this);
     }
 
-    public function setContext($context) {
-        if(is_array($context)) {
+    public function setContext($context)
+    {
+        if (is_array($context)) {
             $this->validator = new Validator($context);
-        } elseif(is_callable($context)) {
+        } elseif (is_callable($context)) {
             $this->validator = new DelegateValidator($context);
-        }elseif($context instanceof Validator) {
+        } elseif ($context instanceof Validator) {
             $this->validator = $context;
         } else {
             throw new \InvalidArgumentException('$context must be valid Validator');
         }
+    }
+
+    public function getMatcher()
+    {
+        return $this->_matcher;
+    }
+
+    public function setMatcher(MatcherInterface $matcher)
+    {
+        $this->_matcher = $matcher;
     }
 
     /**
@@ -102,11 +112,13 @@ class Rule
         return $this->_options[$option] = $value;
     }
 
-    public function enable() {
+    public function enable()
+    {
         $this->_enabled = true;
     }
 
-    public function disable() {
+    public function disable()
+    {
         $this->_enabled = false;
     }
 }
