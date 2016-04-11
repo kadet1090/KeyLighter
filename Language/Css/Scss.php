@@ -28,7 +28,7 @@ class Scss extends PreProcessor
         parent::setupRules();
 
         $this->rules->remove('symbol.selector.tag');
-        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;]*\{)/m'), [
+        $this->rules->add('symbol.selector.tag', new Rule(new RegexMatcher('/(?>[\s{};]|^)(?=(\w+)[^;}]*\{)/m'), [
             'context' => ['!symbol', '!string', '!number']
         ]));
 

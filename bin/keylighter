@@ -191,7 +191,8 @@ if($verbose > 0) {
 if($verbose > 1) {
     $language->tokenize($source); // preload classes
     $tokens    = benchmark('Tokenization', function() use($language, $source) { return $language->tokenize($source); }, $tokenization);
-    echo "    ".Console::styled(['color' => 'cyan'], 'Token count before parse: ').count($tokens).PHP_EOL;
+    echo "    ".Console::styled(['color' => 'cyan'], 'Token count before parse: ').count($tokens);
+    echo   ', '.Console::styled(['color' => 'cyan'], 'density: ').number_format(count($tokens)/strlen($source) * 1024).' tokens/kB'.PHP_EOL;
     if($verbose > 3) {
         echo Console::styled(['color' => 'green'], 'Token tree before parse:').PHP_EOL;
         echo $formatters['debug']->format(clone $tokens, false);
@@ -199,7 +200,8 @@ if($verbose > 1) {
     }
 
     $tokens    = benchmark('Parsing', function() use($language, $tokens) { return $language->parse($tokens); }, $parsing);
-    echo "    ".Console::styled(['color' => 'cyan'], 'Token count after parse: ').count($tokens).PHP_EOL;
+    echo "    ".Console::styled(['color' => 'cyan'], 'Token count after parse: ').count($tokens);
+    echo   ', '.Console::styled(['color' => 'cyan'], 'density: ').number_format(count($tokens)/strlen($source) * 1024).' tokens/kB'.PHP_EOL;
     if($verbose > 2) {
         echo Console::styled(['color' => 'green'], 'Token tree after parse:').PHP_EOL;
         echo $formatters['debug']->format(clone $tokens);
