@@ -1,8 +1,10 @@
 ![Logo](http://kadet.net/keylighter/logo.png)
-# KeyLighter [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) [![Travis](https://img.shields.io/travis/kadet1090/KeyLighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
+# KeyLighter [![Optimized for php7.0](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](http://keylighter.kadet.net/) [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master) [![Travis](https://img.shields.io/travis/kadet1090/KeyLighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter) ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square) ![Stability: Unstable](https://img.shields.io/badge/stability-unstable-yellow.svg?style=flat-square)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
+
+You can try it live with most recent version on http://keylighter.kadet.net/.
 
 ## Name
 Name "KeyLighter" is inspired by Key Light concept in photography and cinematography.
@@ -214,7 +216,7 @@ $ phpunit
 ```
 
 ## Roadmap
-There are still few things to do, you can find all of them (and even propose) on [trello](https://trello.com/b/9I4CO0Te/highlighter).
+There are still few things to do, you can find all on [trello](https://trello.com/b/9I4CO0Te/highlighter).
 
 ## Thanks
 For [Maciej](https://github.com/ksiazkowicz), [Maciej](https://github.com/sobak) and Monika for all support, moral too.
