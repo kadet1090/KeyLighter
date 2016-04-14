@@ -8,32 +8,32 @@ So we can define `string.single` and `string.double` both are
 `string`s but `string.single` is not `string.double`. 
 
 ## Standard token types:
-Token type               | Description
--------------------------|-------------------------------------------------
-`string`                 | String/Char literals
-`number`                 | Number literals integers, doubles, floats etc.
-`symbol`                 | Code symbols - class names, function names etc.
-`symbol.class`           | Class Name
-`symbol.class.interface` | Interface Name
-`symbol.function`        | Function definition (**NOT CALL!**)
-`symbol.annotation`      | Annotation
-`constant`               | Constants defined in language
-`variable`               | Variables, including sigils (like `$` in PHP)
-`variable.property`      | Property of object
-`call`                   | Functions/subroutine/directives calls
-`format`                 | Formatting styles
-`format.italics`         | Italic text
-`format.bold`            | Bold text
-`format.strike`          | Strike text
-`format.underline`       | Underlined text
-`keyword`                | Keywords
-`operator`               | Operators
-`operator.punctuation`   | Punctuation operators i.e. `;` or `,`
-`delimiter`              | Language delimiters i.e. `<?php`
-`language.name`          | Embedded `name` language
-`comment`                | Comment
-`comment.docblock`       | Documentation block comment 
-`preprocessor`           | Preprocessor definition
+Token type               | Description                                     | Example
+-------------------------|-------------------------------------------------|----------
+`string`                 | String/Char literals                            | <code class="keylighter inline"><span class="string single">'single quoted'</span></code> <code class="keylighter inline"><span class="string double">"double quoted"</span></code>
+`number`                 | Number literals integers, doubles, floats etc.  | <code class="keylighter inline"><span class="number">10</span></code> <code class="keylighter inline"><span class="number">.15</span></code> <code class="keylighter inline"><span class="number">10.5e10</span></code>
+`symbol`                 | Code symbols - class names, function names etc. | <code class="keylighter inline"><span class="symbol">Symbol</span></code>
+`symbol.class`           | Class Name                                      | <code class="keylighter inline"><span class="symbol class">SomeClass</span></code>
+`symbol.class.interface` | Interface Name                                  | <code class="keylighter inline"><span class="symbol class interface">SomeInterface</span></code>
+`symbol.function`        | Function definition (**NOT CALL!**)             | <code class="keylighter inline"><span class="symbol function">FizzBuzz</span></code>
+`symbol.annotation`      | Annotation                                      | <code class="keylighter inline"><span class="symbol annotation">@annotation</span></code> <code class="keylighter inline">[<span class="symbol annotation">annotation</span>]</code>
+`constant`               | Constants defined in language                   | <code class="keylighter inline"><span class="constant">true</span></code> <code class="keylighter inline"><span class="constant">IS_DEBUG</span></code>
+`variable`               | Variables, including sigils (like `$` in PHP)   | <code class="keylighter inline"><span class="variable">$var</span></code>
+`variable.property`      | Property of object                              | <code class="keylighter inline"><span class="variable">$var</span>-&gt;<span class="variable property">property</span></code> <code class="keylighter inline">variable.<span class="variable property">property</span></code>
+`call`                   | Functions/subroutine/directives calls           | <code class="keylighter inline"><span class="call">call</span>()</code>
+`format`                 | Formatting styles                               | |
+`format.italics`         | Italic text                                     | <code class="keylighter inline"><span class="format italics">italics</span></code>
+`format.bold`            | Bold text                                       | <code class="keylighter inline"><span class="format bold">bold</span></code>
+`format.strike`          | Strike text                                     | <code class="keylighter inline"><span class="format strike">strike</span></code>
+`format.underline`       | Underlined text                                 | <code class="keylighter inline"><span class="format underline">underline</span></code>
+`keyword`                | Keywords                                        | <code class="keylighter inline"><span class="keyword">foreach</span></code>
+`operator`               | Operators                                       | <code class="keylighter inline"><span class="operator">+=</span></code> <code class="keylighter inline"><span class="operator">/</span></code> <code class="keylighter inline"><span class="operator">%</span></code>
+`operator.punctuation`   | Punctuation operators                           | <code class="keylighter inline"><span class="operator punctuation">;</span></code> <code class="keylighter inline"><span class="operator punctuation">,</span></code> <code class="keylighter inline"><span class="operator punctuation">.</span> </code>
+`delimiter`              | Language delimiters                             | <code class="keylighter inline"><span class="delimiter">&lt;?php</span></code> <code class="keylighter inline"><span class="delimiter">&lt;%</span></code>
+`language.name`          | Embedded `name` language                        | |
+`comment`                | Comment                                         | <code class="keylighter inline"><span class="comment">// some comment</span></code>
+`comment.docblock`       | Documentation block comment                     | <code class="keylighter inline"><span class="comment docclock">/// Documentation comment</span></code>
+`preprocessor`           | Preprocessor definition                         | <code class="keylighter inline"><span class="preprocessor">#preprocessor directive</span></code>
 
 However every  language can define new types of tokens, but I 
 suggest to stick with standard and just extend them. Create new tokens
