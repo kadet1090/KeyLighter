@@ -51,7 +51,7 @@ class CSharp extends C
             'operator'              => new Rule(new RegexMatcher('/([!+-\/*&|^<>=]{1,2}=?)/')),
             'operator.scope'        => new Rule(new RegexMatcher('/\w(\??\.)\w/')),
 
-            'annotation' => new Rule(
+            'symbol.annotation' => new Rule(
                 new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
                     1           => Token::NAME,
                     'arguments' => '$.arguments'

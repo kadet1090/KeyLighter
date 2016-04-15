@@ -81,7 +81,7 @@ class Php extends GreedyLanguage
                 ['/* ', '*/']
             ])),
 
-            'keyword.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
+            'symbol.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']
             ]),
 

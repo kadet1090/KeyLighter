@@ -2,7 +2,6 @@
     'string'       => ['color' => 'green'],
     'keyword'      => ['color' => 'yellow'],
     'operator'     => ['color' => 'yellow'],
-    'annotation'   => ['color' => 'magenta'],
     'symbol'       => ['color' => 'magenta'],
     'variable'     => ['color' => 'blue'],
     'number'       => ['color' => 'light magenta'],
@@ -15,9 +14,12 @@
     'language'     => ['color' => 'default'],
     'expression'   => ['color' => 'default'],
 
-    'symbol.parameter'    => ['color' => 'dark gray'],
-    'symbol.class' => ['bold'  => true],
-    'symbol.type'  => ['color'  => 'light red'],
+    'symbol.parameter'  => ['color' => 'dark gray'],
+    'symbol.annotation' => ['color' => 'magenta'],
+    'symbol.class'      => ['bold'  => true],
+    'symbol.type'       => ['color'  => 'light red'],
+
+    'symbol.annotation.arguments' => ['color' => 'default'],
 
     'constant.color' => ['color' => 'light yellow'],
 
@@ -26,7 +28,6 @@
     'variable.namespace'   => ['color' => 'light blue'],
     'symbol.attribute'     => ['color' => 'light magenta'],
     'symbol.tag'           => ['color' => 'yellow'],
-    'annotation.arguments' => ['color' => 'default'],
     'variable.special'     => ['color' => 'magenta'],
     'variable.scope'       => ['color' => 'light blue'],
     'variable.splat'       => ['color' => 'light blue'],

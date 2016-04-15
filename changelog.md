@@ -17,17 +17,16 @@
  * **C#** highlighting via `Kadet\Highlighter\Language\CSharp`
  * **Java** highlighting via `Kadet\Highlighter\Language\Java`
  * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
- 
+ * **XML** and **HTML** now highlights entities
+ * **CSS** highlights web colors
  
 ### Changed
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`
  * Processing is now handled with `Kadet\Highlighter\Parser\Token\Token::process` method
  * `Kadet\Highlighter\Parser\Token\Token` simplified
- 
-* * * 
- * **XML** and **HTML** now highlights entities
- * **CSS** highlights web colors
- * Many other fixes
+ * Many fixes
+ * `parameter` token renamed to `symbol.parameter`
+ * `annotation` token renamed to `symbol.annotation`
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`

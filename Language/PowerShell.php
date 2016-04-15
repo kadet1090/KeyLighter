@@ -64,7 +64,7 @@ class PowerShell extends GreedyLanguage
 
             'symbol.dotnet' => new Rule(new RegexMatcher('/(\[[a-z][\w\.]*(?:\[\])?\])/si')),
 
-            'annotation' => new Rule(
+            'symbol.annotation' => new Rule(
                 new RegexMatcher('/\[([\w\.]+)\s*(?P<arguments>\((?>[^()]+|(?&arguments))*\))\s*\]/si', [
                     1           => Token::NAME,
                     'arguments' => '$.arguments'

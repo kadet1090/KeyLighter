@@ -33,8 +33,8 @@ class Java extends CSharp // evil
             'interface', 'static', 'class', 'finally', 'strictfp', 'volatile', 'const', 'native', 'super', 'while'
         ]));
 
-        $this->rules->rule('annotation')->setMatcher(new RegexMatcher('/(@[\w\.]+)\s*(?:(?P<arguments>\((?>[^()]+|(?&arguments))*\))?)/si', [
-            1           => Token::NAME
+        $this->rules->rule('symbol.annotation')->setMatcher(new RegexMatcher('/(@[\w\.]+)\s*(?:(?P<arguments>\((?>[^()]+|(?&arguments))*\))?)/si', [
+            1 => Token::NAME
         ]));
     }
 
