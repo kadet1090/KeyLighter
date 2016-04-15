@@ -20,8 +20,4 @@ notifications:
     on_success: never
     on_failure: always
   webhooks:
-    urls:
-      - http://keylighter.kadet.net/travis-hook
-    on_success: always
-    on_failure: never
-    on_start: never
+    urls: http://keylighter.kadet.net/travis-hook
