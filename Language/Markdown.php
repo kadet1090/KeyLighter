@@ -39,7 +39,7 @@ class Markdown extends Html
         parent::setupRules();
 
         $this->rules->validator = new Validator(
-            ['!format.block.code', '!format.monospace', '!keyword.escape', '!operator', '!tag']
+            ['!format.block.code', '!format.monospace', '!operator.escape', '!operator', '!tag']
         );
 
         $this->rules->addMany([
@@ -95,7 +95,7 @@ class Markdown extends Html
                 ),
             ],
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/')),
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\.)/')),
 
             'operator.horizontal' => new Rule(new RegexMatcher('/^\s{,3}(([-*_])( ?\2)+)$/m'), [
                 'priority' => 2

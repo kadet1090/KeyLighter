@@ -34,7 +34,7 @@ class Php extends GreedyLanguage
     {
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!operator.escape', '!comment', '!string'],
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
@@ -72,7 +72,7 @@ class Php extends GreedyLanguage
                 ]),
             ],
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']
             ]),
 

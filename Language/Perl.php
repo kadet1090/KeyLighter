@@ -54,7 +54,7 @@ class Perl extends GreedyLanguage
                 'sub', 'CHECK', 'INIT', 'END', 'return', 'exit'
             ])),
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\.)/'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\.)/'), [
                 'context' => ['string']
             ]),
 
@@ -66,7 +66,7 @@ class Perl extends GreedyLanguage
             ),
 
             'language.shell' => new Rule(new SubStringMatcher('`'), [
-                'context' => ['!keyword.escape', '!comment', '!string', '!keyword.nowdoc'],
+                'context' => ['!operator.escape', '!comment', '!string', '!keyword.nowdoc'],
                 'factory' => new TokenFactory(ContextualToken::class),
             ]),
 
@@ -104,7 +104,7 @@ class Perl extends GreedyLanguage
                 new Rule(new RegexMatcher('#(?=\/.*?(/[gimuy]{0,5}))#m'), [
                     'priority' => 1,
                     'factory'  => new TokenFactory(ContextualToken::class),
-                    'context'  => ['!keyword.escape', 'string.regex']
+                    'context'  => ['!operator.escape', 'string.regex']
                 ])
             ],
             

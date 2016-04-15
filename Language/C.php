@@ -43,7 +43,7 @@ class C extends GreedyLanguage
 
             'meta.newline' => new CloseRule(new RegexMatcher('/()\R/m'), [
                 'factory' => new TokenFactory(TerminatorToken::class),
-                'context' => ['!keyword.escape', '*string', '*call.preprocessor'],
+                'context' => ['!operator.escape', '*string', '*call.preprocessor'],
                 'closes'  => ['string.double', 'preprocessor'],
             ]),
 
@@ -58,7 +58,7 @@ class C extends GreedyLanguage
                 new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
             ],
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/s'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/s'), [
                 'context' => Validator::everywhere()
             ]),
 
@@ -73,7 +73,7 @@ class C extends GreedyLanguage
                     'context' => ['preprocessor']
                 ])
             ], CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!operator.escape', '!comment', '!string'],
             ])),
 
             'symbol.type' => [

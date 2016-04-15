@@ -31,7 +31,7 @@ class PowerShell extends GreedyLanguage
     {
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!operator.escape', '!comment', '!string'],
             ]),
 
             'variable' => [

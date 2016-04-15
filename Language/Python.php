@@ -73,7 +73,7 @@ class Python extends GreedyLanguage
                 ]))
             ],
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/'), [
                 'context' => Validator::everywhere()
             ]),
 
@@ -88,7 +88,7 @@ class Python extends GreedyLanguage
 
             'meta.newline' => new CloseRule(new RegexMatcher('/()\r?\n/'), [
                 'factory' => new TokenFactory(TerminatorToken::class),
-                'context' => ['!keyword.escape', 'string.single-line'],
+                'context' => ['!operator.escape', 'string.single-line'],
                 'closes'  => ['string.single-line.double', 'string.single-line.single']
             ]),
 

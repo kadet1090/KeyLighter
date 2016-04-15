@@ -69,9 +69,9 @@ class Sql extends GreedyLanguage
             
             'string'   => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
 
-            'number'         => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
-            'call'           => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => ['string']])
+            'number'          => new Rule(new RegexMatcher('/\b(-?\d+)\b/i')),
+            'call'            => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => -1]),
+            'operator.escape' => new Rule(new RegexMatcher('/(\\[\\0\'|bnrtZ%_])/'), ['context' => ['string']])
         ]);
     }
 

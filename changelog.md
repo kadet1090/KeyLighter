@@ -24,9 +24,10 @@
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`
  * Processing is now handled with `Kadet\Highlighter\Parser\Token\Token::process` method
  * `Kadet\Highlighter\Parser\Token\Token` simplified
- * Many fixes
  * `parameter` token renamed to `symbol.parameter`
  * `annotation` token renamed to `symbol.annotation`
+ * `keyword.escape` token renamed to `operator.escape`
+ * Many fixes
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`

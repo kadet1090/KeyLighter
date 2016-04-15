@@ -45,7 +45,7 @@ class JavaScript extends GreedyLanguage
     {
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
-                'context' => ['!keyword.escape', '!comment', '!string'],
+                'context' => ['!operator.escape', '!comment', '!string'],
             ]),
 
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
@@ -54,7 +54,7 @@ class JavaScript extends GreedyLanguage
 
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
 
-            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
                 'context' => ['string']
             ]),
 
@@ -84,7 +84,7 @@ class JavaScript extends GreedyLanguage
                 new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
                     'priority' => 1,
                     'factory'  => new TokenFactory(ContextualToken::class),
-                    'context'  => ['!keyword.escape', 'string.regex']
+                    'context'  => ['!operator.escape', 'string.regex']
                 ])
             ],
 
