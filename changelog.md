@@ -16,6 +16,7 @@
  * **C++** highlighting via `Kadet\Highlighter\Language\Cpp`
  * **C#** highlighting via `Kadet\Highlighter\Language\CSharp`
  * **Java** highlighting via `Kadet\Highlighter\Language\Java`
+ * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
  
  
 ### Changed
@@ -31,7 +32,7 @@
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`
  * Redundant `Kadet\Highlighter\Parser\Token\Token::$index` property
- * `start` and `end` from ``Kadet\Highlighter\Parser\Token\Token`s constructor `$option`s, now they are handled by factory
+ * `start` and `end` from `Kadet\Highlighter\Parser\Token\Token`s constructor `$option`s, now they are handled by factory
 
 ### Other
  * More tests
