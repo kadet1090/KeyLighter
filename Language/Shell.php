@@ -20,6 +20,10 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
+use Kadet\Highlighter\Parser\Token\Token;
+use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Shell extends GreedyLanguage
 {
@@ -31,7 +35,7 @@ class Shell extends GreedyLanguage
     {
         $this->rules->addMany([
             'call' => new Rule(new RegexMatcher(
-                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\||;|^|do|if|then|else|^\$\s)\s*(\w+))(?!\s*=)/im'
+                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\||;|^|do|if|then|else|\$\(|^\$\s)\s*(\w+))(?!\s*=)/im'
             ), ['priority' => 1, 'context' => ['*none', '*expression']]),
 
             'comment' => new Rule(new CommentMatcher(['#'])),
@@ -53,6 +57,20 @@ class Shell extends GreedyLanguage
             'symbol.parameter' => new Rule(new RegexMatcher('/\s(-{1,2}\w+=?)\b/i'), [
                 'priority' => 0,
                 'context'  => ['!string', '!comment', '!call']
+            ]),
+
+            'expression' => [
+                new Rule(new RegexMatcher('/(?=(\$\(((?>[^$()]+|(?1))+)\)))/x', [
+                    1 => Token::NAME,
+                ]), [
+                    'context' => Validator::everywhere(),
+                    'factory' => new TokenFactory(LanguageToken::class),
+                    'inject'  => $this
+                ]),
+            ],
+
+            'keyword.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
+                'context' => ['string']
             ]),
         ]);
     }
