@@ -16,6 +16,7 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
+use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
@@ -65,17 +66,20 @@ class JavaScript extends GreedyLanguage
             'call' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')\s*\(/iu'), ['priority' => -1]),
 
             'keyword' => new Rule(new WordMatcher([
-                'do', 'if', 'in', 'for', 'let', 'new', 'try', 'var', 'case', 'else', 'enum', 'eval', 'false',
-                'null', 'this', 'true', 'void', 'with', 'break', 'catch', 'class', 'const', 'super', 'throw',
+                'do', 'if', 'in', 'for', 'let', 'new', 'try', 'var', 'case', 'else', 'enum', 'eval',
+                'void', 'with', 'break', 'catch', 'class', 'const', 'super', 'throw',
                 'while', 'yield', 'delete', 'export', 'import', 'public', 'return', 'static', 'switch',
                 'typeof', 'default', 'extends', 'finally', 'package', 'private', 'continue', 'debugger',
                 'function', 'arguments', 'interface', 'protected', 'implements', 'instanceof', 'get', 'set', 'from'
-            ]), ['context' => ['!string', '!comment']]),
+            ]), ['context' => ['!string', '!comment', '!symbol', '!call']]),
+
+            'constant.special' => new Rule(new WordMatcher(['null', 'true', 'false'])),
+            'variable.special' => new Rule(new SubStringMatcher('this')),
 
             'number' => new Rule(new RegexMatcher('/\b(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))\b/')),
 
             'operator.punctuation' => new Rule(new WordMatcher([',', ';'], ['separated' => false]), ['priority' => 0]),
-            'operator'             => new Rule(new RegexMatcher('/(\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
+            'operator'             => new Rule(new RegexMatcher('/(=>|\+{1,2}|-{1,2}|={1,3}|\|{1,2}|&{1,2})/'), ['priority' => 0]),
 
             'string.regex' => [
                 new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m'), [
