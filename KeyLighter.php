@@ -126,5 +126,6 @@ class KeyLighter
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Python', ['python', 'py']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Python\\Django', ['django']);
         $this->registerLanguage('Kadet\\Highlighter\\Language\\Markdown', ['markdown', 'md']);
+        $this->registerLanguage('Kadet\\Highlighter\\Language\\Shell', ['shell', 'bash', 'zsh', 'sh']);
     }
 }

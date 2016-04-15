@@ -82,7 +82,7 @@ class PowerShell extends GreedyLanguage
                 'context' => ['!string', '!comment'],
             ]),
 
-            'parameter' => new Rule(new RegexMatcher('/\s(-\w+:?)\b/i'), [
+            'symbol.parameter' => new Rule(new RegexMatcher('/\s(-\w+:?)\b/i'), [
                 'priority' => 0,
                 'context'  => ['!string', '!comment', '!call']
             ]),

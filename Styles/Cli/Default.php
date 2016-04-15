@@ -11,11 +11,11 @@
     'tag'          => ['color' => 'yellow'],
     'delimiter'    => ['color' => 'light yellow', 'bold' => true],
     'call'         => ['color' => 'cyan'],
-    'parameter'    => ['color' => 'dark gray'],
     'preprocessor' => ['color' => 'dark gray'],
     'language'     => ['color' => 'default'],
     'expression'   => ['color' => 'default'],
 
+    'symbol.parameter'    => ['color' => 'dark gray'],
     'symbol.class' => ['bold'  => true],
     'symbol.type'  => ['color'  => 'light red'],
 
