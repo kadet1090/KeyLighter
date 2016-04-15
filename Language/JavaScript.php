@@ -69,7 +69,7 @@ class JavaScript extends GreedyLanguage
                 'null', 'this', 'true', 'void', 'with', 'break', 'catch', 'class', 'const', 'super', 'throw',
                 'while', 'yield', 'delete', 'export', 'import', 'public', 'return', 'static', 'switch',
                 'typeof', 'default', 'extends', 'finally', 'package', 'private', 'continue', 'debugger',
-                'function', 'arguments', 'interface', 'protected', 'implements', 'instanceof',
+                'function', 'arguments', 'interface', 'protected', 'implements', 'instanceof', 'get', 'set', 'from'
             ]), ['context' => ['!string', '!comment']]),
 
             'number' => new Rule(new RegexMatcher('/\b(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))\b/')),

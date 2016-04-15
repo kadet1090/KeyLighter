@@ -35,7 +35,7 @@ class Shell extends GreedyLanguage
     {
         $this->rules->addMany([
             'call' => new Rule(new RegexMatcher(
-                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\||;|^|do|if|then|else|\$\(|^\$\s)\s*(\w+))(?!\s*=)/im'
+                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\||;|`|^|do|if|then|else|\$\(|^\$\s)\s*(\w+))(?!\s*=)/im'
             ), ['priority' => 1, 'context' => ['*none', '*expression']]),
 
             'comment' => new Rule(new CommentMatcher(['#'])),
