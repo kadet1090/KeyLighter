@@ -41,7 +41,7 @@ class C extends GreedyLanguage
                 'while',
             ])),
 
-            'meta.newline' => new CloseRule(new RegexMatcher('/()$/m'), [
+            'meta.newline' => new CloseRule(new RegexMatcher('/()\R/m'), [
                 'factory' => new TokenFactory(TerminatorToken::class),
                 'context' => ['!keyword.escape', '*string', '*call.preprocessor'],
                 'closes'  => ['string.double', 'preprocessor'],
