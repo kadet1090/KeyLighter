@@ -148,21 +148,18 @@ mainly because I needed them for testing purposes.
 
 For example XML definition looks like this:
 ```php
-<?php
-class Xml extends Language
+class Xml extends GreedyLanguage
 {
     const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
     /**
      * Tokenization rules
-     *
-     * @return \Kadet\Highlighter\Parser\Rule[]|\Kadet\Highlighter\Parser\Rule[][]
      */
-    public function getRules()
+    public function setupRules()
     {
-        return [
+        $this->rules->addMany([
             'tag.open'  => [
-                new OpenRule(new RegexMatcher('/(<\w)/'), ['context' => ['!tag', '!comment']]),
+                new OpenRule(new RegexMatcher('/(<\w+)[:\/>:\s]/')),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
             'tag.close' => new Rule(new RegexMatcher('/(<\/(?:\w+:)?(?:[\w\.]+)>)/')),
@@ -177,20 +174,11 @@ class Xml extends Language
                 'namespace' => '$.namespace'
             ]), ['context' => ['tag', '!string']]),
 
-            'string.single' => new Rule(new SubStringMatcher('\''), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
+            'constant.entity' => new Rule(new RegexMatcher('/(&(?:\#\d+|[a-z])+;)/si')),
 
-            'string.double' => new Rule(new SubStringMatcher('"'), [
-                'context' => ['tag'],
-                'factory' => new TokenFactory(ContextualToken::class),
-            ]),
-
-            'comment' => new Rule(new CommentMatcher([], [['<!--', '-->']])),
-
-            'constant.entity' => new Rule(new RegexMatcher('/(&[a-z]+;)/si')),
-        ];
+            'comment' => new Rule(new CommentMatcher(null, [['<!--', '-->']])),
+            'string'  => CommonFeatures::strings(['single' => '\'', 'double' => '"'], ['context' => ['tag']]),
+        ]);
     }
 
     /** {@inheritdoc} */
