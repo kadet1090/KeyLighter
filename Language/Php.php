@@ -15,6 +15,7 @@
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
+use Kadet\Highlighter\Matcher\DelegateRegexMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
@@ -23,6 +24,7 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\TokenFactoryInterface;
 
 class Php extends GreedyLanguage
 {
@@ -56,10 +58,17 @@ class Php extends GreedyLanguage
 
             'symbol.class.interface' => [
                 new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
-                new Rule(new RegexMatcher('/implements\s+([\w\\\]+)(?:,\s*([\w\\\]+))*/i'), [
-                    1 => Token::NAME,
-                    2 => Token::NAME
-                ]),
+                new Rule(new DelegateRegexMatcher(
+                    '/implements\s+((?:[\w\\\]+)(?:,\s*([\w\\\]+))+)/i',
+                    function($match, TokenFactoryInterface $factory) {
+                        foreach (preg_split('/,\s*/', $match[1][0], 0, PREG_SPLIT_OFFSET_CAPTURE) as $interface) {
+                            yield $factory->create(Token::NAME, [
+                                'pos' => $match[1][1] + $interface[1],
+                                'length' => strlen($interface[0])]
+                            );
+                        }
+                    }
+                )),
             ],
 
             'symbol.namespace' => [

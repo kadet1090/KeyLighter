@@ -19,6 +19,7 @@
  * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
  * **XML** and **HTML** now highlights entities
  * **CSS** highlights web colors
+ * **PHP** Now correctly matches multiple implemented interfaces
  
 ### Changed
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`
