@@ -21,7 +21,6 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
-use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
@@ -52,7 +51,7 @@ class Shell extends GreedyLanguage
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
-            'delimiter'    => new Rule(new RegexMatcher('/^(\$)/m')),
+            'delimiter' => new Rule(new RegexMatcher('/^(\$)/m')),
 
             'symbol.parameter' => new Rule(new RegexMatcher('/\s(-{1,2}\w+=?)\b/i'), [
                 'priority' => 0,
@@ -60,9 +59,7 @@ class Shell extends GreedyLanguage
             ]),
 
             'expression' => [
-                new Rule(new RegexMatcher('/(?=(\$\(((?>[^$()]+|(?1))+)\)))/x', [
-                    1 => Token::NAME,
-                ]), [
+                new Rule(new RegexMatcher('/(?=(\$\(((?>[^$()]+|(?1))+)\)))/x'), [
                     'context' => Validator::everywhere(),
                     'factory' => new TokenFactory(LanguageToken::class),
                     'inject'  => $this

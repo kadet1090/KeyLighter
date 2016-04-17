@@ -36,7 +36,7 @@ class Php extends GreedyLanguage
     {
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
-                'context' => ['!operator.escape', '!comment', '!string'],
+                'context' => ['!operator.escape', '!comment', '!string', '!expression'],
             ]),
 
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
@@ -55,6 +55,12 @@ class Php extends GreedyLanguage
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
                 new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
             ],
+            
+            'expression.in-string' => new Rule(new RegexMatcher('/(?=(\{\$((?>[^${}]+|(?1))+)\}))/x'), [
+                'context' => ['string'],
+                'factory' => new TokenFactory(LanguageToken::class),
+                'inject'  => $this
+            ]),
 
             'symbol.class.interface' => [
                 new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
