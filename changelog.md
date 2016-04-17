@@ -20,6 +20,7 @@
  * **XML** and **HTML** now highlights entities
  * **CSS** highlights web colors
  * **PHP** Now correctly matches multiple implemented interfaces
+ * **PHP** Now matches in string expressions
  
 ### Changed
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`

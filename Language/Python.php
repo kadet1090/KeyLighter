@@ -93,7 +93,7 @@ class Python extends GreedyLanguage
             ]),
 
             'number' => new Rule(
-                new RegexMatcher('/(-?(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?)\b/')
+                new RegexMatcher('/(-?\b(?:0[bo])?(?:(?:\d|0x[\da-f])[\da-f]*\.?\d*|\.\d+)(?:e[+-]?\d+)?j?)\b/')
             ),
 
             'string' => [
