@@ -51,7 +51,7 @@ class CliFormatter implements FormatterInterface
             $result .= substr($source, $last, $token->pos - $last);
 
             if (($style = ArrayHelper::resolve($this->_styles, $token->name)) !== null) {
-                $result .= $token->isStart() ? Console::open($style) : Console::close();
+                $result .= $token->isStart() ? Console::open(is_callable($style) ? $style($token) : $style) : Console::close();
             }
 
             $last = $token->pos;

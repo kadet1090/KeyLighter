@@ -29,6 +29,7 @@
  * `parameter` token renamed to `symbol.parameter`
  * `annotation` token renamed to `symbol.annotation`
  * `keyword.escape` token renamed to `operator.escape`
+ * CLI formatting styles now accept callables
  * Many fixes
 
 ### Removed

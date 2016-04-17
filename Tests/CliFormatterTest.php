@@ -57,4 +57,25 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
         ]);
         $this->assertEquals($expected, $formatter->format($iterator));
     }
+
+    public function testCallable()
+    {
+        $source   = 'abc';
+        $expected = Console::open(['color' => 'red']).'abc'.Console::close().Console::reset();
+
+        $token    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);
+
+        $iterator = new Result($source);
+        $iterator->merge([
+            $token, $token->getEnd(),
+        ]);
+
+        $mock = $this->getMock('stdClass', ['call']);
+        $mock->expects($this->once())->method('call')->with($token)->willReturn(['color' => 'red']);
+
+        $formatter = new CliFormatter([
+            'token'    => [$mock, 'call']
+        ]);
+        $this->assertEquals($expected, $formatter->format($iterator));
+    }
 }
