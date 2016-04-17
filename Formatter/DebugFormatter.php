@@ -25,7 +25,7 @@ use Kadet\Highlighter\Utils\StringHelper;
  *
  * @package Kadet\Highlighter\Formatter
  */
-class DebugFormatter implements FormatterInterface
+class DebugFormatter extends CliFormatter implements FormatterInterface
 {
     private $_styles;
 
