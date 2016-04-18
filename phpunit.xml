@@ -12,6 +12,7 @@
             <directory suffix=".php">./Utils/</directory>
             <file>./KeyLighter.php</file>
             <file>./Language/Language.php</file>
+            <file>./Language/GreedyLanguage.php</file>
             <exclude>
                 <file>./Formatter/DebugFormatter.php</file>
                 <file>./Utils/Console.php</file>

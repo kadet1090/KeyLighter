@@ -18,6 +18,8 @@ namespace Kadet\Highlighter\Tests;
 require_once __DIR__.'/MatcherTestCase.php';
 require_once __DIR__.'/Mocks/MockLanguage.php';
 
+use Kadet\Highlighter\KeyLighter;
+use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
@@ -205,5 +207,23 @@ class LanguageTest extends MatcherTestCase
         ]);
 
         $language->parse(1.23);
+    }
+
+    public function testByName()
+    {
+        KeyLighter::get()->register(MockGreedyLanguage::class, ['name' => ['mock']]);
+        $this->assertInstanceOf(MockGreedyLanguage::class, Language::byName('mock'));
+    }
+
+    public function testByMime()
+    {
+        KeyLighter::get()->register(MockGreedyLanguage::class, ['mime' => ['text/x-mock']]);
+        $this->assertInstanceOf(MockGreedyLanguage::class, Language::byMime('text/x-mock'));
+    }
+
+    public function testByFilename()
+    {
+        KeyLighter::get()->register(MockGreedyLanguage::class, ['extension' => ['*.mock']]);
+        $this->assertInstanceOf(MockGreedyLanguage::class, Language::byFilename('file.mock'));
     }
 }

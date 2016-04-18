@@ -30,7 +30,7 @@ abstract class Language
     const EMBEDDED_BY_PARENT = 2;
     const EMBEDDED           = true;
     const NOT_EMBEDDED       = false;
-    
+
     /**
      * Parses source and removes wrong tokens.
      *
@@ -71,17 +71,17 @@ abstract class Language
      */
     public abstract function embed(Language $lang);
 
-    public static function byName($name, $params)
+    public static function byName($name, $params = [])
     {
         return KeyLighter::get()->languageByName($name, $params);
     }
 
-    public static function byMime($mime, $params)
+    public static function byMime($mime, $params = [])
     {
         return KeyLighter::get()->languageByMime($mime, $params);
     }
 
-    public static function byFileName($filename, $params)
+    public static function byFilename($filename, $params = [])
     {
         return KeyLighter::get()->languageByExt($filename, $params);
     }
