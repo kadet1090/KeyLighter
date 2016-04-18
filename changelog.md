@@ -19,8 +19,9 @@
  * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
  * **XML** and **HTML** now highlights entities
  * **CSS** highlights web colors
- * **PHP** Now correctly matches multiple implemented interfaces
  * **PHP** Now matches in string expressions
+ * `Kadet\Highlighter\Language\Language::by*` factory methods
+ * `Kadet\Highlighter\Utils\Singleton::init` singletons constructor
  
 ### Changed
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`
@@ -32,6 +33,9 @@
  * For semantic reasons `Kadet\Highlighter\Formatter\DebugFormatter` now extends `Kadet\Highlighter\Formatter\CliFormatter`
  * CLI formatting styles now accept callables
  * Many fixes
+ 
+### Fixed
+ * **PHP** Now correctly matches multiple implemented interfaces
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`

@@ -25,31 +25,86 @@ use Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage;
 
 class KeyLighterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testLanguageRegistering()
+    public function testLanguageNames()
     {
         $keylighter = new KeyLighter();
-        $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mock', 'test']);
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock', 'test']]);
 
-        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->getLanguage('mock'));
-        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->getLanguage('test'));
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByName('mock'));
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByName('test'));
+    }
 
-        $this->assertArraySubset([
+    public function testReturnsNames()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock', 'test']]);
+
+        $this->assertEquals([
             'mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
             'test' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
         ], $keylighter->registeredLanguages());
     }
 
+    public function testLanguageMimes()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mime' => ['text/x-mock', 'application/x-mock']]);
+
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByMime('text/x-mock'));
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByMime('application/x-mock'));
+    }
+
+    public function testReturnsMimeTypes()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mime' => ['text/x-mock', 'application/x-mock']]);
+
+        $this->assertEquals([
+            'text/x-mock'        => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+            'application/x-mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+        ], $keylighter->registeredLanguages('mime'));
+    }
+
+    public function testLanguageFilenames()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['extension' => ['*.mock']]);
+
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByExt('test.mock'));
+        $this->assertNotInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByExt('mock'));
+    }
+
+    public function testReturnsExtensions()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['extension' => ['*.mock', 'mck*']]);
+
+        $this->assertEquals([
+            '*.mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+            'mck*'   => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+        ], $keylighter->registeredLanguages('extension'));
+    }
+
     public function testLanguageEmbedding()
     {
         $keylighter = new KeyLighter();
-        $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mock']);
-        $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['test']);
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock']]);
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['test']]);
 
         $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->getLanguage('mock > test'));
         $this->assertContainsOnlyInstancesOf(
             'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
             $keylighter->getLanguage('mock > test')->getEmbedded()
         );
+    }
+
+    public function testDeprecatedRegistering()
+    {
+        $keylighter = new KeyLighter();
+        $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mock', 'test']);
+
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByName('mock'));
+        $this->assertInstanceOf('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', $keylighter->languageByName('test'));
     }
 
     public function testHighlighting()
@@ -70,7 +125,7 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
     public function testHighlightingWithRegisteredLanguage()
     {
         $keylighter = new KeyLighter();
-        $keylighter->registerLanguage('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mock']);
+        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock']]);
 
         $formatter = new HtmlFormatter();
 

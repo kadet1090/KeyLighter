@@ -20,6 +20,7 @@ use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
+use Kadet\Highlighter\Language\PlainText;
 use Kadet\Highlighter\Utils\Singleton;
 
 /**
@@ -36,9 +37,13 @@ class KeyLighter
     /**
      * Registered aliases
      *
-     * @var string[]
+     * @var array
      */
-    private $_languages = [];
+    private $_languages = [
+        'name'      => [],
+        'mime'      => [],
+        'extension' => []
+    ];
 
     /** @var FormatterInterface */
     private $_formatter = null;
@@ -56,20 +61,45 @@ class KeyLighter
             $name       = trim(substr($name, 0, $pos));
         }
 
-        $lang = isset($this->_languages[$name]) ? $this->_languages[$name] : 'Kadet\\Highlighter\\Language\\PlainText';
-
-        return new $lang([
+        return $this->languageByName($name, [
             'embedded' => $embedded
         ]);
     }
 
+    public function languageByName($name, $params = [])
+    {
+        return isset($this->_languages['name'][$name]) ?
+            $this->_languages['name'][$name]($params) :
+            new PlainText($params);
+    }
+
+    public function languageByMime($mime, $params = [])
+    {
+        return isset($this->_languages['mime'][$mime]) ?
+            $this->_languages['mime'][$mime]($params) :
+            new PlainText($params);
+    }
+
+    public function languageByExt($filename, $params = [])
+    {
+        foreach($this->_languages['extension'] as $mask => $class) {
+            if(fnmatch($mask, $filename)) {
+                return $class($params);
+            }
+        }
+
+        return new PlainText($params);
+    }
+
     /**
-     * @param Language|callable|string $language
-     * @param array[string]            $aliases
+     * @param callable|string $language
+     * @param array[string]   $aliases
+     *
+     * @deprecated Will be removed in 1.0
      */
     public function registerLanguage($language, $aliases)
     {
-        $this->_languages = array_merge($this->_languages, array_fill_keys($aliases, $language));
+        $this->register($language, ['name' => $aliases]);
     }
 
     public function setDefaultFormatter(FormatterInterface $formatter)
@@ -77,9 +107,11 @@ class KeyLighter
         $this->_formatter = $formatter;
     }
 
-    public function registeredLanguages()
+    public function registeredLanguages($by = 'name')
     {
-        return $this->_languages;
+        return array_map(function ($e) {
+            return get_class($e());
+        }, $this->_languages[$by]);
     }
 
     public function getDefaultFormatter()
@@ -103,29 +135,32 @@ class KeyLighter
         $this->setDefaultFormatter(
             php_sapi_name() === 'cli' ? new CliFormatter() : new HtmlFormatter()
         );
+    }
 
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Php', ['php']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Xml', ['xml', 'xaml']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Html', ['html', 'htm']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\PowerShell', ['powershell', 'posh', 'ps1']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\PlainText', ['plaintext', 'text', 'none', 'txt']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Latex', ['tex', 'latex']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Ini', ['ini', 'cfg']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\JavaScript', ['js', 'jscript', 'javascript']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Css', ['css']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Css\\Scss', ['scss']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Css\\Sass', ['sass']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Css\\Less', ['less']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql', ['sql']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Sql\\MySql', ['mysql']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Perl', ['perl']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\C', ['c']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Cpp', ['cpp', 'c++']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\CSharp', ['cs', 'csharp', 'c#']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Java', ['java']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Python', ['python', 'py']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Python\\Django', ['django']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Markdown', ['markdown', 'md']);
-        $this->registerLanguage('Kadet\\Highlighter\\Language\\Shell', ['shell', 'bash', 'zsh', 'sh']);
+    public function init()
+    {
+        foreach(include __DIR__.'/Config/aliases.php' as $alias) {
+            $class = $alias[0];
+            unset($alias[0]);
+
+            $this->register($class, $alias);
+        }
+    }
+
+    /**
+     * @param string|callable $class
+     * @param array           $options
+     */
+    public function register($class, array $options)
+    {
+        if(!is_callable($class) && is_subclass_of($class, Language::class)) {
+            $class = function($arguments = []) use ($class) {
+                return new $class($arguments);
+            };
+        }
+
+        foreach($options as $name => $values) {
+            $this->_languages[$name] = array_merge($this->_languages[$name], array_fill_keys($values, $class));
+        }
     }
 }

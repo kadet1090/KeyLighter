@@ -29,8 +29,11 @@ trait Singleton
     {
         if (!isset(self::$_instance)) {
             self::$_instance = new static();
+            self::$_instance->init();
         }
 
         return self::$_instance;
     }
+
+    public function init() {}
 }

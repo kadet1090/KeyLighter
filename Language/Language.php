@@ -14,6 +14,7 @@
  */
 namespace Kadet\Highlighter\Language;
 
+use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Tokens;
@@ -24,12 +25,12 @@ use Kadet\Highlighter\Parser\Tokens;
  *
  * @package Kadet\Highlighter\Language
  */
-interface Language
+abstract class Language
 {
     const EMBEDDED_BY_PARENT = 2;
     const EMBEDDED           = true;
     const NOT_EMBEDDED       = false;
-
+    
     /**
      * Parses source and removes wrong tokens.
      *
@@ -40,16 +41,16 @@ interface Language
      *
      * @return Tokens
      */
-    public function parse($tokens = null, $additional = [], $embedded = false);
+    public abstract function parse($tokens = null, $additional = [], $embedded = false);
 
-    public function tokenize($source, $additional = [], $offset = 0, $embedded = false);
+    public abstract function tokenize($source, $additional = [], $offset = 0, $embedded = false);
 
     /**
      * Unique language identifier, for example 'php'
      *
      * @return string
      */
-    public function getIdentifier();
+    public abstract function getIdentifier();
 
     /**
      * Language range Rule(s)
@@ -58,15 +59,30 @@ interface Language
      *
      * @return Rule|\Kadet\Highlighter\Parser\Rule[]
      */
-    public function getEnds($embedded = false);
+    public abstract function getEnds($embedded = false);
 
     /**
      * @return Language[]
      */
-    public function getEmbedded();
+    public abstract function getEmbedded();
 
     /**
      * @param Language $lang
      */
-    public function embed(Language $lang);
+    public abstract function embed(Language $lang);
+
+    public static function byName($name, $params)
+    {
+        return KeyLighter::get()->languageByName($name, $params);
+    }
+
+    public static function byMime($mime, $params)
+    {
+        return KeyLighter::get()->languageByMime($mime, $params);
+    }
+
+    public static function byFileName($filename, $params)
+    {
+        return KeyLighter::get()->languageByExt($filename, $params);
+    }
 }

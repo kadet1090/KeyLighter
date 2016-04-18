@@ -34,7 +34,7 @@ use Kadet\Highlighter\Parser\Validator\Validator;
  *
  * @package Kadet\Highlighter\Language
  */
-abstract class GreedyLanguage implements Language
+abstract class GreedyLanguage extends Language
 {
 
     /**
@@ -162,13 +162,6 @@ abstract class GreedyLanguage implements Language
             }
         }
     }
-
-    /**
-     * Unique language identifier, for example 'php'
-     *
-     * @return string
-     */
-    abstract public function getIdentifier();
 
     /**
      * Language range Rule(s)

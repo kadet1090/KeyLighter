@@ -88,7 +88,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     public function getLanguageMock() {
         return $this->getMockBuilder(Language::class)
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMockForAbstractClass();
     }
 
     /**
