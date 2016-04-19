@@ -120,7 +120,7 @@
     [
         'Kadet\\Highlighter\\Language\\Python\\Django',
         'name'      => ['django', 'jinja'],
-        'mime'      => ['application/x-django-templating', 'application/x-django-jinja'],
+        'mime'      => ['application/x-django-templating', 'application/x-jinja'],
     ],
     [
         'Kadet\\Highlighter\\Language\\Markdown',

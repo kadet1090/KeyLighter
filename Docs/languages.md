@@ -1,14 +1,15 @@
 <!-- icon: code -->
 # Languages
-There are several ways of referencing languages.
+There are several ways of creating language objects, but we can divide
+them into two basic categories:
 
 ## Directly with class name 
-Firstly you can just create new object, it's the best way if you exactly
-know language that you know to highlight and it's not dependent on any input.
+First of all you can just create new object, it's the best way if you exactly
+know language that you want to highlight and it's not dependent on any input.
 ```php
 use Kadet\Highlighter\Language;
 
-new Language\Php([options]); 
+$language = new Language\Php([options]); 
 ```
 
 ## Indirectly
@@ -18,9 +19,9 @@ kind of input, it'd be much better to use some of helper factory methods:
 ```php
 use Kadet\Highlighter\Language\Language;
 
-Language::byName('php', [options]); // with name
-Language::byMime('application/x-php', [options]); // with MIME type
-Language::byFilename('test.php', [options]); // by extension
+$language = Language::byName('php', [options]); // with name
+$language = Language::byMime('application/x-php', [options]); // with MIME type
+$language = Language::byFilename('test.php', [options]); // by extension
 ```
 
 All alias definitions can be found in [`Config/aliases.php`](../Config/aliases.php)
@@ -28,7 +29,7 @@ All alias definitions can be found in [`Config/aliases.php`](../Config/aliases.p
 ## Language reference
 
 <!-- aliasbegin -->
-Class | Name | MIME | Extension
+Class | Name | MIME | Filename
 ------|------|------|----------
 `Kadet\Highlighter\Language\Php` | `php` | `text/x-php`, `application/x-php` | `*.php`, `*.phtml`, `*.inc`, `*.php?`
 `Kadet\Highlighter\Language\Xml` | `xml`, `xaml` | `application/xml`, `text/xml` | `*.xml`, `*.xaml`
