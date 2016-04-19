@@ -3,8 +3,8 @@
 ### Added
 
  * `Kadet\Highlighter\Language\CommonFeatures` helper with common language features like string handling
- * `Kadet\Highlighter\Matcher\DelegateRegexMatcher` class that is able to 
- * `Kadet\Highlighter\Parser\Rule::setMatcher` and `Kadet\Highlighter\Parser\Rule::setMatcher` methods
+ * `Kadet\Highlighter\Matcher\DelegateRegexMatcher` class
+ * `Kadet\Highlighter\Parser\Rule::setMatcher` and `Kadet\Highlighter\Parser\Rule::getMatcher` methods
  * `Kadet\Highlighter\Parser\Context` class for storing context related information 
  * `Kadet\Highlighter\Parser\Result::getStart` method
  

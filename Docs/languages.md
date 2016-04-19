@@ -1,4 +1,4 @@
-<!-- icon: code -->
+<!-- icon: tags -->
 # Languages
 There are several ways of creating language objects, but we can divide
 them into two basic categories:
