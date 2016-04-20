@@ -122,19 +122,6 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testHighlightingWithRegisteredLanguage()
-    {
-        $keylighter = new KeyLighter();
-        $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock']]);
-
-        $formatter = new HtmlFormatter();
-
-        $this->assertEquals(
-            $formatter->format($keylighter->getLanguage('mock')->parse('if test')),
-            $keylighter->highlight('if test', 'mock', $formatter)
-        );
-    }
-
     public function testFunction()
     {
         $formatter = new HtmlFormatter();

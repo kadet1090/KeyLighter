@@ -106,7 +106,7 @@ function Show-HighlightedSource {
 
 function Get-KeyLighterLanguages {
     php $script:keylighter --languages | % {
-        if($_ -match '(\w+(?:, \w+)*)\s*=>\s*([\w\\]+)') {
+        if($_ -match '(\w+(?:, \w+)*)\s*=>\s*([^\r\n]*)') {
             New-Object psobject -Property @{
                 Aliases = $Matches[1].Trim().Split(', ', [System.StringSplitOptions]::RemoveEmptyEntries);
                 Class = $Matches[2];

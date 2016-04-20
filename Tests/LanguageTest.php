@@ -226,4 +226,18 @@ class LanguageTest extends MatcherTestCase
         KeyLighter::get()->register(MockGreedyLanguage::class, ['extension' => ['*.mock']]);
         $this->assertInstanceOf(MockGreedyLanguage::class, Language::byFilename('file.mock'));
     }
+
+    public function testReturnFQN()
+    {
+        $language = new MockGreedyLanguage([]);
+
+        $this->assertSame(MockGreedyLanguage::class, $language->getFQN());
+    }
+
+    public function testReturnFQNWithEmbedded()
+    {
+        $language = new MockGreedyLanguage(['embedded' => [new MockGreedyLanguage([])]]);
+
+        $this->assertSame(MockGreedyLanguage::class.' + '.MockGreedyLanguage::class, $language->getFQN());
+    }
 }

@@ -1,4 +1,4 @@
-<!-- icon: file-code-o -->
+<!-- icon: tags -->
 Token Types
 ===========
 

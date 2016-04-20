@@ -110,7 +110,7 @@ class KeyLighter
     public function registeredLanguages($by = 'name')
     {
         return array_map(function ($e) {
-            return get_class($e());
+            return $e([])->getFQN();
         }, $this->_languages[$by]);
     }
 
@@ -119,14 +119,9 @@ class KeyLighter
         return $this->_formatter;
     }
 
-    public function highlight($source, $language, FormatterInterface $formatter = null)
+    public function highlight($source, Language $language, FormatterInterface $formatter = null)
     {
         $formatter = $formatter ?: $this->getDefaultFormatter();
-
-        if (!$language instanceof GreedyLanguage) {
-            $language = $this->getLanguage($language);
-        }
-
         return $formatter->format($language->parse($source));
     }
 
