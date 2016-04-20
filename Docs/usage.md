@@ -63,7 +63,7 @@ $keylighter->register(
 );
 ```
 
-```
+```php
 $keylighter->register(
     function($options) {
         ...
@@ -92,7 +92,7 @@ $keylighter->register(
 ```
 
 You can reference registered languages with:
-```
+```php
 $keylighter->languageByName($name, $options = []);
 $keylighter->languageByMime($mime, $options = []);
 $keylighter->languageByExt($filename, $options = []);

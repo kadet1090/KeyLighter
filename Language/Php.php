@@ -42,7 +42,7 @@ class Php extends GreedyLanguage
             'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
             'string.nowdoc'  => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\n\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
 
-            'variable' => new Rule(new RegexMatcher('/[^\\\](\$[a-z_]\w*)/i'), [
+            'variable' => new Rule(new RegexMatcher('/(?:[^\\\]|^)(\$[a-z_]\w*)/i'), [
                 'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
             ]),
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i'), [

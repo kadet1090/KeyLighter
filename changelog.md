@@ -35,7 +35,8 @@
  * Many fixes
  
 ### Fixed
- * **PHP** Now correctly matches multiple implemented interfaces
+ * **PHP** now correctly matches multiple implemented interfaces
+ * **PHP** now correctly matches variables as first token
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`
