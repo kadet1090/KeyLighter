@@ -53,7 +53,7 @@ class Php extends GreedyLanguage
             'symbol.class'    => [
                 new Rule(new RegexMatcher('/(?:class|new|use|extends)\s+([\w\\\]+)/i')),
                 new Rule(new RegexMatcher('/([\w\\\]+)::/i')),
-                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)\s+([^\$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
+                new Rule(new RegexMatcher('/@(?:var|property(?:-read|-write)?)(?:\s+|\s+\$\w+\s+)([^$][\w\\\]+)/i'), ['context' => ['comment.docblock']]),
             ],
             
             'expression.in-string' => new Rule(new RegexMatcher('/(?=(\{\$((?>[^${}]+|(?1))+)\}))/x'), [

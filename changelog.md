@@ -37,6 +37,8 @@
 ### Fixed
  * **PHP** now correctly matches multiple implemented interfaces
  * **PHP** now correctly matches variables as first token
+ * **PHP** now correctly matches types in doc comments
+ * **PHP** now correctly handles escape sequences in single quoted strings (see #1)
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`
