@@ -231,13 +231,13 @@ class LanguageTest extends MatcherTestCase
     {
         $language = new MockGreedyLanguage([]);
 
-        $this->assertSame(MockGreedyLanguage::class, $language->getFQN());
+        $this->assertSame('mock', $language->getFQN());
     }
 
     public function testReturnFQNWithEmbedded()
     {
         $language = new MockGreedyLanguage(['embedded' => [new MockGreedyLanguage([])]]);
 
-        $this->assertSame(MockGreedyLanguage::class.' + '.MockGreedyLanguage::class, $language->getFQN());
+        $this->assertSame('mock + mock', $language->getFQN());
     }
 }

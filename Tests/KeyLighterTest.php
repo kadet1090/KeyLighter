@@ -40,8 +40,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['name' => ['mock', 'test']]);
 
         $this->assertEquals([
-            'mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
-            'test' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+            'mock' => 'mock',
+            'test' => 'mock',
         ], $keylighter->registeredLanguages());
     }
 
@@ -60,8 +60,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['mime' => ['text/x-mock', 'application/x-mock']]);
 
         $this->assertEquals([
-            'text/x-mock'        => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
-            'application/x-mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+            'text/x-mock'        => 'mock',
+            'application/x-mock' => 'mock',
         ], $keylighter->registeredLanguages('mime'));
     }
 
@@ -80,8 +80,8 @@ class KeyLighterTest extends \PHPUnit_Framework_TestCase
         $keylighter->register('Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage', ['extension' => ['*.mock', 'mck*']]);
 
         $this->assertEquals([
-            '*.mock' => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
-            'mck*'   => 'Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage',
+            '*.mock' => 'mock',
+            'mck*'   => 'mock',
         ], $keylighter->registeredLanguages('extension'));
     }
 

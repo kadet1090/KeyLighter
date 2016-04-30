@@ -89,6 +89,10 @@ abstract class Language
     public final function getFQN()
     {
         $embedded = $this->getEmbedded();
-        return get_class($this).(!empty($embedded) ? ' + '.implode(', ', array_map('get_class', $embedded)) : '');
+        return $this->getIdentifier().(
+            !empty($embedded)
+                ? ' + '.implode(', ', array_map(function(Language $e) { return $e->getIdentifier(); }, $embedded))
+                : ''
+        );
     }
 }
