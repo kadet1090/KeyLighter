@@ -135,11 +135,7 @@
         'extension' => ['*.sh', '*.zsh', '*.bash', '*.ebuild', '*.eclass', '*.exheres-0', '*.exlib', '.bashrc', 'bashrc', '.bash_*', 'bash_*', 'PKGBUILD']
     ],
     [
-        function($options) {
-            return new \Kadet\Highlighter\Language\Html(array_merge_recursive([
-                'embedded' => [new \Kadet\Highlighter\Language\Php()]
-            ], $options));
-        },
-        'name' => ['phtml']
-    ]
+        'Kadet\\Highlighter\\Language\\Http',
+        'name'      => ['http'],
+    ],
 ];
