@@ -51,7 +51,7 @@ class Http extends GreedyLanguage
 
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
-        $split = explode("\r\n\r\n", $source);
+        $split = preg_split('/\R\R/', $source, 2);
 
         $http = $split[0];
         if(isset($split[1]) && $payload = $split[1]) {
