@@ -42,14 +42,12 @@ class DelegateTokenFactoryTest extends \PHPUnit_Framework_TestCase
         $child = $this->getMockBuilder(TokenFactoryInterface::class)->getMock();
 
         $child->expects($this->once())->method('setBase')->with('token');
-        $child->expects($this->once())->method('setOffset')->with(10);
         $child->expects($this->once())->method('setClass')->with(Token::class);
         $child->expects($this->once())->method('setRule')->with($rule);
         $child->expects($this->once())->method('setType')->with(3);
 
         $factory = new DelegateTokenFactory(function() {}, $child);
         $factory->setBase('token');
-        $factory->setOffset(10);
         $factory->setClass(Token::class);
         $factory->setRule($rule);
         $factory->setType(3);

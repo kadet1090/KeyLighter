@@ -45,13 +45,6 @@ class TokenFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('token.name', $factory->create('$.name')->name);
     }
 
-    public function testOffset()
-    {
-        $factory = new TokenFactory(Token::class);
-        $factory->setOffset(10);
-        $this->assertEquals(15, $factory->create(null, ['token', 'pos' => 5])->pos);
-    }
-
     /**
      * @expectedException \InvalidArgumentException
      */
