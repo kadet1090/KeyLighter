@@ -44,8 +44,8 @@ class Markdown extends Html
 
         $this->rules->addMany([
             'format.header' => [
-                new Rule(new RegexMatcher('/^\s{0,3}(#+.+?)$/m')),
-                new Rule(new RegexMatcher('/^(.+?)^(?:-+|=+)$/m'))
+                new Rule(new RegexMatcher('/^\s{0,3}(#+[^\R]+?)$/m')),
+                new Rule(new RegexMatcher('/^([^\R]+?)^(?:-+|=+)$/m'))
             ],
             'format.italics'   => new Rule(
                 new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\n]|(?:(?P<b>[*_]{2})(?>[^*_\n]|(?&italics))*?\g{b}))+\g{i})/'), [
@@ -80,10 +80,10 @@ class Markdown extends Html
                             yield $factory->create(Token::NAME, ['pos' => $match[0][1], 'length' => strlen($match[0][0])]);
                             yield $factory->create(
                                 "language.{$lang->getIdentifier()}", [
-                                    'pos'           => $match[2][1],
-                                    'length'        => strlen($match[2][0]),
-                                    'inject'        => $lang,
-                                    'class'         => LanguageToken::class,
+                                    'pos'    => $match[2][1],
+                                    'length' => strlen($match[2][0]),
+                                    'inject' => $lang,
+                                    'class'  => LanguageToken::class,
                                 ]
                             );
                         }
