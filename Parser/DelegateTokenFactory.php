@@ -61,11 +61,6 @@ class DelegateTokenFactory implements TokenFactoryInterface
         $this->_factory->setBase($base);
     }
 
-    public function setOffset($offset)
-    {
-        $this->_factory->setOffset($offset);
-    }
-
     public function setType($type)
     {
         $this->_factory->setType($type);

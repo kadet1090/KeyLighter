@@ -61,7 +61,8 @@ class DebugFormatter extends CliFormatter implements FormatterInterface
                     Console::styled(['color' => 'yellow'], 'Open  ').
                     '['.$pos['line'].':'.$pos['pos'].'] '.
                     Console::styled(['bold' => true], $token->name).' '.
-                    Console::styled(['color' => 'blue'], get_class($token)).
+                    Console::styled(['color' => 'blue'], get_class($token)).' '.
+                    Console::styled(['color' => 'light green'], '('.(isset($token->rule->language) ? $token->rule->language->getIdentifier() : 'none').')').
                     PHP_EOL;
 
                 $level++;

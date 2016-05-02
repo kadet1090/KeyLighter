@@ -63,7 +63,7 @@ class Http extends GreedyLanguage
 
             $injected = self::byMime($mime);
             $language = $this->_embeddedFactory->create('language.'.$injected->getIdentifier(), [
-                'pos'    => $offset + strlen($http) + 4,
+                'pos'    => strlen($http) + 4 + $offset,
                 'length' => strlen($payload),
                 'inject' => $injected,
                 'rule'   => new Rule(null, [

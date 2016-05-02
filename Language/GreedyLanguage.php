@@ -108,7 +108,7 @@ abstract class GreedyLanguage extends Language
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
         return new TokenIterator(
-            $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source
+            $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source, $offset
         );
     }
 
@@ -130,9 +130,8 @@ abstract class GreedyLanguage extends Language
 
         /** @var Language $language */
         foreach ($this->_rules($embedded) as $rule) {
-            $rule->factory->setOffset($offset);
             foreach ($rule->match($source) as $token) {
-                $result->add($token);
+                $result->add($token, $offset);
             }
         }
 

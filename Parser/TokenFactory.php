@@ -27,7 +27,6 @@ class TokenFactory implements TokenFactoryInterface
     private $_class;
     private $_base;
     private $_rule;
-    private $_offset;
     private $_type = 0x3;
 
     private $_cache = [];
@@ -58,10 +57,6 @@ class TokenFactory implements TokenFactoryInterface
 
         if (!isset($params['rule'])) {
             $params['rule'] = $this->_rule;
-        }
-
-        if (isset($params['pos'])) {
-            $params['pos'] += $this->_offset;
         }
 
         if (!isset($params['class'])) {
@@ -128,14 +123,6 @@ class TokenFactory implements TokenFactoryInterface
     public function setRule($rule)
     {
         $this->_rule = $rule;
-    }
-
-    /**
-     * @param int $offset
-     */
-    public function setOffset($offset)
-    {
-        $this->_offset = $offset;
     }
 
     /**

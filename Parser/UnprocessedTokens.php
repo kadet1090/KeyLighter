@@ -22,8 +22,9 @@ class UnprocessedTokens
     private $_tokens  = [];
     private $_pending = [];
 
-    private function _push(Token $token)
+    private function _push(Token $token, $offset = 0)
     {
+        $token->pos += $offset;
         if (!isset($this->_tokens[$token->pos])) {
             $this->_tokens[$token->pos] = [];
         } else {
@@ -35,20 +36,20 @@ class UnprocessedTokens
         return $this;
     }
 
-    public function add(Token $token)
+    public function add(Token $token, $offset = 0)
     {
-        $this->_push($token);
+        $this->_push($token, $offset);
         if ($token->getEnd()) {
-            $this->_push($token->getEnd());
+            $this->_push($token->getEnd(), $offset);
         }
 
         return $this;
     }
 
-    public function batch($tokens)
+    public function batch($tokens, $offset = 0)
     {
         foreach ($tokens as $token) {
-            $this->_push($token);
+            $this->_push($token, $offset);
         }
 
         return $this;

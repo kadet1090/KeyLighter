@@ -73,9 +73,9 @@ class LanguageToken extends Token
         $this->setStart($result->getStart());
 
         if ($this->_start->postProcess) {
-            $source = substr($tokens->getSource(), $this->_start->pos, $this->_start->getLength());
+            $source = substr($tokens->getSource(), $this->_start->pos - $tokens->getOffset(), $this->_start->getLength());
             $tokens = $this->_start->inject->tokenize(
-                $source, $result, $this->_start->pos, Language::EMBEDDED_BY_PARENT
+                $source, $result->getTokens(), $this->_start->pos, Language::EMBEDDED_BY_PARENT
             );
             $result->exchangeArray($this->_start->inject->parse($tokens)->getTokens());
         }
@@ -92,4 +92,4 @@ class LanguageToken extends Token
     }
 
 
-}
+} 

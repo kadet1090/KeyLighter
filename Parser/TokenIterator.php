@@ -18,17 +18,20 @@ namespace Kadet\Highlighter\Parser;
 class TokenIterator extends \ArrayIterator implements Tokens
 {
     private $_source;
+    private $_offset;
 
     /**
      * TokenIterator constructor.
      *
      * @param array  $array
      * @param string $source
+     * @param int    $offset
      * @param int    $flags
      */
-    public function __construct(array $array, $source, $flags = 0)
+    public function __construct(array $array, $source, $offset = 0, $flags = 0)
     {
         $this->_source = $source;
+        $this->_offset = $offset;
 
         parent::__construct($array, $flags);
     }
@@ -36,6 +39,11 @@ class TokenIterator extends \ArrayIterator implements Tokens
     public function getSource()
     {
         return $this->_source;
+    }
+
+    public function getOffset()
+    {
+        return $this->_offset;
     }
 
     public function getTokens()

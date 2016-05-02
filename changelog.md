@@ -7,6 +7,7 @@
  * `Kadet\Highlighter\Parser\Rule::setMatcher` and `Kadet\Highlighter\Parser\Rule::getMatcher` methods
  * `Kadet\Highlighter\Parser\Context` class for storing context related information 
  * `Kadet\Highlighter\Parser\Result::getStart` method
+ * `$offset` argument to `Kadet\Highlighter\Parser\UnprocessedTokens` methods
  
 * * * 
  * **C** highlighting via `Kadet\Highlighter\Language\C`
@@ -32,18 +33,20 @@
  * `keyword.escape` token renamed to `operator.escape`
  * For semantic reasons `Kadet\Highlighter\Formatter\DebugFormatter` now extends `Kadet\Highlighter\Formatter\CliFormatter`
  * CLI formatting styles now accept callables
- * Many fixes
+ * Token offsetting is now handed by containers rather than factory
  
 ### Fixed
  * **PHP** now correctly matches multiple implemented interfaces
  * **PHP** now correctly matches variables as first token
  * **PHP** now correctly matches types in doc comments
  * **PHP** now correctly handles escape sequences in single quoted strings (see #1)
+ * Languages injected inside injected languages are now handled correctly
 
 ### Removed
  * `Kadet\Highlighter\Parser\GreedyParser` in favor of `Kadet\Highlighter\Parser\Token\Token::process`
  * Redundant `Kadet\Highlighter\Parser\Token\Token::$index` property
  * `start` and `end` from `Kadet\Highlighter\Parser\Token\Token`s constructor `$option`s, now they are handled by factory
+ * `Kadet\Highlighter\Parser\TokenFactory::getOffset` and `setOffset` methods
 
 ### Other
  * More tests
