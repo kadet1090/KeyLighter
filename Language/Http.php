@@ -38,7 +38,7 @@ class Http extends GreedyLanguage
     {
         $this->rules->addMany([
             'number.status'   => new Rule(new RegexMatcher('/^HTTP\/.+\s(\d+)/')),
-            'constant.status' => new Rule(new RegexMatcher('/^HTTP\/.+\s+\d+\s+([^\R]+)/')),
+            'constant.status' => new Rule(new RegexMatcher('/^HTTP\/.+\s+\d+\s+(.+?)\R/')),
 
             'call.method' => new Rule(new RegexMatcher('/^(\w+).*HTTP\//')),
             'string.path' => new Rule(new RegexMatcher('/^\w+\s(.*?)\sHTTP\//')),

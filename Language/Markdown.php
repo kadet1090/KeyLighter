@@ -44,8 +44,8 @@ class Markdown extends Html
 
         $this->rules->addMany([
             'format.header' => [
-                new Rule(new RegexMatcher('/^\s{0,3}(#+[^\R]+?)$/m')),
-                new Rule(new RegexMatcher('/^([^\R]+?)^(?:-+|=+)$/m'))
+                new Rule(new RegexMatcher('/^\s{0,3}(#+.+?)\r?$/m')),
+                new Rule(new RegexMatcher('/^([^\r\n]+?)^(?:-+|=+)\r?$/m'))
             ],
             'format.italics'   => new Rule(
                 new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\n]|(?:(?P<b>[*_]{2})(?>[^*_\n]|(?&italics))*?\g{b}))+\g{i})/'), [
