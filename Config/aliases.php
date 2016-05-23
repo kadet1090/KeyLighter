@@ -138,4 +138,10 @@
         'Kadet\\Highlighter\\Language\\Http',
         'name'      => ['http'],
     ],
+    [
+        'Kadet\\Highlighter\\Language\\Go',
+        'name'      => ['go', 'golang'],
+        'mime'      => ['text/x-go', 'application/x-go', 'text/x-golang', 'application/x-golang'],
+        'extension' => ['*.go']
+    ],
 ];
