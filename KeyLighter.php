@@ -18,7 +18,6 @@ namespace Kadet\Highlighter;
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
-use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Language\PlainText;
 use Kadet\Highlighter\Utils\Singleton;
@@ -107,10 +106,10 @@ class KeyLighter
         $this->_formatter = $formatter;
     }
 
-    public function registeredLanguages($by = 'name')
+    public function registeredLanguages($by = 'name', $class = false)
     {
-        return array_map(function ($e) {
-            return $e([])->getFQN();
+        return array_map(function ($e) use($class) {
+            return $e([])->getFQN($class);
         }, $this->_languages[$by]);
     }
 

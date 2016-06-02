@@ -86,12 +86,12 @@ abstract class Language
         return KeyLighter::get()->languageByExt($filename, $params);
     }
 
-    public final function getFQN()
+    public final function getFQN($class = false)
     {
-        $embedded = $this->getEmbedded();
-        return $this->getIdentifier().(
+        $embedded =$this->getEmbedded();
+        return  ($class ? get_class($this) : $this->getIdentifier()).(
             !empty($embedded)
-                ? ' + '.implode(', ', array_map(function(Language $e) { return $e->getIdentifier(); }, $embedded))
+                ? ' + '.implode(', ', array_map($class ? 'get_class' : function(Language $e) { return $e->getIdentifier(); }, $embedded))
                 : ''
         );
     }

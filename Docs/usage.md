@@ -1,5 +1,5 @@
 <!-- icon: lightbulb-o -->
-# Usage
+# Usage ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg?style=flat-square)
 
 **KeyLighter** is really simple to use in any kind of project. All you 
 need is simple to use `\Kadet\Highlighter\highlight` function, 
@@ -50,7 +50,7 @@ $keylighter = \Kadet\Highlighter\KeyLighter::get(); // global instance
 $keylighter = new \Kadet\Highlighter\KeyLighter(); // your own
 ```
 
-> **NOTE:** `Language::by*` factory methods covered by [this document](./languages) will always refer to global object!
+> **NOTE:** `Language::by*` factory methods covered by [this document](./languages.mdme) will always refer to global object!
 
 You can easily add your own aliases etc. for every language with these methods:
 ```php

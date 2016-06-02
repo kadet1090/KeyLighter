@@ -29,7 +29,7 @@ All alias definitions can be found in [`Config/aliases.php`](../Config/aliases.p
 ## Language reference
 
 <!-- aliasbegin -->
-Class | Name | MIME | Filename
+Class | Name | MIME | Extension
 ------|------|------|----------
 `Kadet\Highlighter\Language\Php` | `php` | `text/x-php`, `application/x-php` | `*.php`, `*.phtml`, `*.inc`, `*.php?`
 `Kadet\Highlighter\Language\Xml` | `xml`, `xaml` | `application/xml`, `text/xml` | `*.xml`, `*.xaml`
@@ -51,7 +51,9 @@ Class | Name | MIME | Filename
 `Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
 `Kadet\Highlighter\Language\Java` | `java` | `text/x-java` | `*.java`
 `Kadet\Highlighter\Language\Python` | `python`, `py` | `text/x-python`, `application/x-python` | `*.py`
-`Kadet\Highlighter\Language\Python\Django` | `django`, `jinja` | `application/x-django-templating`, `application/x-django-jinja` | none
+`Kadet\Highlighter\Language\Python\Django` | `django`, `jinja` | `application/x-django-templating`, `application/x-jinja` | none
 `Kadet\Highlighter\Language\Markdown` | `markdown`, `md` | `text/markdown` | `*.markdown`, `*.md`
 `Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
+`Kadet\Highlighter\Language\Http` | `http` | none | none
+`Kadet\Highlighter\Language\Go` | `go`, `golang` | `text/x-go`, `application/x-go`, `text/x-golang`, `application/x-golang` | `*.go`
 <!-- aliasend -->
