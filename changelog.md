@@ -18,6 +18,7 @@
  * **C#** highlighting via `Kadet\Highlighter\Language\CSharp`
  * **Java** highlighting via `Kadet\Highlighter\Language\Java`
  * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
+ * **Go** highlighting via `Kadet\Highlighter\Language\Go`
  * **XML** and **HTML** now highlights entities
  * **CSS** highlights web colors
  * **PHP** Now matches in string expressions
