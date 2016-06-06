@@ -56,4 +56,5 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
 `Kadet\Highlighter\Language\Http` | `http` | none | none
 `Kadet\Highlighter\Language\Go` | `go`, `golang` | `text/x-go`, `application/x-go`, `text/x-golang`, `application/x-golang` | `*.go`
+`Kadet\Highlighter\Language\Ruby` | `ruby` | `text/x-ruby`, `application/x-ruby` | `*.rb`, `*.rbw`, `Rakefile`, `*.rake`, `*.gemspec`, `*.rbx`, `*.duby`, `Gemfile`
 <!-- aliasend -->

@@ -144,4 +144,10 @@
         'mime'      => ['text/x-go', 'application/x-go', 'text/x-golang', 'application/x-golang'],
         'extension' => ['*.go']
     ],
+    [
+        'Kadet\\Highlighter\\Language\\Ruby',
+        'name'      => ['ruby'],
+        'mime'      => ['text/x-ruby', 'application/x-ruby'],
+        'extension' => ['*.rb', '*.rbw', 'Rakefile', '*.rake', '*.gemspec', '*.rbx', '*.duby', 'Gemfile'],
+    ],
 ];
