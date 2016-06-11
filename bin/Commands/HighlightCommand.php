@@ -55,6 +55,10 @@ class HighlightCommand extends AbstractCommand
     {
         parent::execute($input, $output);
 
+        if(!empty($input->getOption('debug')) && $output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
+            $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
+        }
+
         $filename = $input->getArgument('path');
         $language = $input->getOption('language')
             ? Language::byName($input->getOption('language'))

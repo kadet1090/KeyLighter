@@ -24,6 +24,13 @@ function Show-HighlightedSource {
         [Alias('f','Format')]
         [string]$Formatter,
 
+        [Parameter(
+            Position=2,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [Alias('d')]
+        [string[]]$Info,
+
         [Alias('s')][switch]$Silent,
 
         [Alias('v')][int]$VerboseLevel = 0
@@ -53,7 +60,11 @@ function Show-HighlightedSource {
         }
 
         if($VerboseLevel -gt 0) {
-            $params += @('-v', $VerboseLevel)
+            $params += @('-' + "v" * $VerboseLevel)
+        }
+
+        foreach($i in $Info) {
+            $params += @('-d', $i);
         }
 
         if(!$pipeline) {
@@ -79,7 +90,7 @@ function Show-HighlightedSource {
             You can use 'parent > child' syntax to indicate language embedding. For example
             'html > php' means PHP embedded in HTML.
 
-            Default: 'html > php'
+            Default: based on file extension
 
         .Parameter Formatter
             Formatter used to output highlighted file, use Get-KeyLighterFormatter to list available formatters.
@@ -94,11 +105,8 @@ function Show-HighlightedSource {
         .Parameter VerboseLevel
             Level of output verbosity.
 
-                0: No verbose, just highlighted text,
-                1: Basic informations, used Language, Formatter and File with size,
-                2: Parsing times,
-                3: Processed Token Tree
-                4: Unprocessed Tokens
+        .Parameter Info
+            Additional debug information.
 
             Default: 0
     #>
