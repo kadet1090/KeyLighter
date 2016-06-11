@@ -89,10 +89,10 @@ class Php extends GreedyLanguage
 
             'operator.escape' => [
                 new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|[^\'\\\]))/i'), [
-                    'context' => ['string.double']
+                    'context' => ['string.double', '!operator.escape']
                 ]),
                 new Rule(new RegexMatcher('/(\\\[\'\\\])/i'), [
-                    'context' => ['string']
+                    'context' => ['string', '!operator.escape']
                 ]),
             ],
 
