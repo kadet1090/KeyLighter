@@ -48,7 +48,7 @@ class Validator
             $this->_rules = [ 'none' => Validator::CONTEXT_IN_ONE_OF ];
         } else {
             foreach ($rules as $key => $rule) {
-                list($plain, $type)     = $this->_parse($rule);
+                list($plain, $type)   = $this->_parse($rule);
                 $this->_rules[$plain] = $type;
             }
         }

@@ -6,8 +6,8 @@
 ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
 [![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](http://keylighter.kadet.net/try)
 
-[![stability: stable](https://img.shields.io/badge/Public%20API-stable-green.svg?style=flat-square)](Docs/usage.nd)
-[![stability: unstable](https://img.shields.io/badge/Internal%20API-unstable-yellow.svg?style=flat-square)](Docs/extending.nd)
+[![stability: stable](https://img.shields.io/badge/Public%20API-stable-green.svg?style=flat-square)](Docs/usage.md)
+[![stability: unstable](https://img.shields.io/badge/Internal%20API-unstable-yellow.svg?style=flat-square)](Docs/extending.md)
 
 Yet another Syntax Highlighter in PHP meant to be as extensible 
 and easy to use as it only can, but with performance in mind.
