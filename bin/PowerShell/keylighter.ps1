@@ -147,8 +147,8 @@ function Get-KeyLighterLanguages {
 }
 
 function Get-KeyLighterFormatters {
-    php $script:keylighter --formatters | % {
-        if($_ -match "$script:esc\[33m(\w+)$script:esc\[0m\s+([\w\\]+)") {
+    php $script:keylighter formatters -l --no-ansi | % {
+        if($_ -match "(\w+)\s+([\w\\]+)") {
             New-Object psobject -Property @{
                 Name  = $Matches[1];
                 Class = $Matches[2];

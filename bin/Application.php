@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\bin;
 
 
+use Kadet\Highlighter\bin\Commands\FormattersCommand;
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
 use Kadet\Highlighter\bin\Commands\LanguagesCommand;
 use Kadet\Highlighter\KeyLighter;
@@ -47,7 +48,8 @@ class Application extends SymfonyApplication
     {
         return array_merge(parent::getDefaultCommands(), [
             new HighlightCommand(),
-            new LanguagesCommand()
+            new LanguagesCommand(),
+            new FormattersCommand()
         ]);
     }
 
