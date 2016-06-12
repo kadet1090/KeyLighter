@@ -17,7 +17,7 @@ namespace Kadet\Highlighter\bin\Commands;
 
 
 use Kadet\Highlighter\bin\VerboseOutput;
-    use Kadet\Highlighter\KeyLighter;
+use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -39,7 +39,7 @@ class HighlightCommand extends Command
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Output format, see <comment>list-languages</comment> command', 'cli')
             ->addOption(
                 'debug', 'd', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Debug features (only in verbose): '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->_debug))
+                'Debug features: '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->_debug))
             )
             ->setDescription('<comment>[DEFAULT]</comment> Highlights given file')
         ;
@@ -76,6 +76,7 @@ class HighlightCommand extends Command
 
     public function mergeApplicationDefinition($arguments = true)
     {
+        // Some ugly hack, because symfony/console is not very extensible :(
         parent::mergeApplicationDefinition($this->getApplication()->explicit);
     }
 

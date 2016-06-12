@@ -19,6 +19,7 @@ namespace Kadet\Highlighter\bin;
 use Kadet\Highlighter\bin\Commands\FormattersCommand;
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
 use Kadet\Highlighter\bin\Commands\LanguagesCommand;
+use Kadet\Highlighter\bin\Commands\Dev;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
@@ -49,7 +50,8 @@ class Application extends SymfonyApplication
         return array_merge(parent::getDefaultCommands(), [
             new HighlightCommand(),
             new LanguagesCommand(),
-            new FormattersCommand()
+            new FormattersCommand(),
+            new Dev\GenerateTableCommand()
         ]);
     }
 
