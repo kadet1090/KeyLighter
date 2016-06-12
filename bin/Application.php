@@ -19,24 +19,22 @@ namespace Kadet\Highlighter\bin;
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Exception\CommandNotFoundException;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends SymfonyApplication
 {
     protected function getCommandName(InputInterface $input)
     {
         $command = $input->getFirstArgument();
-        if(!$command) {
+        if(!$command && !$input->hasParameterOption('--help')) {
             return 'list';
-        }
-
-        try {
-            $this->find($command);
-
+        } elseif ($this->has($command)) {
             return $command;
-        } catch (CommandNotFoundException $e) {
+        } else {
             return 'highlight';
         }
     }
@@ -55,7 +53,7 @@ class Application extends SymfonyApplication
         $input->setOptions(array_filter($input->getOptions(), function (InputOption $option) {
             return $option->getShortcut() != 'q';
         }));
-        $input->addOption(new InputOption('no-output', 's', InputOption::VALUE_NONE, 'Disables output, useful for debug.'));
+        $input->addOption(new InputOption('no-output', 's', InputOption::VALUE_NONE, 'Disables output, useful for debug'));
 
         return $input;
     }
@@ -66,4 +64,18 @@ class Application extends SymfonyApplication
         parent::__construct('KeyLighter', KeyLighter::VERSION);
         $this->setDefaultCommand('highlight');
     }
+
+    public function run(InputInterface $input = null, OutputInterface $output = null)
+    {
+        $output = $output ?: new ConsoleOutput();
+
+        $output->getFormatter()->setStyle('command', $output->getFormatter()->getStyle('info'));
+        $output->getFormatter()->setStyle('language', new OutputFormatterStyle('magenta'));
+        $output->getFormatter()->setStyle('path', new OutputFormatterStyle('blue'));
+        $output->getFormatter()->setStyle('formatter', new OutputFormatterStyle('yellow'));
+
+        return parent::run($input, $output);
+    }
+
+
 }

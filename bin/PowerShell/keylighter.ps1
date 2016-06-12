@@ -63,17 +63,17 @@ function Show-HighlightedSource {
             $params += @('-' + "v" * $VerboseLevel)
         }
 
-        foreach($i in $Info) {
+        foreach($Info in $Info) {
             $params += @('-d', $i);
         }
 
         if(!$pipeline) {
-            php $script:keylighter $File @params;
-        } else   {
+            php $script:keylighter highlight $File @params;
+        } else {
             if($file) {
-                $source | php $keylighter php://stdin @params;
+                $source | php $keylighter highlight php://stdin @params;
             } else {
-                php $keylighter
+                php $keylighter highlight
             }
         }
     }
