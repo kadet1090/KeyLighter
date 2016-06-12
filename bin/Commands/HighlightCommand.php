@@ -17,7 +17,7 @@ namespace Kadet\Highlighter\bin\Commands;
 
 
 use Kadet\Highlighter\bin\VerboseOutput;
-use Kadet\Highlighter\KeyLighter;
+    use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
@@ -55,29 +55,7 @@ class HighlightCommand extends Command
         $formatter = KeyLighter::get()->getFormatter($input->getOption('format')) ?: KeyLighter::get()->getDefaultFormatter();
 
         foreach($input->getArgument('path') as $filename) {
-            $language = $input->getOption('language')
-                ? Language::byName($input->getOption('language'))
-                : Language::byFilename($filename);
-
-            if(!($source = $this->content($filename))) {
-                throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.', $filename));
-            }
-
-            if($output->isVerbose()) {
-                $output->writeln(sprintf(
-                    "Used file: <path>%s</path>, Language: <language>%s</language>, Formatter: <formatter>%s</formatter>",
-                    $filename, $language->getFQN(), get_class($formatter)
-                ));
-
-                $verbose = new VerboseOutput($output, $input, $language, $formatter, $source);
-                $formatted = $verbose->process();
-            } else {
-                $formatted = KeyLighter::get()->highlight($source, $language, $formatter);
-            }
-            
-            if(!$input->getOption('no-output')) {
-                $output->writeln($formatted);
-            }
+            $this->process($input, $output, $filename, $formatter);
         }
     }
 
@@ -99,5 +77,39 @@ class HighlightCommand extends Command
     public function mergeApplicationDefinition($arguments = true)
     {
         parent::mergeApplicationDefinition($this->getApplication()->explicit);
+    }
+
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @param                 $filename
+     * @param                 $formatter
+     */
+    protected function process(InputInterface $input, OutputInterface $output, $filename, $formatter)
+    {
+        $language = $input->getOption('language')
+            ? Language::byName($input->getOption('language'))
+            : Language::byFilename($filename);
+
+        if (!($source = $this->content($filename))) {
+            throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.',
+                $filename));
+        }
+
+        if ($output->isVerbose()) {
+            $output->writeln(sprintf(
+                "Used file: <path>%s</path>, Language: <language>%s</language>, Formatter: <formatter>%s</formatter>",
+                $filename, $language->getFQN(), get_class($formatter)
+            ));
+
+            $verbose   = new VerboseOutput($output, $input, $language, $formatter, $source);
+            $formatted = $verbose->process();
+        } else {
+            $formatted = KeyLighter::get()->highlight($source, $language, $formatter);
+        }
+
+        if (!$input->getOption('no-output')) {
+            $output->writeln($formatted);
+        }
     }
 }
