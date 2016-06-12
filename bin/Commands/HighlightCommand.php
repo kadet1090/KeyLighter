@@ -16,9 +16,7 @@
 namespace Kadet\Highlighter\bin\Commands;
 
 
-use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\DebugFormatter;
-use Kadet\Highlighter\Formatter\HtmlFormatter;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
@@ -26,28 +24,22 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class HighlightCommand extends Command
 {
-    protected $debug = ['time', 'detailed-time', 'count', 'tree-before', 'tree-after', 'memory'];
-    protected $formatters = [];
+    protected $_debug = ['time', 'detailed-time', 'count', 'tree-before', 'tree-after', 'memory'];
 
     protected function configure()
     {
-        $this->formatters = [
-            'html'  => new HtmlFormatter(),
-            'cli'   => new CliFormatter(),
-            'debug' => new DebugFormatter(),
-        ];
-
         $this->setName('highlight')
             ->addArgument('path', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'File(s) to highlight')
             ->addOption('language', 'l', InputOption::VALUE_OPTIONAL, 'Source Language to highlight, see <comment>list-languages</comment> command')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Output format, see <comment>list-languages</comment> command', 'cli')
             ->addOption(
                 'debug', 'd', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Debug features (only in verbose): '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->debug))
+                'Debug features (only in verbose): '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->_debug))
             )
             ->setDescription('<comment>[DEFAULT]</comment> Highlights given file')
         ;
@@ -59,14 +51,15 @@ class HighlightCommand extends Command
             $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
         }
 
+        $output->writeln($this->getApplication()->getLongVersion()."\n", Output::VERBOSITY_VERBOSE);
+
+        $debugFormatter = new DebugFormatter();
         foreach($input->getArgument('path') as $filename) {
             $language = $input->getOption('language')
                 ? Language::byName($input->getOption('language'))
                 : Language::byFilename($filename);
 
-            $formatter = isset($this->formatters[$input->getOption('format')])
-                ? $this->formatters[$input->getOption('format')]
-                : $this->formatters['cli'];
+            $formatter = KeyLighter::get()->getFormatter($input->getOption('format')) ?: KeyLighter::get()->getDefaultFormatter();
 
             if(!($source = $this->content($filename))) {
                 throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.', $filename));
@@ -75,8 +68,6 @@ class HighlightCommand extends Command
             if($output->isVerbose()) {
                 $counts = ['before' => null, 'after' => null];
                 $times  = ['tokenization' => null, 'parsing' => null, 'formatting' => null];
-
-                $output->writeln($this->getApplication()->getLongVersion()."\n");
 
                 $output->writeln(sprintf(
                     "Used file: <path>%s</path>, Language: <language>%s</language>, Formatter: <formatter>%s</formatter>",
@@ -87,14 +78,14 @@ class HighlightCommand extends Command
                 $counts['before'] = count($tokens);
                 if(in_array('tree-before', $input->getOption('debug'))) {
                     $output->writeln('<comment>Token tree before parsing: </comment>');
-                    $output->writeln($this->formatters['debug']->format(clone $tokens, false));
+                    $output->writeln($debugFormatter->format(clone $tokens, false));
                 }
 
                 $tokens    = $this->benchmark($output, function() use($language, $tokens) { return $language->parse($tokens); }, $times['parsing']);
                 $counts['after'] = count($tokens);
                 if(in_array('tree-after', $input->getOption('debug'))) {
                     $output->writeln('<comment>Token tree after parsing: </comment>');
-                    $output->writeln($this->formatters['debug']->format(clone $tokens));
+                    $output->writeln($debugFormatter->format(clone $tokens));
                 }
 
                 $formatted = $this->benchmark($output, function() use($formatter, $tokens) { return $formatter->format($tokens); }, $times['formatting']);

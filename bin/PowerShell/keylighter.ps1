@@ -8,7 +8,7 @@ function Show-HighlightedSource {
             Position=0,
             ValueFromPipeline=$true,
             parametersetname='nopipeline'
-        )][string]$File,
+        )][string[]]$File,
 
         [Parameter(
             Position=1,
@@ -63,12 +63,12 @@ function Show-HighlightedSource {
             $params += @('-' + "v" * $VerboseLevel)
         }
 
-        foreach($Info in $Info) {
+        foreach($I in $Info) {
             $params += @('-d', $i);
         }
 
         if(!$pipeline) {
-            php $script:keylighter highlight $File @params;
+            php $script:keylighter highlight @File @params;
         } else {
             if($file) {
                 $source | php $keylighter highlight php://stdin @params;
