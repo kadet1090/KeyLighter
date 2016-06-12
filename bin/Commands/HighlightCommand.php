@@ -16,7 +16,7 @@
 namespace Kadet\Highlighter\bin\Commands;
 
 
-use Kadet\Highlighter\Formatter\DebugFormatter;
+use Kadet\Highlighter\bin\VerboseOutput;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
@@ -29,7 +29,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class HighlightCommand extends Command
 {
-    protected $_debug = ['time', 'detailed-time', 'count', 'tree-before', 'tree-after', 'memory'];
+    protected $_debug = ['time', 'detailed-time', 'count', 'tree-before', 'tree-after', 'density'];
 
     protected function configure()
     {
@@ -52,75 +52,25 @@ class HighlightCommand extends Command
         }
 
         $output->writeln($this->getApplication()->getLongVersion()."\n", Output::VERBOSITY_VERBOSE);
+        $formatter = KeyLighter::get()->getFormatter($input->getOption('format')) ?: KeyLighter::get()->getDefaultFormatter();
 
-        $debugFormatter = new DebugFormatter();
         foreach($input->getArgument('path') as $filename) {
             $language = $input->getOption('language')
                 ? Language::byName($input->getOption('language'))
                 : Language::byFilename($filename);
-
-            $formatter = KeyLighter::get()->getFormatter($input->getOption('format')) ?: KeyLighter::get()->getDefaultFormatter();
 
             if(!($source = $this->content($filename))) {
                 throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.', $filename));
             }
 
             if($output->isVerbose()) {
-                $counts = ['before' => null, 'after' => null];
-                $times  = ['tokenization' => null, 'parsing' => null, 'formatting' => null];
-
                 $output->writeln(sprintf(
                     "Used file: <path>%s</path>, Language: <language>%s</language>, Formatter: <formatter>%s</formatter>",
                     $filename, $language->getFQN(), get_class($formatter)
                 ));
 
-                $tokens    = $this->benchmark($output, function() use($language, $source) { return $language->tokenize($source); }, $times['tokenization']);
-                $counts['before'] = count($tokens);
-                if(in_array('tree-before', $input->getOption('debug'))) {
-                    $output->writeln('<comment>Token tree before parsing: </comment>');
-                    $output->writeln($debugFormatter->format(clone $tokens, false));
-                }
-
-                $tokens    = $this->benchmark($output, function() use($language, $tokens) { return $language->parse($tokens); }, $times['parsing']);
-                $counts['after'] = count($tokens);
-                if(in_array('tree-after', $input->getOption('debug'))) {
-                    $output->writeln('<comment>Token tree after parsing: </comment>');
-                    $output->writeln($debugFormatter->format(clone $tokens));
-                }
-
-                $formatted = $this->benchmark($output, function() use($formatter, $tokens) { return $formatter->format($tokens); }, $times['formatting']);
-
-                if(in_array('count', $input->getOption('debug'))) {
-                    $output->writeln(sprintf(
-                        '<comment>Token count before parsing: </comment> %s (%s tokens/kB)',
-                        $counts['before'], number_format($counts['before']/strlen($source) * 1024)
-                    ));
-                    $output->writeln(sprintf(
-                        '<comment>Token count after parsing:  </comment> %s (%s tokens/kB)',
-                        $counts['after'], number_format($counts['after']/strlen($source) * 1024)
-                    ));
-                }
-
-                if(in_array('detailed-time', $input->getOption('debug'))) {
-                    $output->writeln(sprintf(
-                        '<info>Time taken</info>  [s]       <comment>tokenization</comment>/<comment>parsing</comment>/<comment>formatting</comment>: %.4f / %.4f / %.4f',
-                        $times['tokenization'], $times['parsing'], $times['formatting']
-                    ));
-
-                    $output->writeln(sprintf(
-                        '<info>Performance</info> [chars/s] <comment>tokenization</comment>/<comment>parsing</comment>/<comment>formatting</comment>: %s / %s / %s',
-                        number_format(strlen($source) / $times['tokenization']),
-                        number_format(strlen($source) / $times['parsing']),
-                        number_format(strlen($source) / $times['formatting'])
-                    ));
-                }
-
-                if(in_array('time', $input->getOption('debug'))) {
-                    $output->writeln(sprintf(
-                        '<info>Overall:</info> %.4fs, %s chars/s',
-                        array_sum($times), number_format(strlen($source) / array_sum($times))
-                    ));
-                }
+                $verbose = new VerboseOutput($output, $input, $language, $formatter, $source);
+                $formatted = $verbose->process();
             } else {
                 $formatted = KeyLighter::get()->highlight($source, $language, $formatter);
             }
@@ -144,14 +94,6 @@ class HighlightCommand extends Command
         fclose($file);
 
         return $content;
-    }
-
-    protected function benchmark(OutputInterface $output, callable $callable, &$time = null) {
-        $start = microtime(true);
-        $return = $callable();
-        $time = microtime(true) - $start;
-
-        return $return;
     }
 
     public function mergeApplicationDefinition($arguments = true)
