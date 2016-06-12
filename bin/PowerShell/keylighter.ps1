@@ -25,7 +25,7 @@ function Show-HighlightedSource {
         [string]$Formatter,
 
         [Parameter(
-            Position=2,
+            Position=3,
             ValueFromPipelineByPropertyName=$true
         )]
         [Alias('d')]
@@ -113,8 +113,17 @@ function Show-HighlightedSource {
 }
 
 function Get-KeyLighterLanguages {
-    php $script:keylighter --languages | % {
-        if($_ -match '(\w+(?:, \w+)*)\s*=>\s*([^\r\n]*)') {
+    param(
+        [Parameter(
+            Position=0,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [ValidateSet('name', 'mime', 'extension')]
+        [string] $By = 'name'
+    )
+
+    php $script:keylighter languages $by -c --no-ansi -l | % {
+        if($_ -match '([^\s,]+(?:, [^\s,]+)*)\s*([^\r\n]*)') {
             New-Object psobject -Property @{
                 Aliases = $Matches[1].Trim().Split(', ', [System.StringSplitOptions]::RemoveEmptyEntries);
                 Class = $Matches[2];

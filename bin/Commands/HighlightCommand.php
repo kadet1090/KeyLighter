@@ -165,8 +165,6 @@ class HighlightCommand extends Command
 
     public function mergeApplicationDefinition($arguments = true)
     {
-        parent::mergeApplicationDefinition(false);
+        parent::mergeApplicationDefinition($this->getApplication()->explicit);
     }
-
-
 }

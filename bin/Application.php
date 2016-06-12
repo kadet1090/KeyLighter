@@ -21,7 +21,6 @@ use Kadet\Highlighter\bin\Commands\LanguagesCommand;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -29,6 +28,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Application extends SymfonyApplication
 {
+    public $explicit = true;
+
     protected function getCommandName(InputInterface $input)
     {
         $command = $input->getFirstArgument();
@@ -37,6 +38,7 @@ class Application extends SymfonyApplication
         } elseif ($this->has($command)) {
             return $command;
         } else {
+            $this->explicit = false;
             return 'highlight';
         }
     }

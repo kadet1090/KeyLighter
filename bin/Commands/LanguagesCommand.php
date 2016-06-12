@@ -19,7 +19,6 @@ namespace Kadet\Highlighter\bin\Commands;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -34,8 +33,9 @@ class LanguagesCommand extends Command
     {
         $this->setName('languages')
             ->addArgument('by', InputArgument::OPTIONAL, 'Alias type, one of '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->types)), 'name')
-            ->addOption('no-group', 'g', InputOption::VALUE_NONE, 'Don\'t group languages by type')
+            ->addOption('no-group', 'g', InputOption::VALUE_NONE, 'Do not group languages by type')
             ->addOption('classes', 'c', InputOption::VALUE_NONE, 'Return fully qualified class names instead of identifiers')
+            ->addOption('headerless', 'l', InputOption::VALUE_NONE, 'Output table without headers, useful for parsing')
             ->setDescription('Lists available languages')
         ;
     }
@@ -45,8 +45,11 @@ class LanguagesCommand extends Command
         $languages = KeyLighter::get()->registeredLanguages($input->getArgument('by'), $input->getOption('classes'));
 
         $table = new Table($output);
-        $table->setColumnStyle(0, new TableStyle());
-        $table->setHeaders([ucfirst($input->getArgument('by')), $input->getOption('classes') ? 'Class name' : 'Language']);
+
+        if(!$input->getOption('headerless')) {
+            $table->setHeaders([ucfirst($input->getArgument('by')), $input->getOption('classes') ? 'Class name' : 'Language']);
+        }
+
         $table->setRows(array_map(function($language) {
             return [
                 implode(', ', array_map(function ($f) { return "<comment>{$f}</comment>"; }, $language['aliases'])),
@@ -54,7 +57,7 @@ class LanguagesCommand extends Command
             ];
         }, $input->getOption('no-group') ? $this->processNonGrouped($languages) : $this->processGrouped($languages)));
 
-        $table->setStyle('borderless');
+        $table->setStyle($input->getOption('headerless') ? 'compact' : 'borderless');
         $table->render();
     }
 
