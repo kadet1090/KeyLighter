@@ -17,9 +17,11 @@ namespace Kadet\Highlighter\bin;
 
 
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
+use Kadet\Highlighter\bin\Commands\LanguagesCommand;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -42,14 +44,14 @@ class Application extends SymfonyApplication
     protected function getDefaultCommands()
     {
         return array_merge(parent::getDefaultCommands(), [
-            new HighlightCommand()
+            new HighlightCommand(),
+            new LanguagesCommand()
         ]);
     }
 
     protected function getDefaultInputDefinition()
     {
         $input = parent::getDefaultInputDefinition();
-        $input->setArguments();
         $input->setOptions(array_filter($input->getOptions(), function (InputOption $option) {
             return $option->getShortcut() != 'q';
         }));

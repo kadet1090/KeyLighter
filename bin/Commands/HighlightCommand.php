@@ -162,4 +162,11 @@ class HighlightCommand extends Command
 
         return $return;
     }
+
+    public function mergeApplicationDefinition($arguments = true)
+    {
+        parent::mergeApplicationDefinition(false);
+    }
+
+
 }
