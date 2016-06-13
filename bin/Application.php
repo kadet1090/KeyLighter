@@ -51,7 +51,8 @@ class Application extends SymfonyApplication
             new HighlightCommand(),
             new LanguagesCommand(),
             new FormattersCommand(),
-            new Dev\GenerateTableCommand()
+            new Dev\GenerateTableCommand(),
+            new Dev\GenerateAliasesCommand(),
         ]);
     }
 
