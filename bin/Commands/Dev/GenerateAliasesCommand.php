@@ -85,7 +85,7 @@ class GenerateAliasesCommand extends Command
         if ($reflection->isAbstract()) {
             $output->writeln(sprintf(
                 '<language>%s</language> is abstract, skipping...',
-                $reflection->getName()
+                $reflection->name
             ), OutputInterface::VERBOSITY_VERBOSE);
             return false;
         }
@@ -93,20 +93,20 @@ class GenerateAliasesCommand extends Command
         if (!$reflection->isSubclassOf(Language::class)) {
             $output->writeln(sprintf(
                 '<language>%s</language> is not Language, skipping...',
-                $reflection->getName()
+                $reflection->name
             ), OutputInterface::VERBOSITY_VERBOSE);
             return false;
         }
 
-        if ($reflection->getMethod('getAliases')->getDeclaringClass()->getName() !== $reflection->getName()) {
+        if ($reflection->getMethod('getAliases')->getDeclaringClass()->name !== $reflection->name) {
             $output->writeln(sprintf(
                 '<language>%s</language>::<info>getAliases</info> is not declared, skipping...',
-                $reflection->getName()
+                $reflection->name
             ), OutputInterface::VERBOSITY_VERBOSE);
             return false;
         }
 
-        $result = array_merge([$reflection->getName()], call_user_func([$reflection->getName(), 'getAliases']));
+        $result = array_merge([$reflection->name], call_user_func([$reflection->name, 'getAliases']));
         $output->writeln(var_export($result, true), OutputInterface::VERBOSITY_VERBOSE);
 
         return $result;

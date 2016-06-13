@@ -54,16 +54,10 @@ class GenerateTableCommand extends Command
     protected function generate()
     {
         $result = [];
-        foreach(KeyLighter::get()->registeredLanguages('name', true) as $name => $class) {
-            $result[$class]['name'][] = $name;
-        }
-
-        foreach(KeyLighter::get()->registeredLanguages('mime', true) as $name => $class) {
-            $result[$class]['mime'][] = $name;
-        }
-
-        foreach(KeyLighter::get()->registeredLanguages('extension', true) as $name => $class) {
-            $result[$class]['extension'][] = $name;
+        foreach(['name', 'mime', 'extension'] as $what) {
+            foreach(KeyLighter::get()->registeredLanguages($what, true) as $name => $class) {
+                $result[$class][$what][] = $name;
+            }
         }
 
         $return  =  'Class | Name | MIME | Extension'.PHP_EOL;
