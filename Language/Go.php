@@ -71,4 +71,13 @@ class Go extends GreedyLanguage
     {
         return 'go';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['go', 'golang'],
+            'mime'      => ['text/x-go', 'application/x-go', 'text/x-golang', 'application/x-golang'],
+            'extension' => ['*.go']
+        ];
+    }
 }

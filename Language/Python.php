@@ -135,4 +135,13 @@ class Python extends GreedyLanguage
     {
         return 'python';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['python', 'py'],
+            'mime'      => ['text/x-python', 'application/x-python'],
+            'extension' => ['*.py']
+        ];
+    }
 }

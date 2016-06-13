@@ -64,4 +64,13 @@ class CSharp extends C
     {
         return 'csharp';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['CSharp', 'C#'],
+            'mime'      => ['text/x-csharp'],
+            'extension' => ['*.cs']
+        ];
+    }
 }

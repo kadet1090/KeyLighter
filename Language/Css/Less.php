@@ -38,4 +38,13 @@ class Less extends PreProcessor
     {
         return 'less';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['less'],
+            'mime'      => ['text/x-less'],
+            'extension' => ['*.less']
+        ];
+    }
 }

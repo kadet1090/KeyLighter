@@ -28,4 +28,12 @@ class PlainText extends GreedyLanguage
     {
         return 'plaintext';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['plaintext', 'text', 'none'],
+            'mime'      => ['text/plain']
+        ];
+    }
 }

@@ -134,4 +134,13 @@ class Perl extends GreedyLanguage
             ])
         ];
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['perl'],
+            'mime'      => ['text/x-perl', 'application/x-perl'],
+            'extension' => ['*.pl', '*.pm', '*.t']
+        ];
+    }
 }

@@ -80,4 +80,13 @@ class Sql extends GreedyLanguage
     {
         return 'sql';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['sql'],
+            'mime'      => ['text/x-sql'],
+            'extension' => ['*.sql']
+        ];
+    }
 }

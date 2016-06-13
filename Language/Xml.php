@@ -60,4 +60,13 @@ class Xml extends GreedyLanguage
     {
         return 'xml';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['xml', 'xaml'],
+            'mime'      => ['application/xml', 'text/xml'],
+            'extension' => ['*.xml', '*.xaml']
+        ];
+    }
 }

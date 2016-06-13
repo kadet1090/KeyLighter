@@ -81,4 +81,13 @@ class Shell extends GreedyLanguage
     {
         return 'shell';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['shell', 'bash', 'zsh', 'sh'],
+            'mime'      => ['text/x-shellscript', 'application/x-shellscript'],
+            'extension' => ['*.sh', '*.zsh', '*.bash', '*.ebuild', '*.eclass', '*.exheres-0', '*.exlib', '.bashrc', 'bashrc', '.bash_*', 'bash_*', 'PKGBUILD']
+        ];
+    }
 }

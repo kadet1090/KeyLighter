@@ -64,4 +64,13 @@ class Html extends Xml
     {
         return 'html';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['html'],
+            'mime'      => ['text/html'],
+            'extension' => ['*.html', '*.htm']
+        ];
+    }
 }

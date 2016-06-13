@@ -116,4 +116,13 @@ class PowerShell extends GreedyLanguage
     {
         return 'PowerShell';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['powershell', 'posh'],
+            'mime'      => ['text/x-powershell', 'application/x-powershell'],
+            'extension' => ['*.ps1', '*.psm1', '*.psd1']
+        ];
+    }
 }

@@ -66,4 +66,12 @@ class MySql extends Sql
     {
         return 'mysql';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['mysql'],
+            'mime'      => ['text/x-mysql'],
+        ];
+    }
 }

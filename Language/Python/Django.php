@@ -100,4 +100,12 @@ class Django extends GreedyLanguage
     {
         return 'python.django';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['django', 'jinja'],
+            'mime'      => ['application/x-django-templating', 'application/x-jinja'],
+        ];
+    }
 }

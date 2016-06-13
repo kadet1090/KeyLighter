@@ -93,4 +93,11 @@ class Http extends GreedyLanguage
     {
         return 'http';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['http'],
+        ];
+    }
 }

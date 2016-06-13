@@ -121,4 +121,13 @@ class Markdown extends Html
     {
         return 'markdown';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['markdown', 'md'],
+            'mime'      => ['text/markdown'],
+            'extension' => ['*.markdown', '*.md']
+        ];
+    }
 }
