@@ -200,6 +200,9 @@ $ phpunit
 ## Roadmap
 There are still few things to do, you can find all on [trello](https://trello.com/b/9I4CO0Te/highlighter).
 
+## Contributing
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+
 ## Thanks
 For [Maciej](https://github.com/ksiazkowicz), [Maciej](https://github.com/sobak) and Monika for all support, moral too.
 
