@@ -35,17 +35,11 @@ $ composer global require kadet/keylighter
 ```
 Then you can use builtin simple cli highlighting app:
 ```bash
-$ keylighter [options] file
-Options:
-        -l, --language       language    Source Language to highlight, default: html > php,
-        -f, --format         format      Formatter used to highlight source, for example: html, default: cli,
-        -h, --help                       This screen,
-        -v, --verbose        level       Verbose mode,
-        -lf, --formatters                List available formatters,
-        -ll, --languages                 List available languages,
-        -s, --silent                     No output.
+$ keylighter [command = highlight] [-l|--language [LANGUAGE]] [-f|--format [FORMAT]] [-d|--debug [DEBUG]] [--]  <path>...
 ```
-If you want pipe into **KeyLighter** just specify `php://stdin` as file.
+If you want pipe into **KeyLighter** just specify `php://stdin` as path. You can use `list` command to 
+see all available commands, and `--help` argument for detailed help. You don't have to specify `highlight`
+command explicitly. 
 
 ### PowerShell
 You're using PowerShell on Windows? Cool! **KeyLighter** comes with integrated PowerShell module that makes CLI usage even better. Just import module (For example in profile), and you're ready to go.
@@ -54,7 +48,7 @@ You're using PowerShell on Windows? Cool! **KeyLighter** comes with integrated P
 PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighter.psd1"
 ```
 
-To use autocompletion features you will need to have PowerShell v5 (Comes with windows 10) or install [TabExpansion++](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
+To use autocompletion features you will need PowerShell v5 (Comes with windows 10) or install [TabExpansion++](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
 
 ![Powershell Support](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-19_21-44-54-a2.png)
 
@@ -105,17 +99,15 @@ Every token is placed inside it's own `span` so it can be easily styled with css
 pre > span.variable { color: #F7750D; }
 ```
 #### Your own?
-You can always write your own Formatter and use it for outputting data,
-I will describe writing formatters on wiki soon™.
-
+It's easy to write your own formatters. Documentation coming soon.
 
 ### Context sensitive
-Some of tokens are valid in some contexts, some not. This library
+Some of tokens are valid in some contexts, some are not. This library
 is context sensitive and you can define when they are valid.
 
-In this case context mean just "inside of other token",
+In this case, context mean just "inside of other token",
 for example lets assume that `string` token is defined
-as everything from " to next " and `keyword` is
+as everything from " to the next " and `keyword` is
 defined as 'sit' substring.
 
 ```js
@@ -137,15 +129,12 @@ So as you can see `keyword` is inside of `string`,
 and therefore is not valid and should be deleted.
 You can define tokens valid only in some context, or invalid in other.
 
-Oh, and token names are cascade it means that `string.single` is `string`,
-but `string` is not `string.single`.
-
-Token validation rules will be described on wiki soon™.
+Oh, and token names cascade, it means that `string.single` is `string`,
+but `string` is necessarily not `string.single`.
 
 ### Write your own language definitions easily
-One of my main goals was ability to easily add new language definitions.
-Currently only supported languages are PHP and XML,
-mainly because I needed them for testing purposes.
+It's possible to easily extend `KeyLighter` with new languages,
+more detailed documentation coming soon.
 
 For example XML definition looks like this:
 ```php
@@ -190,8 +179,7 @@ class Xml extends GreedyLanguage
 }
 ```
 
-I will try to write as many definitions as I only can,
-but any PRs are welcome.
+I will try to write as many definitions as I only can, but any PRs are welcome.
 
 ### Embedding languages
 Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in  *php* and so on. **KeyLighter** can handle and highlight embedded languages without any problem.
@@ -202,8 +190,6 @@ Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in
 Even though it wasn't supposed to be fastest code highlighter in PHP
 it is still quite fast, up to few times faster than [GeSHi](http://geshi.org/).
 It performs best on PHP 7 (more than 2x faster than GeSHi in every case).
-
-You can find more about performance in [wiki](https://github.com/kadet1090/KeyLighter/wiki/Performance).
 
 ## Testing ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
 **KeyLighter** uses `phpunit` for testing:
