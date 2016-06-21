@@ -39,6 +39,8 @@ class VerboseOutput
 
     /** @var DebugFormatter */
     private $_debug;
+    /** @var FormatterInterface */
+    private $_formatter;
 
     /**
      * VerboseOutput constructor.
