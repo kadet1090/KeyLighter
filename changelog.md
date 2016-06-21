@@ -8,6 +8,10 @@
  * `Kadet\Highlighter\Parser\Context` class for storing context related information 
  * `Kadet\Highlighter\Parser\Result::getStart` method
  * `$offset` argument to `Kadet\Highlighter\Parser\UnprocessedTokens` methods
+ * `Kadet\Highlighter\Language\Language::by*` factory methods
+ * `Kadet\Highlighter\Language\Language::getAliases*` static method, for language metadata
+ * `Kadet\Highlighter\Utils\Singleton::init` singletons constructor
+ * `dev:generate-table` and `dev:aliases` commands for cli application
  
 * * * 
  * **C** highlighting via `Kadet\Highlighter\Language\C`
@@ -19,11 +23,10 @@
  * **Java** highlighting via `Kadet\Highlighter\Language\Java`
  * **shell**/**bash**/**zsh** highlighting via `Kadet\Highlighter\Language\Shell`
  * **Go** highlighting via `Kadet\Highlighter\Language\Go`
+ * **Ruby** highlighting via `Kadet\Highlighter\Language\Ruby`
  * **XML** and **HTML** now highlights entities
  * **CSS** highlights web colors
- * **PHP** Now matches in string expressions
- * `Kadet\Highlighter\Language\Language::by*` factory methods
- * `Kadet\Highlighter\Utils\Singleton::init` singletons constructor
+ * **PHP** and few others, matches in-string expressions
  
 ### Changed
  * `Kadet\Highlighter\Parser\Result::__constructor($source, $tokens)` -> `Kadet\Highlighter\Parser\Result::__constructor($source, Token $start)`
@@ -35,6 +38,8 @@
  * For semantic reasons `Kadet\Highlighter\Formatter\DebugFormatter` now extends `Kadet\Highlighter\Formatter\CliFormatter`
  * CLI formatting styles now accept callables
  * Token offsetting is now handed by containers rather than factory
+ * Completely rewritten console application - Now it's based on `symfony/console`
+ * Console application now determines language based on filename
  
 ### Fixed
  * **PHP** now correctly matches multiple implemented interfaces

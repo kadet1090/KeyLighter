@@ -95,4 +95,18 @@ abstract class Language
                 : ''
         );
     }
+
+    /**
+     * Aliases of given language, used for aliases.php file generation.
+     *
+     * @return array
+     */
+    public static function getAliases()
+    {
+        return [
+            'name'      => [],
+            'mime'      => [],
+            'extension' => [],
+        ];
+    }
 }

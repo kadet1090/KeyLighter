@@ -39,4 +39,13 @@ class Scss extends PreProcessor
     {
         return 'scss';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['scss'],
+            'mime'      => ['text/x-scss'],
+            'extension' => ['*.scss']
+        ];
+    }
 }

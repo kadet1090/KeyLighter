@@ -27,6 +27,11 @@ if (file_exists(__DIR__ . '/../../../autoload.php')) {
     require __DIR__.'/../vendor/autoload.php';
 }
 
+$app = new \Kadet\Highlighter\bin\Application();
+$app->run();
+
+exit;
+
 $title = Console::styled(['color' => 'yellow'], 'KeyLighter ').'v'.\Kadet\Highlighter\KeyLighter::VERSION.' by Kadet';
 $formatters = [
     'html' => new \Kadet\Highlighter\Formatter\HtmlFormatter(),
@@ -219,6 +224,7 @@ if($verbose > 1) {
 
     if(function_exists('xdebug_peak_memory_usage')) {
         echo Console::styled(['color' => 'green'], 'Max memory usage: ').number_format(xdebug_peak_memory_usage()/1024/1024, 4).' MBytes'.PHP_EOL;
+
     }
 
     echo PHP_EOL;

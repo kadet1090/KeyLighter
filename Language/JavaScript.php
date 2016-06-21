@@ -101,4 +101,13 @@ class JavaScript extends GreedyLanguage
     {
         return 'javascript';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['js', 'jscript', 'javascript'],
+            'mime'      => ['application/javascript', 'application/x-javascript', 'text/x-javascript', 'text/javascript'],
+            'extension' => ['*.js', '*.jsx'],
+        ];
+    }
 }

@@ -140,4 +140,13 @@ class Css extends GreedyLanguage
 
         return $validator;
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['css'],
+            'mime'      => ['text/css'],
+            'extension' => ['*.css']
+        ];
+    }
 }

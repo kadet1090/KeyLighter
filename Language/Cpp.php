@@ -54,4 +54,13 @@ class Cpp extends C
     {
         return 'cpp';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['cpp', 'c++'],
+            'mime'      => ['text/x-c++src', 'text/x-c++hdr'],
+            'extension' => ['*.cpp', '*.hpp', '*.hxx', '*.cxx', '*.cc', '*.hh']
+        ];
+    }
 }

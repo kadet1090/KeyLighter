@@ -8,7 +8,7 @@ function Show-HighlightedSource {
             Position=0,
             ValueFromPipeline=$true,
             parametersetname='nopipeline'
-        )][string]$File,
+        )][string[]]$File,
 
         [Parameter(
             Position=1,
@@ -23,6 +23,13 @@ function Show-HighlightedSource {
         )]
         [Alias('f','Format')]
         [string]$Formatter,
+
+        [Parameter(
+            Position=3,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [Alias('d')]
+        [string[]]$Info,
 
         [Alias('s')][switch]$Silent,
 
@@ -53,16 +60,20 @@ function Show-HighlightedSource {
         }
 
         if($VerboseLevel -gt 0) {
-            $params += @('-v', $VerboseLevel)
+            $params += @('-' + "v" * $VerboseLevel)
+        }
+
+        foreach($I in $Info) {
+            $params += @('-d', $i);
         }
 
         if(!$pipeline) {
-            php $script:keylighter $File @params;
-        } else   {
+            php $script:keylighter highlight @File @params;
+        } else {
             if($file) {
-                $source | php $keylighter php://stdin @params;
+                $source | php $keylighter highlight php://stdin @params;
             } else {
-                php $keylighter
+                php $keylighter highlight
             }
         }
     }
@@ -79,7 +90,7 @@ function Show-HighlightedSource {
             You can use 'parent > child' syntax to indicate language embedding. For example
             'html > php' means PHP embedded in HTML.
 
-            Default: 'html > php'
+            Default: based on file extension
 
         .Parameter Formatter
             Formatter used to output highlighted file, use Get-KeyLighterFormatter to list available formatters.
@@ -94,19 +105,25 @@ function Show-HighlightedSource {
         .Parameter VerboseLevel
             Level of output verbosity.
 
-                0: No verbose, just highlighted text,
-                1: Basic informations, used Language, Formatter and File with size,
-                2: Parsing times,
-                3: Processed Token Tree
-                4: Unprocessed Tokens
+        .Parameter Info
+            Additional debug information.
 
             Default: 0
     #>
 }
 
 function Get-KeyLighterLanguages {
-    php $script:keylighter --languages | % {
-        if($_ -match '(\w+(?:, \w+)*)\s*=>\s*([^\r\n]*)') {
+    param(
+        [Parameter(
+            Position=0,
+            ValueFromPipelineByPropertyName=$true
+        )]
+        [ValidateSet('name', 'mime', 'extension')]
+        [string] $By = 'name'
+    )
+
+    php $script:keylighter languages $by -c --no-ansi -l | % {
+        if($_ -match '([^\s,]+(?:, [^\s,]+)*)\s*([^\r\n]*)') {
             New-Object psobject -Property @{
                 Aliases = $Matches[1].Trim().Split(', ', [System.StringSplitOptions]::RemoveEmptyEntries);
                 Class = $Matches[2];
@@ -130,8 +147,8 @@ function Get-KeyLighterLanguages {
 }
 
 function Get-KeyLighterFormatters {
-    php $script:keylighter --formatters | % {
-        if($_ -match "$script:esc\[33m(\w+)$script:esc\[0m\s+([\w\\]+)") {
+    php $script:keylighter formatters -l --no-ansi | % {
+        if($_ -match "(\w+)\s+([\w\\]+)") {
             New-Object psobject -Property @{
                 Name  = $Matches[1];
                 Class = $Matches[2];

@@ -111,4 +111,13 @@ class Ruby extends GreedyLanguage
     {
         return 'ruby';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['ruby'],
+            'mime'      => ['text/x-ruby', 'application/x-ruby'],
+            'extension' => ['*.rb', '*.rbw', 'Rakefile', '*.rake', '*.gemspec', '*.rbx', '*.duby', 'Gemfile'],
+        ];
+    }
 }

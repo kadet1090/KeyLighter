@@ -101,4 +101,13 @@ class C extends GreedyLanguage
     {
         return 'c';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['c'],
+            'mime'      => ['text/x-csrc', 'text/x-chdr'],
+            'extension' => ['*.c', '*.h', '*.idc']
+        ];
+    }
 }

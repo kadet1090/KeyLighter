@@ -44,6 +44,8 @@ class KeyLighter
         'extension' => []
     ];
 
+    private $_formatters = [];
+
     /** @var FormatterInterface */
     private $_formatter = null;
 
@@ -118,6 +120,21 @@ class KeyLighter
         return $this->_formatter;
     }
 
+    public function addFormatter($name, FormatterInterface $formatter)
+    {
+        $this->_formatters[$name] = $formatter;
+    }
+
+    public function getFormatter($name)
+    {
+        return isset($this->_formatters[$name]) ? $this->_formatters[$name] : false;
+    }
+
+    public function registeredFormatters()
+    {
+        return $this->_formatters;
+    }
+
     public function highlight($source, Language $language, FormatterInterface $formatter = null)
     {
         $formatter = $formatter ?: $this->getDefaultFormatter();
@@ -139,6 +156,8 @@ class KeyLighter
 
             $this->register($class, $alias);
         }
+
+        $this->_formatters = include __DIR__.'/Config/formatters.php';
     }
 
     /**

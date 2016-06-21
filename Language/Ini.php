@@ -41,4 +41,13 @@ class Ini extends GreedyLanguage
     {
         return 'ini';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['ini'],
+            'mime'      => ['text/x-ini', 'text/inf'],
+            'extension' => ['*.ini', '*.cfg', '*.inf']
+        ];
+    }
 }

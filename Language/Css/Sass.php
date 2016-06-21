@@ -68,4 +68,13 @@ class Sass extends Scss
     {
         return 'sass';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['sass'],
+            'mime'      => ['text/x-sass'],
+            'extension' => ['*.sass']
+        ];
+    }
 }

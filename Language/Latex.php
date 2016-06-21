@@ -82,4 +82,13 @@ class Latex extends GreedyLanguage
     {
         return 'latex';
     }
+
+    public static function getAliases()
+    {
+        return [
+            'name'      => ['tex', 'latex'],
+            'mime'      => ['application/x-tex', 'application/x-latex'],
+            'extension' => ['*.tex', '*.aux', '*.toc']
+        ];
+    }
 }
