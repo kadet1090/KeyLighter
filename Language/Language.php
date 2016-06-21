@@ -34,7 +34,7 @@ abstract class Language
     /**
      * Parses source and removes wrong tokens.
      *
-     * @param TokenIterator|string $tokens
+     * @param Tokens|string $tokens
      *
      * @param array                $additional
      * @param bool                 $embedded
@@ -100,6 +100,8 @@ abstract class Language
      * Aliases of given language, used for aliases.php file generation.
      *
      * @return array
+     *
+     * @codeCoverageIgnore
      */
     public static function getAliases()
     {
