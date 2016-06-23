@@ -44,7 +44,7 @@ class CSharp extends C
         ]));
 
         $this->rules->addMany([
-            'symbol.class'          => new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*[*&]\s*)\w+\s*[={}();,]/')),
+            'symbol.class'          => new Rule(new RegexMatcher('/(\w+)(?:\s+)\w+\s*[={}();,]/')),
             'symbol.class.template' => new Rule(new RegexMatcher('/(\w+)\s*<.*?>/')),
             'variable.special'      => new Rule(new RegexMatcher('/\b(this)\b/')),
             'constant.special'      => new Rule(new WordMatcher(['true', 'false', 'null'])),
