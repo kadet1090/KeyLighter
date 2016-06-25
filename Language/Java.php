@@ -48,6 +48,7 @@ class Java extends CSharp // evil
         return [
             'name'      => ['java'],
             'mime'      => ['text/x-java'],
-            'extension' => ['*.java']        ];
+            'extension' => ['*.java']
+        ];
     }
 }
