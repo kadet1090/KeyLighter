@@ -31,7 +31,7 @@ class KeyLighter
 {
     use Singleton;
 
-    const VERSION = '0.8.0-dev';
+    const VERSION = '0.8.0';
 
     /**
      * Registered aliases

@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased [0.8.0]
+## 25.06.2016 [0.8.0]
 ### Added
 
  * `Kadet\Highlighter\Language\CommonFeatures` helper with common language features like string handling
