@@ -89,7 +89,7 @@ class HighlightCommand extends Command
     protected function process(InputInterface $input, OutputInterface $output, $filename, $formatter)
     {
         $language = $input->getOption('language')
-            ? Language::byName($input->getOption('language'))
+            ? KeyLighter::get()->getLanguage($input->getOption('language'))
             : Language::byFilename($filename);
 
         if (!($source = $this->content($filename))) {
