@@ -1,7 +1,8 @@
 # Changelog
-## Unreleased [0.8.1]
+## 07.07.2016 [0.8.1]
 ### Fixed
  * Matching **XML** tags with `-` char
+ * `parent > injected` language syntax in CLI application
 
 ## 25.06.2016 [0.8.0]
 ### Added
