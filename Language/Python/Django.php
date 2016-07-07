@@ -16,6 +16,7 @@
 namespace Kadet\Highlighter\Language\Python;
 
 
+use Kadet\Highlighter\Language\CommonFeatures;
 use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
@@ -40,7 +41,8 @@ class Django extends GreedyLanguage
             'delimiter'   => new Rule(new RegexMatcher('/((\{[{%]|[%}]\}))/')),
             'variable'    => new Rule(new RegexMatcher('/\{\{\s*([a-z]\w*)/')),
             'call'        => new Rule(new RegexMatcher('/\{\{.*?\|([a-z]\w*)/')),
-            'keyword.tag' => new Rule(new RegexMatcher('/{%\s*([a-z]\w*)/')),
+            'call.template-tag' => new Rule(new RegexMatcher('/{%\s*([a-z]\w*)/')),
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
         ]);
     }
 
