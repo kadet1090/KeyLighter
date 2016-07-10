@@ -42,7 +42,9 @@ class Django extends GreedyLanguage
             'variable'    => new Rule(new RegexMatcher('/\{\{\s*([a-z]\w*)/')),
             'call'        => new Rule(new RegexMatcher('/\{\{.*?\|([a-z]\w*)/')),
             'call.template-tag' => new Rule(new RegexMatcher('/{%\s*([a-z]\w*)/')),
-            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
+            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
+                'context' => ['!string', '!comment']
+            ]),
         ]);
     }
 
@@ -103,11 +105,13 @@ class Django extends GreedyLanguage
         return 'python.django';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
-            'name'      => ['django', 'jinja'],
-            'mime'      => ['application/x-django-templating', 'application/x-jinja'],
+            'name'       => ['django', 'jinja'],
+            'mime'       => ['application/x-django-templating', 'application/x-jinja'],
+            'standalone' => false,
+            'injectable' => true
         ];
     }
 }

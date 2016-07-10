@@ -24,7 +24,8 @@ $language = Language::byMime('application/x-php', [options]); // with MIME type
 $language = Language::byFilename('test.php', [options]); // by extension
 ```
 
-All alias definitions can be found in [`Config/aliases.php`](../Config/aliases.php)
+All alias definitions can be found in [`Config/metadata.php`](../Config/metadata.php)
+> **NOTE**: This is computer generated file
 
 ## Language reference
 

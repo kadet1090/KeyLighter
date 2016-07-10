@@ -1,4 +1,11 @@
 # Changelog
+## Unreleased [0.9.0]
+## Added
+ * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
+
+## Changed
+ * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
+ 
 ## 07.07.2016 [0.8.1]
 ### Fixed
  * Matching **XML** tags with `-` char
@@ -14,7 +21,7 @@
  * `Kadet\Highlighter\Parser\Result::getStart` method
  * `$offset` argument to `Kadet\Highlighter\Parser\UnprocessedTokens` methods
  * `Kadet\Highlighter\Language\Language::by*` factory methods
- * `Kadet\Highlighter\Language\Language::getAliases*` static method, for language metadata
+ * `Kadet\Highlighter\Language\Language::getAliases` static method, for language metadata
  * `Kadet\Highlighter\Utils\Singleton::init` singletons constructor
  * `dev:generate-table` and `dev:aliases` commands for cli application
  

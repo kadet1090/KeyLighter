@@ -55,7 +55,7 @@ class Cpp extends C
         return 'cpp';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['cpp', 'c++'],

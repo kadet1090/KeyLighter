@@ -65,7 +65,7 @@ class Html extends Xml
         return 'html';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['html'],

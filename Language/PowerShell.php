@@ -117,7 +117,7 @@ class PowerShell extends GreedyLanguage
         return 'PowerShell';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['powershell', 'posh'],

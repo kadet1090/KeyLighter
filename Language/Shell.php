@@ -82,7 +82,7 @@ class Shell extends GreedyLanguage
         return 'shell';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['shell', 'bash', 'zsh', 'sh'],

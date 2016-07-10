@@ -65,7 +65,7 @@ class CSharp extends C
         return 'csharp';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['CSharp', 'C#'],

@@ -29,7 +29,7 @@ class PlainText extends GreedyLanguage
         return 'plaintext';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['plaintext', 'text', 'none'],

@@ -81,7 +81,7 @@ class Sql extends GreedyLanguage
         return 'sql';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['sql'],

@@ -67,7 +67,7 @@ class MySql extends Sql
         return 'mysql';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['mysql'],

@@ -17,6 +17,8 @@
       1 => '*.h',
       2 => '*.idc',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   1 => 
   array (
@@ -40,6 +42,8 @@
       4 => '*.cc',
       5 => '*.hh',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   2 => 
   array (
@@ -57,6 +61,8 @@
     array (
       0 => '*.cs',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   3 => 
   array (
@@ -73,6 +79,8 @@
     array (
       0 => '*.less',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   4 => 
   array (
@@ -89,6 +97,8 @@
     array (
       0 => '*.sass',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   5 => 
   array (
@@ -105,6 +115,8 @@
     array (
       0 => '*.scss',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   6 => 
   array (
@@ -121,6 +133,8 @@
     array (
       0 => '*.css',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   7 => 
   array (
@@ -141,6 +155,8 @@
     array (
       0 => '*.go',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   8 => 
   array (
@@ -158,6 +174,8 @@
       0 => '*.html',
       1 => '*.htm',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   9 => 
   array (
@@ -166,6 +184,14 @@
     array (
       0 => 'http',
     ),
+    'mime' => 
+    array (
+    ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   10 => 
   array (
@@ -185,6 +211,8 @@
       1 => '*.cfg',
       2 => '*.inf',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   11 => 
   array (
@@ -201,6 +229,8 @@
     array (
       0 => '*.java',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   12 => 
   array (
@@ -223,6 +253,8 @@
       0 => '*.js',
       1 => '*.jsx',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   13 => 
   array (
@@ -243,6 +275,8 @@
       1 => '*.aux',
       2 => '*.toc',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   14 => 
   array (
@@ -261,6 +295,8 @@
       0 => '*.markdown',
       1 => '*.md',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   15 => 
   array (
@@ -280,6 +316,8 @@
       1 => '*.pm',
       2 => '*.t',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   16 => 
   array (
@@ -300,6 +338,8 @@
       2 => '*.inc',
       3 => '*.php?',
     ),
+    'standalone' => true,
+    'injectable' => true,
   ),
   17 => 
   array (
@@ -314,6 +354,11 @@
     array (
       0 => 'text/plain',
     ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   18 => 
   array (
@@ -334,6 +379,8 @@
       1 => '*.psm1',
       2 => '*.psd1',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   19 => 
   array (
@@ -348,6 +395,11 @@
       0 => 'application/x-django-templating',
       1 => 'application/x-jinja',
     ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => false,
+    'injectable' => true,
   ),
   20 => 
   array (
@@ -366,6 +418,8 @@
     array (
       0 => '*.py',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   21 => 
   array (
@@ -390,6 +444,8 @@
       6 => '*.duby',
       7 => 'Gemfile',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   22 => 
   array (
@@ -421,6 +477,8 @@
       10 => 'bash_*',
       11 => 'PKGBUILD',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   23 => 
   array (
@@ -433,6 +491,11 @@
     array (
       0 => 'text/x-mysql',
     ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   24 => 
   array (
@@ -449,6 +512,8 @@
     array (
       0 => '*.sql',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
   25 => 
   array (
@@ -468,5 +533,7 @@
       0 => '*.xml',
       1 => '*.xaml',
     ),
+    'standalone' => true,
+    'injectable' => false,
   ),
 );

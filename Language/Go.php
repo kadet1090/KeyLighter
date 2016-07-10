@@ -72,7 +72,7 @@ class Go extends GreedyLanguage
         return 'go';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['go', 'golang'],

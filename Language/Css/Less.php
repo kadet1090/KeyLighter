@@ -39,7 +39,7 @@ class Less extends PreProcessor
         return 'less';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['less'],

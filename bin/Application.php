@@ -52,7 +52,7 @@ class Application extends SymfonyApplication
             new LanguagesCommand(),
             new FormattersCommand(),
             new Dev\GenerateTableCommand(),
-            new Dev\GenerateAliasesCommand(),
+            new Dev\GenerateMetadataCommand(),
         ]);
     }
 

@@ -42,7 +42,7 @@ class Ini extends GreedyLanguage
         return 'ini';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['ini'],

@@ -122,7 +122,7 @@ class Markdown extends Html
         return 'markdown';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['markdown', 'md'],

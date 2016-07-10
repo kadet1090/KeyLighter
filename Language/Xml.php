@@ -61,7 +61,7 @@ class Xml extends GreedyLanguage
         return 'xml';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['xml', 'xaml'],

@@ -141,7 +141,7 @@ class Css extends GreedyLanguage
         return $validator;
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['css'],

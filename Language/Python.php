@@ -136,7 +136,7 @@ class Python extends GreedyLanguage
         return 'python';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['python', 'py'],

@@ -165,12 +165,13 @@ class Php extends GreedyLanguage
         return 'php';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['php'],
             'mime'      => ['text/x-php', 'application/x-php'],
             'extension' => ['*.php', '*.phtml', '*.inc', '*.php?'],
+            'injectable' => true
         ];
     }
 }

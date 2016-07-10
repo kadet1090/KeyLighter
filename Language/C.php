@@ -102,7 +102,7 @@ class C extends GreedyLanguage
         return 'c';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['c'],

@@ -102,7 +102,7 @@ class JavaScript extends GreedyLanguage
         return 'javascript';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['js', 'jscript', 'javascript'],

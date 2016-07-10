@@ -94,7 +94,7 @@ class Http extends GreedyLanguage
         return 'http';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['http'],

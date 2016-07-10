@@ -135,7 +135,7 @@ class Perl extends GreedyLanguage
         ];
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['perl'],

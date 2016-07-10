@@ -22,7 +22,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GenerateAliasesCommand extends Command
+class GenerateMetadataCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -30,7 +30,7 @@ class GenerateAliasesCommand extends Command
             $output->writeln($this->generate($output));
         } else {
             file_put_contents(
-                __DIR__ . '/../../../Config/aliases.php',
+                __DIR__ . '/../../../Config/metadata.php',
                 '<?php return '.$this->generate($output).';'
             );
         }
@@ -39,8 +39,8 @@ class GenerateAliasesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('dev:aliases')
-            ->setDescription('Generates Config/aliases.php file')
+            ->setName('dev:metadata')
+            ->setDescription('Generates Config/metadata.php file')
             ->addOption('dry', 'd', InputOption::VALUE_NONE, 'Dry run (output to stdout instead of file)')
         ;
     }
@@ -98,7 +98,7 @@ class GenerateAliasesCommand extends Command
             return false;
         }
 
-        if ($reflection->getMethod('getAliases')->getDeclaringClass()->name !== $reflection->name) {
+        if ($reflection->getMethod('getMetadata')->getDeclaringClass()->name !== $reflection->name) {
             $output->writeln(sprintf(
                 '<language>%s</language>::<info>getAliases</info> is not declared, skipping...',
                 $reflection->name
@@ -106,7 +106,10 @@ class GenerateAliasesCommand extends Command
             return false;
         }
 
-        $result = array_merge([$reflection->name], call_user_func([$reflection->name, 'getAliases']));
+        $result = array_merge(
+            [$reflection->name], // Class name
+            array_replace(Language::getMetadata(), call_user_func([$reflection->name, 'getMetadata'])) // metadata with default values
+        );
         $output->writeln(var_export($result, true), OutputInterface::VERBOSITY_VERBOSE);
 
         return $result;

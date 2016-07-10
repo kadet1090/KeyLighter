@@ -69,7 +69,7 @@ class Sass extends Scss
         return 'sass';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['sass'],

@@ -43,7 +43,7 @@ class Java extends CSharp // evil
         return 'java';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['java'],

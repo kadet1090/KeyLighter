@@ -112,7 +112,7 @@ class Ruby extends GreedyLanguage
         return 'ruby';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['ruby'],

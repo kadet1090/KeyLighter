@@ -16,7 +16,6 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Tokens;
 
 
@@ -103,12 +102,14 @@ abstract class Language
      *
      * @codeCoverageIgnore
      */
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => [],
             'mime'      => [],
             'extension' => [],
+            'standalone' => true,
+            'injectable' => false
         ];
     }
 }

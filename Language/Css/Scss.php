@@ -40,7 +40,7 @@ class Scss extends PreProcessor
         return 'scss';
     }
 
-    public static function getAliases()
+    public static function getMetadata()
     {
         return [
             'name'      => ['scss'],

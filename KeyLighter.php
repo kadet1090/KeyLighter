@@ -150,7 +150,7 @@ class KeyLighter
 
     public function init()
     {
-        foreach(include __DIR__.'/Config/aliases.php' as $alias) {
+        foreach(include __DIR__.'/Config/metadata.php' as $alias) {
             $class = $alias[0];
             unset($alias[0]);
 
@@ -172,7 +172,7 @@ class KeyLighter
             };
         }
 
-        foreach($options as $name => $values) {
+        foreach(array_intersect_key($options, array_flip(['name', 'mime', 'extension'])) as $name => $values) {
             $this->_languages[$name] = array_merge($this->_languages[$name], array_fill_keys($values, $class));
         }
     }
