@@ -63,7 +63,7 @@ class Django extends GreedyLanguage
                     'language' => $this
                 ]),
             ],
-            'tag' => [
+            'template-tag' => [
                 new OpenRule(new SubStringMatcher('{%'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'inject'   => $this,
