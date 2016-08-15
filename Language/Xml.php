@@ -64,9 +64,9 @@ class Xml extends GreedyLanguage
     public static function getMetadata()
     {
         return [
-            'name'      => ['xml', 'xaml'],
+            'name'      => ['xml'],
             'mime'      => ['application/xml', 'text/xml'],
-            'extension' => ['*.xml', '*.xaml']
+            'extension' => ['*.xml']
         ];
     }
 }

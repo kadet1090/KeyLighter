@@ -2,10 +2,12 @@
 ## Unreleased [0.9.0]
 ## Added
  * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
+ * **XAML** highlighting via `Kadet\Highlighter\Language\Xaml` instead of using **XML**
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
  
+
 ## 07.07.2016 [0.8.1]
 ### Fixed
  * Matching **XML** tags with `-` char

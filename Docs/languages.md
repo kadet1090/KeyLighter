@@ -57,5 +57,6 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
 `Kadet\Highlighter\Language\Sql\MySql` | `mysql` | `text/x-mysql` | none
 `Kadet\Highlighter\Language\Sql` | `sql` | `text/x-sql` | `*.sql`
-`Kadet\Highlighter\Language\Xml` | `xml`, `xaml` | `application/xml`, `text/xml` | `*.xml`, `*.xaml`
+`Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
+`Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
 <!-- aliasend -->

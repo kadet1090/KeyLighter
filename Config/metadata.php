@@ -517,11 +517,27 @@
   ),
   25 => 
   array (
+    0 => 'Kadet\\Highlighter\\Language\\Xaml',
+    'name' => 
+    array (
+      0 => 'xaml',
+    ),
+    'mime' => 
+    array (
+    ),
+    'extension' => 
+    array (
+      0 => '*.xaml',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  26 => 
+  array (
     0 => 'Kadet\\Highlighter\\Language\\Xml',
     'name' => 
     array (
       0 => 'xml',
-      1 => 'xaml',
     ),
     'mime' => 
     array (
@@ -531,7 +547,6 @@
     'extension' => 
     array (
       0 => '*.xml',
-      1 => '*.xaml',
     ),
     'standalone' => true,
     'injectable' => false,
