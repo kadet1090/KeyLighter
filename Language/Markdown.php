@@ -45,15 +45,15 @@ class Markdown extends Html
         $this->rules->addMany([
             'format.header' => [
                 new Rule(new RegexMatcher('/^\s{0,3}(#+.+?)\r?$/m')),
-                new Rule(new RegexMatcher('/^([^\r\n]+?)^(?:-+|=+)\r?$/m'))
+                new Rule(new RegexMatcher('/^([^\R]+?)^(?:-+|=+)\R?$/m'))
             ],
             'format.italics'   => new Rule(
-                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\n]|(?:(?P<b>[*_]{2})(?>[^*_\n]|(?&italics))*?\g{b}))+\g{i})/'), [
+                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\R]|(?:(?P<b>[*_]{2})(?>[^*_\R]|(?&italics))*?\g{b}))+\g{i})/'), [
                     'italics' => Token::NAME
                 ]
             ),
             'format.bold'  => new Rule(
-                new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\n]|(?:(?P<i>[*_]{2})(?>[^*_\n]|(?&bold))*?\g{i}))+\g{b})/', [
+                new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\R]|(?:(?P<i>[*_]{2})(?>[^*_\R]|(?&bold))*?\g{i}))+\g{b})/', [
                     'bold' => Token::NAME
                 ])
             ),
@@ -61,7 +61,7 @@ class Markdown extends Html
             'format.monospace' => [
                 new Rule(new RegexMatcher('/(?:[^`]|^)(`.*?`)/')),
                 new Rule(new RegexMatcher('/(``.*?``)/')),
-                new Rule(new RegexMatcher('/^((?:(?: {4,}|\t).*?(?>\n|$)+?)+)/m')),
+                new Rule(new RegexMatcher('/^((?:(?: {4,}|\t).*?(?>\R|$)+?)+)/m')),
             ],
 
             'operator.list.ordered'   => new Rule(new RegexMatcher('/^\s*(\d+[.)])/m')),
@@ -70,11 +70,11 @@ class Markdown extends Html
                 'priority' => 1
             ]),
 
-            'string.quote'       => new Rule(new RegexMatcher('/((?:^>.*?\n)+)/m')),
+            'string.quote'       => new Rule(new RegexMatcher('/((?:^>.*?\R)+)/m')),
             'format.block.code'  => [
                 new Rule(
                     new DelegateRegexMatcher(
-                        '/^```(.*?)\r?\n(.*?)\r?\n^```/ms',
+                        '/^```(.*?)\R(.*?)\R^```/ms',
                         function($match, TokenFactoryInterface $factory) {
                             $lang = KeyLighter::get()->getLanguage($match[1][0]);
                             yield $factory->create(Token::NAME, ['pos' => $match[0][1], 'length' => strlen($match[0][0])]);
@@ -97,7 +97,7 @@ class Markdown extends Html
 
             'operator.escape' => new Rule(new RegexMatcher('/(\\\.)/')),
 
-            'operator.horizontal' => new Rule(new RegexMatcher('/^\s{,3}(([-*_])( ?\2)+)$/m'), [
+            'operator.horizontal' => new Rule(new RegexMatcher('/^\s{,3}(([-*_])( ?\2)+)\R/m'), [
                 'priority' => 2
             ]),
 

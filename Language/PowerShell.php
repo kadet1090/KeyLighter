@@ -58,7 +58,7 @@ class PowerShell extends GreedyLanguage
             'variable.scope' => new Rule(null, ['context' => ['*variable']]),
 
             'comment'             => new Rule(new CommentMatcher(['#'], [['<#', '#>']])),
-            'keyword.doc-section' => new Rule(new RegexMatcher('/[\s\n](\.\w+)/i'), [
+            'keyword.doc-section' => new Rule(new RegexMatcher('/[\s\R](\.\w+)/i'), [
                 'context' => ['comment']
             ]),
 
@@ -104,7 +104,7 @@ class PowerShell extends GreedyLanguage
             ],
 
             'call' => new Rule(new RegexMatcher(
-                '/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter|^PS>)\s*((?:\w+\\\)?\w[\w-\.]+)/im'
+                '/(?<![^`]`)(?<=\R|\{|\(|\}|\||=|;|^|function|filter|^PS>)\s*((?:\w+\\\)?\w[\w-\.]+)/im'
             ), ['priority' => 2]),
 
             'delimiter.prompt' => new Rule(new RegexMatcher('/^(PS>)/im'), ['priority' => 4]),

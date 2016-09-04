@@ -84,7 +84,7 @@ class Ruby extends GreedyLanguage
                 new Rule(new RegexMatcher("/($function)\\s*\\(/i"), ['priority' => 2]),
                 new Rule(new RegexMatcher(
                     // fixme: expression handling smth[blah].func
-                    "/(?<![^\\\\]\\\\)(?<=\\n|\\{|\\(|\\}|\\|\\||or|&&|and|=|;)\\s*(?:\\w+(?:::|\\.))?($function)(?:[\\h\r]*\$|\\h+['\":\\w])/im"
+                    "/(?<![^\\\\]\\\\)(?<=\\R|\\{|\\(|\\}|\\|\\||or|&&|and|=|;)\\s*(?:\\w+(?:::|\\.))?($function)(?:[\\h\r]*\$|\\h+['\":\\w])/im"
                 ), ['priority' => 0]),
             ],
             'symbol' => [

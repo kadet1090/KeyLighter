@@ -59,7 +59,7 @@ class Perl extends GreedyLanguage
             ]),
 
             'string.nowdoc'  => new Rule(
-                new RegexMatcher('/<<\s*\'(\w+)\';(?P<string>.*?)\n\1/sm', [
+                new RegexMatcher('/<<\s*\'(\w+)\';(?P<string>.*?)\R\1/sm', [
                     'string' => Token::NAME,
                           0  => 'keyword.nowdoc'
                 ]), ['context' => ['!comment']]

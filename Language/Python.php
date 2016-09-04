@@ -86,7 +86,7 @@ class Python extends GreedyLanguage
             ],
             'call' => new Rule(new RegexMatcher('/([a-z_]\w*)\s*\(/i'), ['priority' => 2]),
 
-            'meta.newline' => new CloseRule(new RegexMatcher('/()\r?\n/'), [
+            'meta.newline' => new CloseRule(new RegexMatcher('/()\R/'), [
                 'factory' => new TokenFactory(TerminatorToken::class),
                 'context' => ['!operator.escape', 'string.single-line'],
                 'closes'  => ['string.single-line.double', 'string.single-line.single']
