@@ -104,7 +104,7 @@ class PowerShell extends GreedyLanguage
             ],
 
             'call' => new Rule(new RegexMatcher(
-                '/(?<![^`]`)(?<=\R|\{|\(|\}|\||=|;|^|function|filter|^PS>)\s*((?:\w+\\\)?\w[\w-\.]+)/im'
+                '/(?<![^`]`)(?<=\n|\{|\(|\}|\||=|;|^|function|filter|^PS>)\s*((?:\w+\\\)?\w[\w-\.]+)/im'
             ), ['priority' => 2]),
 
             'delimiter.prompt' => new Rule(new RegexMatcher('/^(PS>)/im'), ['priority' => 4]),
