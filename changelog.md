@@ -7,6 +7,9 @@
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
  
+### Fixed
+ * **Jhava** now correctly matches it's primitive types 
+ 
 ## 16.09.2016 [0.8.2]
 ### Fixed
  * Fixed (#2)[https://github.com/kadet1090/KeyLighter/issues/2] - `symfony/console` is now suggested dependency 
