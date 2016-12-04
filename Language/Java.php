@@ -33,7 +33,7 @@ class Java extends CSharp // evil
             'interface', 'static', 'class', 'finally', 'strictfp', 'volatile', 'const', 'native', 'super', 'while'
         ]));
 
-        $this->rules->rule('symbol.type')->setMatcher(new WordMatcher([
+        $this->rules->rule('symbol.type', 1)->setMatcher(new WordMatcher([
             'boolean', 'byte', 'char', 'short', 'int', 'long', 'float', 'double', 'void'
         ]));
 
