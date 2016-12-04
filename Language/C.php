@@ -85,12 +85,14 @@ class C extends GreedyLanguage
                 new Rule(new CommentMatcher(['//'], [['/*', '*/']]), ['priority' => 2])
             ],
 
-            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*(?:->|\.)\s*([a-z_]\w*))/')),
+            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*(?:->|\.)\s*([a-z_]\w*))/'), ['priority' => 0]),
 
             'number' => new Rule(new RegexMatcher('/\b(-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)[ful]*)\b/i')),
-            'operator' => new Rule(new RegexMatcher('/([*&])/'), [
-                'priority' => 0
-            ]),
+            'operator' => [
+                'punctuation' => new Rule(new RegexMatcher('/([;,])/'), ['priority' => 0]),
+                new Rule(new RegexMatcher('/([*&])/'), ['priority' => 0]),
+                new Rule(new RegexMatcher('/([!+\-\/*&|^<>=]{1,2}=?)/'), ['priority' => 0])
+            ],
         ]);
     }
 
