@@ -8,7 +8,8 @@
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
  
 ### Fixed
- * **Jhava** now correctly matches it's primitive types 
+ * **Java** now correctly matches it's primitive types 
+ * **PHP** now correctly matches multi-line comments
  
 ## 16.09.2016 [0.8.2]
 ### Fixed

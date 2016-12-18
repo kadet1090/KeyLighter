@@ -46,7 +46,8 @@ class Php extends GreedyLanguage
                 'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
             ]),
             'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*->([a-z_]\w*))/i'), [
-                'priority' => -2
+                'priority' => -2,
+                'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
             ]),
 
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
@@ -98,7 +99,7 @@ class Php extends GreedyLanguage
 
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 '$.docblock' => ['/**', '*/'],
-                ['/* ', '*/']
+                ['/*', '*/']
             ])),
 
             'symbol.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
