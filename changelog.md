@@ -10,6 +10,7 @@
 ### Fixed
  * **Java** now correctly matches it's primitive types 
  * **PHP** now correctly matches multi-line comments
+ * **XML** now correctly matches closing tags with `-`
  
 ## 16.09.2016 [0.8.2]
 ### Fixed

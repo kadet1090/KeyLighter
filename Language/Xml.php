@@ -36,7 +36,7 @@ class Xml extends GreedyLanguage
                 new OpenRule(new RegexMatcher('/(<[\w\.-]+)[:\/>:\s]/')),
                 new CloseRule(new SubStringMatcher('>'), ['context' => ['!string', '!comment']])
             ],
-            'tag.close' => new Rule(new RegexMatcher('/(<\/(?:[\w\.-]+:)?(?:[\w\.]+)>)/')),
+            'tag.close' => new Rule(new RegexMatcher('/(<\/' . self::IDENTIFIER . '>)/')),
 
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
                 'name'      => Token::NAME,
