@@ -95,7 +95,7 @@ class Rule
     /**
      * @param $source
      *
-     * @return Token[]
+     * @return Token[]|\Iterator
      */
     public function match($source)
     {

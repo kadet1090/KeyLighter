@@ -11,6 +11,7 @@
  * **Java** now correctly matches it's primitive types 
  * **PHP** now correctly matches multi-line comments
  * **XML** now correctly matches closing tags with `-`
+ * **Java** fix #4 - class names in declarations and instantiations are now highlighted correctly
  
 ## 16.09.2016 [0.8.2]
 ### Fixed
