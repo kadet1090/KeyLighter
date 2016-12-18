@@ -1,0 +1,72 @@
+// colors:
+$foreground: #737373;
+$background: #F5F6FF;
+
+$color-variable: #336699;
+$color-call:     #793962;
+$color-keyword:  #669940;
+
+pre.keylighter {
+  background: $background;
+  padding:    0.5em;
+
+  .language,
+  .expression,
+  .tag { color: $foreground; font-weight: normal; }
+
+  .comment {
+    color: #4F5B94;
+    &.docblock { color: #475484 }
+  }
+
+  .constant.special,
+  .call { color: $color-call }
+
+  .number {
+    color: #F89721;
+  }
+
+  .variable {
+    color: $color-variable;
+    &.property { color: lighten($color-variable, 10%); }
+  }
+
+  .keyword,
+  .operator,
+  .symbol.selector.id,
+  .call.preprocessor,
+  .docblock .annotation {
+    color: $color-keyword;
+  }
+
+  .symbol, .tag .attribute {
+    color: darken($color-call, 10%);
+  }
+
+  .string {
+    color: #c33;
+  }
+
+  .symbol.tag {
+    color: $color-keyword;
+  }
+
+  .constant { color: lighten($color-call, 10%); }
+  .preprocessor {
+    color: #999;
+    font-weight: bold;
+  }
+
+  .delimiter {
+    color:  #458;
+    font-weight: bold;
+  }
+
+  .format.bold      { font-weight: bold }
+  .format.italics   { font-style: italic }
+  .format.strike    { text-decoration: line-through }
+  .format.underline { text-decoration: underline }
+
+  .format.monospace,
+  .format.block.code { color: $foreground }
+}

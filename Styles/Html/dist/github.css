@@ -1,0 +1,49 @@
+pre.keylighter {
+  background: #f8f8f8;
+  padding: 0.5em; }
+  pre.keylighter .language,
+  pre.keylighter .expression,
+  pre.keylighter .tag {
+    color: #333;
+    font-weight: normal; }
+  pre.keylighter .comment {
+    color: #555; }
+    pre.keylighter .comment.docblock {
+      color: #666; }
+  pre.keylighter .constant.special,
+  pre.keylighter .call,
+  pre.keylighter .number,
+  pre.keylighter .call {
+    color: #0086b3; }
+  pre.keylighter .variable {
+    color: #008080; }
+    pre.keylighter .variable.property {
+      color: #009a9a; }
+  pre.keylighter .keyword,
+  pre.keylighter .operator,
+  pre.keylighter .symbol.selector.id,
+  pre.keylighter .call.preprocessor,
+  pre.keylighter .docblock .annotation {
+    color: #a71d5d; }
+  pre.keylighter .symbol, pre.keylighter .tag .attribute {
+    color: #458; }
+  pre.keylighter .string {
+    color: #183691; }
+  pre.keylighter .symbol.tag {
+    color: #63a35c; }
+  pre.keylighter .constant {
+    color: #990073; }
+  pre.keylighter .preprocessor {
+    color: #999;
+    font-weight: bold; }
+  pre.keylighter .format.bold {
+    font-weight: bold; }
+  pre.keylighter .format.italics {
+    font-style: italic; }
+  pre.keylighter .format.strike {
+    text-decoration: line-through; }
+  pre.keylighter .format.underline {
+    text-decoration: underline; }
+  pre.keylighter .format.monospace,
+  pre.keylighter .format.block.code {
+    color: #333; }
