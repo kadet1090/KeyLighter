@@ -1,4 +1,9 @@
 # Changelog
+## 16.09.2016 [0.8.2]
+### Fixed
+ * Fixed (#2)[https://github.com/kadet1090/KeyLighter/issues/2] - `symfony/console` is now suggested dependency 
+   and required only in dev.
+
 ## 07.07.2016 [0.8.1]
 ### Fixed
  * Matching **XML** tags with `-` char
@@ -14,7 +19,7 @@
  * `Kadet\Highlighter\Parser\Result::getStart` method
  * `$offset` argument to `Kadet\Highlighter\Parser\UnprocessedTokens` methods
  * `Kadet\Highlighter\Language\Language::by*` factory methods
- * `Kadet\Highlighter\Language\Language::getAliases*` static method, for language metadata
+ * `Kadet\Highlighter\Language\Language::getAliases` static method, for language metadata
  * `Kadet\Highlighter\Utils\Singleton::init` singletons constructor
  * `dev:generate-table` and `dev:aliases` commands for cli application
  
