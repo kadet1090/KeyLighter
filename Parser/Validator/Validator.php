@@ -70,7 +70,7 @@ class Validator
             $context = ['none'];
         }
 
-        while(list($rule, $type) = each($rules)) {
+        foreach($rules as $rule => &$type) {
             $matched = $this->_matches($context, $rule, $type);
 
             if ($type & Validator::CONTEXT_NOT_IN) {

@@ -34,18 +34,19 @@ class Java extends CSharp // evil
             'interface', 'static', 'class', 'finally', 'strictfp', 'volatile', 'const', 'native', 'super', 'while'
         ]));
 
+        $this->rules->rule('symbol.type', 1)->priority = 3;
         $this->rules->rule('symbol.type', 1)->setMatcher(new WordMatcher([
             'boolean', 'byte', 'char', 'short', 'int', 'long', 'float', 'double', 'void'
-        ]));
-        $this->rules->rule('symbol.type', 1)->priority = 3;
-
-        $this->rules->add('symbol.class', new Rule(new RegexMatcher('/\W(?>(?:public|protected|private|static|final|transient|volatile)\s+)+\s*([a-z][\w\_]+)(?><.*?>)?(?>\[\d*\])?\s+[a-z][\w_$]+[;,=]/si'), [
-            'priority' => 2,
         ]));
 
         $this->rules->rule('symbol.annotation')->setMatcher(new RegexMatcher('/(@[\w\.]+)\s*(?:(?P<arguments>\((?>[^()]+|(?&arguments))*\))?)/si', [
             1 => Token::NAME
         ]));
+
+        $this->rules->add('symbol.class', new Rule(new RegexMatcher('/\W(?>(?:public|protected|private|static|final|transient|volatile)\s+)+\s*([a-z][\w\_]+)(?><.*?>)?(?>\[\d*\])?\s+[a-z][\w_$]+[;,=]/si'), [
+            'priority' => 2,
+        ]));
+        $this->rules->add('symbol.namespace', new Rule(new RegexMatcher('/(?:import|package)\s+([a-z][\w\.]+)\s*/si')));
     }
 
     public function getIdentifier()
