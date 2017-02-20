@@ -20,6 +20,7 @@ use Kadet\Highlighter\bin\Commands\FormattersCommand;
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
 use Kadet\Highlighter\bin\Commands\LanguagesCommand;
 use Kadet\Highlighter\bin\Commands\Dev;
+use Kadet\Highlighter\bin\Commands\Benchmark;
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
@@ -53,6 +54,9 @@ class Application extends SymfonyApplication
             new FormattersCommand(),
             new Dev\GenerateTableCommand(),
             new Dev\GenerateMetadataCommand(),
+            new Benchmark\RunCommand(),
+//            new Benchmark\ReportCommand(),
+//            new Benchmark\AnalyzeCommand(),
         ]);
     }
 

@@ -1,0 +1,1 @@
+"Just a string with {$foo["{$bar["bar"]}"]}"
