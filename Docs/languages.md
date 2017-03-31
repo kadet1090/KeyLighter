@@ -33,6 +33,7 @@ All alias definitions can be found in [`Config/metadata.php`](../Config/metadata
 Class | Name | MIME | Extension
 ------|------|------|----------
 `Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
+`Kadet\Highlighter\Language\Cobol` | `cobol` | `text/x-cobol` | `*.cbl`
 `Kadet\Highlighter\Language\Cpp` | `cpp`, `c++` | `text/x-c++src`, `text/x-c++hdr` | `*.cpp`, `*.hpp`, `*.hxx`, `*.cxx`, `*.cc`, `*.hh`
 `Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
 `Kadet\Highlighter\Language\Css\Less` | `less` | `text/x-less` | `*.less`
