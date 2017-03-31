@@ -74,7 +74,7 @@ but then I decided that it should be able to generate any possible output,
 currently supported:
 
 #### Cli `\Kadet\Highlighter\Formatter\CliFormatter`
-![CLI](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-27_19-19-25-af.png)
+![CLI](http://i.imgur.com/PA1NK9n.png)
 
 It can even be styled, default styles are stored in `Styles\Cli\Default.php`, but you can just pass additional argument into constructor:
 
@@ -87,7 +87,7 @@ new \Kadet\Highlighter\Formatter\CliFormatter([
 ```
 
 #### HTML `\Kadet\Highlighter\Formatter\HtmlFormatter`
-![HTML](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-27_19-27-17-b1.png)
+![HTML](http://i.imgur.com/s1YSW0l.png)
 
 Every token is placed inside it's own `span` so it can be easily styled with css.
 
