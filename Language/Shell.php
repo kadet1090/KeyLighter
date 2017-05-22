@@ -21,6 +21,7 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
+use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
@@ -34,7 +35,7 @@ class Shell extends GreedyLanguage
     {
         $this->rules->addMany([
             'call' => new Rule(new RegexMatcher(
-                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\||;|`|^|do|if|then|else|\$\(|^\$\s)\s*(\w+))(?!\s*=)/im'
+                '/(?>(?<![^\\\]\\\)(?<=\n|\(|\)|\||;|`|^|do|if|then|else|fi|esac|done\$\(|^\$\s)\s*\b(\w+))(?!\s*=)/i'
             ), ['priority' => 1, 'context' => ['*none', '*expression']]),
 
             'comment' => new Rule(new CommentMatcher(['#'])),
@@ -46,14 +47,17 @@ class Shell extends GreedyLanguage
             ]), ['priority' => 3]),
 
             'variable'  => [
-                'assign' => new Rule(new RegexMatcher('/(\w+)\s*=/')),
-                new Rule(new RegexMatcher('/(\$\w+)/i'), ['context' => ['*none', '*string.double']])
+                'assign' => new Rule(new RegexMatcher('/(\w+)[+-]?=/')),
+                new Rule(new RegexMatcher('/(\$\w+)/i'), ['context' => ['*none', '*string.double']]),
+                'special'  => new Rule(new RegexMatcher('/(\$[#@_])/i'), ['context' => ['*none', '*string.double']]),
+                'argument' => new Rule(new RegexMatcher('/(\$\d+)/i'), ['context' => ['*none', '*string.double']]),
+                new Rule(new RegexMatcher('/\$\{(\w+)(.*?)\}/i', [ 1 => Token::NAME, 2 => 'string' ]), ['context' => ['*none', '*string.double']])
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
             'delimiter' => new Rule(new RegexMatcher('/^(\$)/m')),
 
-            'symbol.parameter' => new Rule(new RegexMatcher('/\s(-{1,2}\w+=?)\b/i'), [
+            'symbol.parameter' => new Rule(new RegexMatcher('/[\s|](-{1,2}[\w-]+=?)\b/i'), [
                 'priority' => 0,
                 'context'  => ['!string', '!comment', '!call']
             ]),
@@ -67,7 +71,7 @@ class Shell extends GreedyLanguage
             ],
 
             'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
-                'context' => ['string']
+                'context' => ['*']
             ]),
         ]);
     }
