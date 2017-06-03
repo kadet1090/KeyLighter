@@ -5,6 +5,7 @@
  * **XAML** highlighting via `Kadet\Highlighter\Language\Xaml` instead of using **XML**
  * **Java** Now matches class names
  * **Shell** languages now have better variable and flag matching
+ * One by line HTML formatting via **LineContainedHtmlFormatter**
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
@@ -14,6 +15,7 @@
  * **PHP** now correctly matches multi-line comments
  * **XML** now correctly matches closing tags with `-`
  * **Java** fix #4 - class names in declarations and instantiations are now highlighted correctly
+ * **Shell** highlighting now matches parameters and paths with `do` correctly
  
 ## 16.09.2016 [0.8.2]
 ### Fixed

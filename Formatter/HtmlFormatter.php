@@ -35,12 +35,20 @@ class HtmlFormatter implements FormatterInterface
         /** @var Token $token */
         foreach ($tokens as $token) {
             $result .= htmlspecialchars(substr($source, $last, $token->pos - $last));
-            $result .= $token->isStart() ? '<span class="' . str_replace('.', ' ', $token->name) . '">' : '</span>';
+            $result .= $token->isStart() ? $this->getOpenTag($token) : $this->getCloseTag();
 
             $last = $token->pos;
         }
         $result .= substr($source, $last);
 
         return $result;
+    }
+
+    protected function getOpenTag(Token $token) {
+        return '<span class="' . str_replace('.', ' ', $token->name) . '">';
+    }
+
+    protected function getCloseTag() {
+        return '</span>';
     }
 }

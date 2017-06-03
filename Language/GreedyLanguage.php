@@ -79,6 +79,7 @@ abstract class GreedyLanguage extends Language
      * @param bool                 $embedded
      *
      * @return Tokens
+     * @throws \InvalidArgumentException
      */
     public function parse($tokens = null, $additional = [], $embedded = false)
     {
