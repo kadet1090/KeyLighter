@@ -20,8 +20,8 @@ class LineContainedHtmlFormatter extends HtmlFormatter implements FormatterInter
 
         /** @var Token $token */
         foreach ($tokens as $token) {
-            $result .= str_replace(
-                ["\n", "\r\n"],
+            $result .= preg_replace(
+                '/\R/',
                 str_repeat($this->getCloseTag(), count($stack))."\n".implode('', $stack),
                 htmlspecialchars(substr($source, $last, $token->pos - $last))
             );
