@@ -42,10 +42,9 @@ class LaTeXFormatter implements FormatterInterface
 
         /** @var Token $token */
         foreach ($tokens as $token) {
-            $result .= sprintf(
-                '%s%s',
-                $this->escape(substr($source, $last, $token->pos - $last)),
-                $token->isStart() ? $this->getOpenTag($token) : $this->getCloseTag($token));
+            list($openTag, $closeTag) = $this->getOpenCloseTags($token);
+            $result .= $this->escape(substr($source, $last, $token->pos - $last));
+            $result .= $token->isStart() ? $openTag : $closeTag;
 
             $last = $token->pos;
         }
@@ -73,8 +72,6 @@ class LaTeXFormatter implements FormatterInterface
             '<' => '\\textless{}',
             '>' => '\\textgreater{}',
             '>' => '\\textgreater{}',
-            // '"' => '\\textquotedbl{}',
-            // '\'' => '\\char13{}',
         ];
 
         // We can do just with a simple str_replace() because PHP promises to
@@ -87,27 +84,25 @@ class LaTeXFormatter implements FormatterInterface
         );
     }
 
-    protected function getOpenTag($token)
+    protected function getOpenCloseTags($token)
     {
-        $result = '';
+        $openTag = $closeTag = '';
         $style = $this->getStyle($token);
 
-        if (($color = ArrayHelper::resolve($style, 'color', 'default')) !== 'default') {
-            $result = sprintf('\\textcolor{%s}{%s', $style['color'], $result);
+        if (ArrayHelper::get($style, 'italic', false)) {
+            $openTag .= '\\textit{';
+            $closeTag .= '}';
         }
-        if (ArrayHelper::resolve($style, 'bold', false)) {
-            $result = sprintf('\\textbf{%s', $result);
+        if (ArrayHelper::get($style, 'bold', false)) {
+            $openTag .= '\\textbf{';
+            $closeTag .= '}';
         }
-        if (ArrayHelper::resolve($style, 'italic', false)) {
-            $result = sprintf('\\textit{%s', $result);
+        if (($color = ArrayHelper::get($style, 'color', 'default')) !== 'default') {
+            $openTag .= sprintf('\\textcolor{%s}{', $style['color']);
+            $closeTag .= '}';
         }
 
-        return $result;
-    }
-
-    protected function getCloseTag($token)
-    {
-        return str_repeat('}', count($this->getStyle($token)));
+        return [$openTag, $closeTag];
     }
 
     protected function getStyle($token)
