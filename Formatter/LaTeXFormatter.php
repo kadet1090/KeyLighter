@@ -89,12 +89,16 @@ class LaTeXFormatter implements FormatterInterface
         $openTag = $closeTag = '';
         $style = $this->getStyle($token);
 
-        if (ArrayHelper::get($style, 'italic', false)) {
-            $openTag .= '\\textit{';
-            $closeTag .= '}';
-        }
         if (ArrayHelper::get($style, 'bold', false)) {
             $openTag .= '\\textbf{';
+            $closeTag .= '}';
+        }
+        if (ArrayHelper::get($style, 'italic', false)) {
+            $openTag .= '\\textsl{';
+            $closeTag .= '}';
+        }
+        if (ArrayHelper::get($style, 'underline', false)) {
+            $openTag .= '\\underline{';
             $closeTag .= '}';
         }
         if (($color = ArrayHelper::get($style, 'color', 'default')) !== 'default') {
