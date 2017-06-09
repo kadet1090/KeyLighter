@@ -55,6 +55,6 @@ class ArrayHelper
 
     public static function get(array $array, $key, $fallback = null)
     {
-        return array_key_exists($key, $array) ? $array[$key] : $fallback;
+        return isset($array[$key]) ? $array[$key] : $fallback;
     }
 }
