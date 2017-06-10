@@ -38,7 +38,7 @@ class HtmlFormatter implements FormatterInterface
         $options = array_merge([
             'prefix' => null,
             'tag'    => 'span'
-        ]);
+        ], $options);
 
         $this->_tag = $options['tag'];
         $this->_prefix = $options['prefix'];
