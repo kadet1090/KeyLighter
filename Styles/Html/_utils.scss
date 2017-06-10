@@ -1,6 +1,6 @@
-$kl-prefix: "";
-$kl-tag:    "span";
-$kl-class:  "keylighter";
+$kl-prefix: "" !default;
+$kl-tag:    "span" !default;
+$kl-class:  "keylighter" !default;
 
 @function token($selectors...) {
   $result: "";
