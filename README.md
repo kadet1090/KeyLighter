@@ -50,7 +50,7 @@ PS> Import-Module "${env:APPDATA}\Composer\vendor\kadet\keylighter\bin\KeyLighte
 
 To use autocompletion features you will need PowerShell v5 (Comes with windows 10) or install [TabExpansion++](https://github.com/lzybkr/TabExpansionPlusPlus) Module.
 
-![Powershell Support](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-03/2016-03-19_21-44-54-a2.png)
+![Powershell Support](http://i.imgur.com/jH2VRA8.gif)
 
 ## Why KeyLighter?
 
@@ -74,7 +74,7 @@ but then I decided that it should be able to generate any possible output,
 currently supported:
 
 #### Cli `\Kadet\Highlighter\Formatter\CliFormatter`
-![CLI](http://i.imgur.com/PA1NK9n.png)
+![CLI](http://i.imgur.com/b2bMVrw.png)
 
 It can even be styled, default styles are stored in `Styles\Cli\Default.php`, but you can just pass additional argument into constructor:
 
@@ -87,7 +87,7 @@ new \Kadet\Highlighter\Formatter\CliFormatter([
 ```
 
 #### HTML `\Kadet\Highlighter\Formatter\HtmlFormatter`
-![HTML](http://i.imgur.com/s1YSW0l.png)
+![HTML](http://i.imgur.com/BRThsX2.png)
 
 Every token is placed inside it's own `span` so it can be easily styled with css.
 
@@ -184,7 +184,7 @@ I will try to write as many definitions as I only can, but any PRs are welcome.
 ### Embedding languages
 Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in  *php* and so on. **KeyLighter** can handle and highlight embedded languages without any problem.
 
-![Embedded languages](http://kadet.net/keylighter/language-embedding.png)
+![Embedded languages](http://i.imgur.com/gJr6shy.png)
 
 ### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg?style=flat-square)
 Even though it wasn't supposed to be fastest code highlighter in PHP
