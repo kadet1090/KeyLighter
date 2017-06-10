@@ -31,9 +31,11 @@ class Latex extends GreedyLanguage
      */
     public function setupRules()
     {
-
         $this->rules->addMany([
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z@]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z@]+)/si'), [
+                'context' => ['!delimiter.environment'],
+                'priority' => -1
+            ]),
 
             'expression.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
