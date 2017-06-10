@@ -1,61 +1,40 @@
+@import "utils";
+
 // colors:
 $foreground: #333;
 $background: #f8f8f8;
 
-pre.keylighter {
+pre.#{$kl-class} {
   background: $background;
   padding:    0.5em;
 
-  .language,
-  .expression,
-  .tag { color: $foreground; font-weight: normal; }
+  #{token('language', 'expression', 'tag')} { color: $foreground; font-weight: normal; }
+  #{token('comment')} { color: #555 }
+  #{token('commend#{token('docblock')}')} { color: #666 }
 
-  .comment {
-    color: #555;
-    &.docblock { color: #666 }
-  }
+  #{token('constant.special', 'number', 'call')} { color: #0086b3 }
 
-  .constant.special,
-  .call,
-  .number,
-  .call { color: #0086b3 }
+  #{token('variable')} { color: #008080; }
+  #{token('variable.property')} { color: lighten(#008080, 5%); }
 
-  .variable {
-    color: #008080;
-    &.property { color: lighten(#008080, 5%); }
-  }
+  #{token('keyword', 'operator', 'symbol.selector.id', 'call.preprocessor')},
+  #{token('docblock')} #{token('annotation')} { color: #a71d5d; }
 
-  .keyword,
-  .operator,
-  .symbol.selector.id,
-  .call.preprocessor,
-  .docblock .annotation {
-    color: #a71d5d;
-  }
+  #{token('symbol.tag')} { color: #63a35c; }
+  #{token('symbol', 'tag')} #{token('attribute')} { color: #458; }
 
-  .symbol, .tag .attribute {
-    color: #458;
-  }
+  #{token('string')} { color: #183691;}
+  #{token('constant')} { color: #990073; }
 
-  .string {
-    color: #183691;
-  }
-
-  .symbol.tag {
-    color: #63a35c;
-  }
-
-  .constant { color: #990073; }
-  .preprocessor {
+  #{token('preprocessor')} {
     color: #999;
     font-weight: bold;
   }
 
-  .format.bold      { font-weight: bold }
-  .format.italics   { font-style: italic }
-  .format.strike    { text-decoration: line-through }
-  .format.underline { text-decoration: underline }
+  #{token('format.bold')}      { font-weight: bold }
+  #{token('format.italics')}   { font-style: italic }
+  #{token('format.strike')}    { text-decoration: line-through }
+  #{token('format.underline')} { text-decoration: underline }
 
-  .format.monospace,
-  .format.block.code { color: $foreground }
+  #{token('format.monospace', 'format.block.code')} { color: $foreground }
 }

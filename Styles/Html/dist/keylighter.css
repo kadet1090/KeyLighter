@@ -1,8 +1,7 @@
 pre.keylighter {
   background: #181818;
   padding: 15px; }
-  pre.keylighter span.language,
-  pre.keylighter span.expression {
+  pre.keylighter span.language, pre.keylighter span.expression.math {
     color: white; }
   pre.keylighter span.keyword {
     color: #FF9700; }
@@ -56,8 +55,7 @@ pre.keylighter {
     text-decoration: line-through; }
   pre.keylighter span.format.underline {
     text-decoration: underline; }
-  pre.keylighter span.format.monospace,
-  pre.keylighter span.format.block.code {
+  pre.keylighter span.format.monospace, pre.keylighter span.format.block.code {
     color: #666; }
   pre.keylighter span.format.header {
     color: #6691C2; }

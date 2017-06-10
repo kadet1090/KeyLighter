@@ -1,0 +1,18 @@
+$kl-prefix: "";
+$kl-tag:    "span";
+$kl-class:  "keylighter";
+
+@function token($selectors...) {
+  $result: "";
+
+  @each $selector in $selectors {
+    $selector: ".#{$selector}";
+    $result: "#{$result}, #{$kl-tag}";
+
+    @each $token in simple_selectors($selector) {
+      $result: "#{$result}.#{$kl-prefix}#{str_slice($token, 2)}";
+    }
+  }
+
+  @return str_slice($result, 3);
+}

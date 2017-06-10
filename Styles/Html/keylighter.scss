@@ -1,3 +1,5 @@
+@import "utils";
+
 // colors:
 $background: #181818;
 $foreground: white;
@@ -20,52 +22,50 @@ $alt-blue:    #6691C2;
 $alt-orange:  #c17200;
 $alt-yellow:  #ffdebb;
 
-pre.keylighter {
+pre.#{$kl-class} {
   background: $background;
   padding:    15px;
 
-  span.language,
-  span.expression { color: $foreground; }
+  #{token('language', 'expression.math')} { color: $foreground; }
 
-  span.keyword    { color: $orange; }
-  span.operator   { color: $alt-orange; }
-  span.delimiter  { color: $alt-orange; }
-  span.string     { color: $alt-green; }
-  span.comment    { color: #555 }
-  span.number     { color: $red }
-  span.constant   { color: $alt-red }
-  span.call       { color: $yellow }
+  #{token('keyword')}    { color: $orange; }
+  #{token('operator')}   { color: $alt-orange; }
+  #{token('delimiter')}  { color: $alt-orange; }
+  #{token('string')}     { color: $alt-green; }
+  #{token('comment')}    { color: #555 }
+  #{token('number')}     { color: $red }
+  #{token('constant')}   { color: $alt-red }
+  #{token('call')}       { color: $yellow }
 
-  span.call.preprocessor { color: $brown }
-  span.preprocessor      { color: $alt-brown }
+  #{token('call.preprocessor')} { color: $brown }
+  #{token('preprocessor')}      { color: $alt-brown }
 
-  span.symbol     { color: $alt-yellow; }
-  span.variable   { color: $alt-violet;  }
-  span.annotation { color: $orange; }
-  span.parameter  { color: $alt-blue; }
+  #{token('symbol')}     { color: $alt-yellow; }
+  #{token('variable')}   { color: $alt-violet;  }
+  #{token('annotation')} { color: $orange; }
+  #{token('parameter')}  { color: $alt-blue; }
 
-  span.annotation.arguments { color: $foreground; }
-  span.variable.splat       { color: $violet;  }
-  span.variable.property    { color: $violet; }
-  span.symbol.dotnet        { color: $alt-yellow; }
+  #{token('annotation.arguments')} { color: $foreground; }
+  #{token('variable.splat')}       { color: $violet;  }
+  #{token('variable.property')}    { color: $violet; }
+  #{token('symbol.dotnet')}        { color: $alt-yellow; }
 
-  span.comment.docblock { color: #666 }
+  #{token('comment.docblock')} { color: #666 }
 
-  span.tag { color: $alt-orange; }
-  span.symbol.tag { font-weight: bold }
-  span.attribute  { color: $yellow; }
+  #{token('tag')} { color: $alt-orange; }
+  #{token('symbol.tag')} { font-weight: bold }
+  #{token('attribute')}  { color: $yellow; }
 
-  span.format.bold      { font-weight: bold }
-  span.format.italics   { font-style: italic }
-  span.format.strike    { text-decoration: line-through }
-  span.format.underline { text-decoration: underline }
+  #{token('format.bold')}      { font-weight: bold }
+  #{token('format.italics')}   { font-style: italic }
+  #{token('format.strike')}    { text-decoration: line-through }
+  #{token('format.underline')} { text-decoration: underline }
 
-  span.format.monospace,
-  span.format.block.code { color: #666 }
+  #{token('format.monospace', 'format.block.code')} { color: #666 }
 
-  span.format.header { color: $alt-blue }
-  span.symbol.type   { color: $alt-red }
+  #{token('format.header')} { color: $alt-blue }
+  #{token('symbol.type')}   { color: $alt-red }
 
-  span.tag.namespace { color: $orange; font-weight: normal }
-  span.attribute.namespace { color: $alt-yellow; }
+  #{token('tag.namespace')} { color: $orange; font-weight: normal }
+  #{token('attribute.namespace')} { color: $alt-yellow; }
 }

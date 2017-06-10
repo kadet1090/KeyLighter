@@ -1,52 +1,45 @@
-pre.keylighter {
+pre.span.keylighter {
   background: #F5F6FF;
   padding: 0.5em; }
-  pre.keylighter .language,
-  pre.keylighter .expression,
-  pre.keylighter .tag {
+  pre.span.keylighter span.language, pre.span.keylighter span.expression, pre.span.keylighter span.tag {
     color: #737373;
     font-weight: normal; }
-  pre.keylighter .comment {
+  pre.span.keylighter span.comment {
     color: #4F5B94; }
-    pre.keylighter .comment.docblock {
-      color: #475484; }
-  pre.keylighter .constant.special,
-  pre.keylighter .call {
+  pre.span.keylighter span.comment.docblock {
+    color: #475484; }
+  pre.span.keylighter span.constant.special, pre.span.keylighter span.call {
     color: #793962; }
-  pre.keylighter .number {
+  pre.span.keylighter span.number {
     color: #F89721; }
-  pre.keylighter .variable {
-    color: #336699; }
-    pre.keylighter .variable.property {
-      color: #4080bf; }
-  pre.keylighter .keyword,
-  pre.keylighter .operator,
-  pre.keylighter .symbol.selector.id,
-  pre.keylighter .call.preprocessor,
-  pre.keylighter .docblock .annotation {
-    color: #669940; }
-  pre.keylighter .symbol, pre.keylighter .tag .attribute {
-    color: #562946; }
-  pre.keylighter .string {
+  pre.span.keylighter span.string {
     color: #c33; }
-  pre.keylighter .symbol.tag {
+  pre.span.keylighter span.variable {
+    color: #336699; }
+  pre.span.keylighter span.variable.property {
+    color: #4080bf; }
+  pre.span.keylighter span.keyword, pre.span.keylighter span.operator, pre.span.keylighter span.symbol.selector.id, pre.span.keylighter span.call.preprocessor,
+  pre.span.keylighter span.docblock span.annotation {
     color: #669940; }
-  pre.keylighter .constant {
+  pre.span.keylighter span.symbol, pre.span.keylighter span.tag span.attribute {
+    color: #562946; }
+  pre.span.keylighter span.symbol.tag {
+    color: #669940; }
+  pre.span.keylighter span.constant {
     color: #9c497e; }
-  pre.keylighter .preprocessor {
+  pre.span.keylighter span.preprocessor {
     color: #999;
     font-weight: bold; }
-  pre.keylighter .delimiter {
+  pre.span.keylighter span.delimiter {
     color: #458;
     font-weight: bold; }
-  pre.keylighter .format.bold {
+  pre.span.keylighter span.format.bold {
     font-weight: bold; }
-  pre.keylighter .format.italics {
+  pre.span.keylighter span.format.italics {
     font-style: italic; }
-  pre.keylighter .format.strike {
+  pre.span.keylighter span.format.strike {
     text-decoration: line-through; }
-  pre.keylighter .format.underline {
+  pre.span.keylighter span.format.underline {
     text-decoration: underline; }
-  pre.keylighter .format.monospace,
-  pre.keylighter .format.block.code {
+  pre.span.keylighter span.format.monospace, pre.span.keylighter span.format.block.code {
     color: #737373; }

@@ -25,6 +25,26 @@ use Kadet\Highlighter\Parser\Tokens;
  */
 class HtmlFormatter implements FormatterInterface
 {
+    protected $_prefix = '';
+    protected $_tag    = 'span';
+
+    /**
+     * HtmlFormatter constructor.
+     *
+     * @param array $options
+     */
+    public function __construct($options = [])
+    {
+        $options = array_merge([
+            'prefix' => null,
+            'tag'    => 'span'
+        ]);
+
+        $this->_tag = $options['tag'];
+        $this->_prefix = $options['prefix'];
+    }
+
+
     public function format(Tokens $tokens)
     {
         $source = $tokens->getSource();
@@ -45,10 +65,13 @@ class HtmlFormatter implements FormatterInterface
     }
 
     protected function getOpenTag(Token $token) {
-        return '<span class="' . str_replace('.', ' ', $token->name) . '">';
+        return sprintf(
+            '<%s class="%s">',
+            $this->_tag, $this->_prefix.str_replace('.', " {$this->_prefix}", $token->name)
+        );
     }
 
     protected function getCloseTag() {
-        return '</span>';
+        return "</{$this->_tag}>";
     }
 }

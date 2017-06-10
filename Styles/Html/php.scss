@@ -1,3 +1,5 @@
+@import "utils";
+
 // colors:
 $foreground: #737373;
 $background: #F5F6FF;
@@ -6,67 +8,51 @@ $color-variable: #336699;
 $color-call:     #793962;
 $color-keyword:  #669940;
 
-pre.keylighter {
+pre.#{token($kl-class)} {
   background: $background;
   padding:    0.5em;
 
-  .language,
-  .expression,
-  .tag { color: $foreground; font-weight: normal; }
+  #{token('language', 'expression', 'tag')} { color: $foreground; font-weight: normal; }
 
-  .comment {
-    color: #4F5B94;
-    &.docblock { color: #475484 }
-  }
+  #{token('comment')}          { color: #4F5B94; }
+  #{token('comment.docblock')} { color: #475484 }
 
-  .constant.special,
-  .call { color: $color-call }
+  #{token('constant.special', 'call')} { color: $color-call }
 
-  .number {
-    color: #F89721;
-  }
+  #{token('number')} { color: #F89721; }
+  #{token('string')} { color: #c33; }
 
-  .variable {
-    color: $color-variable;
-    &.property { color: lighten($color-variable, 10%); }
-  }
+  #{token('variable')} { color: $color-variable; }
+  #{token('variable.property')} { color: lighten($color-variable, 10%); }
 
-  .keyword,
-  .operator,
-  .symbol.selector.id,
-  .call.preprocessor,
-  .docblock .annotation {
+  #{token('keyword', 'operator', 'symbol.selector.id', 'call.preprocessor')},
+  #{token('docblock')} #{token('annotation')} {
     color: $color-keyword;
   }
 
-  .symbol, .tag .attribute {
+  #{token('symbol')}, #{token('tag')} #{token('attribute')} {
     color: darken($color-call, 10%);
   }
 
-  .string {
-    color: #c33;
-  }
-
-  .symbol.tag {
+  #{token('symbol.tag')} {
     color: $color-keyword;
   }
 
-  .constant { color: lighten($color-call, 10%); }
-  .preprocessor {
+  #{token('constant')} { color: lighten($color-call, 10%); }
+  #{token('preprocessor')} {
     color: #999;
     font-weight: bold;
   }
 
-  .delimiter {
+  #{token('delimiter')} {
     color:  #458;
     font-weight: bold;
   }
 
-  .format.bold      { font-weight: bold }
-  .format.italics   { font-style: italic }
-  .format.strike    { text-decoration: line-through }
-  .format.underline { text-decoration: underline }
+  #{token('format.bold')}      { font-weight: bold }
+  #{token('format.italics')}   { font-style: italic }
+  #{token('format.strike')}    { text-decoration: line-through }
+  #{token('format.underline')} { text-decoration: underline }
 
-  .format.monospace,
-  .format.block.code { color: $foreground }
+  #{token('format.monospace', 'format.block.code')} { color: $foreground }
 }

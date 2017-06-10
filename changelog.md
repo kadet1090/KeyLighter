@@ -6,6 +6,8 @@
  * **Java** Now matches class names
  * **Shell** languages now have better variable and flag matching
  * One by line HTML formatting via **LineContainedHtmlFormatter**
+ * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
+ * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
