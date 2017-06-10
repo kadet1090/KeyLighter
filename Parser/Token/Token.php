@@ -217,9 +217,9 @@ class Token
         $multiplier = $a->isEnd() ? -1 : 1;
 
         if (($a->isStart() && $b->isEnd()) || ($a->isEnd() && $b->isStart())) {
-            if ($a->getStart() == $b) {
+            if ($a->getStart() === $b) {
                 return 1;
-            } if ($a->getEnd() == $b) {
+            } if ($a->getEnd() === $b) {
                 return -1;
             } else {
                 return $multiplier;

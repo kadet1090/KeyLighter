@@ -31,10 +31,11 @@ class Latex extends GreedyLanguage
      */
     public function setupRules()
     {
-        $this->rules->addMany([
-            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),
 
-            'string.math' => [
+        $this->rules->addMany([
+            'call.symbol' => new Rule(new RegexMatcher('/(\\\[a-z@]+)/si'), ['context' => Validator::everywhere(), 'priority' => -1]),
+
+            'expression.math' => [
                 new Rule(new RegexMatcher('/((\${1,2}).*?\2)/s')),
                 new Rule(new RegexMatcher('/(\\\\\(.*?\\\\\))/s')),
                 new Rule(new RegexMatcher('/(\\\\\[.*?\\\\\])/s')),
@@ -43,22 +44,32 @@ class Latex extends GreedyLanguage
                         '/\\\begin{((?:' . implode('|', self::$mathEnvironments) . ')\*?)}(.*?)\\\end{\1}/s',
                         [2 => Token::NAME]
                     )
-                ),
+                )
             ],
 
-            'symbol.argument'    => new Rule(new RegexMatcher('/\[(.*?)\]/')),
-            'symbol.environment' => new Rule(new RegexMatcher('/\\\(?:begin|end){(.*?)}/')),
+            'delimiter.math' => new Rule(new WordMatcher(['$', '\[', '\]', '\(', '\)'], ['separated' => false]), [
+                'context' => ['expression.math']
+            ]),
+
+            'symbol.annotation'    => new Rule(new RegexMatcher('/\[(.*?)\]/')), // make argument parsing?
+            'symbol.environment' => new Rule(new RegexMatcher('/(\\\(?:begin|end)){(.*?)}/', [
+                1 => 'delimiter.environment',
+                2 => Token::NAME
+            ]), ['context' => Validator::everywhere()]),
 
             'symbol.label' => new Rule(new RegexMatcher('/\\\(?:label|ref){(.*?)}/')),
 
             'operator' => [
-                new Rule(new WordMatcher(['*', '&', '\\\\'], ['separated' => false]), ['context' => Validator::everywhere(
-                )
-                ]),
+                new Rule(new WordMatcher(['*', '&', '@', '\\\\'], ['separated' => false]), ['context' => Validator::everywhere()]),
                 new Rule(new WordMatcher(['=', '-', '+', '/', '^', '_'], ['separated' => false]), [
-                    'context'  => ['string.math'],
+                    'context'  => ['expression.math'],
                     'priority' => -1
                 ]),
+                'punctuation.brackets' => new Rule(new WordMatcher(['{', '}', '[', ']', '(', ')'], ['separated' => false]), [
+                    'context' => ['expression.math']
+                ]),
+                'escape' => new Rule(new RegexMatcher('/(\\\[%@&])/si'), ['context' => Validator::everywhere(), 'priority' => -1])
+
             ],
             'comment' => new Rule(new CommentMatcher(['%'], [])),
 
@@ -69,9 +80,11 @@ class Latex extends GreedyLanguage
                 2 => Token::NAME
             ])),
 
+            'variable' => new Rule(new RegexMatcher('/(#\d+)/')),
+
             # math mode
-            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|[\d,]+))/'), [
-                'context'  => ['string.math'],
+            'number' => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|[\d,.]+))/'), [
+                'context'  => ['expression.math'],
                 'priority' => -2
             ]),
         ]);

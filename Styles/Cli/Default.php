@@ -20,6 +20,7 @@
     'symbol.type'       => ['color'  => 'light red'],
 
     'symbol.annotation.arguments' => ['color' => 'default'],
+    'operator.punctuation.brackets' => ['color' => 'default'],
 
     'constant.color' => ['color' => 'light yellow'],
 
@@ -49,5 +50,7 @@
     'format.block.code'  => ['color' => 'light yellow'],
 
     'symbol.link' => ['color' => 'light magenta'],
-    'symbol.url'  => ['color' => 'magenta']
+    'symbol.url'  => ['color' => 'magenta'],
+
+    'expression.math' => ['color' => 'green'],
 ];
