@@ -1,4 +1,7 @@
-<!-- icon: lightbulb-o -->
+---
+icon: lightbulb-o
+---
+
 # Usage ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg?style=flat-square)
 
 **KeyLighter** is really simple to use in any kind of project. All you 
