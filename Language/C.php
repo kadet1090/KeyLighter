@@ -22,6 +22,7 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\Token\TerminatorToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
@@ -93,6 +94,14 @@ class C extends GreedyLanguage
                 new Rule(new RegexMatcher('/([*&])/'), ['priority' => 0]),
                 new Rule(new RegexMatcher('/([!+\-\/*&|^<>=]{1,2}=?)/'), ['priority' => 0])
             ],
+
+            'language.c' => [
+                new Rule(new RegexMatcher('/^#define\s+\w+(.*?[^\\\])(?>\R|$)/sim'), [
+                    'factory' => new TokenFactory(LanguageToken::class),
+                    'inject'  => $this,
+                    'context' => ['preprocessor']
+                ]),
+            ]
         ]);
     }
 
