@@ -57,6 +57,7 @@ class Application extends SymfonyApplication
             new Benchmark\RunCommand(),
 //            new Benchmark\ReportCommand(),
             new Benchmark\AnalyzeCommand(),
+            new Commands\Test\RegenerateCommand()
         ]);
     }
 

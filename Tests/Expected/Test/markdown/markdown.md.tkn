@@ -1,0 +1,40 @@
+{language.markdown:Kadet\Highlighter\Parser\Token\LanguageToken}HTTP/1.1 200 OK
+Date: Mon, 23 May 2005 22:38:34 GMT
+Content-Type: text/markdown; charset=UTF-8
+Content-Encoding: UTF-8
+Content-Length: 138
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Server: Apache/1.3.3.7 (Unix) (Red-Hat/Linux)
+ETag: "3f80f-1b6-3e1cb03b"
+Accept-Ranges: bytes
+Connection: close
+
+{format.header:Kadet\Highlighter\Parser\Token\Token}# This is just regular Markdown file{/format.header:Kadet\Highlighter\Parser\Token\Token}
+
+{format.block.code:Kadet\Highlighter\Parser\Token\Token}```http
+{language.http:Kadet\Highlighter\Parser\Token\LanguageToken}{symbol.version:Kadet\Highlighter\Parser\Token\Token}HTTP/1.1{/symbol.version:Kadet\Highlighter\Parser\Token\Token} {number.status:Kadet\Highlighter\Parser\Token\Token}200{/number.status:Kadet\Highlighter\Parser\Token\Token} {constant.status:Kadet\Highlighter\Parser\Token\Token}OK{/constant.status:Kadet\Highlighter\Parser\Token\Token}
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Date:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} Mon, 23 May 2005 22:38:34 GMT
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Content-Type:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} text/html; charset=UTF-8
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Content-Encoding:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} UTF-8
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Content-Length:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} 138
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Last-Modified:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} Wed, 08 Jan 2003 23:11:55 GMT
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Server:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} Apache/1.3.3.7 (Unix) (Red-Hat/Linux)
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}ETag:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} "3f80f-1b6-3e1cb03b"
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Accept-Ranges:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} bytes
+{symbol.header:Kadet\Highlighter\Parser\Token\Token}Connection:{/symbol.header:Kadet\Highlighter\Parser\Token\Token} close
+
+{language.html:Kadet\Highlighter\Parser\Token\LanguageToken}{tag.open:Kadet\Highlighter\Parser\Token\Token}<{symbol.tag:Kadet\Highlighter\Parser\Token\Token}html{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<{symbol.tag:Kadet\Highlighter\Parser\Token\Token}head{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+  {tag.open:Kadet\Highlighter\Parser\Token\Token}<{symbol.tag:Kadet\Highlighter\Parser\Token\Token}title{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}An Example Page{tag.close:Kadet\Highlighter\Parser\Token\Token}</{symbol.tag:Kadet\Highlighter\Parser\Token\Token}title{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+  {tag.open:Kadet\Highlighter\Parser\Token\Token}<{symbol.tag:Kadet\Highlighter\Parser\Token\Token}script{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}
+    test.{variable.property:Kadet\Highlighter\Parser\Token\Token}call{/variable.property:Kadet\Highlighter\Parser\Token\Token}.{keyword:Kadet\Highlighter\Parser\Token\Token}from{/keyword:Kadet\Highlighter\Parser\Token\Token}.{call:Kadet\Highlighter\Parser\Token\Token}js{/call:Kadet\Highlighter\Parser\Token\Token}({string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"test"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken})
+  {/language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{tag.close:Kadet\Highlighter\Parser\Token\Token}</{symbol.tag:Kadet\Highlighter\Parser\Token\Token}script{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</{symbol.tag:Kadet\Highlighter\Parser\Token\Token}head{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<{symbol.tag:Kadet\Highlighter\Parser\Token\Token}body{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+  Hello World, this is a very simple HTML document.
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</{symbol.tag:Kadet\Highlighter\Parser\Token\Token}body{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</{symbol.tag:Kadet\Highlighter\Parser\Token\Token}html{/symbol.tag:Kadet\Highlighter\Parser\Token\Token}>{/tag.close:Kadet\Highlighter\Parser\Token\Token}{/language.html:Kadet\Highlighter\Parser\Token\LanguageToken}{/language.http:Kadet\Highlighter\Parser\Token\LanguageToken}
+```{/format.block.code:Kadet\Highlighter\Parser\Token\Token}
+
+Still {format.bold:Kadet\Highlighter\Parser\Token\Token}**markdown**{/format.bold:Kadet\Highlighter\Parser\Token\Token}
+{/language.markdown:Kadet\Highlighter\Parser\Token\LanguageToken}

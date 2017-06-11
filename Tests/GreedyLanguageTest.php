@@ -44,7 +44,7 @@ class EmbeddedLanguage extends Mocks\MockGreedyLanguage
     }
 }
 
-class LanguageTest extends MatcherTestCase
+class GreedyLanguageTest extends MatcherTestCase
 {
 
     public function testSimple()

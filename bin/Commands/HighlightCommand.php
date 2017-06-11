@@ -71,7 +71,7 @@ class HighlightCommand extends Command
         }
         fclose($file);
 
-        return str_replace("\r\n", "\n", $content); // normalize input
+        return $content; // normalize input
     }
 
     public function mergeApplicationDefinition($arguments = true)
