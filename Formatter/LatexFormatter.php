@@ -5,6 +5,7 @@
  * Copyright (C) 2016, Some right reserved.
  *
  * @author Kacper "Kadet" Donat <kacper@kadet.net>
+ * @author Olgierd Grzyb <kontakt@olgierd.me>
  *
  * Contact with author:
  * Xmpp:   me@kadet.net
@@ -20,17 +21,17 @@ use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Utils\ArrayHelper;
 
 /**
- * Class LateXFormatter
+ * Class LatexFormatter
  *
  * @package Kadet\Highlighter\Formatter
  */
-class LaTeXFormatter implements FormatterInterface
+class LatexFormatter implements FormatterInterface
 {
     private $_styles;
 
     public function __construct($styles = false)
     {
-        $this->_styles = $styles ?: include __DIR__.'/../Styles/LaTeX/Default.php';
+        $this->_styles = $styles ?: include __DIR__.'/../Styles/Latex/Default.php';
     }
 
     public function format(Tokens $tokens)
