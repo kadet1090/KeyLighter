@@ -71,7 +71,6 @@ class LaTeXFormatter implements FormatterInterface
             '&' => '\\&',
             '<' => '\\textless{}',
             '>' => '\\textgreater{}',
-            '>' => '\\textgreater{}',
         ];
 
         // We can do just with a simple str_replace() because PHP promises to
