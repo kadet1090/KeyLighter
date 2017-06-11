@@ -39,12 +39,23 @@ class LanguagesTest extends \PHPUnit_Framework_TestCase
         $this->_keylighter = new KeyLighter();
     }
 
+    private function normalize($content) {
+        return str_replace("\r\n", "\n", $content);
+    }
+
     /** @dataProvider testFileProvider */
     public function testIfLanguageGeneratesValidTokens(Language $language, $input, $expected)
     {
+        $source = file_get_contents($input);
+        $expected = file_get_contents($expected);
         $this->assertEquals(
-            file_get_contents($expected),
-            $this->_keylighter->highlight(file_get_contents($input), $language, $this->_formatter)
+            $expected,
+            $this->_keylighter->highlight($source, $language, $this->_formatter)
+        );
+
+        $this->assertEquals(
+            $this->normalize($expected),
+            $this->_keylighter->highlight($this->normalize($source), $language, $this->_formatter)
         );
     }
 }

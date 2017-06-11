@@ -71,7 +71,7 @@ class DebugFormatter extends CliFormatter implements FormatterInterface
                     ($leveled ? str_repeat('    ', $level) : null).
                     implode(
                         PHP_EOL.($leveled ? str_repeat('    ', $level) : null),
-                        explode(PHP_EOL, substr($source, $token->pos, $token->getLength()))
+                        explode(PHP_EOL, $this->escape(substr($source, $token->pos, $token->getLength())))
                     ).
                     PHP_EOL
                 );
@@ -92,9 +92,13 @@ class DebugFormatter extends CliFormatter implements FormatterInterface
 
             $last = $token->pos;
         }
-        $result .= substr($source, $last).Console::reset();
+        $result .= $this->escape(substr($source, $last)).Console::reset();
 
         return $result;
+    }
+
+    private function escape($string) {
+        return str_replace(["\r", "\n"], ['\r', '\n'.PHP_EOL], $string);
     }
 
     public function getColor($token)

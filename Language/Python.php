@@ -73,7 +73,7 @@ class Python extends GreedyLanguage
                 ]))
             ],
 
-            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:.|[0-7]{3}|x\x{2}))/'), [
+            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:\R|.|[0-7]{3}|x\x{2}))/s'), [
                 'context' => Validator::everywhere()
             ]),
 
