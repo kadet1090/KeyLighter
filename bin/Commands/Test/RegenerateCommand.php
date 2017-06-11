@@ -7,6 +7,7 @@ namespace Kadet\Highlighter\bin\Commands\Test;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
+use Kadet\Highlighter\Utils\StringHelper;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,7 +59,7 @@ class RegenerateCommand extends Command
             $output->writeln("Generating $pathname...", OutputInterface::VERBOSITY_QUIET);
 
             $language = Language::byFilename($pathname);
-            $result = $this->_keylighter->highlight(file_get_contents($file->getPathname()), $language, $this->_formatter);
+            $result = StringHelper::normalize($this->_keylighter->highlight(file_get_contents($file->getPathname()), $language, $this->_formatter));
 
             if(!file_exists($this->_output.'/'.dirname($pathname))) {
                 mkdir($this->_output.'/'.dirname($pathname), true);

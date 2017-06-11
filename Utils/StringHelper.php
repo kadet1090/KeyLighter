@@ -38,4 +38,8 @@ class StringHelper
 
         return implode($delimiter, $array);
     }
+
+    public static function normalize($string) {
+        return str_replace("\r\n", "\n", $string);
+    }
 }

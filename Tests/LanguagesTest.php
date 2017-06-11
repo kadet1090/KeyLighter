@@ -5,6 +5,7 @@ namespace Kadet\Highlighter\Tests;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
+use Kadet\Highlighter\Utils\StringHelper;
 
 class LanguagesTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,10 +40,6 @@ class LanguagesTest extends \PHPUnit_Framework_TestCase
         $this->_keylighter = new KeyLighter();
     }
 
-    private function normalize($content) {
-        return str_replace("\r\n", "\n", $content);
-    }
-
     /** @dataProvider testFileProvider */
     public function testIfLanguageGeneratesValidTokens(Language $language, $input, $expected)
     {
@@ -50,13 +47,13 @@ class LanguagesTest extends \PHPUnit_Framework_TestCase
         $expected = file_get_contents($expected);
         $this->assertEquals(
             $expected,
-            $this->_keylighter->highlight($source, $language, $this->_formatter),
+            StringHelper::normalize($this->_keylighter->highlight($source, $language, $this->_formatter)),
             "Not normalized"
         );
 
         $this->assertEquals(
-            $this->normalize($expected),
-            $this->_keylighter->highlight($this->normalize($source), $language, $this->_formatter),
+            StringHelper::normalize($expected),
+            $this->_keylighter->highlight(StringHelper::normalize($source), $language, $this->_formatter),
             "Normalized"
         );
     }
