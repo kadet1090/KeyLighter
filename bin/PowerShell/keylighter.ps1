@@ -33,6 +33,8 @@ function Show-HighlightedSource {
 
         [Alias('s')][switch]$Silent,
 
+        [Alias('lf')][switch]$Normalize = $false,
+
         [Alias('v')][int]$VerboseLevel = 0
     )
 
@@ -57,6 +59,10 @@ function Show-HighlightedSource {
 
         if($Silent) {
             $params += @('-s')
+        }
+
+        if($Normalize) {
+            $params += @('--normalize')
         }
 
         if($VerboseLevel -gt 0) {

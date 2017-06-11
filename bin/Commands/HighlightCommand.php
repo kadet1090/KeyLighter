@@ -35,6 +35,7 @@ class HighlightCommand extends Command
     {
         $this->setName('highlight')
             ->addArgument('path', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'File(s) to highlight')
+            ->addOption('normalize',  null, InputOption::VALUE_OPTIONAL, 'Normalize input to LF')
             ->addOption('language', 'l', InputOption::VALUE_OPTIONAL, 'Source Language to highlight, see <comment>list-languages</comment> command')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Output format, see <comment>list-languages</comment> command', 'cli')
             ->addOption(
@@ -59,7 +60,7 @@ class HighlightCommand extends Command
         }
     }
 
-    protected function content($path)
+    protected function content($path, $normalize = false)
     {
         if(!($file = @fopen($path, 'r'))) {
             return false;
@@ -71,7 +72,7 @@ class HighlightCommand extends Command
         }
         fclose($file);
 
-        return $content; // normalize input
+        return $normalize ? str_replace("\r\n", "\n", $content) : $content; // normalize input
     }
 
     public function mergeApplicationDefinition($arguments = true)
@@ -92,7 +93,7 @@ class HighlightCommand extends Command
             ? KeyLighter::get()->getLanguage($input->getOption('language'))
             : Language::byFilename($filename);
 
-        if (!($source = $this->content($filename))) {
+        if (!($source = $this->content($filename, $input->getOption('normalize')))) {
             throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.',
                 $filename));
         }

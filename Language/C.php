@@ -49,7 +49,8 @@ class C extends GreedyLanguage
             ]),
 
             'preprocessor' => new OpenRule(new RegexMatcher('/^(#)/m'), [
-                'context' => Validator::everywhere()
+                'context' => Validator::everywhere(),
+                'priority' => -1
             ]),
 
             'call' => [
@@ -96,10 +97,11 @@ class C extends GreedyLanguage
             ],
 
             'language.c' => [
-                new Rule(new RegexMatcher('/^#define\s+\w+(.*?[^\\\])(?>\R|$)/sim'), [
+                new Rule(new RegexMatcher('/^#define\s+\w+(.*?)(?>[^\\\]\r\n|[^\\\\\r]\n|\Z)/sim'), [
                     'factory' => new TokenFactory(LanguageToken::class),
                     'inject'  => $this,
-                    'context' => ['preprocessor']
+                    'context' => ['preprocessor'],
+                    'priority' => 10
                 ]),
             ]
         ]);
