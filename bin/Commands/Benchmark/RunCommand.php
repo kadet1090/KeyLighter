@@ -86,6 +86,7 @@ class RunCommand extends Command
             'formatter' => get_class($formatter),
             'timestamp' => time(),
             'system'    => php_uname(),
+            'comment'   => $input->getOption('comment'),
             'results'   => $results
         ], $input, $output);
     }
@@ -97,6 +98,7 @@ class RunCommand extends Command
             ->setDescription('Tests performance of KeyLighter')
             ->addOption('times', 't', InputOption::VALUE_OPTIONAL, 'How many times each test will be run', 50)
             ->addOption('include', 'i', InputOption::VALUE_OPTIONAL, 'File mask to include', '*')
+            ->addOption('comment', 'm', InputOption::VALUE_OPTIONAL, 'Comment to include in file')
             ->addOption('pretty', 'p', InputOption::VALUE_NONE, 'Pretty print')
             ->addOption('geshi', 'g', InputOption::VALUE_NONE, 'Include GeSHi for comparsion')
             ->addOption('formatter', 'f', InputOption::VALUE_OPTIONAL, 'Formatter used for benchmark')

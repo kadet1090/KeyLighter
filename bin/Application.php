@@ -56,7 +56,7 @@ class Application extends SymfonyApplication
             new Dev\GenerateMetadataCommand(),
             new Benchmark\RunCommand(),
 //            new Benchmark\ReportCommand(),
-//            new Benchmark\AnalyzeCommand(),
+            new Benchmark\AnalyzeCommand(),
         ]);
     }
 
