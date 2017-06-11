@@ -52,4 +52,9 @@ class ArrayHelper
 
         return $fallback;
     }
+
+    public static function get(array $array, $key, $fallback = null)
+    {
+        return isset($array[$key]) ? $array[$key] : $fallback;
+    }
 }
