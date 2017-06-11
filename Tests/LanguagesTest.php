@@ -50,12 +50,14 @@ class LanguagesTest extends \PHPUnit_Framework_TestCase
         $expected = file_get_contents($expected);
         $this->assertEquals(
             $expected,
-            $this->_keylighter->highlight($source, $language, $this->_formatter)
+            $this->_keylighter->highlight($source, $language, $this->_formatter),
+            "Not normalized"
         );
 
         $this->assertEquals(
             $this->normalize($expected),
-            $this->_keylighter->highlight($this->normalize($source), $language, $this->_formatter)
+            $this->_keylighter->highlight($this->normalize($source), $language, $this->_formatter),
+            "Normalized"
         );
     }
 }
