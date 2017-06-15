@@ -1,3 +1,7 @@
+---
+icon: file-pdf-o
+---
+
 # LaTeX Formatter
 
 ![The default theme](https://user-images.githubusercontent.com/2938672/27013405-725720aa-4ee3-11e7-808f-b1c7ebe7fda3.png)
