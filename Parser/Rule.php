@@ -31,6 +31,7 @@ use Kadet\Highlighter\Parser\Validator\Validator;
  * @property integer               $priority
  * @property string                $type
  * @property TokenFactoryInterface $factory
+ * @property string                $name
  *
  */
 class Rule
@@ -46,6 +47,8 @@ class Rule
     /**
      * @param MatcherInterface|null $matcher
      * @param array                 $options
+     *
+     * @throws \InvalidArgumentException
      */
     public function __construct(MatcherInterface $matcher = null, array $options = [])
     {
@@ -57,6 +60,7 @@ class Rule
             'language' => false,
             'factory'  => new TokenFactory(Token::class),
             'enabled'  => true,
+            'name'     => null
         ], $options);
 
         if (isset($options['context'])) {

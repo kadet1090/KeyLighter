@@ -16,39 +16,18 @@
 namespace Kadet\Highlighter\Parser;
 
 
+use Kadet\Highlighter\Exceptions\NameConflictException;
+use Kadet\Highlighter\Exceptions\NoSuchElementException;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Rules extends \ArrayObject
 {
+    /** @var Language Default language assigned to added rules. */
     private $_language;
+
+    /** @var Validator Default validator used in added rules. */
     public $validator;
-
-    /**
-     * Rules constructor.
-     *
-     * @param Language $language
-     */
-    public function __construct($language)
-    {
-        $this->_language = $language;
-        $this->validator = new Validator();
-    }
-
-    public function addMany(array $rules, $prefix = null)
-    {
-        foreach ($rules as $name => $rule) {
-            $name = $this->_getName($name, $prefix);
-
-            if ($rule instanceof Rule) {
-                $this->add($name, $rule);
-            } elseif (is_array($rule)) {
-                $this->addMany($rule, $name);
-            } else {
-                throw new \LogicException(); // todo: exception, message
-            }
-        }
-    }
 
     private function _getName($name, $prefix)
     {
@@ -59,10 +38,53 @@ class Rules extends \ArrayObject
         }
     }
 
-    public function add($name, Rule $rule)
+    /**
+     * Rules constructor.
+     *
+     * @param Language $language
+     */
+    public function __construct($language)
     {
-        if (!isset($this[$name])) {
-            $this[$name] = [];
+        $this->_language = $language;
+
+        $this->validator = new Validator();
+    }
+
+    /**
+     * Adds array of rules
+     *
+     * @param array       $rules
+     * @param string|null $prefix
+     *
+     * @throws \LogicException
+     */
+    public function addMany(array $rules, $prefix = null)
+    {
+        foreach ($rules as $type => $rule) {
+            $type = $this->_getName($type, $prefix);
+
+            if ($rule instanceof Rule) {
+                $this->add($type, $rule);
+            } elseif (is_array($rule)) {
+                $this->addMany($rule, $type);
+            } else {
+                throw new \LogicException('Array values has to be either arrays of rules or rules.');
+            }
+        }
+    }
+
+    /**
+     * Adds one rule
+     *
+     * @param string $type
+     * @param Rule   $rule
+     *
+     * @throws NameConflictException When there is already defined rule with given name.
+     */
+    public function add($type, Rule $rule)
+    {
+        if (!isset($this[$type])) {
+            $this[$type] = [];
         }
 
         if ($rule->language === false) {
@@ -73,44 +95,94 @@ class Rules extends \ArrayObject
             $rule->validator = $this->validator;
         }
 
-        $rule->factory->setBase($name);
-        $this[$name][] = $rule;
+        $rule->factory->setBase($type);
+
+        if ($rule->name !== null) {
+            if (isset($this[$type][$rule->name])) {
+                throw new NameConflictException("Rule with '{$rule->name}' is already defined, name has to be unique!");
+            }
+
+            $this[$type][$rule->name] = $rule;
+            return;
+        }
+
+        $this[$type][] = $rule;
     }
 
     /**
-     * @param     $name
-     * @param int $index
+     * Return reference to rule of given type and index.
+     *
+     * @param string $type
+     * @param mixed  $index
      *
      * @return \Kadet\Highlighter\Parser\Rule
      */
-    public function &rule($name, $index = 0)
+    public function &rule($type, $index = 0)
     {
-        return $this[$name][$index];
+        return $this[$type][$index];
     }
 
     /**
-     * @param $name
+     * Retrieves all rules of given type.
      *
-     * @return \Kadet\Highlighter\Parser\Rule[]
+     * @param $type
+     *
+     * @return Rule[]
+     * @throws NoSuchElementException
      */
-    public function rules($name)
+    public function rules($type)
     {
-        if (!isset($this[$name])) {
-            throw new \InvalidArgumentException();
+        if (!isset($this[$type])) {
+            throw new NoSuchElementException("There isn't any rule of '$type' type.");
         }
 
-        return $this[$name];
+        return $this[$type];
     }
-    
-    public function remove($name, $index = null)
+
+    /**
+     * Replaces rule of given type and index with provided one.
+     *
+     * @param Rule $replacement
+     * @param      $type
+     * @param int  $index
+     */
+    public function replace(Rule $replacement, $type, $index = 0)
+    {
+        $current = $this->rule($type, $index);
+        if ($current->name !== null) {
+            $replacement->name = $current->name;
+        }
+
+        $this[$type][$index] = $replacement;
+    }
+
+    /**
+     * Removes rule of given type and index.
+     *
+     * @param string $type
+     * @param mixed  $index
+     *
+     * @throws NoSuchElementException
+     */
+    public function remove($type, $index = null)
     {
         if ($index === null) {
-            unset($this[$name]);
-        } else {
-            unset($this[$name][$index]);
+            unset($this[$type]);
+            return;
         }
+
+        if(!isset($this[$type][$index])) {
+            throw new NoSuchElementException("There is no rule '$type' type indexed by '$index'.");
+        }
+
+        unset($this[$type][$index]);
     }
 
+    /**
+     * Retrieves all rule set.
+     *
+     * @return Rule[]
+     */
     public function all()
     {
         $items = $this->getArrayCopy();

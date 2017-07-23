@@ -35,6 +35,17 @@ class RulesTest extends \PHPUnit_Framework_TestCase
         $this->assertContainsOnlyInstancesOf(Rule::class, $rules->all());
     }
 
+    public function testAddsNamedRule()
+    {
+        $rule = new Rule(null, ['name' => 'name']);
+
+        $rules = new Rules($this->getLanguageMock());
+        $rules->add('test',  $rule);
+
+        $this->assertSame($rule, $rules->rule('test', 'name'));
+    }
+
+
     public function testAddsMany()
     {
         $rule = new Rule();
@@ -76,6 +87,15 @@ class RulesTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $rules['test']);
     }
 
+    /**
+     * @expectedException \Kadet\Highlighter\Exceptions\NoSuchElementException
+     */
+    public function testRemovalOfNonExistentRule()
+    {
+        $rules = new Rules($this->getLanguageMock());
+        $rules->remove('test', 0);
+    }
+
     public function testReturning()
     {
         $rule = new Rule();
@@ -94,7 +114,7 @@ class RulesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($rule, $rules->rule('token'));
     }
 
-    /** @expectedException \InvalidArgumentException */
+    /** @expectedException \Kadet\Highlighter\Exceptions\NoSuchElementException */
     public function testUndefinedRule() {
         $rules = new Rules($this->getLanguageMock());
         $rules->rules('nope');
@@ -118,6 +138,31 @@ class RulesTest extends \PHPUnit_Framework_TestCase
         
         $rules->setLanguage($second);
         $this->assertSame($second, $rules->getLanguage());
+    }
+
+    /**
+     * @expectedException \Kadet\Highlighter\Exceptions\NameConflictException
+     */
+    public function testNameHasToBeUnique()
+    {
+        $rule = new Rule(null, ['name' => 'unique']);
+        $rules = new Rules($this->getLanguageMock());
+
+        $rules->add('keyword', $rule);
+        $rules->add('keyword', new Rule(null, ['name' => 'unique']));
+    }
+
+    public function testReplacesRule()
+    {
+        $original    = new Rule();
+        $replacement = new Rule();
+
+        $rules = new Rules($this->getLanguageMock());
+        $rules->add('test',  $original);
+        $this->assertSame($original, $rules->rule('test'));
+
+        $rules->replace($replacement, 'test');
+        $this->assertSame($replacement, $rules->rule('test'));
     }
 
     /**
