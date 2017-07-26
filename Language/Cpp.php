@@ -27,7 +27,7 @@ class Cpp extends C
     {
         parent::setupRules();
 
-        $this->rules->remove('symbol.type', 0); // symbol.type[0] stands for universal type matching in arguments
+        $this->rules->remove('symbol.type', 'universal');
 
         $this->rules->rule('keyword')->setMatcher(new WordMatcher([
             'auto', 'align(?:as|of)', 'and(?:_eq)?', 'asm', 'auto', 'bit(and|or)', 'break', 'case', 'catch', 'class',

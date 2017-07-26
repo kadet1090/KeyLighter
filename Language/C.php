@@ -79,8 +79,8 @@ class C extends GreedyLanguage
             ])),
 
             'symbol.type' => [
-                new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*\*\s*)\w+\s*[=();,]/')),
-                new Rule(new WordMatcher(['int', 'float', 'double', 'char', 'void', 'long', 'short', 'signed', 'unsigned']))
+                new Rule(new RegexMatcher('/(\w+)(?:\s+|\s*\*\s*)\w+\s*[=();,]/'), ['name' => 'universal']),
+                new Rule(new WordMatcher(['int', 'float', 'double', 'char', 'void', 'long', 'short', 'signed', 'unsigned']), ['name' => 'builtin'])
             ],
 
             'comment' => [
