@@ -21,6 +21,7 @@ use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Exception\InvalidArgumentException;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -111,7 +112,7 @@ class HighlightCommand extends Command
         }
 
         if (!$input->getOption('no-output')) {
-            $output->writeln($formatted);
+            $output->writeln(OutputFormatter::escape($formatted));
         }
     }
 }
