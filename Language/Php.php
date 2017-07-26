@@ -39,8 +39,8 @@ class Php extends GreedyLanguage
                 'context' => ['!operator.escape', '!comment', '!string', '!expression'],
             ]),
 
-            'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)(?P<string>.*?)\R\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
-            'string.nowdoc'  => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'(?P<string>.*?)\R\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
+            'string.heredoc' => new Rule(new RegexMatcher('/<<<\s*(\w+)\R(?P<string>.*?)\R\1;/sm', ['string' => Token::NAME, 0 => 'keyword.heredoc']), ['context' => ['!comment']]),
+            'string.nowdoc'  => new Rule(new RegexMatcher('/<<<\s*\'(\w+)\'\R(?P<string>.*?)\R\1;/sm', ['string' => Token::NAME, 0 => 'keyword.nowdoc']), ['context' => ['!comment']]),
 
             'variable' => new Rule(new RegexMatcher('/(?:[^\\\]|^)(\$[a-z_]\w*)/i'), [
                 'context' => ['*comment.docblock', '!string.nowdoc', '!string.single', '!comment']
@@ -100,7 +100,7 @@ class Php extends GreedyLanguage
             'comment' => new Rule(new CommentMatcher(['//', '#'], [
                 '$.docblock' => ['/**', '*/'],
                 ['/*', '*/']
-            ])),
+            ]), ['priority' => 4]),
 
             'symbol.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
                 'context' => ['comment.docblock']
