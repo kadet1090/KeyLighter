@@ -170,16 +170,16 @@
     }
 }
 
-{keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}<<<{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'NOWDOC'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{string.nowdoc:Kadet\Highlighter\Parser\Token\Token}
-lel{/string.nowdoc:Kadet\Highlighter\Parser\Token\Token}
+{keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}<<<{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'NOWDOC'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{string.nowdoc:Kadet\Highlighter\Parser\Token\Token}lel{/string.nowdoc:Kadet\Highlighter\Parser\Token\Token}
 NOWDOC;{/keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}
 
-{keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<HEREDOC{string.heredoc:Kadet\Highlighter\Parser\Token\Token}
-lel{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
+{keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<HEREDOC
+{string.heredoc:Kadet\Highlighter\Parser\Token\Token}lel{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
 HEREDOC;{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
 
-{keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<TEST{string.heredoc:Kadet\Highlighter\Parser\Token\Token}
-<3{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
+{keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<TEST
+{string.heredoc:Kadet\Highlighter\Parser\Token\Token}<3{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
 TEST;{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
 
 
