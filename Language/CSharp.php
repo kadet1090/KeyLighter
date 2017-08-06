@@ -31,7 +31,7 @@ class CSharp extends C
         $this->rules->rule('call.preprocessor')->setMatcher(new RegexMatcher('/^\s*#(\w+)/m'));
 
         $this->rules->remove('operator'); // & and *
-        $this->rules->remove('symbol.type', 'universal'); // symbol.type[0] stands for universal type matching in arguments
+        $this->rules->remove('symbol.type', 'universal');
 
         $this->rules->rule('keyword')->setMatcher(new WordMatcher([
             'abstract', 'as', 'base', 'break', 'case', 'catch', 'char', 'checked', 'class', 'const', 'continue',
