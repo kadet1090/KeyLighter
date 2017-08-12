@@ -51,7 +51,7 @@ class Django extends GreedyLanguage
     public function getEnds($embedded = false)
     {
         return [
-            'variable' => [
+            'expression' => [
                 new OpenRule(new SubStringMatcher('{{'), [
                     'factory'  => new TokenFactory(LanguageToken::class),
                     'priority' => 1000,

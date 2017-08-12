@@ -265,6 +265,7 @@
       1 => 'application/x-javascript',
       2 => 'text/x-javascript',
       3 => 'text/javascript',
+      4 => 'application/json',
     ),
     'extension' => 
     array (
@@ -535,6 +536,24 @@
   ),
   26 => 
   array (
+    0 => 'Kadet\\Highlighter\\Language\\Twig',
+    'name' => 
+    array (
+      0 => 'twig',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-twig',
+    ),
+    'extension' => 
+    array (
+      0 => '*.twig',
+    ),
+    'standalone' => false,
+    'injectable' => true,
+  ),
+  27 => 
+  array (
     0 => 'Kadet\\Highlighter\\Language\\Xaml',
     'name' => 
     array (
@@ -550,7 +569,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  27 => 
+  28 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xml',
     'name' => 

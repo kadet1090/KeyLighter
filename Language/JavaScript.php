@@ -106,7 +106,7 @@ class JavaScript extends GreedyLanguage
     {
         return [
             'name'      => ['js', 'jscript', 'javascript'],
-            'mime'      => ['application/javascript', 'application/x-javascript', 'text/x-javascript', 'text/javascript'],
+            'mime'      => ['application/javascript', 'application/x-javascript', 'text/x-javascript', 'text/javascript', 'application/json'],
             'extension' => ['*.js', '*.jsx'],
         ];
     }

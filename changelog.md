@@ -5,6 +5,7 @@
  * **XAML** highlighting via `Kadet\Highlighter\Language\Xaml` instead of using **XML**
  * **Java** Now matches class names
  * **Shell** languages now have better variable and flag matching
+ * **Twig** highlighting via `Kadet\Highlighter\Language\Twig` based on django/jinja 
  * **C** and **C++** now highlights code in macros
  * One by line HTML formatting via **LineContainedHtmlFormatter**
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
