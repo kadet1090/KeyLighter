@@ -8,7 +8,7 @@ $color-variable: #336699;
 $color-call:     #793962;
 $color-keyword:  #669940;
 
-pre.#{token($kl-class)} {
+pre.#{$kl-class} {
   background: $background;
   padding:    0.5em;
 
