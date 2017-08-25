@@ -1,0 +1,70 @@
+\documentclass[]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[per-mode=symbol]{siunitx}
+\usepackage[version=3]{mhchem}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+
+\author{Kacper Donat}
+
+\begin{document}
+	Rozważamy równanie wykładnicze:
+	\begin{equation}
+		\left(3 - 2\sqrt{2}\right)^x + \left(3 + 2\sqrt{2}\right)^x = 6^x \label{eqn:base}
+	\end{equation}
+	Zauważamy, że $(3 + 2\sqrt{2}) + (3 - 2\sqrt{2}) = 6$, zatem trywialnym rozwiązania owego równania
+	jest $x = 1$, teraz udowodnimy że jest to również jedyne rozwiązanie. Dodatkowo, zauważamy, że $(3 - 2\sqrt{2})^x = \left(3 + 2\sqrt{2}\right)^{-x}$
+	Niech:
+	\begin{align}
+	L_1(x) &= \left(3 + 2\sqrt{2}\right)^x \\
+	L_2(x) &= \left(3 + 2\sqrt{2}\right)^{-x} \\
+	R(x)   &= 6^x
+	\end{align}
+
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[domain=-2:1]
+		\draw[->] (-2,0) -- (1,0) node[right] {$x$};
+		\draw[->] (0,-0.5) -- (0,2) node[above] {$y$};
+
+		\begin{scope}
+			\clip (-2, -.5) rectangle (1, 2);
+			\draw[color=red] plot (\x, 5.8284^\x) node[near start, above, sloped] {$L_1(x)$};
+		\end{scope}
+		\end{tikzpicture}
+		\caption{Wykresy funkcji $L_1(x)$ oraz $L_2(x)$}
+	\end{figure}
+
+	\begin{equation*}
+	\int \arctan^2\sqrt x\ \mathrm{d}x = \left|\begin{aligned}
+	\sqrt x = \tan u \Leftrightarrow x &= \tan^2 u \Leftrightarrow \arctan \sqrt{x} = u  \\
+	\mathrm{d}x &= 2\tan u\frac{1}{\cos^2 u}\mathrm{d}u
+	\end{aligned}\right|
+	\end{equation*}
+	\begin{equation*}
+	= 2\int u^2\tan u\frac{1}{\cos^2 u}\mathrm{d}u = \left|\begin{aligned}
+		f = u^2\quad&\quad g' = \tan u\frac{1}{\cos^2 u} \\
+		f'= 2u \quad&\quad g = \tan^2 u
+	\end{aligned}\right|
+	\end{equation*}
+	\begin{equation*}
+	= u^2tan^2u - 2\int u\tan^2u\mathrm{d}u = \left|\begin{aligned}
+	f = u \quad&\quad g' = \tan^2 u \\
+	f'= 1 \quad&\quad g  = \tan u - u
+	\end{aligned}\right|
+	\end{equation*}
+	\begin{equation*}
+	= u^2tan^2u - 2(u\tan u - u^2 -  \int \tan u - u\mathrm{d}u)
+	\end{equation*}
+	\begin{equation*}
+	= \arctan \sqrt{x}^2tan^2\arctan \sqrt{x} - 2(\arctan \sqrt{x}\tan u - u^2 + \log|\cos u| + \frac{u^2}{2}) + C
+	\end{equation*}
+\end{document}
