@@ -77,30 +77,6 @@ class TokenTest extends TokenTestCase
         $this->assertEquals($token->getLength(), 10, 'Length is invalid');
     }
 
-    public function testIsStart()
-    {
-        $this->markTestSkipped('Some api changes, need to rework');
-
-        $token = $this->_factory->create('test.name', ['pos' => 10]);
-        $close = $this->_factory->create('test.name', ['pos' => 10, 'start' => false]);
-
-        $this->assertTrue($token->isStart());
-        $this->assertFalse($close->isStart());
-    }
-
-    public function testIsEnd()
-    {
-        $this->markTestSkipped('Some api changes, need to rework');
-
-        $token = $this->_factory->create('test.name', ['pos' => 15]);
-        $this->_factory->create('test.name', ['pos' => 10, 'end' => $token]);
-
-        $close = $this->_factory->create('test.name', ['pos' => 10, 'end' => false]);
-
-        $this->assertTrue($token->isEnd());
-        $this->assertFalse($close->isEnd());
-    }
-
     public function testInvalidation()
     {
         /** @var Language $language */

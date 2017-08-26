@@ -44,7 +44,12 @@ class LanguagesTest extends \PHPUnit_Framework_TestCase
     public function testIfLanguageGeneratesValidTokens(Language $language, $input, $expected)
     {
         $source = file_get_contents($input);
+
+        if(!file_exists($expected)) {
+            $this->markTestSkipped('File with expected tokens was not generated.');
+        }
         $expected = file_get_contents($expected);
+
         $this->assertEquals(
             $expected,
             StringHelper::normalize($this->_keylighter->highlight($source, $language, $this->_formatter)),
