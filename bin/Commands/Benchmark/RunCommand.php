@@ -66,19 +66,23 @@ class RunCommand extends Command
             // Dry run, to include all necessary files.
             $this->benchmark($source, $language, $formatter);
 
-            $intermediate = [];
+            $times  = [];
+            $memory = [];
             for($i = $input->getOption('times'); $i > 0; $i--) {
-                $intermediate = array_merge_recursive($intermediate, $this->benchmark($source, $language, $formatter));
+                $result = $this->benchmark($source, $language, $formatter);
+                $times  = array_merge_recursive($times, $result['times']);
+                $memory = array_merge_recursive($memory, $result['memory']);
 
                 if($input->getOption('geshi') && class_exists('GeSHi')) {
-                    $intermediate['geshi'][] = $this->geshi($source, $file->getExtension());
+                    $times['geshi'][] = $this->geshi($source, $file->getExtension());
                 }
             }
 
             $results[$shortname] = [
                 'language' => get_class($language),
-                'size' => $file->getSize(),
-                'times' => $intermediate
+                'size'     => $file->getSize(),
+                'times'    => $times,
+                'memory'   => $memory
             ];
         }
 
@@ -108,20 +112,53 @@ class RunCommand extends Command
 
     protected function benchmark($source, Language $language, FormatterInterface $formatter, $geshi = null)
     {
-        $tokenization = microtime(true);
-        $tokens = $language->tokenize($source);
-        $tokenization = microtime(true) - $tokenization;
+        gc_collect_cycles(); // force garbage collector
+        $memory = $this->getMemory();
 
-        $parsing = microtime(true);
-        $parsed = $language->parse($tokens);
-        $parsing = microtime(true) - $parsing;
+        $tokenization = $this->_benchmark(function() use ($language, $source) {
+            return $language->tokenize($source);
+        });
+        $tokens = $tokenization['result'];
 
-        $formatting = microtime(true);
-        $formatter->format($parsed);
-        $formatting = microtime(true) - $formatting;
+        $parsing = $this->_benchmark(function() use ($language, $tokens) {
+            return $language->parse($tokens);
+        });
+        $parsed = $tokenization['result'];
 
-        $overall = $tokenization + $parsing + $formatting;
-        return compact('tokenization', 'parsing', 'formatting', 'overall');
+        $formatting = $this->_benchmark(function() use ($formatter, $parsed) {
+            return $formatter->format($parsed);
+        });
+
+        return [
+            'times' => [
+                'tokenization' => $tokenization['time'],
+                'parsing'      => $parsing['time'],
+                'formatting'   => $formatting['time'],
+                'overall'      => $tokenization['time'] + $parsing['time'] + $formatting['time']
+            ],
+            'memory' => [
+                'start' => $memory,
+                'tokenization' => $tokenization['memory'],
+                'parsing'      => $parsing['memory'],
+                'formatting'   => $formatting['memory'],
+                'overall' => $this->getMemory() - $memory,
+                'end'   => $this->getMemory()
+            ]
+        ];
+    }
+
+    private function _benchmark(\Closure $function)
+    {
+        $memory = $this->getMemory();
+        $time   = $this->getTime();
+
+        $result = $function();
+
+        return [
+            'result' => $result,
+            'time'   => $this->getTime() - $time,
+            'memory' => $this->getMemory() - $memory,
+        ];
     }
 
     protected function geshi($source, $language)
@@ -140,5 +177,15 @@ class RunCommand extends Command
         } else {
             $output->write($result);
         }
+    }
+
+    protected function getMemory()
+    {
+        return memory_get_usage();
+    }
+
+    protected function getTime()
+    {
+        return microtime(true);
     }
 }

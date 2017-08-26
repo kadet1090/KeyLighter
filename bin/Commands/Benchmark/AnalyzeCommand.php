@@ -57,11 +57,24 @@ class AnalyzeCommand extends Command
 
                 $summary[$set][] = array_sum($result) / count($result);
             }
+
+            if (!isset($data['memory'])) {
+                continue;
+            }
+
+            foreach ($data['memory'] as $set => $memory) {
+                $result = array_map(function ($memory) use ($data, $input) {
+                    $bytes = $input->getOption('relative') ? $memory/$data['size'] : $memory;
+                    return $this->formatBytes($bytes, (bool)$input->getOption('relative'));
+                }, $memory);
+
+                $this->entry($result, $set, $table);
+            }
         }
 
-        if(!$input->hasOption('summary')) {
+//        if(!$input->hasParameterOption('--summary')) {
             $table->render();
-        }
+//        }
 
         $summary = array_filter($summary, function($key) use ($input) {
             return fnmatch($input->getOption('summary') ?: '*', $key);
@@ -105,7 +118,7 @@ class AnalyzeCommand extends Command
 
     private function format($number)
     {
-        return number_format($number, 2);
+        return is_numeric($number) ? number_format($number, 2) : $number;
     }
 
     private function avarage(array $result)
@@ -118,8 +131,20 @@ class AnalyzeCommand extends Command
         $mean = array_sum($result) / count($result);
 
         return sqrt(array_sum(array_map(function ($result) use ($mean) {
-                return pow($result - $mean, 2);
-            }, $result)) / count($result));
+            return pow($result - $mean, 2);
+        }, $result)) / count($result));
+    }
+
+    function formatBytes($bytes, $relative = false) {
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
+
+        $bytes = max($bytes, 0);
+        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow = min($pow, count($units) - 1);
+
+        $bytes /= (1 << (10 * $pow));
+
+        return $this->format($bytes);//.$units[$pow].($relative ? '/byte' : '');
     }
 
     protected function configure()
