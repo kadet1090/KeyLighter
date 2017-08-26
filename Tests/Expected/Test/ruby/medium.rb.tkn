@@ -1,0 +1,139 @@
+{language.ruby:Kadet\Highlighter\Parser\Token\LanguageToken}{variable.global:Kadet\Highlighter\Parser\Token\Token}${/variable.global:Kadet\Highlighter\Parser\Token\Token}:.unshift File.{call:Kadet\Highlighter\Parser\Token\Token}dirname{/call:Kadet\Highlighter\Parser\Token\Token}({constant.special:Kadet\Highlighter\Parser\Token\Token}__FILE__{/constant.special:Kadet\Highlighter\Parser\Token\Token}) {comment:Kadet\Highlighter\Parser\Token\Token}# For use/testing when no gem is installed{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Require all of the Ruby files in the given directory.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# path - The String relative path from here to the directory.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Returns nothing.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}def{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}require_all{/call:Kadet\Highlighter\Parser\Token\Token}(path)
+  glob = File.{call:Kadet\Highlighter\Parser\Token\Token}join{/call:Kadet\Highlighter\Parser\Token\Token}(File.{call:Kadet\Highlighter\Parser\Token\Token}dirname{/call:Kadet\Highlighter\Parser\Token\Token}({constant.special:Kadet\Highlighter\Parser\Token\Token}__FILE__{/constant.special:Kadet\Highlighter\Parser\Token\Token}), path, {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'*.rb'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken})
+  Dir[glob].each {keyword:Kadet\Highlighter\Parser\Token\Token}do{/keyword:Kadet\Highlighter\Parser\Token\Token} |f|
+    {call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} f
+  {keyword:Kadet\Highlighter\Parser\Token\Token}end{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}end{/keyword:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# rubygems{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'rubygems'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# stdlib{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'fileutils'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'time'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'yaml'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'English'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# 3rd party{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'liquid'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'maruku'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'albino'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# internal requires{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/core_ext'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/site'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/convertible'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/layout'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/page'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/post'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/filters'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/static_file'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/errors'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# extensions{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/plugin'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/converter'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/generator'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require_all{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/converters'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require_all{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/generators'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+{call:Kadet\Highlighter\Parser\Token\Token}require_all{/call:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'jekyll/tags'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}module{/keyword:Kadet\Highlighter\Parser\Token\Token} Jekyll
+  VERSION = {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'0.11.2'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+  {comment:Kadet\Highlighter\Parser\Token\Token}# Default options. Overriden by values in _config.yml or command-line opts.{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}# (Strings rather symbols used for compatability with YAML).{/comment:Kadet\Highlighter\Parser\Token\Token}
+  DEFAULTS = {
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'safe'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}          => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'auto'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}          => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'server'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}        => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'server_port'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}   => {number:Kadet\Highlighter\Parser\Token\Token}4000{/number:Kadet\Highlighter\Parser\Token\Token},
+
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'source'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}       => Dir.pwd,
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'destination'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}  => File.{call:Kadet\Highlighter\Parser\Token\Token}join{/call:Kadet\Highlighter\Parser\Token\Token}(Dir.pwd, {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'_site'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}),
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'plugins'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}      => File.{call:Kadet\Highlighter\Parser\Token\Token}join{/call:Kadet\Highlighter\Parser\Token\Token}(Dir.pwd, {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'_plugins'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}),
+
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'future'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}       => {constant.special:Kadet\Highlighter\Parser\Token\Token}true{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'lsi'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}          => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'pygments'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}     => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'markdown'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}     => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'maruku'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'permalink'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'date'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'include'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}      => [{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'.htaccess'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}],
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'paginate_path'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'page:num'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'markdown_ext'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'markdown,mkd,mkdn,md'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'textile_ext'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}  => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'textile'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'maruku'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}       => {
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'use_tex'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'use_divs'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}   => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'png_engine'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'blahtex'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'png_dir'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'images/latex'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'png_url'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'/images/latex'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+    },
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'rdiscount'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'extensions'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => []
+    },
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'redcarpet'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'extensions'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => []
+    },
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'kramdown'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}        => {
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'auto_ids'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}      => {constant.special:Kadet\Highlighter\Parser\Token\Token}true{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'footnote_nr'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}   => {number:Kadet\Highlighter\Parser\Token\Token}1{/number:Kadet\Highlighter\Parser\Token\Token},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'entity_output'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'as_char'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'toc_levels'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}    => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'1..6'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'smart_quotes'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}  => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'lsquo,rsquo,ldquo,rdquo'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'use_coderay'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}   => {constant.special:Kadet\Highlighter\Parser\Token\Token}false{/constant.special:Kadet\Highlighter\Parser\Token\Token},
+
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_wrap'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}              => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'div'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_line_numbers'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}      => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'inline'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken},
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_line_number_start'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken} => {number:Kadet\Highlighter\Parser\Token\Token}1{/number:Kadet\Highlighter\Parser\Token\Token},
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_tab_width'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}         => {number:Kadet\Highlighter\Parser\Token\Token}4{/number:Kadet\Highlighter\Parser\Token\Token},
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_bold_every'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}        => {number:Kadet\Highlighter\Parser\Token\Token}10{/number:Kadet\Highlighter\Parser\Token\Token},
+        {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'coderay_css'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}               => {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'style'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
+      }
+    },
+    {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'redcloth'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}        => {
+      {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'hard_breaks'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}   => {constant.special:Kadet\Highlighter\Parser\Token\Token}true{/constant.special:Kadet\Highlighter\Parser\Token\Token}
+    }
+  }
+
+  {comment:Kadet\Highlighter\Parser\Token\Token}# Public: Generate a Jekyll configuration Hash by merging the default{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}# options with anything in _config.yml, and adding the given options on top.{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}# override - A Hash of config directives that override any options in both{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}#            the defaults and the config file. See Jekyll::DEFAULTS for a{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}#            list of option names and their defaults.{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {comment:Kadet\Highlighter\Parser\Token\Token}# Returns the final configuration Hash.{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {keyword:Kadet\Highlighter\Parser\Token\Token}def{/keyword:Kadet\Highlighter\Parser\Token\Token} {constant.special:Kadet\Highlighter\Parser\Token\Token}self{/constant.special:Kadet\Highlighter\Parser\Token\Token}.{call:Kadet\Highlighter\Parser\Token\Token}configuration{/call:Kadet\Highlighter\Parser\Token\Token}(override)
+    {comment:Kadet\Highlighter\Parser\Token\Token}# _config.yml may override default source location, but until{/comment:Kadet\Highlighter\Parser\Token\Token}
+    {comment:Kadet\Highlighter\Parser\Token\Token}# then, we need to know where to look for _config.yml{/comment:Kadet\Highlighter\Parser\Token\Token}
+    source = override[{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'source'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}] || Jekyll::{constant:Kadet\Highlighter\Parser\Token\Token}DEFAULTS{/constant:Kadet\Highlighter\Parser\Token\Token}[{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'source'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}]
+
+    {comment:Kadet\Highlighter\Parser\Token\Token}# Get configuration from <source>/_config.yml{/comment:Kadet\Highlighter\Parser\Token\Token}
+    config_file = File.{call:Kadet\Highlighter\Parser\Token\Token}join{/call:Kadet\Highlighter\Parser\Token\Token}(source, {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'_config.yml'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken})
+    {keyword:Kadet\Highlighter\Parser\Token\Token}begin{/keyword:Kadet\Highlighter\Parser\Token\Token}
+      config = YAML.{call:Kadet\Highlighter\Parser\Token\Token}load_file{/call:Kadet\Highlighter\Parser\Token\Token}(config_file)
+      {call:Kadet\Highlighter\Parser\Token\Token}raise{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Invalid configuration - {expression.in-string:Kadet\Highlighter\Parser\Token\LanguageToken}#{config_file}{/expression.in-string:Kadet\Highlighter\Parser\Token\LanguageToken}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} {keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} !config.{call:Kadet\Highlighter\Parser\Token\Token}is_a?{/call:Kadet\Highlighter\Parser\Token\Token}(Hash)
+      {variable.global:Kadet\Highlighter\Parser\Token\Token}$stdout{/variable.global:Kadet\Highlighter\Parser\Token\Token}.puts {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Configuration from {expression.in-string:Kadet\Highlighter\Parser\Token\LanguageToken}#{config_file}{/expression.in-string:Kadet\Highlighter\Parser\Token\LanguageToken}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+    {keyword:Kadet\Highlighter\Parser\Token\Token}rescue{/keyword:Kadet\Highlighter\Parser\Token\Token} => err
+      {variable.global:Kadet\Highlighter\Parser\Token\Token}$stderr{/variable.global:Kadet\Highlighter\Parser\Token\Token}.puts {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"WARNING: Could not read configuration. "{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} +
+                   {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Using defaults (and options)."{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+      {variable.global:Kadet\Highlighter\Parser\Token\Token}$stderr{/variable.global:Kadet\Highlighter\Parser\Token\Token}.puts {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{operator.escape:Kadet\Highlighter\Parser\Token\Token}\t{/operator.escape:Kadet\Highlighter\Parser\Token\Token}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} + err.to_s
+      config = {}
+    {keyword:Kadet\Highlighter\Parser\Token\Token}end{/keyword:Kadet\Highlighter\Parser\Token\Token}
+
+    {comment:Kadet\Highlighter\Parser\Token\Token}# Merge DEFAULTS < _config.yml < override{/comment:Kadet\Highlighter\Parser\Token\Token}
+    Jekyll::{constant:Kadet\Highlighter\Parser\Token\Token}DEFAULTS{/constant:Kadet\Highlighter\Parser\Token\Token}.{call:Kadet\Highlighter\Parser\Token\Token}deep_merge{/call:Kadet\Highlighter\Parser\Token\Token}(config).{call:Kadet\Highlighter\Parser\Token\Token}deep_merge{/call:Kadet\Highlighter\Parser\Token\Token}(override)
+  {keyword:Kadet\Highlighter\Parser\Token\Token}end{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}end{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{/language.ruby:Kadet\Highlighter\Parser\Token\LanguageToken}
