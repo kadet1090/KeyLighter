@@ -55,7 +55,7 @@ class Http extends GreedyLanguage
 
         $http = $split[0];
         if(isset($split[1]) && $payload = $split[1]) {
-            if(preg_match('/Content-Type: ([^;]*)/', $http, $matches)) {
+            if(preg_match('/Content-Type: ([^;\r\n]*)/', $http, $matches)) {
                 $mime = $matches[1];
             } else {
                 $mime = 'text/plain';

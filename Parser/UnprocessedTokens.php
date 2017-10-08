@@ -72,6 +72,6 @@ class UnprocessedTokens
 
     public function toArray()
     {
-        return call_user_func_array('array_replace', $this->_tokens);
+        return count($this->_tokens) >= 2 ? call_user_func_array('array_replace', $this->_tokens) : $this->_tokens;
     }
 }

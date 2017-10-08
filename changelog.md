@@ -24,8 +24,7 @@
  
 ## 16.09.2016 [0.8.2]
 ### Fixed
- * Fixed (#2)[https://github.com/kadet1090/KeyLighter/issues/2] - `symfony/console` is now suggested dependency 
-   and required only in dev.
+ * Fixed #2 - `symfony/console` is now suggested dependency and required only in dev.
 
 ## 07.07.2016 [0.8.1]
 ### Fixed
