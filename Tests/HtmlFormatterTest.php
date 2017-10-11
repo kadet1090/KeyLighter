@@ -36,7 +36,7 @@ class HtmlFormatterTest extends \PHPUnit_Framework_TestCase
     {
         $source   = 'abc + test';
         $expected = <<<EXPECTED
-<span class="token">abc</span> <span class="operator">+</span> <span class="token second">test</span>
+<span class="kl-token">abc</span> <span class="kl-operator">+</span> <span class="kl-token kl-second">test</span>
 EXPECTED;
 
         $first    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);

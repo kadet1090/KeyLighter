@@ -1,68 +1,68 @@
 pre.keylighter {
   background: #181818;
   padding: 15px; }
-  pre.keylighter span.language, pre.keylighter span.expression.math {
+  pre.keylighter span.kl-language, pre.keylighter span.kl-expression {
     color: white; }
-  pre.keylighter span.keyword {
+  pre.keylighter span.kl-keyword {
     color: #FF9700; }
-  pre.keylighter span.operator {
+  pre.keylighter span.kl-operator {
     color: #c17200; }
-  pre.keylighter span.delimiter {
+  pre.keylighter span.kl-delimiter {
     color: #c17200; }
-  pre.keylighter span.string {
+  pre.keylighter span.kl-string {
     color: #b7e388; }
-  pre.keylighter span.comment {
+  pre.keylighter span.kl-comment {
     color: #555; }
-  pre.keylighter span.number {
+  pre.keylighter span.kl-number {
     color: #E26F90; }
-  pre.keylighter span.constant {
+  pre.keylighter span.kl-constant {
     color: #F5A2B7; }
-  pre.keylighter span.call {
+  pre.keylighter span.kl-call {
     color: #F4BD8C; }
-  pre.keylighter span.call.preprocessor {
+  pre.keylighter span.kl-call.kl-preprocessor {
     color: #99764b; }
-  pre.keylighter span.preprocessor {
+  pre.keylighter span.kl-preprocessor {
     color: #ad916f; }
-  pre.keylighter span.symbol {
+  pre.keylighter span.kl-symbol {
     color: #ffdebb; }
-  pre.keylighter span.variable {
+  pre.keylighter span.kl-variable {
     color: #AD83E2; }
-  pre.keylighter span.annotation {
+  pre.keylighter span.kl-annotation {
     color: #FF9700; }
-  pre.keylighter span.parameter {
+  pre.keylighter span.kl-parameter {
     color: #6691C2; }
-  pre.keylighter span.annotation.arguments {
+  pre.keylighter span.kl-annotation.kl-arguments {
     color: white; }
-  pre.keylighter span.variable.splat {
+  pre.keylighter span.kl-variable.kl-splat {
     color: #BD9CE0; }
-  pre.keylighter span.variable.property {
+  pre.keylighter span.kl-variable.kl-property {
     color: #BD9CE0; }
-  pre.keylighter span.symbol.dotnet {
+  pre.keylighter span.kl-symbol.kl-dotnet {
     color: #ffdebb; }
-  pre.keylighter span.comment.docblock {
+  pre.keylighter span.kl-comment.kl-docblock {
     color: #666; }
-  pre.keylighter span.tag {
+  pre.keylighter span.kl-tag {
     color: #c17200; }
-  pre.keylighter span.symbol.tag {
+  pre.keylighter span.kl-symbol.kl-tag {
     font-weight: bold; }
-  pre.keylighter span.attribute {
+  pre.keylighter span.kl-attribute {
     color: #F4BD8C; }
-  pre.keylighter span.format.bold {
+  pre.keylighter span.kl-format.kl-bold {
     font-weight: bold; }
-  pre.keylighter span.format.italics {
+  pre.keylighter span.kl-format.kl-italics {
     font-style: italic; }
-  pre.keylighter span.format.strike {
+  pre.keylighter span.kl-format.kl-strike {
     text-decoration: line-through; }
-  pre.keylighter span.format.underline {
+  pre.keylighter span.kl-format.kl-underline {
     text-decoration: underline; }
-  pre.keylighter span.format.monospace, pre.keylighter span.format.block.code {
+  pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
     color: #666; }
-  pre.keylighter span.format.header {
+  pre.keylighter span.kl-format.kl-header {
     color: #6691C2; }
-  pre.keylighter span.symbol.type {
+  pre.keylighter span.kl-symbol.kl-type {
     color: #F5A2B7; }
-  pre.keylighter span.tag.namespace {
+  pre.keylighter span.kl-tag.kl-namespace {
     color: #FF9700;
     font-weight: normal; }
-  pre.keylighter span.attribute.namespace {
+  pre.keylighter span.kl-attribute.kl-namespace {
     color: #ffdebb; }
