@@ -29,6 +29,11 @@ class LatexFormatter implements FormatterInterface
 {
     private $_styles;
 
+    /**
+     * LatexFormatter constructor.
+     *
+     * @param array|false $styles
+     */
     public function __construct($styles = false)
     {
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Latex/Default.php';
