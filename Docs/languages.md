@@ -35,6 +35,7 @@ All alias definitions can be found in [`Config/metadata.php`](../Config/metadata
 <!-- aliasbegin -->
 Class | Name | MIME | Extension
 ------|------|------|----------
+`Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
 `Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
 `Kadet\Highlighter\Language\Cobol` | `cobol` | `text/x-cobol` | `*.cbl`
 `Kadet\Highlighter\Language\Cpp` | `cpp`, `c++` | `text/x-c++src`, `text/x-c++hdr` | `*.cpp`, `*.hpp`, `*.hxx`, `*.cxx`, `*.cc`, `*.hh`
@@ -48,7 +49,7 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Http` | `http` | none | none
 `Kadet\Highlighter\Language\Ini` | `ini` | `text/x-ini`, `text/inf` | `*.ini`, `*.cfg`, `*.inf`
 `Kadet\Highlighter\Language\Java` | `java` | `text/x-java` | `*.java`
-`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript` | `*.js`, `*.jsx`
+`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript`, `application/json` | `*.js`, `*.jsx`
 `Kadet\Highlighter\Language\Latex` | `tex`, `latex` | `application/x-tex`, `application/x-latex` | `*.tex`, `*.aux`, `*.toc`
 `Kadet\Highlighter\Language\Markdown` | `markdown`, `md` | `text/markdown` | `*.markdown`, `*.md`
 `Kadet\Highlighter\Language\Perl` | `perl` | `text/x-perl`, `application/x-perl` | `*.pl`, `*.pm`, `*.t`
@@ -61,6 +62,7 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
 `Kadet\Highlighter\Language\Sql\MySql` | `mysql` | `text/x-mysql` | none
 `Kadet\Highlighter\Language\Sql` | `sql` | `text/x-sql` | `*.sql`
+`Kadet\Highlighter\Language\Twig` | `twig` | `text/x-twig` | `*.twig`
 `Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
 `Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
 <!-- aliasend -->
