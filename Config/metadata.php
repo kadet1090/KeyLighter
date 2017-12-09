@@ -197,6 +197,24 @@
   ),
   10 => 
   array (
+    0 => 'Kadet\\Highlighter\\Language\\Haskell',
+    'name' => 
+    array (
+      0 => 'haskell',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-haskell',
+    ),
+    'extension' => 
+    array (
+      0 => '*.hs',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  11 => 
+  array (
     0 => 'Kadet\\Highlighter\\Language\\Html',
     'name' => 
     array (
@@ -214,7 +232,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  11 => 
+  12 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Http',
     'name' => 
@@ -230,7 +248,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  12 => 
+  13 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Ini',
     'name' => 
@@ -251,7 +269,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  13 => 
+  14 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Java',
     'name' => 
@@ -269,7 +287,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  14 => 
+  15 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\JavaScript',
     'name' => 
@@ -294,7 +312,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  15 => 
+  16 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Latex',
     'name' => 
@@ -316,7 +334,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  16 => 
+  17 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Markdown',
     'name' => 
@@ -336,7 +354,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  17 => 
+  18 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Perl',
     'name' => 
@@ -357,7 +375,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  18 => 
+  19 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Php',
     'name' => 
@@ -379,7 +397,7 @@
     'standalone' => true,
     'injectable' => true,
   ),
-  19 => 
+  20 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\PlainText',
     'name' => 
@@ -398,7 +416,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  20 => 
+  21 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\PowerShell',
     'name' => 
@@ -420,7 +438,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  21 => 
+  22 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Python\\Django',
     'name' => 
@@ -439,7 +457,7 @@
     'standalone' => false,
     'injectable' => true,
   ),
-  22 => 
+  23 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Python',
     'name' => 
@@ -459,7 +477,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  23 => 
+  24 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Ruby',
     'name' => 
@@ -485,7 +503,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  24 => 
+  25 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Shell',
     'name' => 
@@ -518,7 +536,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  25 => 
+  26 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Sql\\MySql',
     'name' => 
@@ -535,7 +553,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  26 => 
+  27 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Sql',
     'name' => 
@@ -553,7 +571,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  27 => 
+  28 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Twig',
     'name' => 
@@ -571,7 +589,7 @@
     'standalone' => false,
     'injectable' => true,
   ),
-  28 => 
+  29 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xaml',
     'name' => 
@@ -588,7 +606,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  29 => 
+  30 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xml',
     'name' => 
