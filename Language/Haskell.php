@@ -41,8 +41,11 @@ class Haskell extends GreedyLanguage
             'constant' => new Rule(new WordMatcher(['False', 'True', 'Nothing']), ['priority' => 3]),
             'comment'  => new Rule(new CommentMatcher(['--'], [['{-', '-}']]), ['priority' => 20]),
 
-            'symbol.type' => new Rule(new RegexMatcher('/\b([A-Z]\w*)\b/'), ['priority' => 1]),
-            'symbol.function' => new Rule(new RegexMatcher('/([a-z]\w*)\s*::/')),
+            'symbol.type' => new Rule(new RegexMatcher('/\b(_*[A-Z]\w*)\b/'), ['priority' => 1]),
+            'symbol.function' => [
+                new Rule(new RegexMatcher('/(_*[a-z]\w*)\s*::/')),
+                new Rule(new RegexMatcher('/[;\n](_*[a-z]\w*).*?=/'))
+            ],
             'operator.named' => new Rule(new RegexMatcher('/(`\w+`)/')),
 
             'string'   => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
