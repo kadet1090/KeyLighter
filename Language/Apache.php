@@ -43,7 +43,7 @@ class Apache extends GreedyLanguage
             'symbol.tag' => new Rule(new RegexMatcher('/<\\/?' . self::IDENTIFIER . '/', [
                 'name'      => Token::NAME,
                 'namespace' => '$.namespace',
-            ]), ['context' => ['symbol.directive', '!string']]),
+            ]), ['context' => ['tag', '!string']]),
 
             'number'  => new Rule(new RegexMatcher('/\s(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+(?:\.\d+)?))/')),
             'comment' => new Rule(new CommentMatcher(['#'])),
