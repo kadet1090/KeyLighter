@@ -1,0 +1,396 @@
+{language.apache:Kadet\Highlighter\Parser\Token\LanguageToken}{comment:Kadet\Highlighter\Parser\Token\Token}# Based upon the NCSA server configuration files originally by Rob McCool.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Changed extensively for the Debian package by Daniel Stone <daniel@sfarc.net>{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# and also by Thom May <thom@debian.org>.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# ServerRoot: The top of the directory tree under which the server's{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# configuration, error, and log files are kept.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# NOTE!  If you intend to place this on an NFS (or otherwise network){/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# mounted filesystem then please read the LockFile documentation{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# (available at <URL:http://www.apache.org/docs/mod/core.html#lockfile>);{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# you will save yourself a lot of trouble.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}ServerRoot{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"/etc/apache2"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# The LockFile directive sets the path to the lockfile used when Apache{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# is compiled with either USE_FCNTL_SERIALIZED_ACCEPT or{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# USE_FLOCK_SERIALIZED_ACCEPT. This directive should normally be left at{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# its default value. The main reason for changing it is if the logs{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# directory is NFS mounted, since the lockfile MUST BE STORED ON A LOCAL{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# DISK. The PID of the main server process is automatically appended to{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# the filename.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}LockFile{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/var/lock/apache2/accept.lock{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# PidFile: The file in which the server should record its process{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# identification number when it starts.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}PidFile{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/var/run/apache2.pid{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Timeout: The number of seconds before receives and sends time out.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}Timeout{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}300{/number:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# KeepAlive: Whether or not to allow persistent connections (more than{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# one request per connection). Set to "Off" to deactivate.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}KeepAlive{/call:Kadet\Highlighter\Parser\Token\Token} {constant:Kadet\Highlighter\Parser\Token\Token}On{/constant:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxKeepAliveRequests: The maximum number of requests to allow{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# during a persistent connection. Set to 0 to allow an unlimited amount.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# We recommend you leave this number high, for maximum performance.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}MaxKeepAliveRequests{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}100{/number:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# KeepAliveTimeout: Number of seconds to wait for the next request from the{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# same client on the same connection.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}KeepAliveTimeout{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}15{/number:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}##{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}## Server-Pool Size Regulation (MPM specific){/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}##{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# prefork MPM{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# StartServers ......... number of server processes to start{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MinSpareServers ...... minimum number of server processes which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxSpareServers ...... maximum number of server processes which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxClients ........... maximum number of server processes allowed to start{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxRequestsPerChild .. maximum number of requests a server process serves{/comment:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<IfModule prefork.c>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}StartServers{/call:Kadet\Highlighter\Parser\Token\Token}         {number:Kadet\Highlighter\Parser\Token\Token}5{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MinSpareServers{/call:Kadet\Highlighter\Parser\Token\Token}      {number:Kadet\Highlighter\Parser\Token\Token}5{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxSpareServers{/call:Kadet\Highlighter\Parser\Token\Token}     {number:Kadet\Highlighter\Parser\Token\Token}10{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxClients{/call:Kadet\Highlighter\Parser\Token\Token}          {number:Kadet\Highlighter\Parser\Token\Token}20{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxRequestsPerChild{/call:Kadet\Highlighter\Parser\Token\Token}  {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</IfModule>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# pthread MPM{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# StartServers ......... initial  number of server processes to start{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxClients ........... maximum  number of server processes allowed to start{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MinSpareThreads ...... minimum  number of worker threads which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxSpareThreads ...... maximum  number of worker threads which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# ThreadsPerChild ...... constant number of worker threads in each server process{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxRequestsPerChild .. maximum  number of requests a server process serves{/comment:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<IfModule worker.c>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}StartServers{/call:Kadet\Highlighter\Parser\Token\Token}         {number:Kadet\Highlighter\Parser\Token\Token}2{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxClients{/call:Kadet\Highlighter\Parser\Token\Token}         {number:Kadet\Highlighter\Parser\Token\Token}150{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MinSpareThreads{/call:Kadet\Highlighter\Parser\Token\Token}     {number:Kadet\Highlighter\Parser\Token\Token}25{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxSpareThreads{/call:Kadet\Highlighter\Parser\Token\Token}     {number:Kadet\Highlighter\Parser\Token\Token}75{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}ThreadsPerChild{/call:Kadet\Highlighter\Parser\Token\Token}     {number:Kadet\Highlighter\Parser\Token\Token}25{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxRequestsPerChild{/call:Kadet\Highlighter\Parser\Token\Token}  {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</IfModule>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# perchild MPM{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# NumServers ........... constant number of server processes{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# StartThreads ......... initial  number of worker threads in each server process{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MinSpareThreads ...... minimum  number of worker threads which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxSpareThreads ...... maximum  number of worker threads which are kept spare{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxThreadsPerChild ... maximum  number of worker threads in each server process{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# MaxRequestsPerChild .. maximum  number of connections per server process (then it dies){/comment:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<IfModule perchild.c>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}NumServers{/call:Kadet\Highlighter\Parser\Token\Token}           {number:Kadet\Highlighter\Parser\Token\Token}5{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}StartThreads{/call:Kadet\Highlighter\Parser\Token\Token}         {number:Kadet\Highlighter\Parser\Token\Token}5{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MinSpareThreads{/call:Kadet\Highlighter\Parser\Token\Token}      {number:Kadet\Highlighter\Parser\Token\Token}5{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxSpareThreads{/call:Kadet\Highlighter\Parser\Token\Token}     {number:Kadet\Highlighter\Parser\Token\Token}10{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxThreadsPerChild{/call:Kadet\Highlighter\Parser\Token\Token}  {number:Kadet\Highlighter\Parser\Token\Token}20{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}MaxRequestsPerChild{/call:Kadet\Highlighter\Parser\Token\Token}  {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}AcceptMutex{/call:Kadet\Highlighter\Parser\Token\Token} fcntl
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</IfModule>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}User{/call:Kadet\Highlighter\Parser\Token\Token} www-data
+{call:Kadet\Highlighter\Parser\Token\Token}Group{/call:Kadet\Highlighter\Parser\Token\Token} www-data
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# The following directives define some format nicknames for use with{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# a CustomLog directive (see below).{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}LogFormat{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{keyword.format:Kadet\Highlighter\Parser\Token\Token}%h{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%l{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%u{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%t{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token}{keyword.format:Kadet\Highlighter\Parser\Token\Token}%r{/keyword.format:Kadet\Highlighter\Parser\Token\Token}{operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token} %>s {keyword.format:Kadet\Highlighter\Parser\Token\Token}%b{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token}{expression:Kadet\Highlighter\Parser\Token\Token}%{{variable:Kadet\Highlighter\Parser\Token\Token}Referer{/variable:Kadet\Highlighter\Parser\Token\Token}}{/expression:Kadet\Highlighter\Parser\Token\Token}i{operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token} {operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token}{expression:Kadet\Highlighter\Parser\Token\Token}%{{variable:Kadet\Highlighter\Parser\Token\Token}User-Agent{/variable:Kadet\Highlighter\Parser\Token\Token}}{/expression:Kadet\Highlighter\Parser\Token\Token}i{operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} combined
+{call:Kadet\Highlighter\Parser\Token\Token}LogFormat{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{keyword.format:Kadet\Highlighter\Parser\Token\Token}%h{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%l{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%u{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {keyword.format:Kadet\Highlighter\Parser\Token\Token}%t{/keyword.format:Kadet\Highlighter\Parser\Token\Token} {operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token}{keyword.format:Kadet\Highlighter\Parser\Token\Token}%r{/keyword.format:Kadet\Highlighter\Parser\Token\Token}{operator.escape:Kadet\Highlighter\Parser\Token\Token}\"{/operator.escape:Kadet\Highlighter\Parser\Token\Token} %>s {keyword.format:Kadet\Highlighter\Parser\Token\Token}%b{/keyword.format:Kadet\Highlighter\Parser\Token\Token}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} common
+{call:Kadet\Highlighter\Parser\Token\Token}LogFormat{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{expression:Kadet\Highlighter\Parser\Token\Token}%{{variable:Kadet\Highlighter\Parser\Token\Token}Referer{/variable:Kadet\Highlighter\Parser\Token\Token}}{/expression:Kadet\Highlighter\Parser\Token\Token}i -> {keyword.format:Kadet\Highlighter\Parser\Token\Token}%U{/keyword.format:Kadet\Highlighter\Parser\Token\Token}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} referer
+{call:Kadet\Highlighter\Parser\Token\Token}LogFormat{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{expression:Kadet\Highlighter\Parser\Token\Token}%{{variable:Kadet\Highlighter\Parser\Token\Token}User-agent{/variable:Kadet\Highlighter\Parser\Token\Token}}{/expression:Kadet\Highlighter\Parser\Token\Token}i"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} agent
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Global error log.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}ErrorLog{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/var/log/apache2/error.log{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Include module configuration:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/mods-enabled/*.load{/string.path:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/mods-enabled/*.conf{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Include all the user configurations:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/httpd.conf{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Include ports listing{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/ports.conf{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Include generic snippets of statements{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/conf.d/{expression.regex:Kadet\Highlighter\Parser\Token\Token}[^.#]{/expression.regex:Kadet\Highlighter\Parser\Token\Token}*{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#Let's have some Icons, shall we?{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Alias{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/{/string.path:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"/usr/share/apache2/icons/"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<Directory {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"/usr/share/apache2/icons"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}Options{/call:Kadet\Highlighter\Parser\Token\Token} Indexes MultiViews
+    {call:Kadet\Highlighter\Parser\Token\Token}AllowOverride{/call:Kadet\Highlighter\Parser\Token\Token} {constant:Kadet\Highlighter\Parser\Token\Token}None{/constant:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}Order{/call:Kadet\Highlighter\Parser\Token\Token} allow{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}deny
+    {call:Kadet\Highlighter\Parser\Token\Token}Allow{/call:Kadet\Highlighter\Parser\Token\Token} from {constant:Kadet\Highlighter\Parser\Token\Token}all{/constant:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</Directory>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Set up the default error docs.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Customizable error responses come in three flavors:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# 1) plain text 2) local redirects 3) external redirects{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Some examples:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#ErrorDocument 500 "The server made a boo boo."{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#ErrorDocument 404 /missing.html{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#ErrorDocument 404 "/cgi-bin/missing_handler.pl"{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#ErrorDocument 402 http://www.example.com/subscription_info.html{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Putting this all together, we can Internationalize error responses.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# We use Alias to redirect any /error/HTTP_<error>.html.var response to{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# our collection of by-error message multi-language collections.  We use{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# includes to substitute the appropriate text.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# You can modify the messages' appearance without changing any of the{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# default HTTP_<error>.html.var files by adding the line;{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#   Alias /error/include/ "/your/include/path/"{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# which allows you to create your own set of files by starting with the{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# /usr/local/apache2/error/include/ files and{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# copying them to /your/include/path/, even on a per-VirtualHost basis.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<IfModule mod_negotiation.c>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<IfModule mod_include.c>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}Alias{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/{/string.path:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"/usr/share/apache2/error/"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+
+    {tag.open:Kadet\Highlighter\Parser\Token\Token}<Directory {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"/usr/share/apache2/error"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+        {call:Kadet\Highlighter\Parser\Token\Token}AllowOverride{/call:Kadet\Highlighter\Parser\Token\Token} {constant:Kadet\Highlighter\Parser\Token\Token}None{/constant:Kadet\Highlighter\Parser\Token\Token}
+        {call:Kadet\Highlighter\Parser\Token\Token}Options{/call:Kadet\Highlighter\Parser\Token\Token} IncludesNoExec
+        {call:Kadet\Highlighter\Parser\Token\Token}AddOutputFilter{/call:Kadet\Highlighter\Parser\Token\Token} Includes html
+        {call:Kadet\Highlighter\Parser\Token\Token}AddHandler{/call:Kadet\Highlighter\Parser\Token\Token} type-map var
+        {call:Kadet\Highlighter\Parser\Token\Token}Order{/call:Kadet\Highlighter\Parser\Token\Token} allow{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}deny
+        {call:Kadet\Highlighter\Parser\Token\Token}Allow{/call:Kadet\Highlighter\Parser\Token\Token} from {constant:Kadet\Highlighter\Parser\Token\Token}all{/constant:Kadet\Highlighter\Parser\Token\Token}
+        {call:Kadet\Highlighter\Parser\Token\Token}LanguagePriority{/call:Kadet\Highlighter\Parser\Token\Token} en es de fr
+        {call:Kadet\Highlighter\Parser\Token\Token}ForceLanguagePriority{/call:Kadet\Highlighter\Parser\Token\Token} Prefer Fallback
+    {tag.close:Kadet\Highlighter\Parser\Token\Token}</Directory>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}400{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_BAD_REQUEST.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}401{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_UNAUTHORIZED.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}403{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_FORBIDDEN.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}404{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_NOT_FOUND.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}405{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_METHOD_NOT_ALLOWED.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}408{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_REQUEST_TIME_OUT.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}410{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_GONE.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}411{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_LENGTH_REQUIRED.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}412{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_PRECONDITION_FAILED.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}413{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_REQUEST_ENTITY_TOO_LARGE.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}414{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_REQUEST_URI_TOO_LARGE.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}415{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_SERVICE_UNAVAILABLE.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}500{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_INTERNAL_SERVER_ERROR.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}501{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_NOT_IMPLEMENTED.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}502{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_BAD_GATEWAY.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}503{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_SERVICE_UNAVAILABLE.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}ErrorDocument{/call:Kadet\Highlighter\Parser\Token\Token} {number:Kadet\Highlighter\Parser\Token\Token}506{/number:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/error/HTTP_VARIANT_ALSO_VARIES.html.var{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</IfModule>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</IfModule>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}DirectoryIndex{/call:Kadet\Highlighter\Parser\Token\Token} index.html index.cgi index.pl index.php index.xhtml
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# UserDir is now a module{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#UserDir public_html{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#UserDir disabled root{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#<Directory /home/*/public_html>{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#	AllowOverride FileInfo AuthConfig Limit{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#	Options Indexes SymLinksIfOwnerMatch IncludesNoExec{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#</Directory>{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}AccessFileName{/call:Kadet\Highlighter\Parser\Token\Token} .htaccess
+
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<Files ~ {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}ht"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}Order{/call:Kadet\Highlighter\Parser\Token\Token} allow{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}deny
+    {call:Kadet\Highlighter\Parser\Token\Token}Deny{/call:Kadet\Highlighter\Parser\Token\Token} from {constant:Kadet\Highlighter\Parser\Token\Token}all{/constant:Kadet\Highlighter\Parser\Token\Token}
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</Files>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}UseCanonicalName{/call:Kadet\Highlighter\Parser\Token\Token} {constant:Kadet\Highlighter\Parser\Token\Token}Off{/constant:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}TypesConfig{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/mime.types{/string.path:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}DefaultType{/call:Kadet\Highlighter\Parser\Token\Token} text/plain
+
+{call:Kadet\Highlighter\Parser\Token\Token}HostnameLookups{/call:Kadet\Highlighter\Parser\Token\Token} {constant:Kadet\Highlighter\Parser\Token\Token}Off{/constant:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}IndexOptions{/call:Kadet\Highlighter\Parser\Token\Token} FancyIndexing VersionSort
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddIconByEncoding{/call:Kadet\Highlighter\Parser\Token\Token} {operator.punctuation:Kadet\Highlighter\Parser\Token\Token}({/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}CMP{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{string.path:Kadet\Highlighter\Parser\Token\Token}/icons/compressed.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token}){/operator.punctuation:Kadet\Highlighter\Parser\Token\Token} x-compress x-gzip
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddIconByType{/call:Kadet\Highlighter\Parser\Token\Token} {operator.punctuation:Kadet\Highlighter\Parser\Token\Token}({/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}TXT{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{string.path:Kadet\Highlighter\Parser\Token\Token}/icons/text.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token}){/operator.punctuation:Kadet\Highlighter\Parser\Token\Token} text/*
+{call:Kadet\Highlighter\Parser\Token\Token}AddIconByType{/call:Kadet\Highlighter\Parser\Token\Token} {operator.punctuation:Kadet\Highlighter\Parser\Token\Token}({/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}IMG{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{string.path:Kadet\Highlighter\Parser\Token\Token}/icons/image2.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token}){/operator.punctuation:Kadet\Highlighter\Parser\Token\Token} image/*
+{call:Kadet\Highlighter\Parser\Token\Token}AddIconByType{/call:Kadet\Highlighter\Parser\Token\Token} {operator.punctuation:Kadet\Highlighter\Parser\Token\Token}({/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}SND{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{string.path:Kadet\Highlighter\Parser\Token\Token}/icons/sound2.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token}){/operator.punctuation:Kadet\Highlighter\Parser\Token\Token} audio/*
+{call:Kadet\Highlighter\Parser\Token\Token}AddIconByType{/call:Kadet\Highlighter\Parser\Token\Token} {operator.punctuation:Kadet\Highlighter\Parser\Token\Token}({/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}VID{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{string.path:Kadet\Highlighter\Parser\Token\Token}/icons/movie.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token}){/operator.punctuation:Kadet\Highlighter\Parser\Token\Token} video/*
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# This really should be .jpg.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/binary.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .bin .exe
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/binhex.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .hqx
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/tar.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .tar
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/world2.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .wrl .wrl.gz .vrml .vrm .iv
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/compressed.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .Z .z .tgz .gz .zip
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/a.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .ps .ai .eps
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/layout.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .html .shtml .htm .pdf
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/text.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .txt
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/c.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .c
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/p.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .pl .py
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/f.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .for
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/dvi.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .dvi
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/uuencoded.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .uu
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/script.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .conf .sh .shar .csh .ksh .tcl
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/tex.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} .tex
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/bomb.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} core
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/back.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} ..
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/hand.right.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} README
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/folder.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} ^^DIRECTORY^^
+{call:Kadet\Highlighter\Parser\Token\Token}AddIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/blank.gif{/string.path:Kadet\Highlighter\Parser\Token\Token} ^^BLANKICON^^
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# This is from Matty J's patch. Anyone want to make the icons?{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddIcon /icons/dirsymlink.jpg ^^SYMDIR^^{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddIcon /icons/symlink.jpg ^^SYMLINK^^{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}DefaultIcon{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/icons/unknown.gif{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}ReadmeName{/call:Kadet\Highlighter\Parser\Token\Token} README.html
+{call:Kadet\Highlighter\Parser\Token\Token}HeaderName{/call:Kadet\Highlighter\Parser\Token\Token} HEADER.html
+
+{call:Kadet\Highlighter\Parser\Token\Token}IndexIgnore{/call:Kadet\Highlighter\Parser\Token\Token} .??* *~ *{comment:Kadet\Highlighter\Parser\Token\Token}# HEADER* RCS CVS *,t{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddEncoding{/call:Kadet\Highlighter\Parser\Token\Token} x-compress Z
+{call:Kadet\Highlighter\Parser\Token\Token}AddEncoding{/call:Kadet\Highlighter\Parser\Token\Token} x-gzip gz tgz
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} da .dk
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} nl .nl
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} en .en
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} et .et
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} fr .fr
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} de .de
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} el .el
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} it .it
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} ja .ja
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} pl .po
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} ko .ko
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} pt .pt
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} no .no
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} pt-br .pt-br
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} ltz .ltz
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} ca .ca
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} es .es
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} sv .se
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} cz .cz
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} ru .ru
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} tw .tw
+{call:Kadet\Highlighter\Parser\Token\Token}AddLanguage{/call:Kadet\Highlighter\Parser\Token\Token} zh-tw .tw
+
+{call:Kadet\Highlighter\Parser\Token\Token}LanguagePriority{/call:Kadet\Highlighter\Parser\Token\Token} en da nl et fr de el it ja ko no pl pt pt-br ltz ca es sv tw
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddDefaultCharset	ISO-8859-1{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-1  .iso8859-1  .latin1
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-2  .iso8859-2  .latin2 .cen
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-3  .iso8859-3  .latin3
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-4  .iso8859-4  .latin4
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-5  .iso8859-5  .latin5 .cyr .iso-ru
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-6  .iso8859-6  .latin6 .arb
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-7  .iso8859-7  .latin7 .grk
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-8  .iso8859-8  .latin8 .heb
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-8859-9  .iso8859-9  .latin9 .trk
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-2022-JP .iso2022-jp .jis
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-2022-KR .iso2022-kr .kis
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-2022-CN .iso2022-cn .cis
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} Big5        .Big5       .big5
+{comment:Kadet\Highlighter\Parser\Token\Token}# For russian, more than one charset is used (depends on client, mostly):{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} WINDOWS-1251 .cp-1251   .win-1251
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} CP866       .cp866
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} KOI8-r      .koi8-r .koi8-ru
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} KOI8-ru     .koi8-uk .ua
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-10646-UCS-2 .ucs2
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} ISO-10646-UCS-4 .ucs4
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} UTF-8       .utf8
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} GB2312      .gb2312 .gb
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} utf-7       .utf7
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} utf-8       .utf8
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} big5	       .big5 .b5
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} EUC-TW      .euc-tw
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} EUC-JP      .euc-jp
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} EUC-KR      .euc-kr
+{call:Kadet\Highlighter\Parser\Token\Token}AddCharset{/call:Kadet\Highlighter\Parser\Token\Token} shift_jis   .sjis
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddType application/x-httpd-php .php{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddType application/x-httpd-php-source .phps{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}AddType{/call:Kadet\Highlighter\Parser\Token\Token} application/x-tar .tgz
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# To use CGI scripts outside /cgi-bin/:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddHandler cgi-script .cgi{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# To use server-parsed HTML files{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{tag.open:Kadet\Highlighter\Parser\Token\Token}<FilesMatch {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}shtml({operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}.+)?$"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}>{/tag.open:Kadet\Highlighter\Parser\Token\Token}
+    {call:Kadet\Highlighter\Parser\Token\Token}SetOutputFilter{/call:Kadet\Highlighter\Parser\Token\Token} INCLUDES
+{tag.close:Kadet\Highlighter\Parser\Token\Token}</FilesMatch>{/tag.close:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# If you wish to use server-parsed imagemap files, use{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#AddHandler imap-file map{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Mozilla/2"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} nokeepalive
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"MSIE 4{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}0b2;"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} nokeepalive downgrade-1.0 force-response-1.0
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"RealPlayer 4{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}0"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} force-response-1.0
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Java/1{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}0"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} force-response-1.0
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"JDK/1{operator.escape:Kadet\Highlighter\Parser\Token\Token}\.{/operator.escape:Kadet\Highlighter\Parser\Token\Token}0"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} force-response-1.0
+
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# The following directive disables redirects on non-GET requests for{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# a directory that does not include the trailing slash.  This fixes a{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# problem with Microsoft WebFolders which does not appropriately handle{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# redirects for folders with DAV methods.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Microsoft Data Access Internet Publishing Provider"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} redirect-carefully
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^WebDrive"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} redirect-carefully
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^gnome-vfs"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} redirect-carefully
+{call:Kadet\Highlighter\Parser\Token\Token}BrowserMatch{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^WebDAVFS/1.{expression.regex:Kadet\Highlighter\Parser\Token\Token}[012]{/expression.regex:Kadet\Highlighter\Parser\Token\Token}"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} redirect-carefully
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Allow server status reports, with the URL of http://servername/server-status{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Change the ".your_domain.com" to match your domain to enable.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#<Location /server-status>{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    SetHandler server-status{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Order deny,allow{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Deny from all{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Allow from .your_domain.com{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#</Location>{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Allow remote server configuration reports, with the URL of{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#  http://servername/server-info (requires that mod_info.c be loaded).{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Change the ".your_domain.com" to match your domain to enable.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#<Location /server-info>{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    SetHandler server-info{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Order deny,allow{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Deny from all{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#    Allow from .your_domain.com{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}#</Location>{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Include the virtual host configurations:{/comment:Kadet\Highlighter\Parser\Token\Token}
+{call:Kadet\Highlighter\Parser\Token\Token}Include{/call:Kadet\Highlighter\Parser\Token\Token} {string.path:Kadet\Highlighter\Parser\Token\Token}/etc/apache2/sites-enabled/{expression.regex:Kadet\Highlighter\Parser\Token\Token}[^.#]{/expression.regex:Kadet\Highlighter\Parser\Token\Token}*{/string.path:Kadet\Highlighter\Parser\Token\Token}
+
+
+{/language.apache:Kadet\Highlighter\Parser\Token\LanguageToken}

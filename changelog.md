@@ -7,6 +7,8 @@
  * **Shell** languages now have better variable and flag matching
  * **Twig** highlighting via `Kadet\Highlighter\Language\Twig` based on django/jinja 
  * **C** and **C++** now highlights code in macros
+ * **Haskell** highlighting via `Kadet\Highlighter\Language\Haskell`
+ * **Apache conf** highlighting via `Kadet\Highlighter\Language\Apache`
  * One by line HTML formatting via **LineContainedHtmlFormatter**
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
