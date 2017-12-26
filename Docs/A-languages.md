@@ -1,5 +1,6 @@
 ---
 icon: code
+title: A. languages
 ---
 
 # Languages

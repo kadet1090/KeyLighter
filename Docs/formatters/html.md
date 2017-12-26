@@ -1,5 +1,5 @@
 ---
-icon: file-code-o
+icon: file-code
 title: HTML
 ---
 

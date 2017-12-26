@@ -1,5 +1,5 @@
 ---
-icon: file-pdf-o
+icon: file-pdf
 title: LaTeX
 ---
 

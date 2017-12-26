@@ -1,5 +1,6 @@
 ---
 icon: tags
+title: B. token types
 ---
 
 Token Types
@@ -13,17 +14,17 @@ is not `string.double`.
 ## Standard token types:
 Token type                      | Description                                     | Example
 -------------------------------:|-------------------------------------------------|----------
-`string`                        | String/Char literals                            | <code class="keylighter inline"><span class="string single">'single quoted'</span></code> <code class="keylighter inline"><span class="string double">"double quoted"</span></code>
-`number`                        | Number literals integers, doubles, floats etc.  | <code class="keylighter inline"><span class="number">10</span></code> <code class="keylighter inline"><span class="number">.15</span></code> <code class="keylighter inline"><span class="number">10.5e10</span></code>
-`symbol`                        | Code symbols - class names, function names etc. | <code class="keylighter inline"><span class="symbol">Symbol</span></code>
-`symbol.class`                  | Class Name                                      | <code class="keylighter inline"><span class="symbol class">SomeClass</span></code>
-`symbol.class.interface`        | Interface Name                                  | <code class="keylighter inline"><span class="symbol class interface">SomeInterface</span></code>
-`symbol.function`               | Function definition (**NOT CALL!**)             | <code class="keylighter inline"><span class="symbol function">FizzBuzz</span></code>
-`symbol.annotation`             | Annotation                                      | <code class="keylighter inline"><span class="symbol annotation">@annotation</span></code> <code class="keylighter inline">[<span class="symbol annotation">annotation</span>]</code>
-`constant`                      | Constants defined in language                   | <code class="keylighter inline"><span class="constant">true</span></code> <code class="keylighter inline"><span class="constant">IS_DEBUG</span></code>
-`variable`                      | Variables, including sigils (like `$` in PHP)   | <code class="keylighter inline"><span class="variable">$var</span></code>
-`variable.property`             | Property of an object                           | <code class="keylighter inline"><span class="variable">$var</span>-&gt;<span class="variable property">property</span></code> <code class="keylighter inline">variable.<span class="variable property">property</span></code>
-`call`                          | Functions/subroutine/directives calls           | <code class="keylighter inline"><span class="call">call</span>()</code>
+`string`                        | String/Char literals                            | <code class="keylighter inline"><span class="kl-string kl-single">'single quoted'</span></code> <code class="keylighter inline"><span class="kl-string kl-double">"double quoted"</span></code>
+`number`                        | Number literals integers, doubles, floats etc.  | <code class="keylighter inline"><span class="kl-number">10</span></code> <code class="keylighter inline"><span class="kl-number">.15</span></code> <code class="keylighter inline"><span class="kl-number">10.5e10</span></code>
+`symbol`                        | Code symbols - class names, function names etc. | <code class="keylighter inline"><span class="kl-symbol">Symbol</span></code>
+`symbol.class`                  | Class Name                                      | <code class="keylighter inline"><span class="kl-symbol kl-class">SomeClass</span></code>
+`symbol.class.interface`        | Interface Name                                  | <code class="keylighter inline"><span class="kl-symbol kl-class kl-interface">SomeInterface</span></code>
+`symbol.function`               | Function definition (**NOT CALL!**)             | <code class="keylighter inline"><span class="kl-symbol kl-function">FizzBuzz</span></code>
+`symbol.annotation`             | Annotation                                      | <code class="keylighter inline"><span class="kl-symbol vannotation">@annotation</span></code> <code class="keylighter inline">[<span class="kl-symbol kl-annotation">annotation</span>]</code>
+`constant`                      | Constants defined in language                   | <code class="keylighter inline"><span class="kl-constant">true</span></code> <code class="keylighter inline"><span class="kl-constant">IS_DEBUG</span></code>
+`variable`                      | Variables, including sigils (like `$` in PHP)   | <code class="keylighter inline"><span class="kl-variable">$var</span></code>
+`variable.property`             | Property of an object                           | <code class="keylighter inline"><span class="kl-variable">$var</span>-&gt;<span class="kl-variable kl-property">property</span></code> <code class="keylighter inline">variable.<span class="kl-variable kl-property">property</span></code>
+`call`                          | Functions/subroutine/directives calls           | <code class="keylighter inline"><span class="kl-call">call</span>()</code>
 `format`                        | Formatting styles                               | |
 `format.italics`                | Italic text                                     | <code class="keylighter inline"><span class="format italics">italics</span></code>
 `format.bold`                   | Bold text                                       | <code class="keylighter inline"><span class="format bold">bold</span></code>
