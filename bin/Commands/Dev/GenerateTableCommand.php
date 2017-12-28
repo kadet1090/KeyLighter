@@ -29,16 +29,16 @@ class GenerateTableCommand extends Command
         if($input->getOption('dry')) {
             $output->writeln($this->generate());
         } else {
-            $path = __DIR__ . '/../../../Docs/languages.md';
+            $path = __DIR__ . '/../../../Docs/A-languages.md';
 
-            $output->writeln("<info>Opening file ./Docs/languages.md ...</info>", OutputInterface::VERBOSITY_VERBOSE);
+            $output->writeln("<info>Opening file ./Docs/A-languages.md ...</info>", OutputInterface::VERBOSITY_VERBOSE);
             $content = file_get_contents($path);
             file_put_contents($path, preg_replace(
                 '/^<!-- aliasbegin -->\R.*?^<!-- aliasend -->\R/ms',
                 "<!-- aliasbegin -->\n".$this->generate()."<!-- aliasend -->\n",
                 $content
             ));
-            $output->writeln("<info>Closing file ./Docs/languages.md ...</info>", OutputInterface::VERBOSITY_VERBOSE);
+            $output->writeln("<info>Closing file ./Docs/A-languages.md ...</info>", OutputInterface::VERBOSITY_VERBOSE);
         }
     }
 

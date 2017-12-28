@@ -32,7 +32,7 @@ class Ini extends GreedyLanguage
             'variable'       => new Rule(new RegexMatcher('/([\.\w]+)\s*=/i')),
             'number'         => new Rule(new RegexMatcher('/(-?\d+)/i')),
 
-            'string' => new Rule(new RegexMatcher('/=\h*(.*)/i')),
+            'string' => new Rule(new RegexMatcher('/=\h*(.*?)\R/i')),
         ]);
     }
 
