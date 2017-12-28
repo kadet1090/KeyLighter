@@ -3,6 +3,8 @@ php:
   - '5.5'
   - '5.6'
   - '7.0'
+  - '7.1'
+  - '7.2'
   - hhvm
   - nightly
 
@@ -20,4 +22,4 @@ notifications:
     on_success: never
     on_failure: always
   webhooks:
-    urls: http://keylighter.kadet.net/travis-hook
+    urls: http://keylighter.kadet.net/_webhook/travis
