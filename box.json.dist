@@ -1,0 +1,37 @@
+{
+  "chmod": "0755",
+  "main": "bin/keylighter",
+  "output": "keylighter.phar",
+  "compactors": [
+    "Herrera\\Box\\Compactor\\Php",
+    "Herrera\\Box\\Compactor\\Json"
+  ],
+  "files": ["functions.php", "KeyLighter.php"],
+  "compression": "GZ",
+  "finder": [
+    {
+      "name": "*.php",
+      "exclude": [
+        "test",
+        "tests",
+        "easybook",
+        "phpdocumentor",
+        "phpspec",
+        "phpunit",
+        "Tests",
+        "sebastian"
+      ],
+      "in": "vendor"
+    },
+    {
+      "name": "*.php",
+      "in": ["bin", "Config", "Exceptions", "Formatter", "Language", "Matcher", "Utils", "Parser"]
+    },
+    {
+      "name": "*",
+      "in": "Styles"
+    }
+  ],
+
+  "stub": true
+}

@@ -22,6 +22,7 @@ use Kadet\Highlighter\bin\Commands\LanguagesCommand;
 use Kadet\Highlighter\bin\Commands\Dev;
 use Kadet\Highlighter\bin\Commands\Benchmark;
 use Kadet\Highlighter\KeyLighter;
+use Kadet\Highlighter\Tests\Helpers\TestFormatter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,17 +49,21 @@ class Application extends SymfonyApplication
 
     protected function getDefaultCommands()
     {
-        return array_merge(parent::getDefaultCommands(), [
-            new HighlightCommand(),
-            new LanguagesCommand(),
-            new FormattersCommand(),
+
+        $devcommands = class_exists(TestFormatter::class) ? [
             new Dev\GenerateTableCommand(),
             new Dev\GenerateMetadataCommand(),
             new Benchmark\RunCommand(),
 //            new Benchmark\ReportCommand(),
             new Benchmark\AnalyzeCommand(),
             new Commands\Test\RegenerateCommand()
-        ]);
+        ] : [];
+
+        return array_merge(parent::getDefaultCommands(), [
+            new HighlightCommand(),
+            new LanguagesCommand(),
+            new FormattersCommand(),
+        ], $devcommands);
     }
 
     protected function getDefaultInputDefinition()
