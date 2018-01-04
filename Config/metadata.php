@@ -459,6 +459,24 @@
   ),
   23 => 
   array (
+    0 => 'Kadet\\Highlighter\\Language\\Prolog',
+    'name' => 
+    array (
+      0 => 'prolog',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-prolog',
+    ),
+    'extension' => 
+    array (
+      0 => '*.prolog',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  24 => 
+  array (
     0 => 'Kadet\\Highlighter\\Language\\Python\\Django',
     'name' => 
     array (
@@ -476,7 +494,7 @@
     'standalone' => false,
     'injectable' => true,
   ),
-  24 => 
+  25 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Python',
     'name' => 
@@ -496,7 +514,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  25 => 
+  26 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Ruby',
     'name' => 
@@ -522,7 +540,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  26 => 
+  27 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Shell',
     'name' => 
@@ -555,7 +573,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  27 => 
+  28 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Sql\\MySql',
     'name' => 
@@ -572,7 +590,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  28 => 
+  29 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Sql',
     'name' => 
@@ -590,7 +608,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  29 => 
+  30 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Twig',
     'name' => 
@@ -608,7 +626,7 @@
     'standalone' => false,
     'injectable' => true,
   ),
-  30 => 
+  31 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xaml',
     'name' => 
@@ -625,7 +643,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  31 => 
+  32 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xml',
     'name' => 
