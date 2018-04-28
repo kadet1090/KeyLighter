@@ -81,7 +81,7 @@ class JavaScript extends GreedyLanguage
 
             'string.regex' => [
                 new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!]|^|return|=>|&&|\|\|)\s*(/).*?/#m'), [
-                    'context' => ['!comment']
+                    'context' => ['!comment', '!string']
                 ]),
                 new Rule(new RegexMatcher('#\/.*(/[gimuy]{0,5})#m'), [
                     'priority' => 1,
