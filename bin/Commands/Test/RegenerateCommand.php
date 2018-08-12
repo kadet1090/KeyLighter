@@ -72,7 +72,7 @@ class RegenerateCommand extends Command
                 $result = StringHelper::normalize($this->_formatter->format($tokens));
 
                 if(!file_exists($this->_output.'/'.dirname($pathname))) {
-                    mkdir($this->_output.'/'.dirname($pathname), true);
+                    mkdir($this->_output.'/'.dirname($pathname), 755, true);
                 }
 
                 file_put_contents("{$this->_output}/$pathname.tkn", $result);
@@ -89,7 +89,7 @@ class RegenerateCommand extends Command
         $result = $reviewer->format($tokens);
         $output->writeln($result);
 
-        $question = new ConfirmationQuestion('Does it look right?');
+        $question = new ConfirmationQuestion('Does it look right? ');
         return $this->getHelper('question')->ask($input, $output, $question);
     }
 

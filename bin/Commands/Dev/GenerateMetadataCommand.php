@@ -57,7 +57,8 @@ class GenerateMetadataCommand extends Command
 
         /** @var \SplFileInfo $file */
         foreach ($iterator as $file) {
-            $class = '\Kadet\Highlighter\Language\\'.str_replace([$dir, '.php'], '', $file->getPathname());
+            $path = str_replace([$dir, '.php', '/'], ['', '', '\\'], $file->getPathname());
+            $class = "\\Kadet\\Highlighter\\Language\\$path";
 
             $output->writeln(sprintf(
                 'Found <info>%s</info>, assuming class <language>%s</language>',

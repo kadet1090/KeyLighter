@@ -9,6 +9,7 @@
  * **C** and **C++** now highlights code in macros
  * **Haskell** highlighting via `Kadet\Highlighter\Language\Haskell`
  * **Apache conf** highlighting via `Kadet\Highlighter\Language\Apache`
+ * **Typescript** highlighting via `Kadet\Highlighter\Language\Typescript`
  * One by line HTML formatting via **LineContainedHtmlFormatter**
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.

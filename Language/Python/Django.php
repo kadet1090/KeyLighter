@@ -30,7 +30,6 @@ use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Django extends GreedyLanguage
 {
-
     /**
      * Tokenization rules setup
      */

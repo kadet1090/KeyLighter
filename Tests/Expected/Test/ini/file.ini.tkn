@@ -1,0 +1,15 @@
+{language.ini:Kadet\Highlighter\Parser\Token\LanguageToken}{symbol.section:Kadet\Highlighter\Parser\Token\Token}[Unit]{/symbol.section:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}Description{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}Your Worker Script{/string:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}After{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}network.target{/string:Kadet\Highlighter\Parser\Token\Token}
+
+{symbol.section:Kadet\Highlighter\Parser\Token\Token}[Service]{/symbol.section:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}Type{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}simple{/string:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}User{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}workeruser{/string:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}WorkingDirectory{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}/opt/worker{/string:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}ExecStart{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}/opt/worker/script --option=123{/string:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}WatchdogSec{/variable:Kadet\Highlighter\Parser\Token\Token}={number:Kadet\Highlighter\Parser\Token\Token}86400{/number:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}Restart{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}always{/string:Kadet\Highlighter\Parser\Token\Token}
+
+{symbol.section:Kadet\Highlighter\Parser\Token\Token}[Install]{/symbol.section:Kadet\Highlighter\Parser\Token\Token}
+{variable:Kadet\Highlighter\Parser\Token\Token}WantedBy{/variable:Kadet\Highlighter\Parser\Token\Token}={string:Kadet\Highlighter\Parser\Token\Token}multi-user.target{/string:Kadet\Highlighter\Parser\Token\Token}
+{/language.ini:Kadet\Highlighter\Parser\Token\LanguageToken}

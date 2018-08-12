@@ -21,7 +21,9 @@ use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\MetaToken;
 use Kadet\Highlighter\Parser\TokenFactory;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 /**
  * Class JavaScriptLanguage
@@ -44,13 +46,12 @@ class JavaScript extends GreedyLanguage
      */
     public function setupRules()
     {
+        // we need to allow all the tokens in json
+        $this->rules->validator = new Validator(['*none', '*meta.json', '!comment']);
+
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
                 'context' => ['!operator.escape', '!comment', '!string'],
-            ]),
-
-            'variable.property' => new Rule(new RegexMatcher('/(?=(?:\w|\)|\])\s*\.([a-z_]\w*))/i'), [
-                'priority' => -2
             ]),
 
             'symbol.function' => new Rule(new RegexMatcher('/function\s+([a-z_]\w+)\s*\(/i')),
@@ -93,6 +94,19 @@ class JavaScript extends GreedyLanguage
             'variable' => new Rule(new RegexMatcher('/\b(?<!\.)(' . self::IDENTIFIER . ':?)/iu'), [
                 'priority' => -1,
                 'enabled'  => $this->variables
+            ]),
+
+            'variable.property' => [
+                new Rule(new RegexMatcher('/(?=[\w)\]]\s*\.([a-z_]\w*))/i'), [
+                    'priority' => -2
+                ]),
+                new Rule(new RegexMatcher('/(\w+)\s*:/si'), [
+                    'context' => ['meta.json', '!comment', '!string']
+                ]),
+            ],
+
+            'meta.json' => new Rule(new RegexMatcher('/(?<=[=(,])\s*(\{(?>[^{}]|(?1))+\})/m'), [
+                'factory' => new TokenFactory(MetaToken::class)
             ])
         ]);
     }

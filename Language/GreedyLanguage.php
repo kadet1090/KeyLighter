@@ -142,7 +142,7 @@ abstract class GreedyLanguage extends Language
     /**
      * @param bool $embedded
      *
-     * @return Rule[]
+     * @return \Generator<Rule>
      */
     private function _rules($embedded = false)
     {
