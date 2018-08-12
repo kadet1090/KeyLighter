@@ -23,7 +23,7 @@ use Kadet\Highlighter\Parser\Tokens;
  *
  * @package Kadet\Highlighter\Formatter
  */
-class HtmlFormatter implements FormatterInterface
+class HtmlFormatter extends AbstractFormatter implements FormatterInterface
 {
     protected $_prefix = '';
     protected $_tag    = 'span';
@@ -44,34 +44,26 @@ class HtmlFormatter implements FormatterInterface
         $this->_prefix = $options['prefix'];
     }
 
-
-    public function format(Tokens $tokens)
+    protected function getOpenTag(Token $token)
     {
-        $source = $tokens->getSource();
-
-        $result = '';
-        $last   = 0;
-
-        /** @var Token $token */
-        foreach ($tokens as $token) {
-            $result .= htmlspecialchars(substr($source, $last, $token->pos - $last));
-            $result .= $token->isStart() ? $this->getOpenTag($token) : $this->getCloseTag();
-
-            $last = $token->pos;
-        }
-        $result .= substr($source, $last);
-
-        return $result;
-    }
-
-    protected function getOpenTag(Token $token) {
         return sprintf(
             '<%s class="%s">',
             $this->_tag, $this->_prefix.str_replace('.', " {$this->_prefix}", $token->name)
         );
     }
 
-    protected function getCloseTag() {
+    protected function getCloseTag()
+    {
         return "</{$this->_tag}>";
+    }
+
+    protected function token(Token $token)
+    {
+        return $token->isStart() ? $this->getOpenTag($token) : $this->getCloseTag();
+    }
+
+    protected function content($text)
+    {
+        return htmlspecialchars($text);
     }
 }

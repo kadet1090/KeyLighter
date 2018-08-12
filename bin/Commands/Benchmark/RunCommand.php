@@ -20,6 +20,7 @@ use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,11 +28,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RunCommand extends Command
 {
-    const DIRECTORY = "../../../Tests/Samples/";
+    const DIRECTORY = "/../../../Tests/Samples/";
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dir = __DIR__ . 'BenchmarkCommand.php/' .static::DIRECTORY;
+        $dir = __DIR__.static::DIRECTORY;
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
                 $dir,
@@ -68,15 +69,20 @@ class RunCommand extends Command
 
             $times  = [];
             $memory = [];
-            for($i = $input->getOption('times'); $i > 0; $i--) {
+
+            for($i = $input->getOption('times'), $progress = new ProgressBar($output, $i); $i > 0; $i--) {
+                $progress->display();
                 $result = $this->benchmark($source, $language, $formatter);
-                $times  = array_merge_recursive($times, $result['times']);
+                $times  = array_merge_recursive($times,  $result['times']);
                 $memory = array_merge_recursive($memory, $result['memory']);
 
                 if($input->getOption('geshi') && class_exists('GeSHi')) {
                     $times['geshi'][] = $this->geshi($source, $file->getExtension());
                 }
+
+                $progress->advance();
             }
+            $output->write(PHP_EOL);
 
             $results[$shortname] = [
                 'language' => get_class($language),

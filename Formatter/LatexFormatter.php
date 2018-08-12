@@ -25,7 +25,7 @@ use Kadet\Highlighter\Utils\ArrayHelper;
  *
  * @package Kadet\Highlighter\Formatter
  */
-class LatexFormatter implements FormatterInterface
+class LatexFormatter extends AbstractFormatter implements FormatterInterface
 {
     private $_styles;
 
@@ -39,27 +39,14 @@ class LatexFormatter implements FormatterInterface
         $this->_styles = $styles ?: include __DIR__.'/../Styles/Latex/Default.php';
     }
 
-    public function format(Tokens $tokens)
+    protected function token(Token $token)
     {
-        $source = $tokens->getSource();
+        list($openTag, $closeTag) = $this->getOpenCloseTags($token);
 
-        $result = '';
-        $last   = 0;
-
-        /** @var Token $token */
-        foreach ($tokens as $token) {
-            list($openTag, $closeTag) = $this->getOpenCloseTags($token);
-            $result .= $this->escape(substr($source, $last, $token->pos - $last));
-            $result .= $token->isStart() ? $openTag : $closeTag;
-
-            $last = $token->pos;
-        }
-        $result .= substr($source, $last);
-
-        return $result;
+        return $token->isStart() ? $openTag : $closeTag;
     }
 
-    protected function escape($token)
+    protected function content($token)
     {
         $replace = [
             '\\' => '\\textbackslash{}',
@@ -98,14 +85,17 @@ class LatexFormatter implements FormatterInterface
             $openTag .= '\\textbf{';
             $closeTag .= '}';
         }
+
         if (ArrayHelper::get($style, 'italic', false)) {
             $openTag .= '\\textsl{';
             $closeTag .= '}';
         }
+
         if (ArrayHelper::get($style, 'underline', false)) {
             $openTag .= '\\underline{';
             $closeTag .= '}';
         }
+
         if (($color = ArrayHelper::get($style, 'color', 'default')) !== 'default') {
             $openTag .= sprintf('\\textcolor{%s}{', $style['color']);
             $closeTag .= '}';

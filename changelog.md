@@ -8,6 +8,7 @@
  * `Rules` container now supports named rules
  * `Kadet\Highlighter\Parser\Rule` setters are now fluent
  * `Kadet\Highlighter\Matcher\WordMatcher` now has option to merge. subtract and retrieve options and words.
+ * `Kadet\Highlighter\Formatter\AbstractFormatter` helper for creating formatters
  
  ***
  

@@ -25,7 +25,7 @@ use Kadet\Highlighter\Utils\Console;
  *
  * @package Kadet\Highlighter\Formatter
  */
-class CliFormatter implements FormatterInterface
+class CliFormatter extends AbstractFormatter implements FormatterInterface
 {
     private $_styles;
 
@@ -41,23 +41,19 @@ class CliFormatter implements FormatterInterface
 
     public function format(Tokens $tokens)
     {
-        $source = $tokens->getSource();
+        return parent::format($tokens).Console::reset();
+    }
 
-        $result = '';
-        $last   = 0;
+    protected function token(Token $token)
+    {
+        $style = ArrayHelper::resolve($this->_styles, $token->name);
 
-        /** @var Token $token */
-        foreach ($tokens as $token) {
-            $result .= substr($source, $last, $token->pos - $last);
-
-            if (($style = ArrayHelper::resolve($this->_styles, $token->name)) !== null) {
-                $result .= $token->isStart() ? Console::open(is_callable($style) ? $style($token) : $style) : Console::close();
-            }
-
-            $last = $token->pos;
+        if ($style === null) {
+            return null;
         }
-        $result .= substr($source, $last).Console::reset();
 
-        return $result;
+        return $token->isStart()
+            ? Console::open(is_callable($style) ? $style($token) : $style)
+            : Console::close();
     }
 }
