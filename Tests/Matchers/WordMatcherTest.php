@@ -104,4 +104,47 @@ class WordMatcherTest extends MatcherTestCase
             ['end', 'pos' => 12],
         ], $matcher->match($source, $this->getFactory()));
     }
+
+    public function testGetWords()
+    {
+        $matcher = new WordMatcher($words = ['a', 'bc', 'def']);
+
+        $this->assertSame($words, $matcher->getWords());
+    }
+
+    public function testGetOptions()
+    {
+        $matcher = new WordMatcher(['not-important'], $options = [
+            'atomic'    => true,
+            'separated' => false
+        ]);
+
+        $this->assertSame($options, $matcher->getOptions());
+    }
+
+    public function testMerge()
+    {
+        $matcher = new WordMatcher($words = ['a', 'b', 'c'], $options = [
+            'atomic'    => true,
+            'separated' => false
+        ]);
+
+        $merged = $matcher->merge(['d', 'e']);
+
+        $this->assertSame(['a', 'b', 'c', 'd', 'e'], $merged->getWords());
+        $this->assertSame($options, $merged->getOptions());
+    }
+
+    public function testSubtract()
+    {
+        $matcher = new WordMatcher($words = ['a', 'b', 'c', 'd', 'e'], $options = [
+            'atomic'    => true,
+            'separated' => false
+        ]);
+
+        $merged = $matcher->subtract(['d', 'e']);
+
+        $this->assertSame(['a', 'b', 'c'], $merged->getWords());
+        $this->assertSame($options, $merged->getOptions());
+    }
 }

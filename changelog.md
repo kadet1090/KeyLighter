@@ -14,6 +14,7 @@
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
  * `Rules` container now supports named rules
  * `Kadet\Highlighter\Parser\Rule` setters are now fluent
+ * `Kadet\Highlighter\Matcher\WordMatcher` now has option to merge. subtract and retrieve options and words.
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliase

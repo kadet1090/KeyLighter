@@ -17,6 +17,8 @@ namespace Kadet\Highlighter\Matcher;
 
 class WordMatcher extends RegexMatcher
 {
+    private $words   = [];
+    private $options = [];
 
     /**
      * WordMatcher constructor.
@@ -26,6 +28,9 @@ class WordMatcher extends RegexMatcher
      */
     public function __construct(array $words, array $options = [])
     {
+        $this->words   = $words;
+        $this->options = $options;
+
         $options = array_merge([
             'escape'           => true,
             'atomic'           => false,
@@ -55,5 +60,25 @@ class WordMatcher extends RegexMatcher
         }
 
         parent::__construct($regex);
+    }
+
+    public function merge(array $words)
+    {
+        return new static(array_merge($this->words, $words), $this->options);
+    }
+
+    public function subtract(array $words)
+    {
+        return new static(array_diff($this->words, $words), $this->options);
+    }
+
+    public function getWords()
+    {
+        return $this->words;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 }
