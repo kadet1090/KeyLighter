@@ -36,34 +36,38 @@ All alias definitions can be found in [`Config/metadata.php`](../Config/metadata
 <!-- aliasbegin -->
 Class | Name | MIME | Extension
 ------|------|------|----------
-`Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
-`Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
-`Kadet\Highlighter\Language\Cobol` | `cobol` | `text/x-cobol` | `*.cbl`
-`Kadet\Highlighter\Language\Cpp` | `cpp`, `c++` | `text/x-c++src`, `text/x-c++hdr` | `*.cpp`, `*.hpp`, `*.hxx`, `*.cxx`, `*.cc`, `*.hh`
-`Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
-`Kadet\Highlighter\Language\Css\Less` | `less` | `text/x-less` | `*.less`
-`Kadet\Highlighter\Language\Css\Sass` | `sass` | `text/x-sass` | `*.sass`
-`Kadet\Highlighter\Language\Css\Scss` | `scss` | `text/x-scss` | `*.scss`
+`Kadet\Highlighter\Language\Python\Django` | `django`, `jinja` | `application/x-django-templating`, `application/x-jinja` | none
 `Kadet\Highlighter\Language\Css` | `css` | `text/css` | `*.css`
+`Kadet\Highlighter\Language\Cpp` | `cpp`, `c++` | `text/x-c++src`, `text/x-c++hdr` | `*.cpp`, `*.hpp`, `*.hxx`, `*.cxx`, `*.cc`, `*.hh`
+`Kadet\Highlighter\Language\Latex` | `tex`, `latex` | `application/x-tex`, `application/x-latex` | `*.tex`, `*.aux`, `*.toc`
+`Kadet\Highlighter\Language\Sql` | `sql` | `text/x-sql` | `*.sql`
+`Kadet\Highlighter\Language\Apache` | `apache` | none | `.htaccess`
 `Kadet\Highlighter\Language\Go` | `go`, `golang` | `text/x-go`, `application/x-go`, `text/x-golang`, `application/x-golang` | `*.go`
 `Kadet\Highlighter\Language\Html` | `html` | `text/html` | `*.html`, `*.htm`
-`Kadet\Highlighter\Language\Http` | `http` | none | none
-`Kadet\Highlighter\Language\Ini` | `ini` | `text/x-ini`, `text/inf` | `*.ini`, `*.cfg`, `*.inf`
-`Kadet\Highlighter\Language\Java` | `java` | `text/x-java` | `*.java`
-`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript`, `application/json` | `*.js`, `*.jsx`
-`Kadet\Highlighter\Language\Latex` | `tex`, `latex` | `application/x-tex`, `application/x-latex` | `*.tex`, `*.aux`, `*.toc`
-`Kadet\Highlighter\Language\Markdown` | `markdown`, `md` | `text/markdown` | `*.markdown`, `*.md`
-`Kadet\Highlighter\Language\Perl` | `perl` | `text/x-perl`, `application/x-perl` | `*.pl`, `*.pm`, `*.t`
-`Kadet\Highlighter\Language\Php` | `php` | `text/x-php`, `application/x-php` | `*.php`, `*.phtml`, `*.inc`, `*.php?`
+`Kadet\Highlighter\Language\Haskell` | `haskell` | `text/x-haskell` | `*.hs`
 `Kadet\Highlighter\Language\PlainText` | `plaintext`, `text`, `none` | `text/plain` | none
-`Kadet\Highlighter\Language\PowerShell` | `powershell`, `posh` | `text/x-powershell`, `application/x-powershell` | `*.ps1`, `*.psm1`, `*.psd1`
-`Kadet\Highlighter\Language\Python\Django` | `django`, `jinja` | `application/x-django-templating`, `application/x-jinja` | none
-`Kadet\Highlighter\Language\Python` | `python`, `py` | `text/x-python`, `application/x-python` | `*.py`
+`Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
+`Kadet\Highlighter\Language\Markdown` | `markdown`, `md` | `text/markdown` | `*.markdown`, `*.md`
 `Kadet\Highlighter\Language\Ruby` | `ruby` | `text/x-ruby`, `application/x-ruby` | `*.rb`, `*.rbw`, `Rakefile`, `*.rake`, `*.gemspec`, `*.rbx`, `*.duby`, `Gemfile`
-`Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
-`Kadet\Highlighter\Language\Sql\MySql` | `mysql` | `text/x-mysql` | none
-`Kadet\Highlighter\Language\Sql` | `sql` | `text/x-sql` | `*.sql`
-`Kadet\Highlighter\Language\Twig` | `twig` | `text/x-twig` | `*.twig`
-`Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
+`Kadet\Highlighter\Language\Http` | `http` | none | none
 `Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
+`Kadet\Highlighter\Language\Php` | `php` | `text/x-php`, `application/x-php` | `*.php`, `*.phtml`, `*.inc`, `*.php?`
+`Kadet\Highlighter\Language\TypeScript` | `ts`, `typescript` | `application/typescript`, `application/x-typescript`, `text/x-typescript`, `text/typescript` | `*.ts`, `*.tsx`
+`Kadet\Highlighter\Language\Python` | `python`, `py` | `text/x-python`, `application/x-python` | `*.py`
+`Kadet\Highlighter\Language\Shell` | `shell`, `bash`, `zsh`, `sh` | `text/x-shellscript`, `application/x-shellscript` | `*.sh`, `*.zsh`, `*.bash`, `*.ebuild`, `*.eclass`, `*.exheres-0`, `*.exlib`, `.bashrc`, `bashrc`, `.bash_*`, `bash_*`, `PKGBUILD`
+`Kadet\Highlighter\Language\PowerShell` | `powershell`, `posh` | `text/x-powershell`, `application/x-powershell` | `*.ps1`, `*.psm1`, `*.psd1`
+`Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
+`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript`, `application/json` | `*.js`, `*.jsx`
+`Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
+`Kadet\Highlighter\Language\Twig` | `twig` | `text/x-twig` | `*.twig`
+`Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
+`Kadet\Highlighter\Language\Perl` | `perl` | `text/x-perl`, `application/x-perl` | `*.pl`, `*.pm`, `*.t`
+`Kadet\Highlighter\Language\Ini` | `ini` | `text/x-ini`, `text/inf` | `*.ini`, `*.cfg`, `*.inf`
+`Kadet\Highlighter\Language\Css\Sass` | `sass` | `text/x-sass` | `*.sass`
+`Kadet\Highlighter\Language\Css\Less` | `less` | `text/x-less` | `*.less`
+`Kadet\Highlighter\Language\Css\Scss` | `scss` | `text/x-scss` | `*.scss`
+`Kadet\Highlighter\Language\Sql\MySql` | `mysql` | `text/x-mysql` | none
+`Kadet\Highlighter\Language\Java` | `java` | `text/x-java` | `*.java`
+`Kadet\Highlighter\Language\Prolog` | `prolog` | `text/x-prolog` | `*.prolog`
+`Kadet\Highlighter\Language\Cobol` | `cobol` | `text/x-cobol` | `*.cbl`
 <!-- aliasend -->
