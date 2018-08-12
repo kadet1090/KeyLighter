@@ -13,9 +13,10 @@
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
  * `Rules` container now supports named rules
+ * `Kadet\Highlighter\Parser\Rule` setters are now fluent
 
 ## Changed
- * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
+ * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliase
  
 ### Fixed
  * **Java** now correctly matches it's primitive types 

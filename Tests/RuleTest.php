@@ -20,6 +20,7 @@ use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\Validator\DelegateValidator;
+use Kadet\Highlighter\Parser\Validator\Validator;
 
 class RuleTest extends \PHPUnit_Framework_TestCase
 {
@@ -104,7 +105,16 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
         $rule = new Rule($this->getMock(MatcherInterface::class));
         $rule->setMatcher($matcher);
-        
         $this->assertSame($matcher, $rule->getMatcher());
+    }
+
+    public function testRuleFluency()
+    {
+        $matcher   = $this->getMock(MatcherInterface::class);
+        $validator = $this->getMock(Validator::class);
+
+        $rule = new Rule($this->getMock(MatcherInterface::class));
+        $this->assertSame($rule, $rule->setMatcher($matcher));
+        $this->assertSame($rule, $rule->setContext($validator));
     }
 }

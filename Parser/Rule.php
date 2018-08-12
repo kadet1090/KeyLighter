@@ -84,6 +84,8 @@ class Rule
         } else {
             throw new \InvalidArgumentException('$context must be valid Validator');
         }
+
+        return $this;
     }
 
     public function getMatcher()
@@ -94,6 +96,7 @@ class Rule
     public function setMatcher(MatcherInterface $matcher)
     {
         $this->_matcher = $matcher;
+        return $this;
     }
 
     /**
