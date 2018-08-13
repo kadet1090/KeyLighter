@@ -27,16 +27,18 @@ use Kadet\Highlighter\Utils\Console;
  */
 class CliFormatter extends AbstractFormatter implements FormatterInterface
 {
-    private $_styles;
+    private $_styles = [];
 
     /**
      * CliFormatter constructor.
-     *
-     * @param $styles
      */
-    public function __construct($styles = false)
+    public function __construct(array $options = [])
     {
-        $this->_styles = $styles ?: include __DIR__.'/../Styles/Cli/Default.php';
+        parent::__construct(array_replace_recursive([
+            'styles' => include __DIR__.'/../Styles/Cli/Default.php'
+        ], $options));
+
+        $this->_styles = $this->_options['styles'];
     }
 
     public function format(Tokens $tokens)
@@ -55,5 +57,15 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
         return $token->isStart()
             ? Console::open(is_callable($style) ? $style($token) : $style)
             : Console::close();
+    }
+
+    protected function formatLineStart($line)
+    {
+        return str_pad($line, 5, ' ', STR_PAD_LEFT) . ' | '.Console::set(Console::current());
+    }
+
+    protected function formatLineEnd($line)
+    {
+        return Console::reset();
     }
 }

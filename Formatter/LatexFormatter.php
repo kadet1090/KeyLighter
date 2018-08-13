@@ -32,11 +32,15 @@ class LatexFormatter extends AbstractFormatter implements FormatterInterface
     /**
      * LatexFormatter constructor.
      *
-     * @param array|false $styles
+     * @param array $options
      */
-    public function __construct($styles = false)
+    public function __construct(array $options = [])
     {
-        $this->_styles = $styles ?: include __DIR__.'/../Styles/Latex/Default.php';
+        parent::__construct(array_replace_recursive([
+            'styles' => include __DIR__.'/../Styles/Cli/Default.php'
+        ], $options));
+
+        $this->_styles = $this->_options['styles'];
     }
 
     protected function token(Token $token)

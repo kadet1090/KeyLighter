@@ -53,4 +53,14 @@ class Console
     {
         return self::get()->reset();
     }
+
+    public static function current()
+    {
+        return self::get()->current();
+    }
+
+    public static function set($style)
+    {
+        return self::get()->set($style);
+    }
 }

@@ -132,7 +132,7 @@ class TokenFactory implements TokenFactoryInterface
      */
     public function setClass($class)
     {
-        if (!is_a($class, 'Kadet\Highlighter\Parser\Token\Token', true)) {
+        if (!is_a($class, Token::class, true)) {
             throw new \InvalidArgumentException('$class must extend Kadet\Highlighter\Parser\Token\Token');
         }
 

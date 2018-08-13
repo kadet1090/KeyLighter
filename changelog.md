@@ -2,13 +2,13 @@
 ## Unreleased [0.9.0]
 ## Added
  * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
- * One by line HTML formatting via **LineContainedHtmlFormatter**
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
  * `Rules` container now supports named rules
  * `Kadet\Highlighter\Parser\Rule` setters are now fluent
  * `Kadet\Highlighter\Matcher\WordMatcher` now has option to merge. subtract and retrieve options and words.
  * `Kadet\Highlighter\Formatter\AbstractFormatter` helper for creating formatters
+ * You can now enable line-by-line mode in formatters via `['lines' => ['enabled' => true]]` option.
  
  ***
  
@@ -26,6 +26,8 @@
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
+ * **BC BREAK** `LaTexFormatter` and `CliFormatter` no longer have `$styles` in constructor, now you should set styles v
+ via option `styles` `['styles' => [...]]`
  
 ### Fixed
  * **Java** now correctly matches it's primitive types 

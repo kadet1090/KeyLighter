@@ -28,13 +28,17 @@ class HtmlFormatter extends AbstractFormatter implements FormatterInterface
     protected $_prefix = '';
     protected $_tag    = 'span';
 
+    private $_stack;
+
     /**
      * HtmlFormatter constructor.
      *
      * @param array $options
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
+        parent::__construct($options);
+
         $options = array_merge([
             'prefix' => 'kl-',
             'tag'    => 'span'
@@ -42,6 +46,12 @@ class HtmlFormatter extends AbstractFormatter implements FormatterInterface
 
         $this->_tag    = $options['tag'];
         $this->_prefix = $options['prefix'];
+    }
+
+    public function format(Tokens $tokens)
+    {
+        $this->_stack = [];
+        return parent::format($tokens);
     }
 
     protected function getOpenTag(Token $token)
@@ -59,11 +69,26 @@ class HtmlFormatter extends AbstractFormatter implements FormatterInterface
 
     protected function token(Token $token)
     {
-        return $token->isStart() ? $this->getOpenTag($token) : $this->getCloseTag();
+        if ($token->isStart()) {
+            return $this->_stack[] = $this->getOpenTag($token);
+        } else {
+            array_pop($this->_stack);
+            return $this->getCloseTag();
+        }
     }
 
     protected function content($text)
     {
         return htmlspecialchars($text);
+    }
+
+    protected function formatLineStart($line)
+    {
+        return implode('', $this->_stack);
+    }
+
+    protected function formatLineEnd($line)
+    {
+        return str_repeat($this->getCloseTag(), count($this->_stack));
     }
 }

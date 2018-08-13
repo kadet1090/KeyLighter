@@ -51,10 +51,10 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
             $second, $second->getEnd()
         ]);
 
-        $formatter = new CliFormatter([
+        $formatter = new CliFormatter(['styles' => [
            'token'    => ['color' => 'red'],
            'operator' => ['color' => 'blue'],
-        ]);
+        ]]);
         $this->assertEquals($expected, $formatter->format($iterator));
     }
 
@@ -73,9 +73,9 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
         $mock = $this->getMock('stdClass', ['call']);
         $mock->expects($this->once())->method('call')->with($token)->willReturn(['color' => 'red']);
 
-        $formatter = new CliFormatter([
+        $formatter = new CliFormatter(['styles' => [
             'token'    => [$mock, 'call']
-        ]);
+        ]]);
         $this->assertEquals($expected, $formatter->format($iterator));
     }
 }

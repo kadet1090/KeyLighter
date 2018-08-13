@@ -72,9 +72,9 @@ class AnalyzeCommand extends Command
             }
         }
 
-//        if(!$input->hasParameterOption('--summary')) {
+        if(!$input->hasParameterOption('--summary')) {
             $table->render();
-//        }
+        }
 
         $summary = array_filter($summary, function($key) use ($input) {
             return fnmatch($input->getOption('summary') ?: '*', $key);

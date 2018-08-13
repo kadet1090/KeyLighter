@@ -50,14 +50,33 @@ class ConsoleHelper
 
         $this->_current = array_merge($this->_current, $style);
 
-        return $this->_set($style);
+        return $this->set($style);
     }
 
     public function close()
     {
         $this->_current = empty($this->_stack) ? $this->_default : array_pop($this->_stack);
 
-        return "\033[0m".$this->_set(array_diff_assoc($this->_current, $this->_default));
+        return "\033[0m".$this->set(array_diff_assoc($this->_current, $this->_default));
+    }
+
+    public function current()
+    {
+        return $this->_current;
+    }
+
+    public function set($style)
+    {
+        $escape = "\e[".implode(';', array_map(function ($style, $name) {
+                return $this->_style($style, $name);
+            }, array_keys($style), $style)).'m';
+
+        return $escape === "\e[m" ? null : $escape;
+    }
+
+    public function reset()
+    {
+        return "\e[0m";
     }
 
     private function _color($name, $bg = false)
@@ -107,19 +126,5 @@ class ConsoleHelper
         }
 
         return null;
-    }
-
-    private function _set($style)
-    {
-        $escape = "\e[".implode(';', array_map(function ($style, $name) {
-            return $this->_style($style, $name);
-        }, array_keys($style), $style)).'m';
-
-        return $escape === "\e[m" ? null : $escape;
-    }
-
-    public function reset()
-    {
-        return "\e[0m";
     }
 }
