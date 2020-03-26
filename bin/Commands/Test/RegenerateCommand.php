@@ -72,7 +72,7 @@ class RegenerateCommand extends Command
                 $result = StringHelper::normalize($this->_formatter->format($tokens));
 
                 if(!file_exists($this->_output.'/'.dirname($pathname))) {
-                    mkdir($this->_output.'/'.dirname($pathname), 755, true);
+                    mkdir($this->_output.'/'.dirname($pathname), 0755, true);
                 }
 
                 file_put_contents("{$this->_output}/$pathname.tkn", $result);
