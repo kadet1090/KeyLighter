@@ -1,0 +1,147 @@
+From f29fc6c29b27c1754815e5fcc55bd55d4fbdcd02 Mon Sep 17 00:00:00 2001
+From: Sobak <msobaczewski@gmail.com>
+Date: Thu, 26 Mar 2020 12:44:41 +0100
+Subject: [PATCH] Absolute WIP
+
+---
+ src/Controller/ImportController.php         | 10 ++++++++--
+ src/Form/ImportInitializeForm.php           |  2 +-
+ src/Import/Importer/AbstractImporter.php    |  6 ++++++
+ src/Import/Importer/AndroidCallImporter.php |  9 +++++++++
+ src/Import/Importer/ImporterInterface.php   |  3 +++
+ 5 files changed, 27 insertions(+), 3 deletions(-)
+
+diff --git a/src/Controller/ImportController.php b/src/Controller/ImportController.php
+index 53cdb95..5b5117c 100644
+--- a/src/Controller/ImportController.php
++++ b/src/Controller/ImportController.php
+@@ -22,6 +22,7 @@
+ class ImportController extends AbstractController
+ {
+     private ContactRepository $contactRepository;
++    private ImportInitializeForm $importInitializeForm;
+     private ImporterRepository $importerRepository;
+     private ImportWriter $importWriter;
+     private MappingValidator $mappingValidator;
+@@ -31,6 +32,7 @@ class ImportController extends AbstractController
+ 
+     public function __construct(
+         ContactRepository $contactRepository,
++        ImportInitializeForm $importInitializeForm,
+         ImporterRepository $importerRepository,
+         ImportWriter $importWriter,
+         MappingValidator $mappingValidator,
+@@ -39,6 +41,7 @@ public function __construct(
+         Environment $twig
+     ) {
+         $this->contactRepository = $contactRepository;
++        $this->importInitializeForm = $importInitializeForm;
+         $this->importerRepository = $importerRepository;
+         $this->importWriter = $importWriter;
+         $this->mappingValidator = $mappingValidator;
+@@ -58,7 +61,10 @@ public function initialize(string $importerName)
+     {
+         $importer = $this->importerRepository->get($importerName);
+ 
+-        $initializeForm = $this->createForm(ImportInitializeForm::class, null, [
++        $initializeFormBuilder = $this->createFormBuilder();
++
++        $initializeFormBuilder = $importer->buildExtraForm($initializeFormBuilder);
++        $initializeFormBuilder = $this->importInitializeForm->buildForm($initializeFormBuilder, [
+             'action' => $this->generateUrl('import.mapping'),
+             'file_extension' => $importer->getFileExtension() !== null ? '.' . $importer->getFileExtension() : null,
+             'importer' => $importerName,
+@@ -70,7 +76,7 @@ public function initialize(string $importerName)
+         }
+ 
+         return $this->render('import/initialize.html.twig', [
+-            'form' => $initializeForm->createView(),
++            'form' => $initializeFormBuilder->getForm()->createView(),
+             'custom_instructions' => $customInstructions,
+             'importer' => $importer,
+         ]);
+diff --git a/src/Form/ImportInitializeForm.php b/src/Form/ImportInitializeForm.php
+index d95f327..4ee4ec4 100644
+--- a/src/Form/ImportInitializeForm.php
++++ b/src/Form/ImportInitializeForm.php
+@@ -24,7 +24,7 @@ public function __construct(UrlGeneratorInterface $urlGenerator)
+ 
+     public function buildForm(FormBuilderInterface $builder, array $options)
+     {
+-        $builder
++        return $builder
+             ->add('file', UploadType::class, [
+                 'constraints' => [
+                     new NotBlank(),
+diff --git a/src/Import/Importer/AbstractImporter.php b/src/Import/Importer/AbstractImporter.php
+index 1df1a1f..092b863 100644
+--- a/src/Import/Importer/AbstractImporter.php
++++ b/src/Import/Importer/AbstractImporter.php
+@@ -9,6 +9,7 @@
+ use App\Import\Dto\Contact;
+ use App\Import\Dto\Link;
+ use App\Import\Dto\Thread;
++use Symfony\Component\Form\FormBuilderInterface;
+ use Symfony\Component\HttpFoundation\File\File;
+ 
+ abstract class AbstractImporter
+@@ -47,6 +48,11 @@ public function addContact(Contact $contact): void
+         $this->contacts[$contact->getId()] = $contact;
+     }
+ 
++    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface
++    {
++        return $formBuilder;
++    }
++
+     /** @return Asset[] */
+     public function getAssets(): array
+     {
+diff --git a/src/Import/Importer/AndroidCallImporter.php b/src/Import/Importer/AndroidCallImporter.php
+index 30d248f..2d5e714 100644
+--- a/src/Import/Importer/AndroidCallImporter.php
++++ b/src/Import/Importer/AndroidCallImporter.php
+@@ -8,6 +8,8 @@
+ use App\Import\Dto\Message;
+ use App\Import\Dto\Thread;
+ use DateTime;
++use Symfony\Component\Form\Extension\Core\Type\TextType;
++use Symfony\Component\Form\FormBuilderInterface;
+ use XMLReader;
+ 
+ // @fixme don't hardcode prefix! keep that in options
+@@ -29,6 +31,13 @@ public function getIdentifier(): string
+         return 'android_calls';
+     }
+ 
++    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface
++    {
++        return $formBuilder
++            ->add('prefix', TextType::class)
++        ;
++    }
++
+     public function import(): void
+     {
+         libxml_use_internal_errors(true);
+diff --git a/src/Import/Importer/ImporterInterface.php b/src/Import/Importer/ImporterInterface.php
+index 1b6199b..bc96aa0 100644
+--- a/src/Import/Importer/ImporterInterface.php
++++ b/src/Import/Importer/ImporterInterface.php
+@@ -8,6 +8,7 @@
+ use App\Import\Dto\Contact;
+ use App\Import\Dto\Link;
+ use App\Import\Dto\Thread;
++use Symfony\Component\Form\FormBuilderInterface;
+ use Symfony\Component\HttpFoundation\File\File;
+ 
+ interface ImporterInterface
+@@ -20,6 +21,8 @@ public function addLink(Link $link): void;
+ 
+     public function addThread(Thread $thread): void;
+ 
++    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface;
++
+     /** @return Asset[] */
+     public function getAssets(): array;
+ 

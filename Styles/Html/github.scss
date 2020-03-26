@@ -37,4 +37,7 @@ pre.#{$kl-class} {
   #{token('format.underline')} { text-decoration: underline }
 
   #{token('format.monospace', 'format.block.code')} { color: $foreground }
+
+  #{token("diff.add", "annotation.diff.add")} { color: #22863a; background-color: #f0fff4 }
+  #{token("diff.remove", "annotation.diff.remove")} { color: #b31d28; background-color: #ffeef0 }
 }

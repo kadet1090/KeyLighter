@@ -53,4 +53,10 @@
     'symbol.url'  => ['color' => 'magenta'],
 
     'expression.math' => ['color' => 'green'],
+
+    'diff.add'    => ['color' => 'green'],
+    'diff.remove' => ['color' => 'red'],
+
+    'annotation.diff.add'    => ['color' => 'green'],
+    'annotation.diff.remove' => ['color' => 'red'],
 ];

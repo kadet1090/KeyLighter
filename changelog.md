@@ -23,6 +23,7 @@
  * **Prolog** highlighting via `Kadet\Highlighter\Language\Prolog`
  * **Assembly** highlighting via `Kadet\Highlighter\Language\Assembler`
  * **Cobol** highlighting via `Kadet\Highlighter\Language\Cobol`
+ * **Diff** highlighting via `Kadet\Highlighter\Language\Diff`
 
 ## Changed
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases

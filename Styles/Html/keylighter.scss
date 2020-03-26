@@ -68,4 +68,7 @@ pre.#{$kl-class} {
 
   #{token('tag.namespace')} { color: $orange; font-weight: normal }
   #{token('attribute.namespace')} { color: $alt-yellow; }
+
+  #{token("diff.add", "annotation.diff.add")} { color: $green }
+  #{token("diff.remove", "annotation.diff.remove")} { color: $red }
 }
