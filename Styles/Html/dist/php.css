@@ -43,3 +43,7 @@ pre.keylighter {
     text-decoration: underline; }
   pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
     color: #737373; }
+  pre.keylighter span.kl-diff.kl-add, pre.keylighter span.kl-annotation.kl-diff.kl-add {
+    background-color: rgba(102, 153, 64, 0.1); }
+  pre.keylighter span.kl-diff.kl-remove, pre.keylighter span.kl-annotation.kl-diff.kl-remove {
+    background-color: rgba(204, 51, 51, 0.1); }

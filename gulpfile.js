@@ -14,8 +14,8 @@ gulp.task("styles", function () {
         .pipe(gulp.dest('./Styles/Html/dist/'));
 });
 
-gulp.task("default", ["styles"]);
+gulp.task("default", gulp.series('styles'));
 
-gulp.task('watch', ['default'], function() {
+gulp.task('watch', gulp.series('default', function() {
     gulp.watch('Styles/Html/**/*', ['styles']);
-});
+}));

@@ -1,0 +1,147 @@
+{language.diff:Kadet\Highlighter\Parser\Token\LanguageToken}From f29fc6c29b27c1754815e5fcc55bd55d4fbdcd02 Mon Sep 17 00:00:00 2001
+From: Sobak <msobaczewski@gmail.com>
+Date: Thu, 26 Mar 2020 12:44:41 +0100
+Subject: [PATCH] Absolute WIP
+
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}---
+ src/Controller/ImportController.php         | 10 ++++++++--{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+ src/Form/ImportInitializeForm.php           |  2 +-
+ src/Import/Importer/AbstractImporter.php    |  6 ++++++
+ src/Import/Importer/AndroidCallImporter.php |  9 +++++++++
+ src/Import/Importer/ImporterInterface.php   |  3 +++
+ 5 files changed, 27 insertions(+), 3 deletions(-)
+
+diff --git a/src/Controller/ImportController.php b/src/Controller/ImportController.php
+index 53cdb95..5b5117c 100644
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}--- a/src/Controller/ImportController.php{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}+++ b/src/Controller/ImportController.php{/annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -22,6 +22,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token}{/comment:Kadet\Highlighter\Parser\Token\Token}
+ class ImportController extends AbstractController
+ {
+     private ContactRepository $contactRepository;
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    private ImportInitializeForm $importInitializeForm;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+     private ImporterRepository $importerRepository;
+     private ImportWriter $importWriter;
+     private MappingValidator $mappingValidator;
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -31,6 +32,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} class ImportController extends AbstractController{/comment:Kadet\Highlighter\Parser\Token\Token}
+ 
+     public function __construct(
+         ContactRepository $contactRepository,
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        ImportInitializeForm $importInitializeForm,{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+         ImporterRepository $importerRepository,
+         ImportWriter $importWriter,
+         MappingValidator $mappingValidator,
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -39,6 +41,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function __construct({/comment:Kadet\Highlighter\Parser\Token\Token}
+         Environment $twig
+     ) {
+         $this->contactRepository = $contactRepository;
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        $this->importInitializeForm = $importInitializeForm;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+         $this->importerRepository = $importerRepository;
+         $this->importWriter = $importWriter;
+         $this->mappingValidator = $mappingValidator;
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -58,7 +61,10 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function initialize(string $importerName){/comment:Kadet\Highlighter\Parser\Token\Token}
+     {
+         $importer = $this->importerRepository->get($importerName);
+ 
+{diff.remove:Kadet\Highlighter\Parser\Token\Token}-        $initializeForm = $this->createForm(ImportInitializeForm::class, null, [{/diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        $initializeFormBuilder = $this->createFormBuilder();{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        $initializeFormBuilder = $importer->buildExtraForm($initializeFormBuilder);{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        $initializeFormBuilder = $this->importInitializeForm->buildForm($initializeFormBuilder, [{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+             'action' => $this->generateUrl('import.mapping'),
+             'file_extension' => $importer->getFileExtension() !== null ? '.' . $importer->getFileExtension() : null,
+             'importer' => $importerName,
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -70,7 +76,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function initialize(string $importerName){/comment:Kadet\Highlighter\Parser\Token\Token}
+         }
+ 
+         return $this->render('import/initialize.html.twig', [
+{diff.remove:Kadet\Highlighter\Parser\Token\Token}-            'form' => $initializeForm->createView(),{/diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+            'form' => $initializeFormBuilder->getForm()->createView(),{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+             'custom_instructions' => $customInstructions,
+             'importer' => $importer,
+         ]);
+diff --git a/src/Form/ImportInitializeForm.php b/src/Form/ImportInitializeForm.php
+index d95f327..4ee4ec4 100644
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}--- a/src/Form/ImportInitializeForm.php{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}+++ b/src/Form/ImportInitializeForm.php{/annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -24,7 +24,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function __construct(UrlGeneratorInterface $urlGenerator){/comment:Kadet\Highlighter\Parser\Token\Token}
+ 
+     public function buildForm(FormBuilderInterface $builder, array $options)
+     {
+{diff.remove:Kadet\Highlighter\Parser\Token\Token}-        $builder{/diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        return $builder{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+             ->add('file', UploadType::class, [
+                 'constraints' => [
+                     new NotBlank(),
+diff --git a/src/Import/Importer/AbstractImporter.php b/src/Import/Importer/AbstractImporter.php
+index 1df1a1f..092b863 100644
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}--- a/src/Import/Importer/AbstractImporter.php{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}+++ b/src/Import/Importer/AbstractImporter.php{/annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -9,6 +9,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token}{/comment:Kadet\Highlighter\Parser\Token\Token}
+ use App\Import\Dto\Contact;
+ use App\Import\Dto\Link;
+ use App\Import\Dto\Thread;
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+use Symfony\Component\Form\FormBuilderInterface;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+ use Symfony\Component\HttpFoundation\File\File;
+ 
+ abstract class AbstractImporter
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -47,6 +48,11 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function addContact(Contact $contact): void{/comment:Kadet\Highlighter\Parser\Token\Token}
+         $this->contacts[$contact->getId()] = $contact;
+     }
+ 
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    {{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        return $formBuilder;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    }{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+     /** @return Asset[] */
+     public function getAssets(): array
+     {
+diff --git a/src/Import/Importer/AndroidCallImporter.php b/src/Import/Importer/AndroidCallImporter.php
+index 30d248f..2d5e714 100644
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}--- a/src/Import/Importer/AndroidCallImporter.php{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}+++ b/src/Import/Importer/AndroidCallImporter.php{/annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -8,6 +8,8 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token}{/comment:Kadet\Highlighter\Parser\Token\Token}
+ use App\Import\Dto\Message;
+ use App\Import\Dto\Thread;
+ use DateTime;
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+use Symfony\Component\Form\Extension\Core\Type\TextType;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+use Symfony\Component\Form\FormBuilderInterface;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+ use XMLReader;
+ 
+ // @fixme don't hardcode prefix! keep that in options
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -29,6 +31,13 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function getIdentifier(): string{/comment:Kadet\Highlighter\Parser\Token\Token}
+         return 'android_calls';
+     }
+ 
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    {{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        return $formBuilder{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+            ->add('prefix', TextType::class){/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+        ;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    }{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+     public function import(): void
+     {
+         libxml_use_internal_errors(true);
+diff --git a/src/Import/Importer/ImporterInterface.php b/src/Import/Importer/ImporterInterface.php
+index 1b6199b..bc96aa0 100644
+{annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}--- a/src/Import/Importer/ImporterInterface.php{/annotation.diff.remove:Kadet\Highlighter\Parser\Token\Token}
+{annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}+++ b/src/Import/Importer/ImporterInterface.php{/annotation.diff.add:Kadet\Highlighter\Parser\Token\Token}
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -8,6 +8,7 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token}{/comment:Kadet\Highlighter\Parser\Token\Token}
+ use App\Import\Dto\Contact;
+ use App\Import\Dto\Link;
+ use App\Import\Dto\Thread;
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+use Symfony\Component\Form\FormBuilderInterface;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+ use Symfony\Component\HttpFoundation\File\File;
+ 
+ interface ImporterInterface
+{delimiter:Kadet\Highlighter\Parser\Token\Token}@@ -20,6 +21,8 @@{/delimiter:Kadet\Highlighter\Parser\Token\Token}{comment:Kadet\Highlighter\Parser\Token\Token} public function addLink(Link $link): void;{/comment:Kadet\Highlighter\Parser\Token\Token}
+ 
+     public function addThread(Thread $thread): void;
+ 
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+    public function buildExtraForm(FormBuilderInterface $formBuilder): FormBuilderInterface;{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+{diff.add:Kadet\Highlighter\Parser\Token\Token}+{/diff.add:Kadet\Highlighter\Parser\Token\Token}
+     /** @return Asset[] */
+     public function getAssets(): array;
+ {/language.diff:Kadet\Highlighter\Parser\Token\LanguageToken}
