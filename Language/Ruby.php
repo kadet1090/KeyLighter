@@ -71,7 +71,7 @@ class Ruby extends GreedyLanguage
             ],
             // JS + Perl = Ruby?
             'string.regex' => [
-                new OpenRule(new RegexMatcher('#(?>[\[=(?:+,!~]|^|return|=>|&&|\|\|)\s*(/).*?/#sm'), [
+                new OpenRule(new RegexMatcher('#(?>[[=(?:+,!~]|^|return|=>|&&|\|\|)\s*(/).*?/#sm'), [
                     'context' => ['!comment']
                 ]),
                 new Rule(new RegexMatcher('#(?=\/.*?(/[mixounse]*))#sm'), [
@@ -88,7 +88,7 @@ class Ruby extends GreedyLanguage
                 ), ['priority' => 0]),
             ],
             'symbol' => [
-                'symbol'   => new Rule(new RegexMatcher('/[^\B:](:[a-z_]\w*)/i')),
+                'symbol'   => new Rule(new RegexMatcher('/[^:](:[a-z_]\w*)/i')),
                 'class'    => new Rule(new RegexMatcher('/class\s+([a-z_]\w*)/i')),
                 'function' => new Rule(new RegexMatcher('/def\s+(?:\[\]\s*|\*\s*|\w+\.){0,2}([a-z_]\w*)/i')),
             ],
