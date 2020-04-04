@@ -43,8 +43,8 @@ class UnifiedDiff extends GreedyLanguage
                 ])),
             ],
             'diff' => [
-                'add'    => new Rule(new RegexMatcher('/^(?:^\+.*$)+/mi', [ 0 => Token::NAME ])),
-                'remove' => new Rule(new RegexMatcher('/^(?:^-.*$)+/mi', [ 0 => Token::NAME ])),
+                'add'    => new Rule(new RegexMatcher('/(?:^\+.*?(?>\R|$))+/mi', [ 0 => Token::NAME ])),
+                'remove' => new Rule(new RegexMatcher('/(?:^-.*?(?>\R|$))+/mi', [ 0 => Token::NAME ])),
             ],
         ]);
     }
