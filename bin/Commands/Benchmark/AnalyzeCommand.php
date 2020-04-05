@@ -131,7 +131,7 @@ class AnalyzeCommand extends Command
         $mean = array_sum($result) / count($result);
 
         return sqrt(array_sum(array_map(function ($result) use ($mean) {
-            return pow($result - $mean, 2);
+            return pow((float) $result - $mean, 2);
         }, $result)) / count($result));
     }
 

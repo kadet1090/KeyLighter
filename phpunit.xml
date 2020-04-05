@@ -1,4 +1,7 @@
-<phpunit bootstrap="./vendor/autoload.php">
+<phpunit
+    bootstrap="./vendor/autoload.php"
+    beStrictAboutTestsThatDoNotTestAnything="false"
+>
     <testsuites>
         <testsuite name="KeyLighter">
             <directory>./Tests/</directory>

@@ -26,9 +26,10 @@
  * **Diff** highlighting via `Kadet\Highlighter\Language\Diff`
 
 ## Changed
- * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
+ * **BC BREAK** KeyLighter requires PHP 7.1.3+ now (instead of PHP 5.5 as previously)
  * **BC BREAK** `LaTexFormatter` and `CliFormatter` no longer have `$styles` in constructor, now you should set styles v
  via option `styles` `['styles' => [...]]`
+ * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
  
 ### Fixed
  * **Java** now correctly matches it's primitive types 

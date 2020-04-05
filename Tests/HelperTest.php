@@ -16,8 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Utils\Helper;
+use PHPUnit\Framework\TestCase;
 
-class HelperTest extends \PHPUnit_Framework_TestCase
+class HelperTest extends TestCase
 {
     public function testComparing()
     {

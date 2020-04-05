@@ -16,8 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Utils\ConsoleHelper;
+use PHPUnit\Framework\TestCase;
 
-class ConsoleHelperTest extends \PHPUnit_Framework_TestCase
+class ConsoleHelperTest extends TestCase
 {
     public function testReset()
     {

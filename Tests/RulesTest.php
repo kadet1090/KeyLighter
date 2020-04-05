@@ -20,8 +20,9 @@ use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Rules;
+use PHPUnit\Framework\TestCase;
 
-class RulesTest extends \PHPUnit_Framework_TestCase
+class RulesTest extends TestCase
 {
     public function testAddsRule()
     {

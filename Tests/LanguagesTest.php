@@ -6,8 +6,9 @@ use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
 use Kadet\Highlighter\Utils\StringHelper;
+use PHPUnit\Framework\TestCase;
 
-class LanguagesTest extends \PHPUnit_Framework_TestCase
+class LanguagesTest extends TestCase
 {
     /** @var KeyLighter */
     protected $_keylighter;

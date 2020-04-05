@@ -40,7 +40,7 @@ Version: Version number or commit hash if using dev-master - preferably `git des
 
 ## Running Tests
 ``` bash
-$ phpunit test
+$ ./vendor/bin/phpunit
 ```
 
 **Happy coding**!

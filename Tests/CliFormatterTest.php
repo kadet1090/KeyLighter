@@ -20,8 +20,9 @@ use Kadet\Highlighter\Parser\Result;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Utils\Console;
+use PHPUnit\Framework\TestCase;
 
-class CliFormatterTest extends \PHPUnit_Framework_TestCase
+class CliFormatterTest extends TestCase
 {
     /**
      * @var TokenFactory
@@ -70,7 +71,7 @@ class CliFormatterTest extends \PHPUnit_Framework_TestCase
             $token, $token->getEnd(),
         ]);
 
-        $mock = $this->getMock('stdClass', ['call']);
+        $mock = $this->createPartialMock('stdClass', ['call']);
         $mock->expects($this->once())->method('call')->with($token)->willReturn(['color' => 'red']);
 
         $formatter = new CliFormatter(['styles' => [

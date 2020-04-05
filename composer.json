@@ -9,11 +9,11 @@
     }
   ],
   "require": {
-    "php": ">=5.5.0"
+    "php": "^7.1.3"
   },
   "require-dev": {
-    "symfony/console": "^2.8|^3.0",
-    "phpunit/phpunit": "4.8.*",
+    "symfony/console": "^4.4",
+    "phpunit/phpunit": "^7.0",
     "easybook/geshi": "v1.0.8.19"
   },
   "suggest": {

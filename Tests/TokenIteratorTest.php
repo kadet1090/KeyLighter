@@ -17,8 +17,9 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenIterator;
+use PHPUnit\Framework\TestCase;
 
-class TokenIteratorTest extends \PHPUnit_Framework_TestCase
+class TokenIteratorTest extends TestCase
 {
     public function testSourceReturning()
     {

@@ -17,8 +17,9 @@ namespace Kadet\Highlighter\Tests\Tokens;
 
 
 use Kadet\Highlighter\Parser\Token\Token;
+use PHPUnit\Framework\TestCase;
 
-class TokenComparisonTest extends \PHPUnit_Framework_TestCase
+class TokenComparisonTest extends TestCase
 {
     public function testStartSucceedsEnd()
     {

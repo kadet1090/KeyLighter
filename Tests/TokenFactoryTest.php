@@ -17,8 +17,9 @@ namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
+use PHPUnit\Framework\TestCase;
 
-class TokenFactoryTest extends \PHPUnit_Framework_TestCase
+class TokenFactoryTest extends TestCase
 {
     public function testTokenCreation()
     {

@@ -20,15 +20,16 @@ use Kadet\Highlighter\Parser\DelegateTokenFactory;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactoryInterface;
+use PHPUnit\Framework\TestCase;
 
-class DelegateTokenFactoryTest extends \PHPUnit_Framework_TestCase
+class DelegateTokenFactoryTest extends TestCase
 {
     public function testCreation()
     {
         $params = ['token.name', 'pos' => 3];
         $child = $this->getMockBuilder(TokenFactoryInterface::class)->getMock();
 
-        $mock = $this->getMock('stdClass', ['call']);
+        $mock = $this->createPartialMock('stdClass', ['call']);
         $mock->expects($this->once())->method('call')->with($child, $params);
 
         $factory = new DelegateTokenFactory([$mock, 'call'], $child);
