@@ -2,9 +2,10 @@
 /**
  * Highlighter
  *
- * Copyright (C) 2016, Some right reserved.
+ * Copyright (C) 2020, Some right reserved.
  *
  * @author Kacper "Kadet" Donat <kacper@kadet.net>
+ * @author Maciej "Sobak" Sobaczewski <sobak@sobak.pl>
  *
  * Contact with author:
  * Xmpp: me@kadet.net
@@ -60,13 +61,15 @@ class GenerateTableCommand extends Command
             }
         }
 
-        $return  =  'Class | Name | MIME | Extension'.PHP_EOL;
-        $return .=  '------|------|------|----------'.PHP_EOL;
+        ksort($result);
+
+        $return  =  "Class | Name | MIME | Extension\n";
+        $return .=  "------|------|------|----------\n";
         foreach($result as $class => $aliases) {
             $return .= '`'.$class.'` | ';
             $return .= (isset($aliases['name']) ? '`'.implode('`, `', $aliases['name']).'`' : 'none').' | ';
             $return .= (isset($aliases['mime']) ? '`'.implode('`, `', $aliases['mime']).'`' : 'none').' | ';
-            $return .= (isset($aliases['extension']) ? '`'.implode('`, `', $aliases['extension']).'`' : 'none'). PHP_EOL;
+            $return .= (isset($aliases['extension']) ? '`'.implode('`, `', $aliases['extension']).'`' : 'none'). "\n";
         }
 
         return $return;
