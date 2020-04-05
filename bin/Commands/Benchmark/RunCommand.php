@@ -40,7 +40,7 @@ class RunCommand extends Command
             ), \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $formatter = $input->hasOption('formatter')
+        $formatter = $input->getOption('formatter')
             ? KeyLighter::get()->getFormatter($input->getOption('formatter'))
             : KeyLighter::get()->getDefaultFormatter();
 
@@ -169,16 +169,24 @@ class RunCommand extends Command
 
     protected function geshi($source, $language)
     {
+        // Silence GeSHi notices
+        $previousErrorReporting = error_reporting(E_ALL ^ E_NOTICE);
+
         $geshi = microtime(true);
         geshi_highlight($source, $language, null, true);
-        return microtime(true) - $geshi;
+        $time = microtime(true) - $geshi;
+
+        // Restore previous error reporting level
+        error_reporting($previousErrorReporting);
+
+        return $time;
     }
 
     protected function output($results, InputInterface $input, OutputInterface $output)
     {
         $result = json_encode($results, $input->getOption('pretty') ? JSON_PRETTY_PRINT : 0);
 
-        if($input->hasArgument('output')) {
+        if($input->getArgument('output')) {
             file_put_contents($input->getArgument('output'), $result);
         } else {
             $output->write($result);
