@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -15,7 +16,7 @@
 
 namespace Kadet\Highlighter\Tests;
 
-require_once __DIR__.'/MatcherTestCase.php';
+require_once __DIR__ . '/MatcherTestCase.php';
 require_once __DIR__ . '/Mocks/MockGreedyLanguage.php';
 
 use Kadet\Highlighter\KeyLighter;

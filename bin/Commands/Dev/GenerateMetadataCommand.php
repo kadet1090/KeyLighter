@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands\Dev;
-
 
 use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
@@ -34,12 +34,12 @@ class GenerateMetadataCommand extends Command
             return 1;
         }
 
-        if($input->getOption('dry')) {
+        if ($input->getOption('dry')) {
             $output->writeln($this->generate($output));
         } else {
             file_put_contents(
                 __DIR__ . '/../../../Config/metadata.php',
-                "<?php\n\nreturn ".$this->generate($output).";\n"
+                "<?php\n\nreturn " . $this->generate($output) . ";\n"
             );
         }
 
@@ -57,7 +57,7 @@ class GenerateMetadataCommand extends Command
 
     protected function generate(OutputInterface $output)
     {
-        $dir = __DIR__ . '/../../../Language'.DIRECTORY_SEPARATOR;
+        $dir = __DIR__ . '/../../../Language' . DIRECTORY_SEPARATOR;
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
             \RecursiveIteratorIterator::LEAVES_ONLY
@@ -72,11 +72,12 @@ class GenerateMetadataCommand extends Command
 
             $output->writeln(sprintf(
                 'Found <info>%s</info>, assuming class <language>%s</language>',
-                $file->getBasename(), $class
+                $file->getBasename(),
+                $class
             ), OutputInterface::VERBOSITY_VERBOSE);
 
 
-            if($metadata = $this->process($output, $class)) {
+            if ($metadata = $this->process($output, $class)) {
                 $result[] = $metadata;
             }
         }

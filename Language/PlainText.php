@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -21,7 +22,9 @@ class PlainText extends GreedyLanguage
     /**
      * Tokenization rules
      */
-    public function setupRules() { }
+    public function setupRules()
+    {
+    }
 
     /** {@inheritdoc} */
     public function getIdentifier()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -62,7 +63,7 @@ class UnprocessedTokens
         foreach (array_keys($this->_pending) as $position) {
             uasort(
                 $this->_tokens[$position],
-                Token::class.'::compare'
+                Token::class . '::compare'
             );
         }
         $this->_pending = [];

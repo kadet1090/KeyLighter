@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -29,7 +30,7 @@ class ConsoleHelperTest extends TestCase
     public function testStyled()
     {
         $console = new ConsoleHelper();
-        $this->assertEquals("\e[31mtest\033[0m", $console->styled(["color" =>"red"], "test"));
+        $this->assertEquals("\e[31mtest\033[0m", $console->styled(["color" => "red"], "test"));
     }
 
     public function testStacking()
@@ -37,10 +38,10 @@ class ConsoleHelperTest extends TestCase
         $console = new ConsoleHelper();
         $this->assertEquals(
             "\e[31mtest\e[32mtest2\e[0m\e[31mtest3\e[0m",
-            $console->open(["color" => "red"]).
-                "test".
-                    $console->open(["color" => "green"])."test2".$console->close().
-                "test3".
+            $console->open(["color" => "red"]) .
+                "test" .
+                    $console->open(["color" => "green"]) . "test2" . $console->close() .
+                "test3" .
             $console->close()
         );
     }

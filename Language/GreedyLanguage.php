@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -93,12 +94,13 @@ abstract class GreedyLanguage extends Language
         return $this->_process($tokens);
     }
 
-    private function _process(TokenIterator $tokens) {
+    private function _process(TokenIterator $tokens)
+    {
         $context  = new Context($this);
         $result   = new Result($tokens->getSource(), $tokens->current());
 
         for ($tokens->next(); $tokens->valid(); $tokens->next()) {
-            if(!$tokens->current()->process($context, $this, $result, $tokens)) {
+            if (!$tokens->current()->process($context, $this, $result, $tokens)) {
                 break;
             }
         }
@@ -109,7 +111,9 @@ abstract class GreedyLanguage extends Language
     public function tokenize($source, $additional = [], $offset = 0, $embedded = false)
     {
         return new TokenIterator(
-            $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(), $source, $offset
+            $this->_tokens($source, $offset, $additional, $embedded)->sort()->toArray(),
+            $source,
+            $offset
         );
     }
 
@@ -147,8 +151,8 @@ abstract class GreedyLanguage extends Language
     private function _rules($embedded = false)
     {
         $rules = clone $this->rules;
-        if(is_bool($embedded)) {
-            $rules->addMany(['language.'.$this->getIdentifier() => $this->getEnds($embedded)]);
+        if (is_bool($embedded)) {
+            $rules->addMany(['language.' . $this->getIdentifier() => $this->getEnds($embedded)]);
         }
 
         foreach ($rules->all() as $rule) {
@@ -173,7 +177,8 @@ abstract class GreedyLanguage extends Language
     public function getEnds($embedded = false)
     {
         return new Rule(
-            new WholeMatcher(), [
+            new WholeMatcher(),
+            [
                 'priority' => 10000,
                 'factory'  => new TokenFactory(LanguageToken::class),
                 'inject'   => $this,

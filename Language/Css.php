@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -70,7 +71,7 @@ class Css extends GreedyLanguage
                 new CloseRule(new SubStringMatcher(')')),
             ],
 
-            'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:-[a-z]+-)?(?:'.implode('|', $at).'))/'), [
+            'keyword.at-rule' => new Rule(new RegexMatcher('/(@(?:-[a-z]+-)?(?:' . implode('|', $at) . '))/'), [
                 'priority' => 2
             ]),
 
@@ -132,7 +133,8 @@ class Css extends GreedyLanguage
         return 'css';
     }
 
-    protected function everywhere() {
+    protected function everywhere()
+    {
         static $validator;
         if (!$validator) {
             $validator = new Validator(['!string', '!comment']);

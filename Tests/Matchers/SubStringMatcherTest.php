@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -31,7 +32,8 @@ class SubStringMatcherTest extends MatcherTestCase
                 ['end', 'pos' => 4],
                 ['start', 'pos' => 5],
                 ['end', 'pos' => 9],
-            ], $matcher->match($string, $this->getFactory())
+            ],
+            $matcher->match($string, $this->getFactory())
         );
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Tests;
-
 
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Context;
@@ -86,7 +86,8 @@ class ContextTest extends TestCase
         $this->assertFalse($context->find('foo'));
     }
     
-    public function getLanguageMock() {
+    public function getLanguageMock()
+    {
         return $this->getMockBuilder(Language::class)
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
@@ -98,7 +99,8 @@ class ContextTest extends TestCase
      *
      * @return \PHPUnit_Framework_MockObject_MockObject|Token
      */
-    public function getTokenMock($name, $params = []) {
+    public function getTokenMock($name, $params = [])
+    {
         return $this->getMockBuilder(Token::class)
             ->setConstructorArgs([$name, $params])
             ->getMock();
