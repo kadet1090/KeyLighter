@@ -16,8 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Utils\StringHelper;
+use PHPUnit\Framework\TestCase;
 
-class StringHelperTest extends \PHPUnit_Framework_TestCase
+class StringHelperTest extends TestCase
 {
     public function testConvertingOffsetToLineAndColumn()
     {

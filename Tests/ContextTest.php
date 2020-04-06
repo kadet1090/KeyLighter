@@ -19,8 +19,9 @@ namespace Kadet\Highlighter\Tests;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Token\Token;
+use PHPUnit\Framework\TestCase;
 
-class ContextTest extends \PHPUnit_Framework_TestCase
+class ContextTest extends TestCase
 {
     public function testLanguageBinding()
     {

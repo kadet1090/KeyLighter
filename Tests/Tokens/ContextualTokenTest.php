@@ -21,8 +21,9 @@ use Kadet\Highlighter\Parser\Context;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\TokenFactory;
+use PHPUnit\Framework\TestCase;
 
-class ContextualTokenTest extends \PHPUnit_Framework_TestCase
+class ContextualTokenTest extends TestCase
 {
     /**
      * @var TokenFactory

@@ -22,8 +22,9 @@ use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Tests\Mocks\MockGreedyLanguage;
+use PHPUnit\Framework\TestCase;
 
-class KeyLighterTest extends \PHPUnit_Framework_TestCase
+class KeyLighterTest extends TestCase
 {
     public function testLanguageNames()
     {

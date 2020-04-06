@@ -1,7 +1,5 @@
 language: php
 php:
-  - '5.6'
-  - '7.0'
   - '7.1'
   - '7.2'
   - '7.3'
@@ -11,7 +9,6 @@ php:
 matrix:
   fast_finish: true
   allow_failures:
-    - php: 7.4
     - php: nightly
 
 install:

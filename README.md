@@ -26,7 +26,7 @@ KeyLighter is supposed to do the same thing - for code.
 $ composer require kadet/keylighter
 ```
 
-To use **KeyLighter** you just need PHP 5.5 or later, no special extensions required.
+To use **KeyLighter** you just need PHP 7.1.3 or later, no special extensions required.
 
 ## Global installation
 It's possible to install **KeyLighter** as a global composer library
@@ -186,15 +186,14 @@ Many languages can be used simultaneously, *css* or *js* inside *html*, *sql* in
 
 ![Embedded languages](http://i.imgur.com/gJr6shy.png)
 
-### Fast ![Optimized for php7.0](https://img.shields.io/badge/optimized%20for-PHP%207-8892BF.svg?style=flat-square)
+### Fast
 Even though it wasn't supposed to be fastest code highlighter in PHP
-it is still quite fast, up to few times faster than [GeSHi](http://geshi.org/).
-It performs best on PHP 7 (more than 2x faster than GeSHi in every case).
+it is still quite fast, more than 2x faster than [GeSHi](http://geshi.org/).
 
 ## Testing ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
 **KeyLighter** uses `phpunit` for testing:
 ```bash
-$ phpunit
+$ ./vendor/bin/phpunit
 ```
 
 ## Roadmap

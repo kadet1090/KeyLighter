@@ -16,8 +16,9 @@
 namespace Kadet\Highlighter\Tests;
 
 use Kadet\Highlighter\Utils\ArrayHelper;
+use PHPUnit\Framework\TestCase;
 
-class ArrayHelperTest extends \PHPUnit_Framework_TestCase
+class ArrayHelperTest extends TestCase
 {
     public function testColumn()
     {

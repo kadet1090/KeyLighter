@@ -18,8 +18,9 @@ namespace Kadet\Highlighter\Tests;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Tests\Constraint\TokensMatches;
+use PHPUnit\Framework\TestCase;
 
-class MatcherTestCase extends \PHPUnit_Framework_TestCase
+class MatcherTestCase extends TestCase
 {
     public function assertTokens($expected, $actual, $message = '')
     {

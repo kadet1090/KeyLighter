@@ -70,7 +70,7 @@ class TerminatorTokenTest extends TokenTestCase
 
     public function testValid()
     {
-        $validator = $this->getMock(Validator::class);
+        $validator = $this->createMock(Validator::class);
         $validator->expects($this->once())->method('validate')->with($this->_context, [])->willReturn(true);
 
         $rule = new Rule(null, ['language' => $this->_language, 'context' => $validator]);

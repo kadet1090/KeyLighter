@@ -16,8 +16,9 @@
 namespace Kadet\Highlighter\Tests\Constraint;
 
 use Kadet\Highlighter\Parser\Token\Token;
+use PHPUnit\Framework\Constraint\Constraint;
 
-class TokensMatches extends \PHPUnit_Framework_Constraint
+class TokensMatches extends Constraint
 {
     protected $_tokens;
     protected $_strict;
@@ -33,10 +34,9 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
 
     /**
      * @param Token[] $other
-     *
      * @return bool
      */
-    protected function matches($other)
+    protected function matches($other): bool
     {
         // reset keys
         $other = $this->getTokens($other);
@@ -102,13 +102,7 @@ class TokensMatches extends \PHPUnit_Framework_Constraint
         return false;
     }
 
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return 'matches '.var_export($this->_tokens, true).' tokens';
     }

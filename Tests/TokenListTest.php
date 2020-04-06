@@ -19,8 +19,9 @@ use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\UnprocessedTokens;
+use PHPUnit\Framework\TestCase;
 
-class TokenListTest extends \PHPUnit_Framework_TestCase
+class TokenListTest extends TestCase
 {
     /**
      * @var TokenFactory

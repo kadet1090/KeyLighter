@@ -104,7 +104,7 @@ class TokenTest extends TokenTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $validator = $this->getMock(Validator::class);
+        $validator = $this->createMock(Validator::class);
         $context   = Context::fromArray([], $language);
 
         $validator->expects($this->once())->method('validate')->with($context, []);
