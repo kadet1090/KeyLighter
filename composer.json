@@ -14,7 +14,8 @@
   "require-dev": {
     "symfony/console": "^4.4",
     "phpunit/phpunit": "^7.0",
-    "easybook/geshi": "v1.0.8.19"
+    "easybook/geshi": "v1.0.8.19",
+    "symfony/var-exporter": "^4.4"
   },
   "suggest": {
     "symfony/console": "Allows usage of keylighters CLI utility."

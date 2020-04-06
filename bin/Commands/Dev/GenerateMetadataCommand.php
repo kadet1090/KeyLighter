@@ -21,19 +21,29 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\VarExporter\VarExporter;
 
 class GenerateMetadataCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (! class_exists(VarExporter::class)) {
+            $output->writeln(
+                '<error>This command will not work if you installed project with composer install --no-dev'
+            );
+            return 1;
+        }
+
         if($input->getOption('dry')) {
             $output->writeln($this->generate($output));
         } else {
             file_put_contents(
                 __DIR__ . '/../../../Config/metadata.php',
-                '<?php return '.$this->generate($output).';'
+                "<?php\n\nreturn ".$this->generate($output).";\n"
             );
         }
+
+        return 0;
     }
 
     protected function configure()
@@ -71,7 +81,8 @@ class GenerateMetadataCommand extends Command
             }
         }
 
-        return var_export($result, true);
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return VarExporter::export($result);
     }
 
     /**
