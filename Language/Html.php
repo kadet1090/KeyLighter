@@ -17,8 +17,8 @@ namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\OpenRule;
+use Kadet\Highlighter\Parser\Token\LanguageToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class Html extends Xml

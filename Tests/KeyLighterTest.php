@@ -15,9 +15,9 @@
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter;
 use Kadet\Highlighter\Formatter\CliFormatter;
 use Kadet\Highlighter\Formatter\HtmlFormatter;
-use Kadet\Highlighter;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
 use Kadet\Highlighter\Parser\Rule;
