@@ -13,7 +13,7 @@ report it via KeyLighter page: http://keylighter.kadet.net/.
 Submit code which is highlighted incorrectly, click **create issue**
 button and fill issue with more information.
 
-![buttton](https://dl.dropboxusercontent.com/u/60020102/ShareX/2016-06/2016-06-21_00-28-51-1c9.png)
+![buttton](https://i.imgur.com/0MEF9sc.png)
 
 In other case create issue via GitHub with template:
 ```md
