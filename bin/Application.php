@@ -16,11 +16,11 @@
 namespace Kadet\Highlighter\bin;
 
 
+use Kadet\Highlighter\bin\Commands\Benchmark;
+use Kadet\Highlighter\bin\Commands\Dev;
 use Kadet\Highlighter\bin\Commands\FormattersCommand;
 use Kadet\Highlighter\bin\Commands\HighlightCommand;
 use Kadet\Highlighter\bin\Commands\LanguagesCommand;
-use Kadet\Highlighter\bin\Commands\Dev;
-use Kadet\Highlighter\bin\Commands\Benchmark;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
 use Symfony\Component\Console\Application as SymfonyApplication;

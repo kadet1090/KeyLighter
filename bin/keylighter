@@ -16,8 +16,6 @@
  * Just Simple CLI App implementation, subject to change.
  */
 
-use Kadet\Highlighter\Utils\Console;
-use Kadet\Highlighter\Language;
 
 // For composer global instance
 if (file_exists(__DIR__ . '/../../../autoload.php')) {

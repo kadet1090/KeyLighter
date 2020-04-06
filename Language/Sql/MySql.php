@@ -17,8 +17,8 @@ namespace Kadet\Highlighter\Language\Sql;
 
 use Kadet\Highlighter\Language\Sql;
 use Kadet\Highlighter\Matcher\SubStringMatcher;
-use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\Rule;
+use Kadet\Highlighter\Parser\Token\ContextualToken;
 use Kadet\Highlighter\Parser\TokenFactory;
 
 class MySql extends Sql

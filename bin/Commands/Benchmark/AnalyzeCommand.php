@@ -16,9 +16,6 @@
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
 
 
-use Kadet\Highlighter\Formatter\FormatterInterface;
-use Kadet\Highlighter\KeyLighter;
-use Kadet\Highlighter\Language\Language;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;

@@ -19,12 +19,7 @@ namespace Kadet\Highlighter\Language;
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
-use Kadet\Highlighter\Parser\CloseRule;
-use Kadet\Highlighter\Parser\OpenRule;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token\LanguageToken;
-use Kadet\Highlighter\Parser\Token\TerminatorToken;
-use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Assembler extends GreedyLanguage
