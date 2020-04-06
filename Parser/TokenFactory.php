@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -66,30 +67,31 @@ class TokenFactory implements TokenFactoryInterface
         return $this->link($name, $params);
     }
 
-    private function link($name, $params) {
-        if($this->_type & Token::START) {
-            if(!isset($params['start'])) {
+    private function link($name, $params)
+    {
+        if ($this->_type & Token::START) {
+            if (!isset($params['start'])) {
                 $params['start'] = new $params['class']($name, $params);
             }
 
-            if($this->_type === Token::START) {
+            if ($this->_type === Token::START) {
                 $params['start']->setEnd(false);
                 return $params['start'];
             }
         }
 
-        if($this->_type & Token::END) {
+        if ($this->_type & Token::END) {
             if (isset($params['length'])) {
                 $end = $params;
                 $end['pos'] += $params['length'];
 
                 /** @var Token $end */
                 $params['end'] = new $params['class']($name, $end);
-            } elseif(!isset($params['end'])) {
+            } elseif (!isset($params['end'])) {
                 $params['end'] = new $params['class']($name, $params);
             }
 
-            if($this->_type === Token::END) {
+            if ($this->_type === Token::END) {
                 $params['end']->setStart(false);
                 return $params['end'];
             }

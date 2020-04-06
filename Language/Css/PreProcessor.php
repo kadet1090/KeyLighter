@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language\Css;
-
 
 use Kadet\Highlighter\Language\Css;
 use Kadet\Highlighter\Matcher\CommentMatcher;
@@ -48,7 +48,8 @@ abstract class PreProcessor extends Css
         );
     }
 
-    protected function outside() {
+    protected function outside()
+    {
         return new Validator(['!symbol', '!string', '!number', '!comment', '!constant']);
     }
 }

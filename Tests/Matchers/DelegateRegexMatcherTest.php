@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Tests\Matchers;
-
 
 use Kadet\Highlighter\Matcher\DelegateRegexMatcher;
 use Kadet\Highlighter\Tests\MatcherTestCase;

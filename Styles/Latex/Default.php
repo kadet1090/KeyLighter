@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'keyword'      => ['bold' => true],
     'variable'     => ['italic' => true],
     'comment'      => ['italic' => true],

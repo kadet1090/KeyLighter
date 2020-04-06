@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -16,7 +17,6 @@
 
 namespace Kadet\Highlighter\bin\Commands\Dev;
 
-
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -27,7 +27,7 @@ class GenerateTableCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if($input->getOption('dry')) {
+        if ($input->getOption('dry')) {
             $output->writeln($this->generate());
         } else {
             $path = __DIR__ . '/../../../Docs/A-languages.md';
@@ -36,7 +36,7 @@ class GenerateTableCommand extends Command
             $content = file_get_contents($path);
             file_put_contents($path, preg_replace(
                 '/^<!-- aliasbegin -->\R.*?^<!-- aliasend -->\R/ms',
-                "<!-- aliasbegin -->\n".$this->generate()."<!-- aliasend -->\n",
+                "<!-- aliasbegin -->\n" . $this->generate() . "<!-- aliasend -->\n",
                 $content
             ));
             $output->writeln("<info>Closing file ./Docs/A-languages.md ...</info>", OutputInterface::VERBOSITY_VERBOSE);
@@ -55,8 +55,8 @@ class GenerateTableCommand extends Command
     protected function generate()
     {
         $result = [];
-        foreach(['name', 'mime', 'extension'] as $what) {
-            foreach(KeyLighter::get()->registeredLanguages($what, true) as $name => $class) {
+        foreach (['name', 'mime', 'extension'] as $what) {
+            foreach (KeyLighter::get()->registeredLanguages($what, true) as $name => $class) {
                 $result[$class][$what][] = $name;
             }
         }
@@ -65,11 +65,11 @@ class GenerateTableCommand extends Command
 
         $return  =  "Class | Name | MIME | Extension\n";
         $return .=  "------|------|------|----------\n";
-        foreach($result as $class => $aliases) {
-            $return .= '`'.$class.'` | ';
-            $return .= (isset($aliases['name']) ? '`'.implode('`, `', $aliases['name']).'`' : 'none').' | ';
-            $return .= (isset($aliases['mime']) ? '`'.implode('`, `', $aliases['mime']).'`' : 'none').' | ';
-            $return .= (isset($aliases['extension']) ? '`'.implode('`, `', $aliases['extension']).'`' : 'none'). "\n";
+        foreach ($result as $class => $aliases) {
+            $return .= '`' . $class . '` | ';
+            $return .= (isset($aliases['name']) ? '`' . implode('`, `', $aliases['name']) . '`' : 'none') . ' | ';
+            $return .= (isset($aliases['mime']) ? '`' . implode('`, `', $aliases['mime']) . '`' : 'none') . ' | ';
+            $return .= (isset($aliases['extension']) ? '`' . implode('`, `', $aliases['extension']) . '`' : 'none') . "\n";
         }
 
         return $return;

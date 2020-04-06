@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Kadet\Highlighter\Tests\Helpers;
-
 
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\Parser\Token\Token;
@@ -29,7 +27,8 @@ class TestFormatter implements FormatterInterface
         return $result;
     }
 
-    private function getTokenInfo(Token $token) {
+    private function getTokenInfo(Token $token)
+    {
         return sprintf("%s:%s", $token->name, get_class($token));
     }
 }

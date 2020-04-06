@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language;
-
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
@@ -38,7 +38,8 @@ class Assembler extends GreedyLanguage
             ]),
 
             'keyword.format' => new Rule(
-                new RegexMatcher('/(%[diuoxXfFeEgGaAcspn%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'), [
+                new RegexMatcher('/(%[diuoxXfFeEgGaAcspn%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'),
+                [
                     'context' => ['string']
                 ]
             ),
@@ -48,14 +49,14 @@ class Assembler extends GreedyLanguage
 
             'symbol' => [
                 'type'  => new Rule(new WordMatcher(['byte', 'word', 'dword', 'qword']), ['name' => 'builtin']),
-                'label' => new Rule(new RegexMatcher('/([a-z]\w+:)/i'), ['priority'=>3])
+                'label' => new Rule(new RegexMatcher('/([a-z]\w+:)/i'), ['priority' => 3])
             ],
 
             'comment' => [
                 new Rule(new CommentMatcher([';'], []), ['priority' => 2])
             ],
 
-            'variable.register' => new Rule(new RegexMatcher('/\b('.implode('|', $this->registers).')\b/i')),
+            'variable.register' => new Rule(new RegexMatcher('/\b(' . implode('|', $this->registers) . ')\b/i')),
             'number' => new Rule(new RegexMatcher('/\b(-?[0-9][0-9a-fA-F]*[tTdDhHOoqQbByY]?)\b/i')),
             'operator' => [
                 'punctuation' => new Rule(new RegexMatcher('/(,)/'), ['priority' => 0]),

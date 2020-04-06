@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
-
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -33,7 +33,9 @@ class AnalyzeCommand extends Command
 
         $output->writeln(sprintf(
             "Date: <info>%s</info> Formatter: <info>%s</info>, Comment: <info>%s</info>",
-            date('d.m.Y H:i:s', $json['timestamp']), $json['formatter'], isset($json['comment']) ? $json['comment'] : 'none'
+            date('d.m.Y H:i:s', $json['timestamp']),
+            $json['formatter'],
+            isset($json['comment']) ? $json['comment'] : 'none'
         ));
 
         $table = new Table($output);
@@ -61,7 +63,7 @@ class AnalyzeCommand extends Command
 
             foreach ($data['memory'] as $set => $memory) {
                 $result = array_map(function ($memory) use ($data, $input) {
-                    $bytes = $input->getOption('relative') ? $memory/$data['size'] : $memory;
+                    $bytes = $input->getOption('relative') ? $memory / $data['size'] : $memory;
                     return $this->formatBytes($bytes, (bool)$input->getOption('relative'));
                 }, $memory);
 
@@ -69,16 +71,16 @@ class AnalyzeCommand extends Command
             }
         }
 
-        if(!$input->hasParameterOption('--summary')) {
+        if (!$input->hasParameterOption('--summary')) {
             $table->render();
         }
 
-        $summary = array_filter($summary, function($key) use ($input) {
+        $summary = array_filter($summary, function ($key) use ($input) {
             return fnmatch($input->getOption('summary') ?: '*', $key);
         }, ARRAY_FILTER_USE_KEY);
 
         $max = max(array_map('strlen', array_keys($summary)));
-        foreach($summary as $name => $set) {
+        foreach ($summary as $name => $set) {
             $output->writeln(sprintf(
                 "<comment>%s</comment> %s %s",
                 str_pad($name, $max, ' ', STR_PAD_LEFT),
@@ -132,7 +134,8 @@ class AnalyzeCommand extends Command
         }, $result)) / count($result));
     }
 
-    function formatBytes($bytes, $relative = false) {
+    private function formatBytes($bytes, $relative = false)
+    {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
         $bytes = max($bytes, 0);

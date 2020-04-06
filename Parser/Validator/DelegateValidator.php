@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Parser\Validator;
-
 
 use Kadet\Highlighter\Parser\Context;
 

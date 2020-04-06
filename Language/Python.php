@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language;
-
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
@@ -46,7 +46,8 @@ class Python extends GreedyLanguage
             ])),
 
             'operator' => new Rule(
-                new RegexMatcher('/([-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~])|\b(or|and|not)\b/'), [
+                new RegexMatcher('/([-+%=]=?|!=|\*\*?=?|\/\/?=?|<[<=>]?|>[=>]?|[&|^~])|\b(or|and|not)\b/'),
+                [
                     'priority' => -1
                 ]
             ),

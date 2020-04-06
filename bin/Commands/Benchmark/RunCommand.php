@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
-
 
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\KeyLighter;
@@ -32,12 +32,13 @@ class RunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dir = __DIR__.static::DIRECTORY;
+        $dir = __DIR__ . static::DIRECTORY;
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
                 $dir,
                 \RecursiveDirectoryIterator::SKIP_DOTS | \RecursiveDirectoryIterator::UNIX_PATHS
-            ), \RecursiveIteratorIterator::LEAVES_ONLY
+            ),
+            \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         $formatter = $input->getOption('formatter')
@@ -61,7 +62,9 @@ class RunCommand extends Command
 
             $output->writeln(sprintf(
                 'File: <info>%s</info> Size: <info>%s</info> Language: <info>%s</info>',
-                substr($file->getPathname(), strlen($dir)), $file->getSize(), get_class($language)
+                substr($file->getPathname(), strlen($dir)),
+                $file->getSize(),
+                get_class($language)
             ), OutputInterface::VERBOSITY_VERBOSE);
 
             // Dry run, to include all necessary files.
@@ -70,13 +73,13 @@ class RunCommand extends Command
             $times  = [];
             $memory = [];
 
-            for($i = $input->getOption('times'), $progress = new ProgressBar($output, $i); $i > 0; $i--) {
+            for ($i = $input->getOption('times'), $progress = new ProgressBar($output, $i); $i > 0; $i--) {
                 $progress->display();
                 $result = $this->benchmark($source, $language, $formatter);
-                $times  = array_merge_recursive($times,  $result['times']);
+                $times  = array_merge_recursive($times, $result['times']);
                 $memory = array_merge_recursive($memory, $result['memory']);
 
-                if($input->getOption('geshi') && class_exists('GeSHi')) {
+                if ($input->getOption('geshi') && class_exists('GeSHi')) {
                     $times['geshi'][] = $this->geshi($source, $file->getExtension());
                 }
 
@@ -121,17 +124,17 @@ class RunCommand extends Command
         gc_collect_cycles(); // force garbage collector
         $memory = $this->getMemory();
 
-        $tokenization = $this->_benchmark(function() use ($language, $source) {
+        $tokenization = $this->_benchmark(function () use ($language, $source) {
             return $language->tokenize($source);
         });
         $tokens = $tokenization['result'];
 
-        $parsing = $this->_benchmark(function() use ($language, $tokens) {
+        $parsing = $this->_benchmark(function () use ($language, $tokens) {
             return $language->parse($tokens);
         });
         $parsed = $tokenization['result'];
 
-        $formatting = $this->_benchmark(function() use ($formatter, $parsed) {
+        $formatting = $this->_benchmark(function () use ($formatter, $parsed) {
             return $formatter->format($parsed);
         });
 
@@ -186,7 +189,7 @@ class RunCommand extends Command
     {
         $result = json_encode($results, $input->getOption('pretty') ? JSON_PRETTY_PRINT : 0);
 
-        if($input->getArgument('output')) {
+        if ($input->getArgument('output')) {
             file_put_contents($input->getArgument('output'), $result);
         } else {
             $output->write($result);

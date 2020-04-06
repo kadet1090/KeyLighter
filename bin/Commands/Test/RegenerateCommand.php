@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Kadet\Highlighter\bin\Commands\Test;
-
 
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\KeyLighter;
@@ -41,8 +39,8 @@ class RegenerateCommand extends Command
         $this->_keylighter = KeyLighter::get();
         $this->_formatter  = new TestFormatter();
 
-        $this->_input  = realpath(__DIR__.'/../../../Tests/Samples');
-        $this->_output = realpath(__DIR__.'/../../../Tests/Expected/Test');
+        $this->_input  = realpath(__DIR__ . '/../../../Tests/Samples');
+        $this->_output = realpath(__DIR__ . '/../../../Tests/Expected/Test');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -51,7 +49,8 @@ class RegenerateCommand extends Command
             new \RecursiveDirectoryIterator(
                 $this->_input,
                 \RecursiveDirectoryIterator::SKIP_DOTS | \RecursiveDirectoryIterator::UNIX_PATHS
-            ), \RecursiveIteratorIterator::LEAVES_ONLY
+            ),
+            \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         $reviewer = $this->_keylighter->getFormatter($input->getOption('review') ?: 'cli');
@@ -59,7 +58,7 @@ class RegenerateCommand extends Command
         /** @var \SplFileInfo $file */
         foreach ($iterator as $file) {
             $pathname = substr($file->getPathname(), strlen($this->_input) + 1);
-            if(!$this->regenerate($input, $pathname)) {
+            if (!$this->regenerate($input, $pathname)) {
                 continue;
             }
 
@@ -71,8 +70,8 @@ class RegenerateCommand extends Command
             if ($this->review($input, $output, $tokens, $reviewer)) {
                 $result = StringHelper::normalize($this->_formatter->format($tokens));
 
-                if(!file_exists($this->_output.'/'.dirname($pathname))) {
-                    mkdir($this->_output.'/'.dirname($pathname), 0755, true);
+                if (!file_exists($this->_output . '/' . dirname($pathname))) {
+                    mkdir($this->_output . '/' . dirname($pathname), 0755, true);
                 }
 
                 file_put_contents("{$this->_output}/$pathname.tkn", $result);
@@ -99,16 +98,17 @@ class RegenerateCommand extends Command
             || $input->hasParameterOption('-r');
     }
 
-    private function regenerate(InputInterface $input, $filename) {
+    private function regenerate(InputInterface $input, $filename)
+    {
         $filename = str_replace(DIRECTORY_SEPARATOR, '/', $filename);
         $patterns = $input->getArgument('files');
 
-        foreach($patterns as $pattern) {
-            if($input->getOption('new') && file_exists("{$this->_output}/$filename.tkn")) {
+        foreach ($patterns as $pattern) {
+            if ($input->getOption('new') && file_exists("{$this->_output}/$filename.tkn")) {
                 continue;
             }
 
-            if(fnmatch($pattern, $filename)) {
+            if (fnmatch($pattern, $filename)) {
                 return true;
             }
         }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Kadet\Highlighter\Formatter;
-
 
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\Tokens;
@@ -42,15 +40,15 @@ abstract class AbstractFormatter implements FormatterInterface
         }
         $result .= $this->_content(substr($source, $last));
 
-        return $result.($this->_options['lines']['enable'] ? $this->formatLineEnd($this->_line++) : '');
+        return $result . ($this->_options['lines']['enable'] ? $this->formatLineEnd($this->_line++) : '');
     }
 
     private function _content($text)
     {
         $content = $this->content($text);
 
-        return $this->_options['lines']['enable'] ? preg_replace_callback('/\R/u', function($feed) {
-            return $this->formatLineEnd($this->_line++).$feed[0].$this->formatLineStart($this->_line);
+        return $this->_options['lines']['enable'] ? preg_replace_callback('/\R/u', function ($feed) {
+            return $this->formatLineEnd($this->_line++) . $feed[0] . $this->formatLineStart($this->_line);
         }, $content) : $content;
     }
 

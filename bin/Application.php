@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin;
-
 
 use Kadet\Highlighter\bin\Commands\Benchmark;
 use Kadet\Highlighter\bin\Commands\Dev;
@@ -37,7 +37,7 @@ class Application extends SymfonyApplication
     protected function getCommandName(InputInterface $input)
     {
         $command = $input->getFirstArgument();
-        if(!$command && !$input->hasParameterOption('--help')) {
+        if (!$command && !$input->hasParameterOption('--help')) {
             return 'list';
         } elseif ($this->has($command)) {
             return $command;
@@ -49,12 +49,10 @@ class Application extends SymfonyApplication
 
     protected function getDefaultCommands()
     {
-
         $devcommands = class_exists(TestFormatter::class) ? [
             new Dev\GenerateTableCommand(),
             new Dev\GenerateMetadataCommand(),
             new Benchmark\RunCommand(),
-//            new Benchmark\ReportCommand(),
             new Benchmark\AnalyzeCommand(),
             new Commands\Test\RegenerateCommand()
         ] : [];
@@ -95,6 +93,4 @@ class Application extends SymfonyApplication
 
         return parent::run($input, $output);
     }
-
-
 }

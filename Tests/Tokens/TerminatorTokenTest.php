@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Tests\Tokens;
-
 
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\TerminatorToken;

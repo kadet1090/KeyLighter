@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands;
-
 
 use Kadet\Highlighter\bin\VerboseOutput;
 use Kadet\Highlighter\KeyLighter;
@@ -36,12 +36,16 @@ class HighlightCommand extends Command
     {
         $this->setName('highlight')
             ->addArgument('path', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'File(s) to highlight')
-            ->addOption('normalize',  null, InputOption::VALUE_OPTIONAL, 'Normalize input to LF')
+            ->addOption('normalize', null, InputOption::VALUE_OPTIONAL, 'Normalize input to LF')
             ->addOption('language', 'l', InputOption::VALUE_OPTIONAL, 'Source Language to highlight, see <comment>list-languages</comment> command')
             ->addOption('format', 'f', InputOption::VALUE_OPTIONAL, 'Output format, see <comment>list-languages</comment> command', 'cli')
             ->addOption(
-                'debug', 'd', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-                'Debug features: '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->_debug))
+                'debug',
+                'd',
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'Debug features: ' . implode(', ', array_map(function ($f) {
+                    return "<info>{$f}</info>";
+                }, $this->_debug))
             )
             ->setDescription('<comment>[DEFAULT]</comment> Highlights given file')
         ;
@@ -49,26 +53,26 @@ class HighlightCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if(!empty($input->getOption('debug')) && $output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
+        if (!empty($input->getOption('debug')) && $output->getVerbosity() < OutputInterface::VERBOSITY_VERBOSE) {
             $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
         }
 
-        $output->writeln($this->getApplication()->getLongVersion()."\n", Output::VERBOSITY_VERBOSE);
+        $output->writeln($this->getApplication()->getLongVersion() . "\n", Output::VERBOSITY_VERBOSE);
         $formatter = KeyLighter::get()->getFormatter($input->getOption('format')) ?: KeyLighter::get()->getDefaultFormatter();
 
-        foreach($input->getArgument('path') as $filename) {
+        foreach ($input->getArgument('path') as $filename) {
             $this->process($input, $output, $filename, $formatter);
         }
     }
 
     protected function content($path, $normalize = false)
     {
-        if(!($file = @fopen($path, 'r'))) {
+        if (!($file = @fopen($path, 'r'))) {
             return false;
         }
 
         $content = '';
-        while(!feof($file)) {
+        while (!feof($file)) {
             $content .= fgets($file);
         }
         fclose($file);
@@ -95,14 +99,18 @@ class HighlightCommand extends Command
             : Language::byFilename($filename);
 
         if (!($source = $this->content($filename, $input->getOption('normalize')))) {
-            throw new InvalidArgumentException(sprintf('Specified file %s doesn\'t exist, check if given path is correct.',
-                $filename));
+            throw new InvalidArgumentException(sprintf(
+                'Specified file %s doesn\'t exist, check if given path is correct.',
+                $filename
+            ));
         }
 
         if ($output->isVerbose()) {
             $output->writeln(sprintf(
                 "Used file: <path>%s</path>, Language: <language>%s</language>, Formatter: <formatter>%s</formatter>",
-                $filename, $language->getFQN(), get_class($formatter)
+                $filename,
+                $language->getFQN(),
+                get_class($formatter)
             ));
 
             $verbose   = new VerboseOutput($output, $input, $language, $formatter, $source);

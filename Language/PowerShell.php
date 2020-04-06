@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -43,17 +44,17 @@ class PowerShell extends GreedyLanguage
             ]),
 
             'variable' => [
-                new Rule(new RegexMatcher('/(?<!`)(\$'.$namespace.'[a-z_]\w*)/i', $namespaceGroup), [
+                new Rule(new RegexMatcher('/(?<!`)(\$' . $namespace . '[a-z_]\w*)/i', $namespaceGroup), [
                     'context'  => $variableRules,
                     'priority' => 0,
                 ]),
-                new Rule(new RegexMatcher('/[^`](\$\{'.$namespace.'.*?\})/i', $namespaceGroup), [
+                new Rule(new RegexMatcher('/[^`](\$\{' . $namespace . '.*?\})/i', $namespaceGroup), [
                     'context'  => $variableRules,
                     'priority' => 0,
                 ]),
             ],
 
-            'variable.splat' => new Rule(new RegexMatcher('/[^`](\@'.$namespace.'[a-z_]\w*)/i', $namespaceGroup), [
+            'variable.splat' => new Rule(new RegexMatcher('/[^`](\@' . $namespace . '[a-z_]\w*)/i', $namespaceGroup), [
                 'context'  => $variableRules,
                 'priority' => 0,
             ]),
@@ -85,10 +86,12 @@ class PowerShell extends GreedyLanguage
                 'Process', 'Return', 'Sequence', 'Switch', 'Throw', 'Trap', 'Try', 'Until', 'While', 'Workflow',
             ]), ['priority' => 3]),
 
-            'operator' => new Rule(new RegexMatcher('/(&|\-eq|\-ne|\-gt|\-ge|\-lt|\-le|\-ieq|\-ine|\-igt|\-ige|\-ilt|\-ile|\-ceq|\-cne|\-cgt|\-cge|\-clt|\-cle|\-like|\-notlike|\-match|\-notmatch|\-ilike|\-inotlike|\-imatch|\-inotmatch|\-clike|\-cnotlike|\-cmatch|\-cnotmatch|\-contains|\-notcontains|\-icontains|\-inotcontains|\-ccontains|\-cnotcontains|\-isnot|\-is|\-as|\-replace|\-ireplace|\-creplace|\-and|\-or|\-band|\-bor|\-not|\-bnot|\-f|\-casesensitive|\-exact|\-file|\-regex|\-wildcard)\b/i'),
+            'operator' => new Rule(
+                new RegexMatcher('/(&|\-eq|\-ne|\-gt|\-ge|\-lt|\-le|\-ieq|\-ine|\-igt|\-ige|\-ilt|\-ile|\-ceq|\-cne|\-cgt|\-cge|\-clt|\-cle|\-like|\-notlike|\-match|\-notmatch|\-ilike|\-inotlike|\-imatch|\-inotmatch|\-clike|\-cnotlike|\-cmatch|\-cnotmatch|\-contains|\-notcontains|\-icontains|\-inotcontains|\-ccontains|\-cnotcontains|\-isnot|\-is|\-as|\-replace|\-ireplace|\-creplace|\-and|\-or|\-band|\-bor|\-not|\-bnot|\-f|\-casesensitive|\-exact|\-file|\-regex|\-wildcard)\b/i'),
                 [
                     'context' => ['!string', '!comment'],
-                ]),
+                ]
+            ),
 
             'symbol.parameter' => new Rule(new RegexMatcher('/\s(-\w+:?)\b/i'), [
                 'priority' => 0,

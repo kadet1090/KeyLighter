@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language;
-
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
@@ -65,7 +65,8 @@ class C extends GreedyLanguage
             ]),
 
             'keyword.format' => new Rule(
-                new RegexMatcher('/(%[diuoxXfFeEgGaAcspn%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'), [
+                new RegexMatcher('/(%[diuoxXfFeEgGaAcspn%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'),
+                [
                     'context' => ['string']
                 ]
             ),

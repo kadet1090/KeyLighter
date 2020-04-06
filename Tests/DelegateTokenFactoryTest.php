@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Tests;
-
 
 use Kadet\Highlighter\Parser\DelegateTokenFactory;
 use Kadet\Highlighter\Parser\Rule;
@@ -47,7 +47,8 @@ class DelegateTokenFactoryTest extends TestCase
         $child->expects($this->once())->method('setRule')->with($rule);
         $child->expects($this->once())->method('setType')->with(3);
 
-        $factory = new DelegateTokenFactory(function() {}, $child);
+        $factory = new DelegateTokenFactory(function () {
+        }, $child);
         $factory->setBase('token');
         $factory->setClass(Token::class);
         $factory->setRule($rule);

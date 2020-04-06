@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -33,7 +34,7 @@ class Html extends Xml
         $css = new Css();
         $js  = new JavaScript();
         $this->rules->addMany([
-            'language.'.$js->getIdentifier() => [
+            'language.' . $js->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<script.*?>()/'), [
                     'factory'     => new TokenFactory(LanguageToken::class),
                     'inject'      => $js,
@@ -45,7 +46,7 @@ class Html extends Xml
                     'language' => $js
                 ])
             ],
-            'language.'.$css->getIdentifier() => [
+            'language.' . $css->getIdentifier() => [
                 new OpenRule(new RegexMatcher('/<style.*?>()/'), [
                     'factory'     => new TokenFactory(LanguageToken::class),
                     'inject'      => $css,

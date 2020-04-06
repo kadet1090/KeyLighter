@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -15,7 +16,6 @@
 
 namespace Kadet\Highlighter\Tests;
 
-
 use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
@@ -29,7 +29,7 @@ class RulesTest extends TestCase
         $rule = new Rule();
 
         $rules = new Rules($this->getLanguageMock());
-        $rules->add('test',  $rule);
+        $rules->add('test', $rule);
         $rules->add('token', $rule);
 
         $this->assertContains($rule, $rules->all());
@@ -41,7 +41,7 @@ class RulesTest extends TestCase
         $rule = new Rule(null, ['name' => 'name']);
 
         $rules = new Rules($this->getLanguageMock());
-        $rules->add('test',  $rule);
+        $rules->add('test', $rule);
 
         $this->assertSame($rule, $rules->rule('test', 'name'));
     }
@@ -116,13 +116,15 @@ class RulesTest extends TestCase
     }
 
     /** @expectedException \Kadet\Highlighter\Exceptions\NoSuchElementException */
-    public function testUndefinedRule() {
+    public function testUndefinedRule()
+    {
         $rules = new Rules($this->getLanguageMock());
         $rules->rules('nope');
     }
 
     /** @expectedException \LogicException */
-    public function testWrongFormat() {
+    public function testWrongFormat()
+    {
         $rules = new Rules($this->getLanguageMock());
         $rules->addMany([
             'token' => "string",
@@ -159,7 +161,7 @@ class RulesTest extends TestCase
         $replacement = new Rule();
 
         $rules = new Rules($this->getLanguageMock());
-        $rules->add('test',  $original);
+        $rules->add('test', $original);
         $this->assertSame($original, $rules->rule('test'));
 
         $rules->replace($replacement, 'test');
@@ -169,7 +171,8 @@ class RulesTest extends TestCase
     /**
      * @return Language
      */
-    private function getLanguageMock() {
+    private function getLanguageMock()
+    {
         return $this->getMockBuilder(GreedyLanguage::class)->disableOriginalConstructor()->getMock();
     }
 }

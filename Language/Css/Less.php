@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language\Css;
-
 
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Parser\Rule;

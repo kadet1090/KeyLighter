@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -49,7 +50,7 @@ class DelegateRegexMatcher implements MatcherInterface
 
         $callable = $this->callable;
         foreach ($matches as $match) {
-            foreach($callable($match, $factory) as $token) {
+            foreach ($callable($match, $factory) as $token) {
                 yield $token;
             }
         }

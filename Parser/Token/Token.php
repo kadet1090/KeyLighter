@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -81,7 +82,7 @@ class Token
         return $this->_end === null;
     }
 
-     public function isValid(Context $context)
+    public function isValid(Context $context)
     {
         if ($this->_valid === null) {
             $this->validate($context);
@@ -177,8 +178,9 @@ class Token
      *
      * @return bool Return true to continue processing, false to return already processed tokens.
      */
-    public function process(Context $context, Language $language, Result $result, TokenIterator $tokens) {
-        if(!$this->isValid($context)) {
+    public function process(Context $context, Language $language, Result $result, TokenIterator $tokens)
+    {
+        if (!$this->isValid($context)) {
             return true;
         }
 
@@ -187,15 +189,17 @@ class Token
             $this->processEnd($context, $language, $result, $tokens);
     }
 
-    protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens) {
+    protected function processStart(Context $context, Language $language, Result $result, TokenIterator $tokens)
+    {
         $result->append($this);
         $context->push($this);
 
         return true;
     }
 
-    protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens) {
-        if($this->_start) {
+    protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens)
+    {
+        if ($this->_start) {
             $context->pop($this->_start);
         } else {
             if (($start = $context->find($this->name)) !== false) {
@@ -225,9 +229,9 @@ class Token
                 return $multiplier;
             }
         } elseif (($rule = Helper::cmp($b->rule->priority, $a->rule->priority)) !== 0) {
-            return $multiplier*$rule;
-        }  else {
-            return $multiplier*($a->id < $b->id ? -1 : 1);
+            return $multiplier * $rule;
+        } else {
+            return $multiplier * ($a->id < $b->id ? -1 : 1);
         }
     }
 }

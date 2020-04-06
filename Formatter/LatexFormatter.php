@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -36,7 +37,7 @@ class LatexFormatter extends AbstractFormatter implements FormatterInterface
     public function __construct(array $options = [])
     {
         parent::__construct(array_replace_recursive([
-            'styles' => include __DIR__.'/../Styles/Cli/Default.php'
+            'styles' => include __DIR__ . '/../Styles/Cli/Default.php'
         ], $options));
 
         $this->_styles = $this->_options['styles'];

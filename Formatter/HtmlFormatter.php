@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -58,7 +59,8 @@ class HtmlFormatter extends AbstractFormatter implements FormatterInterface
     {
         return sprintf(
             '<%s class="%s">',
-            $this->_tag, $this->_prefix.str_replace('.', " {$this->_prefix}", $token->name)
+            $this->_tag,
+            $this->_prefix . str_replace('.', " {$this->_prefix}", $token->name)
         );
     }
 
