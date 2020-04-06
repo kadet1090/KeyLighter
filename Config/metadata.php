@@ -522,6 +522,7 @@ return [
         'Kadet\\Highlighter\\Language\\UnifiedDiff',
         'name' => [
             'diff',
+            'patch',
         ],
         'mime' => [
             'text/x-diff',

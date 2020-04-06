@@ -58,7 +58,7 @@ class UnifiedDiff extends GreedyLanguage
     public static function getMetadata()
     {
         return [
-            'name'      => ['diff'],
+            'name'      => ['diff', 'patch'],
             'mime'      => ['text/x-diff', 'text/x-patch', 'application/x-patch', 'application/x-diff'],
             'extension' => ['*.patch', '*.diff']
         ];

@@ -68,7 +68,7 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Sql\MySql` | `mysql` | `text/x-mysql` | none
 `Kadet\Highlighter\Language\Twig` | `twig` | `text/x-twig` | `*.twig`
 `Kadet\Highlighter\Language\TypeScript` | `ts`, `typescript` | `application/typescript`, `application/x-typescript`, `text/x-typescript`, `text/typescript` | `*.ts`, `*.tsx`
-`Kadet\Highlighter\Language\UnifiedDiff` | `diff` | `text/x-diff`, `text/x-patch`, `application/x-patch`, `application/x-diff` | `*.patch`, `*.diff`
+`Kadet\Highlighter\Language\UnifiedDiff` | `diff`, `patch` | `text/x-diff`, `text/x-patch`, `application/x-patch`, `application/x-diff` | `*.patch`, `*.diff`
 `Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
 `Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
 <!-- aliasend -->
