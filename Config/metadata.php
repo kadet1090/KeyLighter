@@ -1,23 +1,82 @@
 <?php return array (
   0 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\Java',
+    0 => 'Kadet\\Highlighter\\Language\\Apache',
     'name' => 
     array (
-      0 => 'java',
+      0 => 'apache',
     ),
     'mime' => 
     array (
-      0 => 'text/x-java',
+      0 => 'application/xml',
+      1 => 'text/xml',
     ),
     'extension' => 
     array (
-      0 => '*.java',
+      0 => '.htaccess',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
   1 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Assembler',
+    'name' => 
+    array (
+      0 => 'asm',
+      1 => 'assembler',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-asm',
+    ),
+    'extension' => 
+    array (
+      0 => '*.asm',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  2 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\C',
+    'name' => 
+    array (
+      0 => 'c',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-csrc',
+      1 => 'text/x-chdr',
+    ),
+    'extension' => 
+    array (
+      0 => '*.c',
+      1 => '*.h',
+      2 => '*.idc',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  3 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Cobol',
+    'name' => 
+    array (
+      0 => 'cobol',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-cobol',
+    ),
+    'extension' => 
+    array (
+      0 => '*.cbl',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  4 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Cpp',
     'name' => 
@@ -42,108 +101,138 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  2 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\PlainText',
-    'name' => 
-    array (
-      0 => 'plaintext',
-      1 => 'text',
-      2 => 'none',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/plain',
-    ),
-    'extension' => 
-    array (
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  3 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Xml',
-    'name' => 
-    array (
-      0 => 'xml',
-    ),
-    'mime' => 
-    array (
-      0 => 'application/xml',
-      1 => 'text/xml',
-    ),
-    'extension' => 
-    array (
-      0 => '*.xml',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  4 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Php',
-    'name' => 
-    array (
-      0 => 'php',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-php',
-      1 => 'application/x-php',
-    ),
-    'extension' => 
-    array (
-      0 => '*.php',
-      1 => '*.phtml',
-      2 => '*.inc',
-      3 => '*.php?',
-    ),
-    'standalone' => true,
-    'injectable' => true,
-  ),
   5 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\Markdown',
+    0 => 'Kadet\\Highlighter\\Language\\CSharp',
     'name' => 
     array (
-      0 => 'markdown',
-      1 => 'md',
+      0 => 'CSharp',
+      1 => 'C#',
     ),
     'mime' => 
     array (
-      0 => 'text/markdown',
+      0 => 'text/x-csharp',
     ),
     'extension' => 
     array (
-      0 => '*.markdown',
-      1 => '*.md',
+      0 => '*.cs',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
   6 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\C',
+    0 => 'Kadet\\Highlighter\\Language\\Css\\Less',
     'name' => 
     array (
-      0 => 'c',
+      0 => 'less',
     ),
     'mime' => 
     array (
-      0 => 'text/x-csrc',
-      1 => 'text/x-chdr',
+      0 => 'text/x-less',
     ),
     'extension' => 
     array (
-      0 => '*.c',
-      1 => '*.h',
-      2 => '*.idc',
+      0 => '*.less',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
   7 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Css\\Sass',
+    'name' => 
+    array (
+      0 => 'sass',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-sass',
+    ),
+    'extension' => 
+    array (
+      0 => '*.sass',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  8 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Css\\Scss',
+    'name' => 
+    array (
+      0 => 'scss',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-scss',
+    ),
+    'extension' => 
+    array (
+      0 => '*.scss',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  9 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Css',
+    'name' => 
+    array (
+      0 => 'css',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/css',
+    ),
+    'extension' => 
+    array (
+      0 => '*.css',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  10 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Go',
+    'name' => 
+    array (
+      0 => 'go',
+      1 => 'golang',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-go',
+      1 => 'application/x-go',
+      2 => 'text/x-golang',
+      3 => 'application/x-golang',
+    ),
+    'extension' => 
+    array (
+      0 => '*.go',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  11 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Haskell',
+    'name' => 
+    array (
+      0 => 'haskell',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-haskell',
+    ),
+    'extension' => 
+    array (
+      0 => '*.hs',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  12 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Html',
     'name' => 
@@ -162,7 +251,23 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  8 => 
+  13 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Http',
+    'name' => 
+    array (
+      0 => 'http',
+    ),
+    'mime' => 
+    array (
+    ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  14 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Ini',
     'name' => 
@@ -183,25 +288,25 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  9 => 
+  15 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\Sql',
+    0 => 'Kadet\\Highlighter\\Language\\Java',
     'name' => 
     array (
-      0 => 'sql',
+      0 => 'java',
     ),
     'mime' => 
     array (
-      0 => 'text/x-sql',
+      0 => 'text/x-java',
     ),
     'extension' => 
     array (
-      0 => '*.sql',
+      0 => '*.java',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
-  10 => 
+  16 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\JavaScript',
     'name' => 
@@ -226,88 +331,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  11 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Twig',
-    'name' => 
-    array (
-      0 => 'twig',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-twig',
-    ),
-    'extension' => 
-    array (
-      0 => '*.twig',
-    ),
-    'standalone' => false,
-    'injectable' => true,
-  ),
-  12 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Apache',
-    'name' => 
-    array (
-      0 => 'apache',
-    ),
-    'mime' => 
-    array (
-      0 => 'application/xml',
-      1 => 'text/xml',
-    ),
-    'extension' => 
-    array (
-      0 => '.htaccess',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  13 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Go',
-    'name' => 
-    array (
-      0 => 'go',
-      1 => 'golang',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-go',
-      1 => 'application/x-go',
-      2 => 'text/x-golang',
-      3 => 'application/x-golang',
-    ),
-    'extension' => 
-    array (
-      0 => '*.go',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  14 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\UnifiedDiff',
-    'name' => 
-    array (
-      0 => 'diff',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-diff',
-      1 => 'text/x-patch',
-      2 => 'application/x-patch',
-      3 => 'application/x-diff',
-    ),
-    'extension' => 
-    array (
-      0 => '*.patch',
-      1 => '*.diff',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  15 => 
+  17 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Latex',
     'name' => 
@@ -329,7 +353,168 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  16 => 
+  18 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Markdown',
+    'name' => 
+    array (
+      0 => 'markdown',
+      1 => 'md',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/markdown',
+    ),
+    'extension' => 
+    array (
+      0 => '*.markdown',
+      1 => '*.md',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  19 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Perl',
+    'name' => 
+    array (
+      0 => 'perl',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-perl',
+      1 => 'application/x-perl',
+    ),
+    'extension' => 
+    array (
+      0 => '*.pl',
+      1 => '*.pm',
+      2 => '*.t',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  20 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Php',
+    'name' => 
+    array (
+      0 => 'php',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-php',
+      1 => 'application/x-php',
+    ),
+    'extension' => 
+    array (
+      0 => '*.php',
+      1 => '*.phtml',
+      2 => '*.inc',
+      3 => '*.php?',
+    ),
+    'standalone' => true,
+    'injectable' => true,
+  ),
+  21 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\PlainText',
+    'name' => 
+    array (
+      0 => 'plaintext',
+      1 => 'text',
+      2 => 'none',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/plain',
+    ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  22 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\PowerShell',
+    'name' => 
+    array (
+      0 => 'powershell',
+      1 => 'posh',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-powershell',
+      1 => 'application/x-powershell',
+    ),
+    'extension' => 
+    array (
+      0 => '*.ps1',
+      1 => '*.psm1',
+      2 => '*.psd1',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  23 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Prolog',
+    'name' => 
+    array (
+      0 => 'prolog',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-prolog',
+    ),
+    'extension' => 
+    array (
+      0 => '*.prolog',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  24 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Python\\Django',
+    'name' => 
+    array (
+      0 => 'django',
+      1 => 'jinja',
+    ),
+    'mime' => 
+    array (
+      0 => 'application/x-django-templating',
+      1 => 'application/x-jinja',
+    ),
+    'extension' => 
+    array (
+    ),
+    'standalone' => false,
+    'injectable' => true,
+  ),
+  25 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Python',
+    'name' => 
+    array (
+      0 => 'python',
+      1 => 'py',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-python',
+      1 => 'application/x-python',
+    ),
+    'extension' => 
+    array (
+      0 => '*.py',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  26 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Ruby',
     'name' => 
@@ -355,212 +540,7 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  17 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Prolog',
-    'name' => 
-    array (
-      0 => 'prolog',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-prolog',
-    ),
-    'extension' => 
-    array (
-      0 => '*.prolog',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  18 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Assembler',
-    'name' => 
-    array (
-      0 => 'asm',
-      1 => 'assembler',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-asm',
-    ),
-    'extension' => 
-    array (
-      0 => '*.asm',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  19 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Css\\Less',
-    'name' => 
-    array (
-      0 => 'less',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-less',
-    ),
-    'extension' => 
-    array (
-      0 => '*.less',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  20 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Css\\Scss',
-    'name' => 
-    array (
-      0 => 'scss',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-scss',
-    ),
-    'extension' => 
-    array (
-      0 => '*.scss',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  21 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Css\\Sass',
-    'name' => 
-    array (
-      0 => 'sass',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-sass',
-    ),
-    'extension' => 
-    array (
-      0 => '*.sass',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  22 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Haskell',
-    'name' => 
-    array (
-      0 => 'haskell',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-haskell',
-    ),
-    'extension' => 
-    array (
-      0 => '*.hs',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  23 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\TypeScript',
-    'name' => 
-    array (
-      0 => 'ts',
-      1 => 'typescript',
-    ),
-    'mime' => 
-    array (
-      0 => 'application/typescript',
-      1 => 'application/x-typescript',
-      2 => 'text/x-typescript',
-      3 => 'text/typescript',
-    ),
-    'extension' => 
-    array (
-      0 => '*.ts',
-      1 => '*.tsx',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  24 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Http',
-    'name' => 
-    array (
-      0 => 'http',
-    ),
-    'mime' => 
-    array (
-    ),
-    'extension' => 
-    array (
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  25 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Perl',
-    'name' => 
-    array (
-      0 => 'perl',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-perl',
-      1 => 'application/x-perl',
-    ),
-    'extension' => 
-    array (
-      0 => '*.pl',
-      1 => '*.pm',
-      2 => '*.t',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  26 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\CSharp',
-    'name' => 
-    array (
-      0 => 'CSharp',
-      1 => 'C#',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-csharp',
-    ),
-    'extension' => 
-    array (
-      0 => '*.cs',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
   27 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Sql\\MySql',
-    'name' => 
-    array (
-      0 => 'mysql',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-mysql',
-    ),
-    'extension' => 
-    array (
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  28 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Shell',
     'name' => 
@@ -593,104 +573,105 @@
     'standalone' => true,
     'injectable' => false,
   ),
-  29 => 
+  28 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\Cobol',
+    0 => 'Kadet\\Highlighter\\Language\\Sql\\MySql',
     'name' => 
     array (
-      0 => 'cobol',
+      0 => 'mysql',
     ),
     'mime' => 
     array (
-      0 => 'text/x-cobol',
+      0 => 'text/x-mysql',
     ),
     'extension' => 
     array (
-      0 => '*.cbl',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  29 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Sql',
+    'name' => 
+    array (
+      0 => 'sql',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-sql',
+    ),
+    'extension' => 
+    array (
+      0 => '*.sql',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
   30 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\Css',
+    0 => 'Kadet\\Highlighter\\Language\\Twig',
     'name' => 
     array (
-      0 => 'css',
+      0 => 'twig',
     ),
     'mime' => 
     array (
-      0 => 'text/css',
+      0 => 'text/x-twig',
     ),
     'extension' => 
     array (
-      0 => '*.css',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  31 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Python\\Django',
-    'name' => 
-    array (
-      0 => 'django',
-      1 => 'jinja',
-    ),
-    'mime' => 
-    array (
-      0 => 'application/x-django-templating',
-      1 => 'application/x-jinja',
-    ),
-    'extension' => 
-    array (
+      0 => '*.twig',
     ),
     'standalone' => false,
     'injectable' => true,
   ),
-  32 => 
+  31 => 
   array (
-    0 => 'Kadet\\Highlighter\\Language\\PowerShell',
+    0 => 'Kadet\\Highlighter\\Language\\TypeScript',
     'name' => 
     array (
-      0 => 'powershell',
-      1 => 'posh',
+      0 => 'ts',
+      1 => 'typescript',
     ),
     'mime' => 
     array (
-      0 => 'text/x-powershell',
-      1 => 'application/x-powershell',
+      0 => 'application/typescript',
+      1 => 'application/x-typescript',
+      2 => 'text/x-typescript',
+      3 => 'text/typescript',
     ),
     'extension' => 
     array (
-      0 => '*.ps1',
-      1 => '*.psm1',
-      2 => '*.psd1',
+      0 => '*.ts',
+      1 => '*.tsx',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  32 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\UnifiedDiff',
+    'name' => 
+    array (
+      0 => 'diff',
+    ),
+    'mime' => 
+    array (
+      0 => 'text/x-diff',
+      1 => 'text/x-patch',
+      2 => 'application/x-patch',
+      3 => 'application/x-diff',
+    ),
+    'extension' => 
+    array (
+      0 => '*.patch',
+      1 => '*.diff',
     ),
     'standalone' => true,
     'injectable' => false,
   ),
   33 => 
-  array (
-    0 => 'Kadet\\Highlighter\\Language\\Python',
-    'name' => 
-    array (
-      0 => 'python',
-      1 => 'py',
-    ),
-    'mime' => 
-    array (
-      0 => 'text/x-python',
-      1 => 'application/x-python',
-    ),
-    'extension' => 
-    array (
-      0 => '*.py',
-    ),
-    'standalone' => true,
-    'injectable' => false,
-  ),
-  34 => 
   array (
     0 => 'Kadet\\Highlighter\\Language\\Xaml',
     'name' => 
@@ -703,6 +684,25 @@
     'extension' => 
     array (
       0 => '*.xaml',
+    ),
+    'standalone' => true,
+    'injectable' => false,
+  ),
+  34 => 
+  array (
+    0 => 'Kadet\\Highlighter\\Language\\Xml',
+    'name' => 
+    array (
+      0 => 'xml',
+    ),
+    'mime' => 
+    array (
+      0 => 'application/xml',
+      1 => 'text/xml',
+    ),
+    'extension' => 
+    array (
+      0 => '*.xml',
     ),
     'standalone' => true,
     'injectable' => false,
