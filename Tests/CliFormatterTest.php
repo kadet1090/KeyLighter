@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -37,9 +38,9 @@ class CliFormatterTest extends TestCase
     public function testRendering()
     {
         $source   = 'abc + test';
-        $expected = Console::open(['color' => 'red']).'abc'.Console::close().' '.
-            Console::open(['color' => 'blue']).'+'.Console::close().' '.
-            Console::open(['color' => 'red']).'test'.Console::close().Console::reset();
+        $expected = Console::open(['color' => 'red']) . 'abc' . Console::close() . ' ' .
+            Console::open(['color' => 'blue']) . '+' . Console::close() . ' ' .
+            Console::open(['color' => 'red']) . 'test' . Console::close() . Console::reset();
 
         $first    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);
         $operator = $this->_factory->create('operator', ['pos' => 4, 'length' => 1]);
@@ -62,7 +63,7 @@ class CliFormatterTest extends TestCase
     public function testCallable()
     {
         $source   = 'abc';
-        $expected = Console::open(['color' => 'red']).'abc'.Console::close().Console::reset();
+        $expected = Console::open(['color' => 'red']) . 'abc' . Console::close() . Console::reset();
 
         $token    = $this->_factory->create('token', ['pos' => 0, 'length' => 3]);
 

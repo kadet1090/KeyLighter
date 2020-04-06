@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Parser;
-
 
 use Kadet\Highlighter\Exceptions\NameConflictException;
 use Kadet\Highlighter\Exceptions\NoSuchElementException;
@@ -171,7 +171,7 @@ class Rules extends \ArrayObject
             return;
         }
 
-        if(!isset($this[$type][$index])) {
+        if (!isset($this[$type][$index])) {
             throw new NoSuchElementException("There is no rule '$type' type indexed by '$index'.");
         }
 
@@ -186,7 +186,9 @@ class Rules extends \ArrayObject
     public function all()
     {
         $items = $this->getArrayCopy();
-        if(empty($items)) return [];
+        if (empty($items)) {
+            return [];
+        }
 
         return call_user_func_array('array_merge', $items);
     }

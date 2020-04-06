@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -12,6 +13,7 @@
  *
  * From Kadet with love.
  */
+
 namespace Kadet\Highlighter\Parser;
 
 use Kadet\Highlighter\Parser\Token\Token;

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="keylighter">
+    <description>Keylighter coding standards</description>
+
+    <file>./bin/</file>
+    <file>./Config/formatters.php</file>
+    <file>./Exceptions/</file>
+    <file>./Formatter/</file>
+    <file>./Language/</file>
+    <file>./Matcher/</file>
+    <file>./Parser/</file>
+    <file>./Styles/Cli/default.php</file>
+    <file>./Styles/Latex/default.php</file>
+    <file>./Tests/</file>
+
+    <exclude-pattern>./Tests/Samples/</exclude-pattern>
+
+    <rule ref="PSR12">
+        <!-- Ignore too long lines -->
+        <exclude name="Generic.Files.LineLength.TooLong"/>
+
+        <!-- Ignore private properties prefixed with underscore -->
+        <exclude name="PSR2.Classes.PropertyDeclaration" />
+
+        <!-- Ignore private methods prefixed with underscore -->
+        <exclude name="PSR2.Methods.MethodDeclaration" />
+
+        <!-- Ignore missing constant visibility modifier -->
+        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
+    </rule>
+
+    <rule ref="PSR1.Classes.ClassDeclaration">
+        <exclude-pattern>./Tests/GreedyLanguageTest.php</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>./Tests/GreedyLanguageTest.php</exclude-pattern>
+    </rule>
+</ruleset>

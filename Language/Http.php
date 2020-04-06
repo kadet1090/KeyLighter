@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -54,15 +55,15 @@ class Http extends GreedyLanguage
         $split = preg_split('/\R\R/', $source, 2);
 
         $http = $split[0];
-        if(isset($split[1]) && $payload = $split[1]) {
-            if(preg_match('/Content-Type: ([^;\r\n]*)/', $http, $matches)) {
+        if (isset($split[1]) && $payload = $split[1]) {
+            if (preg_match('/Content-Type: ([^;\r\n]*)/', $http, $matches)) {
                 $mime = $matches[1];
             } else {
                 $mime = 'text/plain';
             }
 
             $injected = self::byMime($mime);
-            $language = $this->_embeddedFactory->create('language.'.$injected->getIdentifier(), [
+            $language = $this->_embeddedFactory->create('language.' . $injected->getIdentifier(), [
                 'pos'    => strlen($source) - strlen($payload) + $offset,
                 'length' => strlen($payload),
                 'inject' => $injected,

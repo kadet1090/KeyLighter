@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *1
@@ -71,9 +72,8 @@ class Apache extends GreedyLanguage
             ]),
             'operator.punctuation' => new Rule(new RegexMatcher('/([\(\){},;])/i')),
             'keyword.format' => new Rule(
-                new RegexMatcher('/(%[\w%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'), [
-                    'context' => ['string']
-                ]
+                new RegexMatcher('/(%[\w%][-+#0]?(?:[0-9]+|\*)?(?:\.(?:[0-9]+|\*))?)/'),
+                ['context' => ['string']]
             ),
         ]);
     }

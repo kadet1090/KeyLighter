@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -12,12 +13,12 @@
  *
  * From Kadet with love.
  */
+
 namespace Kadet\Highlighter\Language;
 
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Tokens;
-
 
 /**
  * Class Language
@@ -87,10 +88,12 @@ abstract class Language
 
     public final function getFQN($class = false)
     {
-        $embedded =$this->getEmbedded();
-        return  ($class ? get_class($this) : $this->getIdentifier()).(
+        $embedded = $this->getEmbedded();
+        return  ($class ? get_class($this) : $this->getIdentifier()) . (
             !empty($embedded)
-                ? ' + '.implode(', ', array_map($class ? 'get_class' : function(Language $e) { return $e->getIdentifier(); }, $embedded))
+                ? ' + ' . implode(', ', array_map($class ? 'get_class' : function (Language $e) {
+                    return $e->getIdentifier();
+                }, $embedded))
                 : ''
         );
     }

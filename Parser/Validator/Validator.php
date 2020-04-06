@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Parser\Validator;
-
 
 use Kadet\Highlighter\Parser\Context;
 
@@ -34,17 +34,19 @@ class Validator
      *
      * @param array $rules
      */
-    public function __construct(array $rules = []) {
+    public function __construct(array $rules = [])
+    {
         $this->setRules($rules);
     }
 
-    public function validate(Context $context, $additional = []) {
+    public function validate(Context $context, $additional = [])
+    {
         return $this->_validate($context->stack, $additional + $this->_rules);
     }
 
     public function setRules($rules)
     {
-        if(empty($rules)) {
+        if (empty($rules)) {
             $this->_rules = [ 'none' => Validator::CONTEXT_IN_ONE_OF ];
         } else {
             foreach ($rules as $key => $rule) {
@@ -57,20 +59,23 @@ class Validator
     private function _clean($rule, &$required)
     {
         if (strpos($rule, '.') !== false) {
-            foreach (array_filter(array_keys($required), function ($key) use ($rule) {
-                return fnmatch($key . '.*', $rule);
-            }) as $remove) {
+            foreach (
+                array_filter(array_keys($required), function ($key) use ($rule) {
+                    return fnmatch($key . '.*', $rule);
+                }) as $remove
+            ) {
                 unset($required[$remove]);
             }
         }
     }
 
-    protected function _validate($context, $rules, $result = false) {
-        if(empty($context)) {
+    protected function _validate($context, $rules, $result = false)
+    {
+        if (empty($context)) {
             $context = ['none'];
         }
 
-        foreach($rules as $rule => &$type) {
+        foreach ($rules as $rule => &$type) {
             $matched = $this->_matches($context, $rule, $type);
 
             if ($type & Validator::CONTEXT_NOT_IN) {
@@ -123,30 +128,31 @@ class Validator
 
         $rule = substr($rule, $pos);
 
-        if($type & self::CONTEXT_REGEX) {
+        if ($type & self::CONTEXT_REGEX) {
             $rule = "/^$rule(\\.\\w+)?/i";
         }
 
         return [$rule, $type];
     }
 
-    private function _matches($context, $rule, $type) {
-        if($type & self::CONTEXT_EXACTLY) {
+    private function _matches($context, $rule, $type)
+    {
+        if ($type & self::CONTEXT_EXACTLY) {
             return in_array($rule, $context, true);
-        } elseif($type & self::CONTEXT_REGEX) {
-            foreach($context as $item) {
-                if(preg_match($rule, $item)) {
+        } elseif ($type & self::CONTEXT_REGEX) {
+            foreach ($context as $item) {
+                if (preg_match($rule, $item)) {
                     return true;
                 }
             }
             return false;
         } else {
-            if(in_array($rule, $context, true)) {
+            if (in_array($rule, $context, true)) {
                 return true;
             }
 
-            foreach($context as $item) {
-                if(fnmatch("$rule.*", $item)) {
+            foreach ($context as $item) {
+                if (fnmatch("$rule.*", $item)) {
                     return true;
                 }
             }

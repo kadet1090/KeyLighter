@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -110,14 +111,17 @@ class TokenTest extends TokenTestCase
         $validator->expects($this->once())->method('validate')->with($context, []);
 
         $token = $this->_factory->create(
-            'test.name', [
+            'test.name',
+            [
                 'pos'    => 15,
                 'length' => 10,
                 'rule'   => new Rule(
-                    null, [
+                    null,
+                    [
                     'language' => $language,
                     'context'  => $validator
-                ])
+                    ]
+                )
             ]
         );
         $token->isValid($context);

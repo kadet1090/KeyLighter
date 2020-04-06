@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -15,7 +16,6 @@
 
 namespace Kadet\Highlighter\Tests\Tokens;
 
-
 use Kadet\Highlighter\Parser\Token\Token;
 use PHPUnit\Framework\TestCase;
 
@@ -29,6 +29,6 @@ class TokenComparisonTest extends TestCase
         $start->setEnd($end);
 
         $this->assertEquals(-1, Token::compare($start, $end));
-        $this->assertEquals( 1, Token::compare($end, $start));
+        $this->assertEquals(1, Token::compare($end, $start));
     }
 }

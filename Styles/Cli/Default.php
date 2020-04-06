@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'string'       => ['color' => 'green'],
     'keyword'      => ['color' => 'yellow'],
     'operator'     => ['color' => 'yellow'],

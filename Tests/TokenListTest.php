@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -51,15 +52,18 @@ class TokenListTest extends TestCase
     {
         $tokens    = [];
         $tokens[0] = $token = $this->_factory->create(
-            'token.1', ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 3])]
+            'token.1',
+            ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 3])]
         );
         $tokens[1] = $token->getEnd();
         $tokens[2] = $token = $this->_factory->create(
-            'token.2', ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 1])]
+            'token.2',
+            ['pos' => 2, 'length' => 3, 'rule' => new Rule(null, ['priority' => 1])]
         );
         $tokens[3] = $token->getEnd();
         $tokens[4] = $token = $this->_factory->create(
-            'token.3', ['pos' => 2, 'length' => 4, 'rule' => new Rule(null, ['priority' => 2])]
+            'token.3',
+            ['pos' => 2, 'length' => 4, 'rule' => new Rule(null, ['priority' => 2])]
         );
         $tokens[5] = $token->getEnd();
 
