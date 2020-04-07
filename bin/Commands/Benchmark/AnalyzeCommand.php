@@ -29,6 +29,11 @@ class AnalyzeCommand extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /**
+         * @noinspection PhpComposerExtensionStubsInspection
+         * Adding ext-json as dev-only dependency still doesn't
+         * prevent this issue so we have to ignore this inspection
+         */
         $json = json_decode(file_get_contents($input->getArgument('input')[0]), true);
 
         $output->writeln(sprintf(

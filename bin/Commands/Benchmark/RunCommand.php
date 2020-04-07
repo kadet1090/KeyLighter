@@ -184,6 +184,11 @@ class RunCommand extends Command
 
     protected function output($results, InputInterface $input, OutputInterface $output)
     {
+        /**
+         * @noinspection PhpComposerExtensionStubsInspection
+         * Adding ext-json as dev-only dependency still doesn't
+         * prevent this issue so we have to ignore this inspection
+         */
         $result = json_encode($results, $input->getOption('pretty') ? JSON_PRETTY_PRINT : 0);
 
         if($input->getArgument('output')) {
