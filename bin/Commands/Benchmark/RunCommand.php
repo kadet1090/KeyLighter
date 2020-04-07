@@ -28,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class RunCommand extends Command
 {
-    const DIRECTORY = "/../../../Tests/Samples/";
+    private const DIRECTORY = "/../../../Tests/Samples/";
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {

@@ -20,12 +20,12 @@ use Kadet\Highlighter\Parser\Context;
 
 class Validator
 {
-    const CONTEXT_NOT_IN    = 2;
-    const CONTEXT_IN        = 1;
-    const CONTEXT_IN_ONE_OF = 4;
-    const CONTEXT_EXACTLY   = 8;
-    const CONTEXT_ON_TOP    = 16;
-    const CONTEXT_REGEX     = 32;
+    public const CONTEXT_IN        = 1;
+    private const CONTEXT_NOT_IN    = 2;
+    private const CONTEXT_IN_ONE_OF = 4;
+    private const CONTEXT_EXACTLY   = 8;
+    private const CONTEXT_ON_TOP    = 16;
+    private const CONTEXT_REGEX     = 32;
 
     private $_rules = [];
 

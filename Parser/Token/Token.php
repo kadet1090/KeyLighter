@@ -26,9 +26,9 @@ use Kadet\Highlighter\Utils\Helper;
 
 class Token
 {
-    const NAME  = null;
-    const START = 0x1;
-    const END   = 0x2;
+    public const NAME  = null;
+    public const START = 0x1;
+    public const END   = 0x2;
 
     protected static $_id = 0;
 
