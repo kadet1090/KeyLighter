@@ -14,6 +14,8 @@
  * From Kadet with love.
  */
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\bin;
 
 use Kadet\Highlighter\bin\Commands\Benchmark;
@@ -25,6 +27,7 @@ use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -34,7 +37,7 @@ class Application extends SymfonyApplication
 {
     public $explicit = true;
 
-    protected function getCommandName(InputInterface $input)
+    protected function getCommandName(InputInterface $input): string
     {
         $command = $input->getFirstArgument();
         if (!$command && !$input->hasParameterOption('--help')) {
@@ -47,7 +50,7 @@ class Application extends SymfonyApplication
         }
     }
 
-    protected function getDefaultCommands()
+    protected function getDefaultCommands(): array
     {
         $devcommands = class_exists(TestFormatter::class) ? [
             new Dev\GenerateTableCommand(),
@@ -64,7 +67,7 @@ class Application extends SymfonyApplication
         ], $devcommands);
     }
 
-    protected function getDefaultInputDefinition()
+    protected function getDefaultInputDefinition(): InputDefinition
     {
         $input = parent::getDefaultInputDefinition();
         $input->setOptions(array_filter($input->getOptions(), function (InputOption $option) {
@@ -82,7 +85,7 @@ class Application extends SymfonyApplication
         $this->setDefaultCommand('highlight');
     }
 
-    public function run(InputInterface $input = null, OutputInterface $output = null)
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         $output = $output ?: new ConsoleOutput();
 

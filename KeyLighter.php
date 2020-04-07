@@ -13,6 +13,8 @@
  * From Kadet with love.
  */
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter;
 
 use Kadet\Highlighter\Formatter\CliFormatter;
@@ -31,7 +33,7 @@ class KeyLighter
 {
     use Singleton;
 
-    const VERSION = '0.9-dev';
+    public const VERSION = '0.9-dev';
 
     /**
      * Registered aliases
@@ -49,12 +51,7 @@ class KeyLighter
     /** @var FormatterInterface */
     private $_formatter = null;
 
-    /**
-     * @param string $name
-     *
-     * @return Language
-     */
-    public function getLanguage($name)
+    public function getLanguage(string $name): Language
     {
         $embedded = [];
         if (($pos = strpos($name, '>')) !== false) {
@@ -67,21 +64,21 @@ class KeyLighter
         ]);
     }
 
-    public function languageByName($name, $params = [])
+    public function languageByName(string $name, array $params = []): Language
     {
         return isset($this->_languages['name'][$name]) ?
             $this->_languages['name'][$name]($params) :
             new PlainText($params);
     }
 
-    public function languageByMime($mime, $params = [])
+    public function languageByMime(string $mime, array $params = []): Language
     {
         return isset($this->_languages['mime'][$mime]) ?
             $this->_languages['mime'][$mime]($params) :
             new PlainText($params);
     }
 
-    public function languageByExt($filename, $params = [])
+    public function languageByExt(string $filename, array $params = []): Language
     {
         foreach($this->_languages['extension'] as $mask => $class) {
             if(fnmatch($mask, $filename)) {
@@ -98,29 +95,29 @@ class KeyLighter
      *
      * @deprecated Will be removed in 1.0
      */
-    public function registerLanguage($language, $aliases)
+    public function registerLanguage($language, $aliases): void
     {
         $this->register($language, ['name' => $aliases]);
     }
 
-    public function setDefaultFormatter(FormatterInterface $formatter)
+    public function setDefaultFormatter(FormatterInterface $formatter): void
     {
         $this->_formatter = $formatter;
     }
 
-    public function registeredLanguages($by = 'name', $class = false)
+    public function registeredLanguages(string $by = 'name', bool $class = false): array
     {
         return array_map(function ($e) use($class) {
             return $e([])->getFQN($class);
         }, $this->_languages[$by]);
     }
 
-    public function getDefaultFormatter()
+    public function getDefaultFormatter(): FormatterInterface
     {
         return $this->_formatter;
     }
 
-    public function addFormatter($name, FormatterInterface $formatter)
+    public function addFormatter(string $name, FormatterInterface $formatter): void
     {
         $this->_formatters[$name] = $formatter;
     }
@@ -130,12 +127,12 @@ class KeyLighter
         return isset($this->_formatters[$name]) ? $this->_formatters[$name] : false;
     }
 
-    public function registeredFormatters()
+    public function registeredFormatters(): array
     {
         return $this->_formatters;
     }
 
-    public function highlight($source, Language $language, FormatterInterface $formatter = null)
+    public function highlight(string $source, Language $language, FormatterInterface $formatter = null): string
     {
         $formatter = $formatter ?: $this->getDefaultFormatter();
         return $formatter->format($language->parse($source));
@@ -148,7 +145,7 @@ class KeyLighter
         );
     }
 
-    public function init()
+    public function init(): void
     {
         foreach(include __DIR__.'/Config/metadata.php' as $alias) {
             $class = $alias[0];
@@ -164,7 +161,7 @@ class KeyLighter
      * @param string|callable $class
      * @param array           $options
      */
-    public function register($class, array $options)
+    public function register($class, array $options): void
     {
         if(!is_callable($class) && is_subclass_of($class, Language::class)) {
             $class = function($arguments = []) use ($class) {

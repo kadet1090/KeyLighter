@@ -14,6 +14,8 @@
  * From Kadet with love.
  */
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\bin;
 
 use Kadet\Highlighter\Formatter\DebugFormatter;
@@ -42,21 +44,12 @@ class VerboseOutput
     /** @var FormatterInterface */
     private $_formatter;
 
-    /**
-     * VerboseOutput constructor.
-     *
-     * @param OutputInterface    $output
-     * @param InputInterface     $input
-     * @param Language           $language
-     * @param FormatterInterface $formatter
-     * @param                    $source
-     */
     public function __construct(
         OutputInterface $output,
         InputInterface $input,
         Language $language,
         FormatterInterface $formatter,
-        $source
+        string $source
     ) {
         $this->_output = $output;
         $this->_input  = $input;

@@ -24,9 +24,6 @@
 
         <!-- Ignore private methods prefixed with underscore -->
         <exclude name="PSR2.Methods.MethodDeclaration" />
-
-        <!-- Ignore missing constant visibility modifier -->
-        <exclude name="PSR12.Properties.ConstantVisibility.NotFound"/>
     </rule>
 
     <rule ref="PSR1.Classes.ClassDeclaration">

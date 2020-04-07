@@ -14,6 +14,8 @@
  * From Kadet with love.
  */
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
 
 use Symfony\Component\Console\Command\Command;
@@ -27,7 +29,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class AnalyzeCommand extends Command
 {
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /**
          * @noinspection PhpComposerExtensionStubsInspection
@@ -93,9 +95,11 @@ class AnalyzeCommand extends Command
                 $suffix
             ));
         }
+
+        return 0;
     }
 
-    protected function separator($file, Table $table)
+    protected function separator($file, Table $table): void
     {
         $table->addRows([
             new TableSeparator(),
@@ -104,7 +108,7 @@ class AnalyzeCommand extends Command
         ]);
     }
 
-    protected function entry($result, $set, Table $table)
+    protected function entry($result, $set, Table $table): void
     {
         $min = min($result);
         $avg = $this->avarage($result);
@@ -125,6 +129,7 @@ class AnalyzeCommand extends Command
         return is_numeric($number) ? number_format($number, 2) : $number;
     }
 
+    // @fixme float or int? should we cast or ignore typing?
     private function avarage(array $result)
     {
         return array_sum($result) / count($result);
