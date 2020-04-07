@@ -99,7 +99,7 @@ class AnalyzeCommand extends Command
         return 0;
     }
 
-    protected function separator($file, Table $table): void
+    protected function separator(string $file, Table $table): void
     {
         $table->addRows([
             new TableSeparator(),
@@ -130,7 +130,7 @@ class AnalyzeCommand extends Command
     }
 
     // @fixme float or int? should we cast or ignore typing?
-    private function avarage(array $result)
+    private function avarage($result)
     {
         return array_sum($result) / count($result);
     }

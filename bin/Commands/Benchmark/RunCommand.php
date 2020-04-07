@@ -14,6 +14,8 @@
  * From Kadet with love.
  */
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
 
 use Kadet\Highlighter\Formatter\FormatterInterface;
