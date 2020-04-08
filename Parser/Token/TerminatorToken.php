@@ -45,10 +45,12 @@ class TerminatorToken extends MetaToken
 
     protected function processEnd(Context $context, Language $language, Result $result, TokenIterator $tokens)
     {
-        foreach (
+        $closing =
             array_filter($context->stack, function ($name) {
                 return in_array($name, $this->closes);
-            }) as $hash => $name
+            });
+
+        foreach ($closing as $hash => $name
         ) {
             $end = new Token($name, ['pos' => $this->pos]);
             $tokens[$hash]->setEnd($end);

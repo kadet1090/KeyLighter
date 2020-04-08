@@ -19,6 +19,10 @@ declare(strict_types=1);
 namespace Kadet\Highlighter\bin\Commands\Dev;
 
 use Kadet\Highlighter\Language\Language;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -60,14 +64,14 @@ class GenerateMetadataCommand extends Command
     protected function generate(OutputInterface $output)
     {
         $dir = __DIR__ . '/../../../Language' . DIRECTORY_SEPARATOR;
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::LEAVES_ONLY
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         $result = [];
 
-        /** @var \SplFileInfo $file */
+        /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
             $path = str_replace([$dir, '.php', '/'], ['', '', '\\'], $file->getPathname());
             $class = "\\Kadet\\Highlighter\\Language\\$path";
@@ -91,12 +95,12 @@ class GenerateMetadataCommand extends Command
     /**
      * @param OutputInterface $output
      * @param                 $class
-     *
      * @return array|false
+     * @throws \ReflectionException
      */
     protected function process(OutputInterface $output, $class)
     {
-        $reflection = new \ReflectionClass($class);
+        $reflection = new ReflectionClass($class);
         if ($reflection->isAbstract()) {
             $output->writeln(sprintf(
                 '<language>%s</language> is abstract, skipping...',

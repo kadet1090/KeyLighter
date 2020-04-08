@@ -119,7 +119,7 @@ class TokenTest extends TokenTestCase
                     null,
                     [
                     'language' => $language,
-                    'context'  => $validator
+                    'context'  => $validator,
                     ]
                 )
             ]

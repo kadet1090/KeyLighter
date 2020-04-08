@@ -71,7 +71,7 @@ class AnalyzeCommand extends Command
             foreach ($data['memory'] as $set => $memory) {
                 $result = array_map(function ($memory) use ($data, $input) {
                     $bytes = $input->getOption('relative') ? $memory / $data['size'] : $memory;
-                    return $this->formatBytes($bytes, (bool)$input->getOption('relative'));
+                    return $this->formatBytes($bytes);
                 }, $memory);
 
                 $this->entry($result, $set, $table);
@@ -144,7 +144,7 @@ class AnalyzeCommand extends Command
         }, $result)) / count($result));
     }
 
-    private function formatBytes($bytes, $relative = false)
+    private function formatBytes($bytes)
     {
         $units = array('B', 'KB', 'MB', 'GB', 'TB');
 
@@ -154,7 +154,7 @@ class AnalyzeCommand extends Command
 
         $bytes /= (1 << (10 * $pow));
 
-        return $this->format($bytes);//.$units[$pow].($relative ? '/byte' : '');
+        return $this->format($bytes);
     }
 
     protected function configure()

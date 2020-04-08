@@ -59,10 +59,12 @@ class Validator
     private function _clean($rule, &$required)
     {
         if (strpos($rule, '.') !== false) {
-            foreach (
+            $parents =
                 array_filter(array_keys($required), function ($key) use ($rule) {
                     return fnmatch($key . '.*', $rule);
-                }) as $remove
+                });
+
+            foreach ($parents as $remove
             ) {
                 unset($required[$remove]);
             }

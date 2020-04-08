@@ -27,7 +27,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class LanguagesCommand extends Command
 {
     protected $types = ['name', 'mime', 'filename'];
-    protected $formatters = [];
 
     protected function configure()
     {
