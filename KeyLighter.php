@@ -94,7 +94,7 @@ class KeyLighter
 
     /**
      * @param callable|string $language
-     * @param array[string]   $aliases
+     * @param array<string>   $aliases
      *
      * @deprecated Will be removed in 1.0
      */
