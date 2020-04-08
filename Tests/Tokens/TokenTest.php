@@ -118,8 +118,8 @@ class TokenTest extends TokenTestCase
                 'rule'   => new Rule(
                     null,
                     [
-                    'language' => $language,
-                    'context'  => $validator,
+                        'language' => $language,
+                        'context'  => $validator,
                     ]
                 )
             ]
