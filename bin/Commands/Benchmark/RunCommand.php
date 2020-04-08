@@ -16,9 +16,13 @@
 
 namespace Kadet\Highlighter\bin\Commands\Benchmark;
 
+use Closure;
 use Kadet\Highlighter\Formatter\FormatterInterface;
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Language\Language;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
@@ -33,12 +37,12 @@ class RunCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dir = __DIR__ . static::DIRECTORY;
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
                 $dir,
-                \RecursiveDirectoryIterator::SKIP_DOTS | \RecursiveDirectoryIterator::UNIX_PATHS
+                RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::UNIX_PATHS
             ),
-            \RecursiveIteratorIterator::LEAVES_ONLY
+            RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         $formatter = $input->getOption('formatter')
@@ -47,7 +51,7 @@ class RunCommand extends Command
 
         $results = [];
 
-        /** @var \SplFileInfo $file */
+        /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
             $shortname = substr($file->getPathname(), strlen($dir));
 
@@ -156,7 +160,7 @@ class RunCommand extends Command
         ];
     }
 
-    private function _benchmark(\Closure $function)
+    private function _benchmark(Closure $function)
     {
         $memory = $this->getMemory();
         $time   = $this->getTime();

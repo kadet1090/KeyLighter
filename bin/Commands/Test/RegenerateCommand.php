@@ -8,6 +8,9 @@ use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Tokens;
 use Kadet\Highlighter\Tests\Helpers\TestFormatter;
 use Kadet\Highlighter\Utils\StringHelper;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +24,7 @@ class RegenerateCommand extends Command
      * @var KeyLighter
      */
     private $_keylighter;
-    /** @var  \Kadet\Highlighter\Formatter\FormatterInterface */
+    /** @var FormatterInterface */
     private $_formatter;
 
     private $_input;
@@ -45,17 +48,17 @@ class RegenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator(
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(
                 $this->_input,
-                \RecursiveDirectoryIterator::SKIP_DOTS | \RecursiveDirectoryIterator::UNIX_PATHS
+                RecursiveDirectoryIterator::SKIP_DOTS | RecursiveDirectoryIterator::UNIX_PATHS
             ),
-            \RecursiveIteratorIterator::LEAVES_ONLY
+            RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         $reviewer = $this->_keylighter->getFormatter($input->getOption('review') ?: 'cli');
 
-        /** @var \SplFileInfo $file */
+        /** @var SplFileInfo $file */
         foreach ($iterator as $file) {
             $pathname = substr($file->getPathname(), strlen($this->_input) + 1);
             if (!$this->regenerate($input, $pathname)) {
