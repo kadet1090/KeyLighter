@@ -119,7 +119,7 @@ class RunCommand extends Command
         ;
     }
 
-    protected function benchmark($source, Language $language, FormatterInterface $formatter, $geshi = null)
+    protected function benchmark($source, Language $language, FormatterInterface $formatter)
     {
         gc_collect_cycles(); // force garbage collector
         $memory = $this->getMemory();
