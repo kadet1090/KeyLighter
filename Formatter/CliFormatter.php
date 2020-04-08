@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -35,7 +36,7 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
     public function __construct(array $options = [])
     {
         parent::__construct(array_replace_recursive([
-            'styles' => include __DIR__.'/../Styles/Cli/Default.php'
+            'styles' => include __DIR__ . '/../Styles/Cli/Default.php'
         ], $options));
 
         $this->_styles = $this->_options['styles'];
@@ -43,7 +44,7 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
 
     public function format(Tokens $tokens)
     {
-        return parent::format($tokens).Console::reset();
+        return parent::format($tokens) . Console::reset();
     }
 
     protected function token(Token $token)
@@ -61,7 +62,7 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
 
     protected function formatLineStart($line)
     {
-        return str_pad($line, 5, ' ', STR_PAD_LEFT) . ' | '.Console::set(Console::current());
+        return str_pad($line, 5, ' ', STR_PAD_LEFT) . ' | ' . Console::set(Console::current());
     }
 
     protected function formatLineEnd($line)

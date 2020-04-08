@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -67,12 +68,11 @@ class Php extends GreedyLanguage
                 new Rule(new RegexMatcher('/interface\s+([\w\\\]+)/i')),
                 new Rule(new DelegateRegexMatcher(
                     '/implements\s+((?:[\w\\\]+)(?:,\s*([\w\\\]+))+)/i',
-                    function($match, TokenFactoryInterface $factory) {
+                    function ($match, TokenFactoryInterface $factory) {
                         foreach (preg_split('/,\s*/', $match[1][0], 0, PREG_SPLIT_OFFSET_CAPTURE) as $interface) {
                             yield $factory->create(Token::NAME, [
                                 'pos' => $match[1][1] + $interface[1],
-                                'length' => strlen($interface[0])]
-                            );
+                                'length' => strlen($interface[0])]);
                         }
                     }
                 )),

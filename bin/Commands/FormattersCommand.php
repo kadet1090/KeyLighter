@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands;
-
 
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Command\Command;
@@ -40,11 +40,11 @@ class FormattersCommand extends Command
         $formatters = KeyLighter::get()->registeredFormatters();
         $table = new Table($output);
 
-        if(!$input->getOption('headerless')) {
+        if (!$input->getOption('headerless')) {
             $table->setHeaders(['Name', 'Formatter']);
         }
 
-        $table->setRows(array_map(function($alias, $class) {
+        $table->setRows(array_map(function ($alias, $class) {
             return [
                 "<comment>{$alias}</comment>",
                 get_class($class)

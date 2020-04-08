@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -49,7 +50,9 @@ class CommentMatcher implements MatcherInterface
         $all = [];
 
         foreach ($this->multiLine as $name => $comment) {
-            $comment = array_map(function ($e) { return preg_quote($e, '/'); }, $comment);
+            $comment = array_map(function ($e) {
+                return preg_quote($e, '/');
+            }, $comment);
 
             $all[] = [$name, "/({$comment[0]}(.*?){$comment[1]})/ms"];
         }
@@ -69,7 +72,8 @@ class CommentMatcher implements MatcherInterface
             if (preg_match_all($regex, $source, $matches, PREG_OFFSET_CAPTURE)) {
                 foreach ($matches[1] as $match) {
                     yield $factory->create(
-                        $name, ['pos' => $match[1], 'length' => strlen($match[0])]
+                        $name,
+                        ['pos' => $match[1], 'length' => strlen($match[0])]
                     );
                 }
             }

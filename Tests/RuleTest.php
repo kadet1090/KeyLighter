@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -65,35 +66,42 @@ class RuleTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testThrowsOnWrongValidator() {
+    public function testThrowsOnWrongValidator()
+    {
         new Rule(null, [
             'context' => 'nope'
         ]);
     }
 
-    public function testAcceptsCallableAsContext() {
+    public function testAcceptsCallableAsContext()
+    {
         $rule = new Rule(null, [
-            'context' => function() { return true; }
+            'context' => function () {
+                return true;
+            }
         ]);
 
         $this->assertInstanceOf(DelegateValidator::class, $rule->validator);
     }
 
-    public function testDisable() {
+    public function testDisable()
+    {
         $rule = new Rule(new WholeMatcher());
 
         $rule->disable();
         $this->assertEmpty($rule->match('source'));
     }
 
-    public function testEnable() {
+    public function testEnable()
+    {
         $rule = new Rule(new WholeMatcher(), ['enabled' => false]);
 
         $rule->enable();
         $this->assertNotEmpty($rule->match('source'));
     }
 
-    public function testMatcherReturning() {
+    public function testMatcherReturning()
+    {
         $matcher = $this->createMock(MatcherInterface::class);
 
         $rule = new Rule($matcher);

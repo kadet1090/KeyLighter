@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language;
-
 
 use Kadet\Highlighter\KeyLighter;
 use Kadet\Highlighter\Matcher\DelegateRegexMatcher;
@@ -48,9 +48,8 @@ class Markdown extends Html
                 new Rule(new RegexMatcher('/^([^\r\n]+?)^(?:-+|=+)\R?$/m'))
             ],
             'format.italics'   => new Rule(
-                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/'), [
-                    'italics' => Token::NAME
-                ]
+                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/'),
+                ['italics' => Token::NAME]
             ),
             'format.bold'  => new Rule(
                 new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\r\n]|(?:(?P<i>[*_]{2})(?>[^*_\r\n]|(?&bold))*?\g{i}))+\g{b})/', [
@@ -75,11 +74,12 @@ class Markdown extends Html
                 new Rule(
                     new DelegateRegexMatcher(
                         '/^```(.*?)\R(.*?)\R^```/ms',
-                        function($match, TokenFactoryInterface $factory) {
+                        function ($match, TokenFactoryInterface $factory) {
                             $lang = KeyLighter::get()->getLanguage($match[1][0]);
                             yield $factory->create(Token::NAME, ['pos' => $match[0][1], 'length' => strlen($match[0][0])]);
                             yield $factory->create(
-                                "language.{$lang->getIdentifier()}", [
+                                "language.{$lang->getIdentifier()}",
+                                [
                                     'pos'    => $match[2][1],
                                     'length' => strlen($match[2][0]),
                                     'inject' => $lang,
@@ -87,7 +87,8 @@ class Markdown extends Html
                                 ]
                             );
                         }
-                    ), [
+                    ),
+                    [
                         'context'     => Validator::everywhere(),
                         'postProcess' => true,
                         'priority'    => 1000

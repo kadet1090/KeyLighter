@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin;
-
 
 use Kadet\Highlighter\Formatter\DebugFormatter;
 use Kadet\Highlighter\Formatter\FormatterInterface;
@@ -52,7 +52,11 @@ class VerboseOutput
      * @param                    $source
      */
     public function __construct(
-        OutputInterface $output, InputInterface $input, Language $language, FormatterInterface $formatter, $source
+        OutputInterface $output,
+        InputInterface $input,
+        Language $language,
+        FormatterInterface $formatter,
+        $source
     ) {
         $this->_output = $output;
         $this->_input  = $input;
@@ -70,28 +74,29 @@ class VerboseOutput
         $parsed    = $this->parse($tokenized);
         $formatted = $this->format($parsed);
 
-        if($this->wants('time')) {
+        if ($this->wants('time')) {
             $this->_output->writeln(sprintf(
                 '<info>Overall:</info> %.4fs, %s chars/s',
-                array_sum($this->_times), number_format(strlen($this->_source) / array_sum($this->_times))
+                array_sum($this->_times),
+                number_format(strlen($this->_source) / array_sum($this->_times))
             ));
         }
 
-        if($this->wants('detailed-time')) {
-            $this->_slashed('Times             [s]', array_map(function($t) {
+        if ($this->wants('detailed-time')) {
+            $this->_slashed('Times             [s]', array_map(function ($t) {
                 return number_format($t, 5);
             }, $this->_times));
-            $this->_slashed('Performance [chars/s]', array_map(function($t) {
+            $this->_slashed('Performance [chars/s]', array_map(function ($t) {
                 return number_format(strlen($this->_source) / $t);
             }, $this->_times));
         }
 
-        if($this->wants('count')) {
+        if ($this->wants('count')) {
             $this->_slashed('Token count', array_map('number_format', $this->_counts));
         }
 
-        if($this->wants('density')) {
-            $this->_slashed('Token density [tokens/kB]', array_map(function($c) {
+        if ($this->wants('density')) {
+            $this->_slashed('Token density [tokens/kB]', array_map(function ($c) {
                 return number_format($c / strlen($this->_source) * 1024, 1);
             }, $this->_counts));
         }

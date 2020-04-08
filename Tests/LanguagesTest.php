@@ -15,15 +15,17 @@ class LanguagesTest extends TestCase
     /** @var TestFormatter */
     protected $_formatter;
 
-    public function testFileProvider() {
-        $dir = realpath(__DIR__.'/Samples');
-        $out = realpath(__DIR__.'/Expected/Test');
+    public function testFileProvider()
+    {
+        $dir = realpath(__DIR__ . '/Samples');
+        $out = realpath(__DIR__ . '/Expected/Test');
 
         $iterator = new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator(
                 $dir,
                 \RecursiveDirectoryIterator::SKIP_DOTS | \RecursiveDirectoryIterator::UNIX_PATHS
-            ), \RecursiveIteratorIterator::LEAVES_ONLY
+            ),
+            \RecursiveIteratorIterator::LEAVES_ONLY
         );
 
         /** @var \SplFileInfo $file */
@@ -46,7 +48,7 @@ class LanguagesTest extends TestCase
     {
         $source = file_get_contents($input);
 
-        if(!file_exists($expected)) {
+        if (!file_exists($expected)) {
             $this->markTestSkipped('File with expected tokens was not generated.');
         }
         $expected = file_get_contents($expected);

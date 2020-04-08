@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language\Python;
-
 
 use Kadet\Highlighter\Language\CommonFeatures;
 use Kadet\Highlighter\Language\GreedyLanguage;

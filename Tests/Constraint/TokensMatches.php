@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -104,7 +105,7 @@ class TokensMatches extends Constraint
 
     public function toString(): string
     {
-        return 'matches '.var_export($this->_tokens, true).' tokens';
+        return 'matches ' . var_export($this->_tokens, true) . ' tokens';
     }
 
     private function getTokens($tokens)

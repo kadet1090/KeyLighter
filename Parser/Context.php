@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -15,7 +16,6 @@
 
 namespace Kadet\Highlighter\Parser;
 
-
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Token\Token;
 
@@ -24,13 +24,15 @@ class Context
     public $stack = [];
     public $language;
 
-    public function __construct(Language $language = null) {
+    public function __construct(Language $language = null)
+    {
         $this->language = $language;
     }
 
-    public function find($needle) {
+    public function find($needle)
+    {
         foreach (array_reverse($this->stack, true) as $id => $name) {
-            if($name === $needle) {
+            if ($name === $needle) {
                 return $id;
             }
         }
@@ -48,11 +50,13 @@ class Context
         unset($this->stack[$token->id]);
     }
 
-    public function has($name) {
+    public function has($name)
+    {
         return in_array($name, $this->stack, true);
     }
 
-    public static function fromArray(array $array, Language $language = null) {
+    public static function fromArray(array $array, Language $language = null)
+    {
         $context = new Context($language);
         $context->stack = $array;
         return $context;

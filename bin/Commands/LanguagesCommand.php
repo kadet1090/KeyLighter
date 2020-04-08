@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\bin\Commands;
-
 
 use Kadet\Highlighter\KeyLighter;
 use Symfony\Component\Console\Command\Command;
@@ -32,7 +32,9 @@ class LanguagesCommand extends Command
     protected function configure()
     {
         $this->setName('languages')
-            ->addArgument('by', InputArgument::OPTIONAL, 'Alias type, one of '.implode(', ', array_map(function($f) { return "<info>{$f}</info>"; }, $this->types)), 'name')
+            ->addArgument('by', InputArgument::OPTIONAL, 'Alias type, one of ' . implode(', ', array_map(function ($f) {
+                return "<info>{$f}</info>";
+            }, $this->types)), 'name')
             ->addOption('no-group', 'g', InputOption::VALUE_NONE, 'Do not group languages by type')
             ->addOption('classes', 'c', InputOption::VALUE_NONE, 'Return fully qualified class names instead of identifiers')
             ->addOption('headerless', 'l', InputOption::VALUE_NONE, 'Output table without headers, useful for parsing')
@@ -46,13 +48,15 @@ class LanguagesCommand extends Command
 
         $table = new Table($output);
 
-        if(!$input->getOption('headerless')) {
+        if (!$input->getOption('headerless')) {
             $table->setHeaders([ucfirst($input->getArgument('by')), $input->getOption('classes') ? 'Class name' : 'Language']);
         }
 
-        $table->setRows(array_map(function($language) {
+        $table->setRows(array_map(function ($language) {
             return [
-                implode(', ', array_map(function ($f) { return "<comment>{$f}</comment>"; }, $language['aliases'])),
+                implode(', ', array_map(function ($f) {
+                    return "<comment>{$f}</comment>";
+                }, $language['aliases'])),
                 $language['class']
             ];
         }, $input->getOption('no-group') ? $this->processNonGrouped($languages) : $this->processGrouped($languages)));
@@ -61,10 +65,11 @@ class LanguagesCommand extends Command
         $table->render();
     }
 
-    protected function processGrouped($languages) {
+    protected function processGrouped($languages)
+    {
         $result = [];
-        foreach($languages as $alias => $class) {
-            if(!isset($result[$class])) {
+        foreach ($languages as $alias => $class) {
+            if (!isset($result[$class])) {
                 $result[$class] = ['aliases' => [], 'class' => $class];
             }
 
@@ -74,9 +79,10 @@ class LanguagesCommand extends Command
         return $result;
     }
 
-    protected function processNonGrouped($languages) {
+    protected function processNonGrouped($languages)
+    {
         $result = [];
-        foreach($languages as $alias => $class) {
+        foreach ($languages as $alias => $class) {
             $result[] = ['aliases' => [$alias], 'class' => $class];
         }
 

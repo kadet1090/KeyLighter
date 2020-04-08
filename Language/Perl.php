@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Highlighter
  *
@@ -14,7 +15,6 @@
  */
 
 namespace Kadet\Highlighter\Language;
-
 
 use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
@@ -62,7 +62,8 @@ class Perl extends GreedyLanguage
                 new RegexMatcher('/<<\s*\'(\w+)\';(?P<string>.*?)\R\1/sm', [
                     'string' => Token::NAME,
                           0  => 'keyword.nowdoc'
-                ]), ['context' => ['!comment']]
+                ]),
+                ['context' => ['!comment']]
             ),
 
             'language.shell' => new Rule(new SubStringMatcher('`'), [
