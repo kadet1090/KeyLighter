@@ -93,8 +93,8 @@ class GenerateMetadataCommand extends Command
     /**
      * @param OutputInterface $output
      * @param                 $class
-     *
      * @return array|false
+     * @throws \ReflectionException
      */
     protected function process(OutputInterface $output, $class)
     {

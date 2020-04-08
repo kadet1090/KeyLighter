@@ -25,8 +25,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FormattersCommand extends Command
 {
-    protected $formatters = [];
-
     protected function configure()
     {
         $this->setName('formatters')
