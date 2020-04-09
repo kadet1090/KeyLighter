@@ -40,7 +40,7 @@ class JavaScript extends GreedyLanguage
         'variables' => false,
     ];
 
-    const IDENTIFIER = '[\p{L}\p{Nl}$_][\p{L}\p{Nl}$\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*';
+    private const IDENTIFIER = '[\p{L}\p{Nl}$_][\p{L}\p{Nl}$\p{Mn}\p{Mc}\p{Nd}\p{Pc}]*';
 
     /**
      * Tokenization rules
