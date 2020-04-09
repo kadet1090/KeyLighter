@@ -9,8 +9,8 @@
     <file>./Language/</file>
     <file>./Matcher/</file>
     <file>./Parser/</file>
-    <file>./Styles/Cli/default.php</file>
-    <file>./Styles/Latex/default.php</file>
+    <file>./Styles/Cli/Default.php</file>
+    <file>./Styles/Latex/Default.php</file>
     <file>./Tests/</file>
 
     <exclude-pattern>./Tests/Samples/</exclude-pattern>
