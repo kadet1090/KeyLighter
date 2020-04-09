@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -30,12 +32,7 @@ class DebugFormatter extends CliFormatter implements FormatterInterface
 {
     private $_styles;
 
-    /**
-     * CliFormatter constructor.
-     *
-     * @param $styles
-     */
-    public function __construct($styles = false)
+    public function __construct(bool $styles = false)
     {
         $this->_styles = $styles ?: include __DIR__ . '/../Styles/Cli/Default.php';
     }

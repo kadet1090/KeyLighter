@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -84,12 +86,12 @@ class HtmlFormatter extends AbstractFormatter implements FormatterInterface
         return htmlspecialchars($text);
     }
 
-    protected function formatLineStart($line)
+    protected function formatLineStart($line): string
     {
         return implode('', $this->_stack);
     }
 
-    protected function formatLineEnd($line)
+    protected function formatLineEnd($line): string
     {
         return str_repeat($this->getCloseTag(), count($this->_stack));
     }

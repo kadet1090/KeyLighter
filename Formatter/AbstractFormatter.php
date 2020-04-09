@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token\Token;
@@ -57,14 +59,14 @@ abstract class AbstractFormatter implements FormatterInterface
         return $text;
     }
 
-    protected function formatLineStart($line)
+    protected function formatLineStart($line): string
     {
-        return null;
+        return '';
     }
 
-    protected function formatLineEnd($line)
+    protected function formatLineEnd($line): string
     {
-        return null;
+        return '';
     }
 
     protected abstract function token(Token $token);

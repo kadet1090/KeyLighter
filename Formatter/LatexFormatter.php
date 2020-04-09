@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -29,11 +31,6 @@ class LatexFormatter extends AbstractFormatter implements FormatterInterface
 {
     private $_styles;
 
-    /**
-     * LatexFormatter constructor.
-     *
-     * @param array $options
-     */
     public function __construct(array $options = [])
     {
         parent::__construct(array_replace_recursive([

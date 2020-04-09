@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -30,9 +32,6 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
 {
     private $_styles = [];
 
-    /**
-     * CliFormatter constructor.
-     */
     public function __construct(array $options = [])
     {
         parent::__construct(array_replace_recursive([
@@ -60,12 +59,12 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
             : Console::close();
     }
 
-    protected function formatLineStart($line)
+    protected function formatLineStart($line): string
     {
         return str_pad($line, 5, ' ', STR_PAD_LEFT) . ' | ' . Console::set(Console::current());
     }
 
-    protected function formatLineEnd($line)
+    protected function formatLineEnd($line): string
     {
         return Console::reset();
     }
