@@ -3,12 +3,14 @@ filter:
         - Tests/*
         - Formatter/DebugFormatter.php
 build:
-    tests:
-        override:
-            -
-                command: 'phpunit --coverage-clover=tests.coverage'
-                coverage:
-                    file: 'tests.coverage'
-                    format: 'php-clover'
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - command: './vendor/bin/phpunit --coverage-clover=tests.coverage'
+                      coverage:
+                          file: 'tests.coverage'
+                          format: 'php-clover'
+                    - php-scrutinizer-run
     environment:
-        php: '7.1.3'
+        php: 7.1
