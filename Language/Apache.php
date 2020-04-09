@@ -27,7 +27,7 @@ use Kadet\Highlighter\Parser\Token\Token;
 
 class Apache extends GreedyLanguage
 {
-    const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
+    private const IDENTIFIER = '(?P<namespace>[\w\.-]+:)?(?P<name>[\w\.-]+)';
 
     /**
      * Tokenization rules

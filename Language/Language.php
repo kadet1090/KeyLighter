@@ -27,9 +27,9 @@ use Kadet\Highlighter\Parser\Tokens;
  */
 abstract class Language
 {
-    const EMBEDDED_BY_PARENT = 2;
-    const EMBEDDED           = true;
-    const NOT_EMBEDDED       = false;
+    public const EMBEDDED_BY_PARENT = 2;
+    public const EMBEDDED           = true;
+    public const NOT_EMBEDDED       = false;
 
     /**
      * Parses source and removes wrong tokens.
