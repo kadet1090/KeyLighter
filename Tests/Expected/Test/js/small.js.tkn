@@ -1,0 +1,23 @@
+{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}const{/keyword:Kadet\Highlighter\Parser\Token\Token} iconPlayClass {operator:Kadet\Highlighter\Parser\Token\Token}={/operator:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'icon icon{operator:Kadet\Highlighter\Parser\Token\Token}-{/operator:Kadet\Highlighter\Parser\Token\Token}play'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}export{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}default{/keyword:Kadet\Highlighter\Parser\Token\Token} {
+  props: {
+    {comment:Kadet\Highlighter\Parser\Token\Token}/** @property {string} uuid */{/comment:Kadet\Highlighter\Parser\Token\Token}
+    asset: {
+      type: Object{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+      required: {constant.special:Kadet\Highlighter\Parser\Token\Token}true{/constant.special:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+    }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  {call:Kadet\Highlighter\Parser\Token\Token}data{/call:Kadet\Highlighter\Parser\Token\Token}() {
+    {keyword:Kadet\Highlighter\Parser\Token\Token}return{/keyword:Kadet\Highlighter\Parser\Token\Token} {
+      duration: {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+      progressStyle: {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'width: {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}%'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+      playbackButtonClass: iconPlayClass{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+    }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  {call:Kadet\Highlighter\Parser\Token\Token}mounted{/call:Kadet\Highlighter\Parser\Token\Token}() {
+    {keyword:Kadet\Highlighter\Parser\Token\Token}{call:Kadet\Highlighter\Parser\Token\Token}if{/call:Kadet\Highlighter\Parser\Token\Token}{/keyword:Kadet\Highlighter\Parser\Token\Token} (!{variable.special:Kadet\Highlighter\Parser\Token\Token}this{/variable.special:Kadet\Highlighter\Parser\Token\Token}.$refs.{variable.property:Kadet\Highlighter\Parser\Token\Token}player{/variable.property:Kadet\Highlighter\Parser\Token\Token}.{variable.property:Kadet\Highlighter\Parser\Token\Token}canPlayType{/variable.property:Kadet\Highlighter\Parser\Token\Token}) {
+      {comment:Kadet\Highlighter\Parser\Token\Token}// @todo error handling{/comment:Kadet\Highlighter\Parser\Token\Token}
+    }
+  }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{/language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}
