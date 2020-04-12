@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\Formatter;
 
 use Kadet\Highlighter\Parser\Token\Token;
