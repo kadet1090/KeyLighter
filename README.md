@@ -4,7 +4,7 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
 [![Travis build](https://img.shields.io/travis/kadet1090/KeyLighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
-[![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](http://keylighter.kadet.net/try)
+[![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](http://keylighter.kadet.net/showcase)
 
 [![stability: stable](https://img.shields.io/badge/Public%20API-stable-green.svg?style=flat-square)](Docs/2-basic-usage.md)
 [![stability: unstable](https://img.shields.io/badge/Internal%20API-unstable-yellow.svg?style=flat-square)](Docs/3-advanced-usage.md)
