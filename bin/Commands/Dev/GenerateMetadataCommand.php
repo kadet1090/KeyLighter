@@ -16,8 +16,6 @@ declare(strict_types=1);
  * From Kadet with love.
  */
 
-declare(strict_types=1);
-
 namespace Kadet\Highlighter\bin\Commands\Dev;
 
 use Kadet\Highlighter\Language\Language;

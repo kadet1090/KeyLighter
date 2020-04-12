@@ -17,8 +17,6 @@
  */
 
 
-declare(strict_types=1);
-
 // For composer global instance
 if (file_exists(__DIR__ . '/../../../autoload.php')) {
     /** @noinspection PhpIncludeInspection */ // Bug, we checked that it exist.

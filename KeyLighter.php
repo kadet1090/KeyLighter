@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -12,8 +15,6 @@
  *
  * From Kadet with love.
  */
-
-declare(strict_types=1);
 
 namespace Kadet\Highlighter;
 
