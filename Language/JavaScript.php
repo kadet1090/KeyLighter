@@ -61,7 +61,14 @@ class JavaScript extends GreedyLanguage
                 'context' => ['string']
             ]),
 
-            'comment' => new Rule(new CommentMatcher(['//'], [['/*', '*/']]), ['priority' => 3]),
+            'comment' => new Rule(new CommentMatcher(['//'], [
+                '$.docblock' => ['/**', '*/'],
+                ['/*', '*/']
+            ]), ['priority' => 3]),
+
+            'symbol.annotation' => new Rule(new RegexMatcher('/[\s]+(@[\w-]+)/i'), [
+                'context' => ['comment.docblock']
+            ]),
 
             'call' => new Rule(new RegexMatcher('/(' . self::IDENTIFIER . ')\s*\(/iu'), ['priority' => -1]),
 
