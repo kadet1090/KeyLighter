@@ -37,6 +37,8 @@
  * **XML** now correctly matches closing tags with `-`
  * **Java** fix #4 - class names in declarations and instantiations are now highlighted correctly
  * **Shell** highlighting now matches parameters and paths with `do` correctly
+ * **JavaScript** and **TypeScript** now correctly recognize JSDoc comments as docblock tokens
+ * **JavaScript** and **TypeScript** now correctly highlight annotations inside JSDoc comments
  
 ## 16.09.2016 [0.8.2]
 ### Fixed

@@ -2,7 +2,7 @@
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}export{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}default{/keyword:Kadet\Highlighter\Parser\Token\Token} {
   props: {
-    {comment:Kadet\Highlighter\Parser\Token\Token}/** @property {string} uuid */{/comment:Kadet\Highlighter\Parser\Token\Token}
+    {comment.docblock:Kadet\Highlighter\Parser\Token\Token}/** {symbol.annotation:Kadet\Highlighter\Parser\Token\Token}@property{/symbol.annotation:Kadet\Highlighter\Parser\Token\Token} {string} uuid */{/comment.docblock:Kadet\Highlighter\Parser\Token\Token}
     asset: {
       type: Object{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
       required: {constant.special:Kadet\Highlighter\Parser\Token\Token}true{/constant.special:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
