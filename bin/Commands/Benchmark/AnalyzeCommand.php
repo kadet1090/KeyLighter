@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -126,7 +128,7 @@ class AnalyzeCommand extends Command
 
     private function format($number)
     {
-        return is_numeric($number) ? number_format($number, 2) : $number;
+        return is_numeric($number) ? number_format((float) $number, 2) : $number;
     }
 
     // @fixme float or int? should we cast or ignore typing?

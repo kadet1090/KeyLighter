@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kadet\Highlighter\Tests\Helpers;
 
 use Kadet\Highlighter\Formatter\FormatterInterface;

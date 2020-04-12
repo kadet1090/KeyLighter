@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Highlighter
  *
@@ -62,7 +64,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 3, 'name' => 'number'],
                 ['end', 'pos' => 5, 'name' => 'number'],
             ['end', 'pos' => 5, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('if 12')), true);
+        ], iterator_to_array($language->parse('if 12'), true));
     }
 
     public function testManyRules()
@@ -81,7 +83,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 3, 'name' => 'keyword'],
                 ['end', 'pos' => 5, 'name' => 'keyword'],
             ['end', 'pos' => 5, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('if or')), true);
+        ], iterator_to_array($language->parse('if or'), true));
     }
 
     public function testNestedTokens()
@@ -98,7 +100,7 @@ class GreedyLanguageTest extends MatcherTestCase
                     ['end', 'pos' => 3, 'name' => 'or'],
                 ['end', 'pos' => 3, 'name' => 'for'],
             ['end', 'pos' => 3, 'name' => 'language.mock'],
-        ], iterator_to_array($language->tokenize('for')), true);
+        ], iterator_to_array($language->tokenize('for'), true));
     }
 
     public function testInvalidTokens()
@@ -113,7 +115,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 0, 'name' => 'for'],
                 ['end', 'pos' => 3, 'name' => 'for'],
             ['end', 'pos' => 3, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('for')), true);
+        ], iterator_to_array($language->parse('for'), true));
     }
 
     public function testLanguageEmbeddingByItself()
@@ -131,7 +133,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 8, 'name' => 'language.embedded'],
                 ['end', 'pos' => 19, 'name' => 'language.embedded'],
             ['end', 'pos' => 19, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('keyword { keyword }')), true);
+        ], iterator_to_array($language->parse('keyword { keyword }'), true));
     }
 
     public function testLanguageEmbeddingByParent()
@@ -152,7 +154,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 8, 'name' => 'language.embedded'],
                 ['end', 'pos' => 19, 'name' => 'language.embedded'],
             ['end', 'pos' => 19, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('keyword { keyword }')), true);
+        ], iterator_to_array($language->parse('keyword { keyword }'), true));
     }
 
     public function testUnclosedTokens()
@@ -166,7 +168,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 3, 'name' => 'keyword'],
                 ['end', 'pos' => 7, 'name' => 'keyword'],
             ['end', 'pos' => 7, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('te ( st')), true);
+        ], iterator_to_array($language->parse('te ( st'), true));
     }
 
     public function testRangeTokens()
@@ -183,7 +185,7 @@ class GreedyLanguageTest extends MatcherTestCase
                 ['start', 'pos' => 4, 'name' => 'keyword'],
                 ['end', 'pos' => 11, 'name' => 'keyword'],
             ['end', 'pos' => 15, 'name' => 'language.mock'],
-        ], iterator_to_array($language->parse('foo ( bar ) foo')), true);
+        ], iterator_to_array($language->parse('foo ( bar ) foo'), true));
     }
 
     public function testOptions()
