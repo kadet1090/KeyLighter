@@ -124,7 +124,7 @@ class AnalyzeCommand extends Command
 
     private function format($number)
     {
-        return is_numeric($number) ? number_format($number, 2) : $number;
+        return is_numeric($number) ? number_format((float) $number, 2) : $number;
     }
 
     private function avarage(array $result)

@@ -79,7 +79,7 @@ class RunCommand extends Command
             $times  = [];
             $memory = [];
 
-            for ($i = $input->getOption('times'), $progress = new ProgressBar($output, $i); $i > 0; $i--) {
+            for ($i = (int) $input->getOption('times'), $progress = new ProgressBar($output, $i); $i > 0; $i--) {
                 $progress->display();
                 $result = $this->benchmark($source, $language, $formatter);
                 $times  = array_merge_recursive($times, $result['times']);
