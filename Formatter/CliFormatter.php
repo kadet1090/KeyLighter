@@ -32,9 +32,6 @@ class CliFormatter extends AbstractFormatter implements FormatterInterface
 {
     private $_styles = [];
 
-    /**
-     * CliFormatter constructor.
-     */
     public function __construct(array $options = [])
     {
         parent::__construct(array_replace_recursive([

@@ -27,8 +27,8 @@ use Kadet\Highlighter\Parser\Validator\Validator;
 class TerminatorTokenTest extends TokenTestCase
 {
     /**
-     * @uses Kadet\Highlighter\Parser\Context
-     * @uses Kadet\Highlighter\Parser\TokenIterator
+     * @uses \Kadet\Highlighter\Parser\Context
+     * @uses \Kadet\Highlighter\Parser\TokenIterator
      */
     public function testProcessStart()
     {

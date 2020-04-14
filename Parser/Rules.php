@@ -117,7 +117,7 @@ class Rules extends \ArrayObject
      * @param string $type
      * @param mixed  $index
      *
-     * @return \Kadet\Highlighter\Parser\Rule
+     * @return Rule
      */
     public function &rule($type, $index = 0)
     {

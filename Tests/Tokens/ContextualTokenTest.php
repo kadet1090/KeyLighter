@@ -55,7 +55,6 @@ class ContextualTokenTest extends TestCase
         $endStart = $this->_factory->create('test', ['pos' => 12, 'length' => 1, 'rule' => $this->_rule]);
         $end      = $endStart->getEnd();
 
-        /** @noinspection PhpParamsInspection */
         $this->assertFalse($start->isValid(Context::fromArray(['nope'], $this->_language)));
         $this->assertFalse($startEnd->isValid(Context::fromArray(['nope'], $this->_language)));
 

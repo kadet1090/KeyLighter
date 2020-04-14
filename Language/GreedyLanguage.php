@@ -174,7 +174,7 @@ abstract class GreedyLanguage extends Language
      *
      * @param $embedded
      *
-     * @return Rule|\Kadet\Highlighter\Parser\Rule[]
+     * @return Rule|Rule[]
      */
     public function getEnds($embedded = false)
     {

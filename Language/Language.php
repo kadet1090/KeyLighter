@@ -59,7 +59,7 @@ abstract class Language
      *
      * @param $embedded
      *
-     * @return Rule|\Kadet\Highlighter\Parser\Rule[]
+     * @return Rule|Rule[]
      */
     public abstract function getEnds($embedded = false);
 

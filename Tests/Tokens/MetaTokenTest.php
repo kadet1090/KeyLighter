@@ -24,8 +24,8 @@ use Kadet\Highlighter\Parser\TokenIterator;
 class MetaTokenTest extends TokenTestCase
 {
     /**
-     * @uses Kadet\Highlighter\Parser\Context
-     * @uses Kadet\Highlighter\Parser\TokenIterator
+     * @uses \Kadet\Highlighter\Parser\Context
+     * @uses \Kadet\Highlighter\Parser\TokenIterator
      */
     public function testProcessStart()
     {
