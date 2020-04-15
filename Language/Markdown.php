@@ -49,14 +49,14 @@ class Markdown extends Html
                 new Rule(new RegexMatcher('/^\s{0,3}(#+.+?)\r?$/m')),
                 new Rule(new RegexMatcher('/^([^\r\n]+?)^(?:-+|=+)\R?$/m'))
             ],
-            'format.italics'   => new Rule(
-                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/', [
-                    'italics' => Token::NAME
-                ])
-            ),
             'format.bold'  => new Rule(
                 new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\r\n]|(?:(?P<i>[*_]{2})(?>[^*_\r\n]|(?&bold))*?\g{i}))+\g{b})/', [
                     'bold' => Token::NAME
+                ])
+            ),
+            'format.italics'   => new Rule(
+                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/', [
+                    'italics' => Token::NAME
                 ])
             ),
             'format.strike'    => new Rule(new RegexMatcher('/(~~.+?~~)/')),
@@ -67,9 +67,9 @@ class Markdown extends Html
             ],
 
             'operator.list.ordered'   => new Rule(new RegexMatcher('/^\s*(\d+[.)])/m')),
-            'operator.list.unordered' => new Rule(new RegexMatcher('/^\s*([-+*])/m'), [
+            'operator.list.unordered' => new Rule(new RegexMatcher('/^\s*([-+*])\s/m'), [
                 'context' => ['none'],
-                'priority' => 1
+                'priority' => 2
             ]),
 
             'string.quote'       => new Rule(new RegexMatcher('/((?:^>.*?\R)+)/m')),
@@ -109,6 +109,7 @@ class Markdown extends Html
             'symbol.url'   => new Rule(new RegexMatcher('#(<(https?://|[^/])[-A-Za-z0-9+&@\#/%?=~_|!:,.;]+[-A-Za-z0-9+&@\#/%=~_|]>|https?://[-A-Za-z0-9+&@\#/%?=~_|!:,.;]+[-A-Za-z0-9+&@\#/%=~_|])#i'), [
                 'priority' => 0,
             ]),
+
             'symbol.image' => new Rule(new RegexMatcher('/(!)(\[.*?\])\(.*?\)/i', [
                 1 => 'operator.image',
                 2 => '$.title',
