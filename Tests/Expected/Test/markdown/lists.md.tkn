@@ -1,0 +1,8 @@
+{language.markdown:Kadet\Highlighter\Parser\Token\LanguageToken}{format.header:Kadet\Highlighter\Parser\Token\Token}## Header{/format.header:Kadet\Highlighter\Parser\Token\Token}
+
+Simple Markdown paragraph followed by a list.
+
+{format.italics:Kadet\Highlighter\Parser\Token\Token}* {format.bold:Kadet\Highlighter\Parser\Token\Token}*{/format.italics:Kadet\Highlighter\Parser\Token\Token}*first**{/format.bold:Kadet\Highlighter\Parser\Token\Token} item of the list
+{format.italics:Kadet\Highlighter\Parser\Token\Token}* {format.bold:Kadet\Highlighter\Parser\Token\Token}*{/format.italics:Kadet\Highlighter\Parser\Token\Token}*where**{/format.bold:Kadet\Highlighter\Parser\Token\Token} item of the list
+{operator.list.unordered:Kadet\Highlighter\Parser\Token\Token}-{/operator.list.unordered:Kadet\Highlighter\Parser\Token\Token} {format.bold:Kadet\Highlighter\Parser\Token\Token}**bolded**{/format.bold:Kadet\Highlighter\Parser\Token\Token} item of the list
+{/language.markdown:Kadet\Highlighter\Parser\Token\LanguageToken}
