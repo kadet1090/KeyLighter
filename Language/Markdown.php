@@ -50,8 +50,9 @@ class Markdown extends Html
                 new Rule(new RegexMatcher('/^([^\r\n]+?)^(?:-+|=+)\R?$/m'))
             ],
             'format.italics'   => new Rule(
-                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/'),
-                ['italics' => Token::NAME]
+                new RegexMatcher('/(?:^|[^*_])(?P<italics>(?P<i>[*_])(?>[^*_\r\n]|(?:(?P<b>[*_]{2})(?>[^*_\r\n]|(?&italics))*?\g{b}))+\g{i})/', [
+                    'italics' => Token::NAME
+                ])
             ),
             'format.bold'  => new Rule(
                 new RegexMatcher('/(?P<bold>(?P<b>\*\*|__)(?>[^*_\r\n]|(?:(?P<i>[*_]{2})(?>[^*_\r\n]|(?&bold))*?\g{i}))+\g{b})/', [
