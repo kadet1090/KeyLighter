@@ -24,6 +24,9 @@
 
         <!-- Ignore private methods prefixed with underscore -->
         <exclude name="PSR2.Methods.MethodDeclaration" />
+
+        <!-- We have header comment which is not really a file-level docblock -->
+        <exclude name="PSR12.Files.FileHeader.IncorrectOrder" />
     </rule>
 
     <rule ref="PSR1.Classes.ClassDeclaration">
