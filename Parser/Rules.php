@@ -192,7 +192,7 @@ class Rules extends \ArrayObject
             return [];
         }
 
-        return call_user_func_array('array_merge', $items);
+        return call_user_func_array('array_merge', array_values($items));
     }
 
     /**
