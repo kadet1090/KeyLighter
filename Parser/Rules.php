@@ -116,7 +116,7 @@ class Rules extends \ArrayObject
         $items = $this->getArrayCopy();
         if(empty($items)) return [];
 
-        return call_user_func_array('array_merge', $items);
+        return call_user_func_array('array_merge', array_values($items));
     }
 
     /**

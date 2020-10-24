@@ -66,7 +66,7 @@ class Token
 
         $this->name     = $name;
         $this->rule     = isset($options['rule']) ? $options['rule'] : new Rule();
-        $this->options &= $options;
+        $this->options  = $options;
 
         $this->id = ++self::$_id;
     }
