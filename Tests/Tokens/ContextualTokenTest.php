@@ -35,7 +35,7 @@ class ContextualTokenTest extends TestCase
     private $_language;
     private $_rule;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->_factory  = new TokenFactory(ContextualToken::class);
         $this->_language = $this->getLanguageMock();

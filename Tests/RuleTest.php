@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 namespace Kadet\Highlighter\Tests;
 
+use InvalidArgumentException;
 use Kadet\Highlighter\Matcher\MatcherInterface;
 use Kadet\Highlighter\Matcher\WholeMatcher;
 use Kadet\Highlighter\Parser\Rule;
@@ -65,11 +66,10 @@ class RuleTest extends TestCase
         $this->assertSame($rule->factory, $factory);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testThrowsOnWrongValidator()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new Rule(null, [
             'context' => 'nope'
         ]);

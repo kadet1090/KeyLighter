@@ -31,3 +31,6 @@ $RECYCLE.BIN/
 /benchmarks/
 /keylighter.phar
 # Created by .ignore support plugin (hsz.mobi)
+
+### phpunit
+.phpunit.result.cache

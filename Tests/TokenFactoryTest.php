@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 namespace Kadet\Highlighter\Tests;
 
+use InvalidArgumentException;
 use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use PHPUnit\Framework\TestCase;
@@ -49,11 +50,10 @@ class TokenFactoryTest extends TestCase
         $this->assertEquals('token.name', $factory->create('$.name')->name);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongClass()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         new TokenFactory('wrong-class');
     }
 }

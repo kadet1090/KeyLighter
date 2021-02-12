@@ -28,8 +28,6 @@ class TokensMatches extends Constraint
 
     public function __construct($tokens, $strict = false)
     {
-        parent::__construct();
-
         $this->_tokens = array_values($tokens);
         $this->_strict = $strict;
     }

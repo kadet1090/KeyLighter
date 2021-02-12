@@ -39,7 +39,7 @@ class LanguagesTest extends TestCase
         }
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->_formatter  = new TestFormatter();
         $this->_keylighter = new KeyLighter();

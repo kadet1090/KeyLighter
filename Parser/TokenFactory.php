@@ -106,7 +106,7 @@ class TokenFactory implements TokenFactoryInterface
     private function getName($name)
     {
         if (!isset($this->_cache[$name])) {
-            $this->_cache[$name] = str_replace('$', $this->_base, $name);
+            $this->_cache[$name] = str_replace('$', $this->_base ?: '', $name);
         }
 
         return $this->_cache[$name];

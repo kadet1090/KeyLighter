@@ -28,6 +28,8 @@ class DelegateTokenFactoryTest extends TestCase
 {
     public function testCreation()
     {
+        $this->markTestSkipped('This test requires callback mocks, that are not yet implemented.');
+
         $params = ['token.name', 'pos' => 3];
         $child = $this->getMockBuilder(TokenFactoryInterface::class)->getMock();
 

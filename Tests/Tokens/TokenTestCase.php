@@ -32,7 +32,7 @@ abstract class TokenTestCase extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|Result */
     protected $_result;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->_result   = $this->getMockBuilder(Result::class)->disableOriginalConstructor()->getMock();
         $this->_language = $this->getMockBuilder(Language::class)->disableOriginalConstructor()->getMock();

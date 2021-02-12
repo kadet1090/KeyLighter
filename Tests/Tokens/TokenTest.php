@@ -33,7 +33,7 @@ class TokenTest extends TokenTestCase
      */
     private $_factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->_factory = new TokenFactory(Token::class);
     }

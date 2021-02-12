@@ -18,10 +18,13 @@ declare(strict_types=1);
 
 namespace Kadet\Highlighter\Tests;
 
+use Kadet\Highlighter\Exceptions\NameConflictException;
+use Kadet\Highlighter\Exceptions\NoSuchElementException;
 use Kadet\Highlighter\Language\GreedyLanguage;
 use Kadet\Highlighter\Language\Language;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Rules;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 class RulesTest extends TestCase
@@ -90,11 +93,10 @@ class RulesTest extends TestCase
         $this->assertCount(1, $rules['test']);
     }
 
-    /**
-     * @expectedException \Kadet\Highlighter\Exceptions\NoSuchElementException
-     */
     public function testRemovalOfNonExistentRule()
     {
+        $this->expectException(NoSuchElementException::class);
+
         $rules = new Rules($this->getLanguageMock());
         $rules->remove('test', 0);
     }
@@ -112,21 +114,23 @@ class RulesTest extends TestCase
             ]
         ]);
 
-        $this->assertInternalType('array', $rules->rules('token'));
+        $this->assertIsArray($rules->rules('token'));
         $this->assertContainsOnlyInstancesOf(Rule::class, $rules->rules('token'));
         $this->assertEquals($rule, $rules->rule('token'));
     }
 
-    /** @expectedException \Kadet\Highlighter\Exceptions\NoSuchElementException */
     public function testUndefinedRule()
     {
+        $this->expectException(NoSuchElementException::class);
+
         $rules = new Rules($this->getLanguageMock());
         $rules->rules('nope');
     }
 
-    /** @expectedException \LogicException */
     public function testWrongFormat()
     {
+        $this->expectException(LogicException::class);
+
         $rules = new Rules($this->getLanguageMock());
         $rules->addMany([
             'token' => "string",
@@ -145,11 +149,10 @@ class RulesTest extends TestCase
         $this->assertSame($second, $rules->getLanguage());
     }
 
-    /**
-     * @expectedException \Kadet\Highlighter\Exceptions\NameConflictException
-     */
     public function testNameHasToBeUnique()
     {
+        $this->expectException(NameConflictException::class);
+
         $rule = new Rule(null, ['name' => 'unique']);
         $rules = new Rules($this->getLanguageMock());
 
