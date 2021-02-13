@@ -13,4 +13,4 @@ build:
                           format: 'php-clover'
                     - php-scrutinizer-run
     environment:
-        php: 7.1
+        php: 7.3
