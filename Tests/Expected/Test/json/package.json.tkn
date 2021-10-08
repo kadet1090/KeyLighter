@@ -1,0 +1,10 @@
+{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{
+  {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"name"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"keylighter"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"version"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"0.9.0"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+  {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"devDependencies"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {
+    {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"gulp"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^4.0.2"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+    {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"gulp-autoprefixer"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^7.0.1"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+    {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"gulp-sass"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"^4.0.2"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+  }
+}
+{/language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}

@@ -50,7 +50,7 @@ class JavaScript extends GreedyLanguage
     public function setupRules()
     {
         // we need to allow all the tokens in json
-        $this->rules->validator = new Validator(['*none', '*meta.json', '!comment']);
+        $this->rules->validator = new Validator(['*none', '*meta.json', '!comment', '!string']);
 
         $this->rules->addMany([
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"'], [
@@ -129,9 +129,9 @@ class JavaScript extends GreedyLanguage
     public static function getMetadata()
     {
         return [
-            'name'      => ['js', 'jscript', 'javascript'],
+            'name'      => ['js', 'jscript', 'javascript', 'json'],
             'mime'      => ['application/javascript', 'application/x-javascript', 'text/x-javascript', 'text/javascript', 'application/json'],
-            'extension' => ['*.js', '*.jsx'],
+            'extension' => ['*.js', '*.jsx', '*.json'],
         ];
     }
 }

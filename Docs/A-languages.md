@@ -36,7 +36,7 @@ All alias definitions can be found in [`Config/metadata.php`](../Config/metadata
 <!-- aliasbegin -->
 Class | Name | MIME | Extension
 ------|------|------|----------
-`Kadet\Highlighter\Language\Apache` | `apache` | none | `.htaccess`
+`Kadet\Highlighter\Language\Apache` | `apache` | `application/xml`, `text/xml` | `.htaccess`
 `Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
 `Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
 `Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
@@ -52,7 +52,7 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Http` | `http` | none | none
 `Kadet\Highlighter\Language\Ini` | `ini` | `text/x-ini`, `text/inf` | `*.ini`, `*.cfg`, `*.inf`
 `Kadet\Highlighter\Language\Java` | `java` | `text/x-java` | `*.java`
-`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript`, `application/json` | `*.js`, `*.jsx`
+`Kadet\Highlighter\Language\JavaScript` | `js`, `jscript`, `javascript`, `json` | `application/javascript`, `application/x-javascript`, `text/x-javascript`, `text/javascript`, `application/json` | `*.js`, `*.jsx`, `*.json`
 `Kadet\Highlighter\Language\Latex` | `tex`, `latex` | `application/x-tex`, `application/x-latex` | `*.tex`, `*.aux`, `*.toc`
 `Kadet\Highlighter\Language\Markdown` | `markdown`, `md` | `text/markdown` | `*.markdown`, `*.md`
 `Kadet\Highlighter\Language\Perl` | `perl` | `text/x-perl`, `application/x-perl` | `*.pl`, `*.pm`, `*.t`
@@ -70,5 +70,5 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\TypeScript` | `ts`, `typescript` | `application/typescript`, `application/x-typescript`, `text/x-typescript`, `text/typescript` | `*.ts`, `*.tsx`
 `Kadet\Highlighter\Language\UnifiedDiff` | `diff`, `patch` | `text/x-diff`, `text/x-patch`, `application/x-patch`, `application/x-diff` | `*.patch`, `*.diff`
 `Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
-`Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
+`Kadet\Highlighter\Language\Xml` | `xml` | none | `*.xml`
 <!-- aliasend -->

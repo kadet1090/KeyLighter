@@ -9,6 +9,7 @@
  * `Kadet\Highlighter\Matcher\WordMatcher` now has option to merge. subtract and retrieve options and words.
  * `Kadet\Highlighter\Formatter\AbstractFormatter` helper for creating formatters
  * You can now enable line-by-line mode in formatters via `['lines' => ['enabled' => true]]` option.
+ * `*.json` and `json` alias for highlighting json files using `javascript` highlihgter
  
  ***
  
@@ -30,7 +31,6 @@
  * **BC BREAK** `LaTexFormatter` and `CliFormatter` no longer have `$styles` in constructor, now you should set styles v
  via option `styles` `['styles' => [...]]`
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
- 
 ### Fixed
  * **Java** now correctly matches it's primitive types 
  * **PHP** now correctly matches multi-line comments
