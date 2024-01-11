@@ -1,4 +1,4 @@
-![Logo](https://public.kadet.net/keylighter/logo.png)
+![Logo](https://keylighter.kadet.net/img/logo.png)
 
 [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat-square)](https://packagist.org/packages/kadet/keylighter)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
