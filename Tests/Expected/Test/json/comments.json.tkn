@@ -1,0 +1,4 @@
+{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{
+  {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"this"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}: {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"shoul // highglihgt correctly"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}
+}
+{/language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}

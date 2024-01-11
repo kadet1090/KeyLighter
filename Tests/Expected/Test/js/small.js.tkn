@@ -1,4 +1,4 @@
-{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}const{/keyword:Kadet\Highlighter\Parser\Token\Token} iconPlayClass {operator:Kadet\Highlighter\Parser\Token\Token}={/operator:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'icon icon{operator:Kadet\Highlighter\Parser\Token\Token}-{/operator:Kadet\Highlighter\Parser\Token\Token}play'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+{language.javascript:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}const{/keyword:Kadet\Highlighter\Parser\Token\Token} iconPlayClass {operator:Kadet\Highlighter\Parser\Token\Token}={/operator:Kadet\Highlighter\Parser\Token\Token} {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'icon icon-play'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}export{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}default{/keyword:Kadet\Highlighter\Parser\Token\Token} {
   props: {
@@ -11,7 +11,7 @@
   {call:Kadet\Highlighter\Parser\Token\Token}data{/call:Kadet\Highlighter\Parser\Token\Token}() {
     {keyword:Kadet\Highlighter\Parser\Token\Token}return{/keyword:Kadet\Highlighter\Parser\Token\Token} {
       duration: {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
-      progressStyle: {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'width: {number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}%'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
+      progressStyle: {string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'width: 0%'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
       playbackButtonClass: iconPlayClass{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
     }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
   }{operator.punctuation:Kadet\Highlighter\Parser\Token\Token},{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
