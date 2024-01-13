@@ -25,6 +25,7 @@
  * **Assembly** highlighting via `Kadet\Highlighter\Language\Assembler`
  * **Cobol** highlighting via `Kadet\Highlighter\Language\Cobol`
  * **Diff** highlighting via `Kadet\Highlighter\Language\UnifiedDiff`
+ * **PHP** now supports features from PHP 8.x
 
 ## Changed
  * **BC BREAK** KeyLighter requires PHP 7.1.3+ now (instead of PHP 5.5 as previously)
