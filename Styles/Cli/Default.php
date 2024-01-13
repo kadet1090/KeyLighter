@@ -15,7 +15,6 @@ return [
     'preprocessor' => ['color' => 'dark gray'],
     'language'     => ['color' => 'default'],
     'expression'   => ['color' => 'default'],
-    'label'        => ['color' => 'light blue'],
 
     'symbol.parameter'  => ['color' => 'dark gray'],
     'symbol.annotation' => ['color' => 'magenta'],

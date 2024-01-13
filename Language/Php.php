@@ -197,7 +197,7 @@ class Php extends GreedyLanguage
                 new RegexMatcher('/(\((?:int|integer|bool|boolean|float|double|real|string|array|object|unset)\))/')
             ),
 
-            'label.argument' => [
+            'symbol.parameter' => [
                 new Rule(new RegexMatcher('/(\w+):/'), ['context' => $allowedInAttributes]),
             ],
 
