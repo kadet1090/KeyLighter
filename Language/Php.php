@@ -179,7 +179,7 @@ class Php extends GreedyLanguage
                 'default', 'die', 'do', 'echo', 'else', 'elseif',
                 'empty', 'enddeclare', 'endfor', 'endforeach', 'endif',
                 'endswitch', 'endwhile', 'enum', 'eval', 'exit', 'extends',
-                'final', 'finally', 'for', 'foreach', 'function',
+                'final', 'fn', 'finally', 'for', 'foreach', 'function',
                 'global', 'goto', 'if', 'implements', 'include', 'include_once',
                 'instanceof', 'insteadof', 'interface', 'isset', 'list',
                 'namespace', 'new', 'or', 'print', 'private', 'protected',
