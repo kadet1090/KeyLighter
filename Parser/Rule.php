@@ -74,6 +74,7 @@ class Rule
         $this->_enabled = $options['enabled'];
 
         $this->factory->setRule($this);
+        $this->factory->setBase($options['name']);
     }
 
     public function setContext($context)

@@ -110,7 +110,7 @@ class Validator
             '+' => Validator::CONTEXT_IN,
             '*' => Validator::CONTEXT_IN_ONE_OF,
             '@' => Validator::CONTEXT_EXACTLY,
-//            '^' => Validator::CONTEXT_ON_TOP,
+            '^' => Validator::CONTEXT_ON_TOP,
             '~' => Validator::CONTEXT_REGEX
         ];
 

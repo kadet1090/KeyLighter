@@ -33,7 +33,7 @@
      * Parser constructor.
      * {symbol.annotation:Kadet\Highlighter\Parser\Token\Token}@param{/symbol.annotation:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}$text{/variable:Kadet\Highlighter\Parser\Token\Token}
      */{/comment.docblock:Kadet\Highlighter\Parser\Token\Token}
-    {keyword:Kadet\Highlighter\Parser\Token\Token}public{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}function{/keyword:Kadet\Highlighter\Parser\Token\Token} {symbol.function:Kadet\Highlighter\Parser\Token\Token}__construct{/symbol.function:Kadet\Highlighter\Parser\Token\Token}({keyword:Kadet\Highlighter\Parser\Token\Token}array{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}$text{/variable:Kadet\Highlighter\Parser\Token\Token})
+    {keyword:Kadet\Highlighter\Parser\Token\Token}public{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}function{/keyword:Kadet\Highlighter\Parser\Token\Token} {symbol.function:Kadet\Highlighter\Parser\Token\Token}__construct{/symbol.function:Kadet\Highlighter\Parser\Token\Token}({symbol.type:Kadet\Highlighter\Parser\Token\Token}array{/symbol.type:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}$text{/variable:Kadet\Highlighter\Parser\Token\Token})
     {
         {variable:Kadet\Highlighter\Parser\Token\Token}$this{/variable:Kadet\Highlighter\Parser\Token\Token}->{variable.property:Kadet\Highlighter\Parser\Token\Token}text{/variable.property:Kadet\Highlighter\Parser\Token\Token} = {variable:Kadet\Highlighter\Parser\Token\Token}$text{/variable:Kadet\Highlighter\Parser\Token\Token}{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}
 
@@ -172,15 +172,15 @@
 
 {keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}<<<{string.single:Kadet\Highlighter\Parser\Token\ContextualToken}'NOWDOC'{/string.single:Kadet\Highlighter\Parser\Token\ContextualToken}
 {string.nowdoc:Kadet\Highlighter\Parser\Token\Token}lel{/string.nowdoc:Kadet\Highlighter\Parser\Token\Token}
-NOWDOC;{/keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}
+NOWDOC{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{/keyword.nowdoc:Kadet\Highlighter\Parser\Token\Token}
 
 {keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<HEREDOC
 {string.heredoc:Kadet\Highlighter\Parser\Token\Token}lel{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
-HEREDOC;{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
+HEREDOC{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
 
 {keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}<<<TEST
 {string.heredoc:Kadet\Highlighter\Parser\Token\Token}<3{/string.heredoc:Kadet\Highlighter\Parser\Token\Token}
-TEST;{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
+TEST{operator.punctuation:Kadet\Highlighter\Parser\Token\Token};{/operator.punctuation:Kadet\Highlighter\Parser\Token\Token}{/keyword.heredoc:Kadet\Highlighter\Parser\Token\Token}
 
 
 
