@@ -88,6 +88,10 @@ class GenerateMetadataCommand extends Command
             }
         }
 
+        usort($result, function ($a, $b) {
+            return $a[0] <=> $b[0];
+        });
+
         /** @noinspection PhpUnhandledExceptionInspection */
         return VarExporter::export($result);
     }
