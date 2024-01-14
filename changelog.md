@@ -1,6 +1,6 @@
 # Changelog
 ## Unreleased [0.9.0]
-## Added
+### Added
  * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
  * `_utils.scss` file with few utilities useful for style writing, like prefix support etc.
