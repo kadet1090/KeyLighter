@@ -6,5 +6,8 @@
     "gulp-autoprefixer": "^7.0.1",
     "gulp-sass": "^5.1.0",
     "sass": "^1.69.7"
-  }
+  },
+  "browserslist": [
+    "last 5 versions"
+  ]
 }
