@@ -14,7 +14,6 @@
  ***
  
  * **XAML** highlighting via `Kadet\Highlighter\Language\Xaml` instead of using **XML**
- * **Java** Now matches class names
  * **Shell** languages now have better variable and flag matching
  * **Twig** highlighting via `Kadet\Highlighter\Language\Twig` based on django/jinja 
  * **C** and **C++** now highlights code in macros
@@ -32,14 +31,22 @@
  * **BC BREAK** `LaTexFormatter` and `CliFormatter` no longer have `$styles` in constructor, now you should set styles v
  via option `styles` `['styles' => [...]]`
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
+
 ### Fixed
- * **Java** now correctly matches it's primitive types 
  * **PHP** now correctly matches multi-line comments
  * **XML** now correctly matches closing tags with `-`
  * **Java** fix #4 - class names in declarations and instantiations are now highlighted correctly
  * **Shell** highlighting now matches parameters and paths with `do` correctly
  * **JavaScript** and **TypeScript** now correctly recognize JSDoc comments as docblock tokens
  * **JavaScript** and **TypeScript** now correctly highlight annotations inside JSDoc comments
+
+## 08.02.2018 [0.8.3]
+### Added
+ * **Java** Now matches class names
+
+### Fixed
+ * **Java** now correctly matches its primitive types
+ * Fixed PHP 7.2 deprecation
  
 ## 16.09.2016 [0.8.2]
 ### Fixed
