@@ -1,49 +1,71 @@
 pre.keylighter {
   background: #F5F6FF;
-  padding: 0.5em; }
-  pre.keylighter span.kl-language, pre.keylighter span.kl-expression, pre.keylighter span.kl-tag {
-    color: #737373;
-    font-weight: normal; }
-  pre.keylighter span.kl-comment {
-    color: #4F5B94; }
-  pre.keylighter span.kl-comment.kl-docblock {
-    color: #475484; }
-  pre.keylighter span.kl-constant.kl-special, pre.keylighter span.kl-call {
-    color: #793962; }
-  pre.keylighter span.kl-number {
-    color: #F89721; }
-  pre.keylighter span.kl-string {
-    color: #c33; }
-  pre.keylighter span.kl-variable {
-    color: #336699; }
-  pre.keylighter span.kl-variable.kl-property {
-    color: #4080bf; }
-  pre.keylighter span.kl-keyword, pre.keylighter span.kl-operator, pre.keylighter span.kl-symbol.kl-selector.kl-id, pre.keylighter span.kl-call.kl-preprocessor,
-  pre.keylighter span.kl-docblock span.kl-annotation {
-    color: #669940; }
-  pre.keylighter span.kl-symbol, pre.keylighter span.kl-tag span.kl-attribute {
-    color: #562946; }
-  pre.keylighter span.kl-symbol.kl-tag {
-    color: #669940; }
-  pre.keylighter span.kl-constant {
-    color: #9c497e; }
-  pre.keylighter span.kl-preprocessor {
-    color: #999;
-    font-weight: bold; }
-  pre.keylighter span.kl-delimiter {
-    color: #458;
-    font-weight: bold; }
-  pre.keylighter span.kl-format.kl-bold {
-    font-weight: bold; }
-  pre.keylighter span.kl-format.kl-italics {
-    font-style: italic; }
-  pre.keylighter span.kl-format.kl-strike {
-    text-decoration: line-through; }
-  pre.keylighter span.kl-format.kl-underline {
-    text-decoration: underline; }
-  pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
-    color: #737373; }
-  pre.keylighter span.kl-diff.kl-add, pre.keylighter span.kl-annotation.kl-diff.kl-add {
-    background-color: rgba(102, 153, 64, 0.1); }
-  pre.keylighter span.kl-diff.kl-remove, pre.keylighter span.kl-annotation.kl-diff.kl-remove {
-    background-color: rgba(204, 51, 51, 0.1); }
+  padding: 0.5em;
+}
+pre.keylighter span.kl-language, pre.keylighter span.kl-expression, pre.keylighter span.kl-tag {
+  color: #737373;
+  font-weight: normal;
+}
+pre.keylighter span.kl-comment {
+  color: #4F5B94;
+}
+pre.keylighter span.kl-comment.kl-docblock {
+  color: #475484;
+}
+pre.keylighter span.kl-constant.kl-special, pre.keylighter span.kl-call {
+  color: #793962;
+}
+pre.keylighter span.kl-number {
+  color: #F89721;
+}
+pre.keylighter span.kl-string {
+  color: #c33;
+}
+pre.keylighter span.kl-variable {
+  color: #336699;
+}
+pre.keylighter span.kl-variable.kl-property {
+  color: #4080bf;
+}
+pre.keylighter span.kl-keyword, pre.keylighter span.kl-operator, pre.keylighter span.kl-symbol.kl-selector.kl-id, pre.keylighter span.kl-call.kl-preprocessor,
+pre.keylighter span.kl-docblock span.kl-annotation {
+  color: #669940;
+}
+pre.keylighter span.kl-symbol, pre.keylighter span.kl-tag span.kl-attribute {
+  color: #562946;
+}
+pre.keylighter span.kl-symbol.kl-tag {
+  color: #669940;
+}
+pre.keylighter span.kl-constant {
+  color: #9c497e;
+}
+pre.keylighter span.kl-preprocessor {
+  color: #999;
+  font-weight: bold;
+}
+pre.keylighter span.kl-delimiter {
+  color: #458;
+  font-weight: bold;
+}
+pre.keylighter span.kl-format.kl-bold {
+  font-weight: bold;
+}
+pre.keylighter span.kl-format.kl-italics {
+  font-style: italic;
+}
+pre.keylighter span.kl-format.kl-strike {
+  text-decoration: line-through;
+}
+pre.keylighter span.kl-format.kl-underline {
+  text-decoration: underline;
+}
+pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
+  color: #737373;
+}
+pre.keylighter span.kl-diff.kl-add, pre.keylighter span.kl-annotation.kl-diff.kl-add {
+  background-color: rgba(102, 153, 64, 0.1);
+}
+pre.keylighter span.kl-diff.kl-remove, pre.keylighter span.kl-annotation.kl-diff.kl-remove {
+  background-color: rgba(204, 51, 51, 0.1);
+}

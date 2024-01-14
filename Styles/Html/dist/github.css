@@ -1,46 +1,66 @@
 pre.keylighter {
   background: #f8f8f8;
-  padding: 0.5em; }
-  pre.keylighter span.kl-language, pre.keylighter span.kl-expression, pre.keylighter span.kl-tag {
-    color: #333;
-    font-weight: normal; }
-  pre.keylighter span.kl-comment {
-    color: #555; }
-  pre.keylighter span.kl-commendspan.kl-kl-docblock {
-    color: #666; }
-  pre.keylighter span.kl-constant.kl-special, pre.keylighter span.kl-number, pre.keylighter span.kl-call {
-    color: #0086b3; }
-  pre.keylighter span.kl-variable {
-    color: #008080; }
-  pre.keylighter span.kl-variable.kl-property {
-    color: #009a9a; }
-  pre.keylighter span.kl-keyword, pre.keylighter span.kl-operator, pre.keylighter span.kl-symbol.kl-selector.kl-id, pre.keylighter span.kl-call.kl-preprocessor,
-  pre.keylighter span.kl-docblock span.kl-annotation {
-    color: #a71d5d; }
-  pre.keylighter span.kl-symbol.kl-tag {
-    color: #63a35c; }
-  pre.keylighter span.kl-symbol, pre.keylighter span.kl-tag span.kl-attribute {
-    color: #458; }
-  pre.keylighter span.kl-string {
-    color: #183691; }
-  pre.keylighter span.kl-constant {
-    color: #990073; }
-  pre.keylighter span.kl-preprocessor {
-    color: #999;
-    font-weight: bold; }
-  pre.keylighter span.kl-format.kl-bold {
-    font-weight: bold; }
-  pre.keylighter span.kl-format.kl-italics {
-    font-style: italic; }
-  pre.keylighter span.kl-format.kl-strike {
-    text-decoration: line-through; }
-  pre.keylighter span.kl-format.kl-underline {
-    text-decoration: underline; }
-  pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
-    color: #333; }
-  pre.keylighter span.kl-diff.kl-add, pre.keylighter span.kl-annotation.kl-diff.kl-add {
-    color: #22863a;
-    background-color: #f0fff4; }
-  pre.keylighter span.kl-diff.kl-remove, pre.keylighter span.kl-annotation.kl-diff.kl-remove {
-    color: #b31d28;
-    background-color: #ffeef0; }
+  padding: 0.5em;
+}
+pre.keylighter span.kl-language, pre.keylighter span.kl-expression, pre.keylighter span.kl-tag {
+  color: #333;
+  font-weight: normal;
+}
+pre.keylighter span.kl-comment {
+  color: #555;
+}
+pre.keylighter span.kl-commendspan.kl-kl-docblock {
+  color: #666;
+}
+pre.keylighter span.kl-constant.kl-special, pre.keylighter span.kl-number, pre.keylighter span.kl-call {
+  color: #0086b3;
+}
+pre.keylighter span.kl-variable {
+  color: #008080;
+}
+pre.keylighter span.kl-variable.kl-property {
+  color: #009a9a;
+}
+pre.keylighter span.kl-keyword, pre.keylighter span.kl-operator, pre.keylighter span.kl-symbol.kl-selector.kl-id, pre.keylighter span.kl-call.kl-preprocessor,
+pre.keylighter span.kl-docblock span.kl-annotation {
+  color: #a71d5d;
+}
+pre.keylighter span.kl-symbol.kl-tag {
+  color: #63a35c;
+}
+pre.keylighter span.kl-symbol, pre.keylighter span.kl-tag span.kl-attribute {
+  color: #458;
+}
+pre.keylighter span.kl-string {
+  color: #183691;
+}
+pre.keylighter span.kl-constant {
+  color: #990073;
+}
+pre.keylighter span.kl-preprocessor {
+  color: #999;
+  font-weight: bold;
+}
+pre.keylighter span.kl-format.kl-bold {
+  font-weight: bold;
+}
+pre.keylighter span.kl-format.kl-italics {
+  font-style: italic;
+}
+pre.keylighter span.kl-format.kl-strike {
+  text-decoration: line-through;
+}
+pre.keylighter span.kl-format.kl-underline {
+  text-decoration: underline;
+}
+pre.keylighter span.kl-format.kl-monospace, pre.keylighter span.kl-format.kl-block.kl-code {
+  color: #333;
+}
+pre.keylighter span.kl-diff.kl-add, pre.keylighter span.kl-annotation.kl-diff.kl-add {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+pre.keylighter span.kl-diff.kl-remove, pre.keylighter span.kl-annotation.kl-diff.kl-remove {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
