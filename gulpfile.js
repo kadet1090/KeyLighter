@@ -7,7 +7,6 @@ gulp.task("styles", function () {
         .src('./Styles/Html/*.scss')
         .pipe(sass())
         .pipe(autoprefixer({
-            browsers: ['last 5 versions'],
             cascade: false
         }))
         .on('error', function(error) { console.log(error); this.emit('end') })
