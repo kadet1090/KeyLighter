@@ -18,7 +18,7 @@
     "squizlabs/php_codesniffer": "^3.5",
     "symfony/console": "^4.4",
     "symfony/var-dumper": "^5.4",
-    "symfony/var-exporter": "^4.4"
+    "symfony/var-exporter": "^5.4"
   },
   "suggest": {
     "symfony/console": "Allows usage of keylighters CLI utility."
