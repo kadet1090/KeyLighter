@@ -189,7 +189,7 @@ class Php extends GreedyLanguage
             ]), ['context' => ['!string', '!variable', '!comment']]),
 
             'symbol.type' => new Rule(new WordMatcher([
-                'integer', 'float', 'string', 'boolean', 'false', 'never',
+                'int', 'float', 'string', 'boolean', 'false', 'never',
                 'array', 'object', 'callable', 'void', 'mixed', 'true', 'null'
             ]), ['context' => ['!string', '!variable', '!comment', '!keyword']]),
 
