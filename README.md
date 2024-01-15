@@ -1,8 +1,6 @@
 ![Logo](https://keylighter.kadet.net/img/logo.png)
 
 [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat-square)](https://packagist.org/packages/kadet/keylighter)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
 [![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](https://keylighter.kadet.net)
 
 [![stability: stable](https://img.shields.io/badge/Public%20API-stable-green.svg?style=flat-square)](Docs/2-basic-usage.md)
@@ -212,7 +210,7 @@ without any problem.
 Even though it wasn't supposed to be fastest code highlighter in PHP it is still 
 quite fast, more than 2x faster than [GeSHi](https://geshi.org/).
 
-## Testing ![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)
+## Testing
 **KeyLighter** uses `phpunit` for testing:
 ```bash
 $ ./vendor/bin/phpunit
