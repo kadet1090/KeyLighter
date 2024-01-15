@@ -2,7 +2,6 @@
 
 [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat-square)](https://packagist.org/packages/kadet/keylighter)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
-[![Travis build](https://img.shields.io/travis/kadet1090/KeyLighter.svg?style=flat-square)](https://travis-ci.org/kadet1090/KeyLighter)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/kadet1090/keylighter.svg?style=flat-square)](https://scrutinizer-ci.com/g/kadet1090/KeyLighter/?branch=master)
 [![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](https://keylighter.kadet.net)
 
