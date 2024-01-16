@@ -28,7 +28,7 @@ KeyLighter is supposed to do the same thing - for code.
 $ composer require kadet/keylighter
 ```
 
-To use **KeyLighter** you just need PHP 7.1.3 or later, no special extensions 
+To use **KeyLighter** you just need PHP 7.3 or later, no special extensions 
 required.
 
 ## Global installation

@@ -27,7 +27,7 @@
  * **PHP** now supports features from PHP 8.x
 
 ## Changed
- * **BC BREAK** KeyLighter requires PHP 7.1.3+ now (instead of PHP 5.5 as previously)
+ * **BC BREAK** KeyLighter requires PHP 7.3+ now (instead of PHP 5.5 as previously)
  * **BC BREAK** `LaTexFormatter` and `CliFormatter` no longer have `$styles` in constructor, now you should set styles v
  via option `styles` `['styles' => [...]]`
  * renamed `Kadet\Highlighter\Language\Language::getAliases` to `getMetadata` as it now stores not only aliases
