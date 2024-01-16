@@ -1,0 +1,16 @@
+parameters:
+    level: 5
+    paths:
+        - Config/
+        - Exceptions/
+        - Formatter/
+        - Language/
+        - Matcher/
+        - Parser/
+        - Styles/
+        - Utils/
+
+    ignoreErrors:
+        -
+            message: '#Variable \$match in empty\(\) always exists and is not falsy.#'
+            path: Matcher/RegexMatcher.php
