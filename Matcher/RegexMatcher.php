@@ -28,8 +28,8 @@ class RegexMatcher implements MatcherInterface
     /**
      * RegexMatcher constructor.
      *
-     * @param            $regex
-     * @param array|null $groups
+     * @param       $regex
+     * @param array $groups
      */
     public function __construct($regex, array $groups = [1 => null])
     {

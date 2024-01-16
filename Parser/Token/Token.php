@@ -26,6 +26,13 @@ use Kadet\Highlighter\Parser\TokenIterator;
 use Kadet\Highlighter\Parser\Validator\Validator;
 use Kadet\Highlighter\Utils\Helper;
 
+/**
+ * Class Token
+ *
+ * @package Kadet\Highlighter\Parser\Token
+ *
+ * @mixin Rule
+ */
 class Token
 {
     public const NAME  = null;
@@ -37,7 +44,10 @@ class Token
     public $pos;
     public $name;
     public $id;
+
+    /** @var Rule */
     public $rule;
+
     public $options;
 
     # region >>> cache

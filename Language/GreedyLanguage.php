@@ -135,7 +135,7 @@ abstract class GreedyLanguage extends Language
     {
         $result = new UnprocessedTokens();
 
-        /** @var Language $language */
+        /** @var Rule $rule */
         foreach ($this->_rules($embedded) as $rule) {
             foreach ($rule->match($source) as $token) {
                 $result->add($token, $offset);
@@ -174,7 +174,7 @@ abstract class GreedyLanguage extends Language
      *
      * @param $embedded
      *
-     * @return Rule|Rule[]
+     * @return Rule|Rule[]|array<string, array<int, Rule>>
      */
     public function getEnds($embedded = false)
     {

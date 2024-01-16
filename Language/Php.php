@@ -134,8 +134,7 @@ class Php extends GreedyLanguage
                             $match,
                             TokenFactoryInterface $factory
                         ) use (
-                            $annotationNameRule,
-                            $allowedInAttributes
+                            $annotationNameRule
                         ) {
                             yield $factory->create(
                                 Token::NAME,
