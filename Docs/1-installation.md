@@ -7,7 +7,7 @@ next: 2-basic-usage
 
 # Installation as library
 
-First off, you need to have at least PHP 7.1.3, and [composer] installed, and then you can install
+First off, you need to have at least PHP 7.3, and [composer] installed, and then you can install
 KeyLighter into your project by simply executing:
 
 ```bash
