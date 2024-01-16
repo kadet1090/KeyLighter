@@ -1,6 +1,7 @@
 ![Logo](https://keylighter.kadet.net/img/logo.png)
 
 [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat-square)](https://packagist.org/packages/kadet/keylighter)
+[![GitHub Actions](https://github.com/kadet1090/keylighter/actions/workflows/tests.yml/badge.svg?event=push)](https://github.com/kadet1090/KeyLighter/actions)
 [![Try it](https://img.shields.io/badge/www-try%20it-FF9700.svg?style=flat-square)](https://keylighter.kadet.net)
 
 [![stability: stable](https://img.shields.io/badge/Public%20API-stable-green.svg?style=flat-square)](Docs/2-basic-usage.md)
