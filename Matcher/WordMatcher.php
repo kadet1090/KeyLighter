@@ -67,12 +67,12 @@ class WordMatcher extends RegexMatcher
 
     public function merge(array $words)
     {
-        return new static(array_merge($this->words, $words), $this->options);
+        return new self(array_merge($this->words, $words), $this->options);
     }
 
     public function subtract(array $words)
     {
-        return new static(array_diff($this->words, $words), $this->options);
+        return new self(array_diff($this->words, $words), $this->options);
     }
 
     public function getWords()

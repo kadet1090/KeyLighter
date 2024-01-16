@@ -21,7 +21,7 @@ namespace Kadet\Highlighter\Utils;
 class Console
 {
     /**
-     * @var ConsoleHelper
+     * @var ConsoleHelper|null
      */
     private static $_instance;
 

@@ -25,7 +25,7 @@ class OpenRule extends Rule
     /**
      * @param $source
      *
-     * @return Token[]
+     * @return Token[]|iterable<Token>
      */
     public function match($source)
     {

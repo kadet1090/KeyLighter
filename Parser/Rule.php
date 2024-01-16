@@ -29,7 +29,7 @@ use Kadet\Highlighter\Parser\Validator\Validator;
  *
  * @package Kadet\Highlighter\Parser
  *
- * @property Language              $language
+ * @property Language|false|null   $language
  * @property Language              $inject
  * @property integer               $priority
  * @property string                $type
@@ -40,7 +40,7 @@ use Kadet\Highlighter\Parser\Validator\Validator;
 class Rule
 {
     /**
-     * @var Validator
+     * @var Validator|false
      */
     public $validator = false;
     private $_matcher;
@@ -106,7 +106,7 @@ class Rule
     /**
      * @param $source
      *
-     * @return Token[]|\Iterator
+     * @return iterable<Token>|\Iterator
      */
     public function match($source)
     {
@@ -120,7 +120,7 @@ class Rule
 
     public function __set($option, $value)
     {
-        return $this->_options[$option] = $value;
+        $this->_options[$option] = $value;
     }
 
     public function enable()
