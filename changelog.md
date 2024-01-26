@@ -4,7 +4,7 @@
 ### Added
 ### Fixed
 
-## 26.01.2023 [0.9.0]
+## 2024-01-26 [0.9.0]
 ### Added
  * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
@@ -45,7 +45,7 @@
  * **JavaScript** and **TypeScript** now correctly recognize JSDoc comments as docblock tokens
  * **JavaScript** and **TypeScript** now correctly highlight annotations inside JSDoc comments
 
-## 08.02.2018 [0.8.3]
+## 2018-02-08 [0.8.3]
 ### Added
  * **Java** Now matches class names
 
@@ -53,16 +53,16 @@
  * **Java** now correctly matches its primitive types
  * Fixed PHP 7.2 deprecation
  
-## 16.09.2016 [0.8.2]
+## 2016-09-16 [0.8.2]
 ### Fixed
  * Fixed #2 - `symfony/console` is now suggested dependency and required only in dev.
 
-## 07.07.2016 [0.8.1]
+## 2016-07-07 [0.8.1]
 ### Fixed
  * Matching **XML** tags with `-` char
  * `parent > injected` language syntax in CLI application
 
-## 25.06.2016 [0.8.0]
+## 2016-06-25 [0.8.0]
 ### Added
 
  * `Kadet\Highlighter\Language\CommonFeatures` helper with common language features like string handling
