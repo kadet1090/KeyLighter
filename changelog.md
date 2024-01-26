@@ -1,5 +1,10 @@
 # Changelog
-## Unreleased [0.9.0]
+## Unreleased [0.10.0]
+
+### Added
+### Fixed
+
+## 26.01.2023 [0.9.0]
 ### Added
  * Languages can be marked as `standalone` and `injectable` in `getMetadata` static method
  * HTML Formatters now support tag and class prefix configuration via constructor `$options` parameter
