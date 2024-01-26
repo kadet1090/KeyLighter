@@ -1,4 +1,4 @@
-![Logo](https://keylighter.kadet.net/img/logo.png)
+![Logo](https://raw.githubusercontent.com/kadet1090/KeyLighter/master/Docs/assets/logo.png)
 
 [![Packagist](https://img.shields.io/packagist/v/kadet/keylighter.svg?style=flat)](https://packagist.org/packages/kadet/keylighter)
 [![GitHub Actions](https://github.com/kadet1090/keylighter/actions/workflows/tests.yml/badge.svg?event=push)](https://github.com/kadet1090/KeyLighter/actions?query=branch:master)
