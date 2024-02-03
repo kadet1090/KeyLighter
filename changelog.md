@@ -2,6 +2,8 @@
 ## Unreleased [0.9.1]
 
 ### Added
+ * **Dockerfile** highlighting via `Kadet\Highlighter\Language\Dockerfile`
+
 ### Fixed
 
 ## 2024-01-26 [0.9.0]

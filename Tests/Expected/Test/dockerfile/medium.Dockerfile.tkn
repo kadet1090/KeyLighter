@@ -1,0 +1,35 @@
+{language.dockerfile:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}FROM{/keyword:Kadet\Highlighter\Parser\Token\Token} {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}--platform={/symbol.parameter:Kadet\Highlighter\Parser\Token\Token}linux/amd{number:Kadet\Highlighter\Parser\Token\Token}64{/number:Kadet\Highlighter\Parser\Token\Token} node:{number:Kadet\Highlighter\Parser\Token\Token}18{/number:Kadet\Highlighter\Parser\Token\Token}-alpine AS base
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}WORKDIR{/keyword:Kadet\Highlighter\Parser\Token\Token} /app
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Install dependencies based on the preferred package manager{/comment:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}COPY{/keyword:Kadet\Highlighter\Parser\Token\Token} package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+{keyword:Kadet\Highlighter\Parser\Token\Token}RUN{/keyword:Kadet\Highlighter\Parser\Token\Token} \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} yarn.lock ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}yarn{/call:Kadet\Highlighter\Parser\Token\Token} {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}--frozen-lockfile{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token}; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}elif{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} package-lock.json ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}npm{/call:Kadet\Highlighter\Parser\Token\Token} ci; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}elif{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} pnpm-lock.yaml ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}corepack{/call:Kadet\Highlighter\Parser\Token\Token} enable pnpm && pnpm i; \
+  {comment:Kadet\Highlighter\Parser\Token\Token}# Allow install without lockfile, so example works even without Node.js installed locally{/comment:Kadet\Highlighter\Parser\Token\Token}
+  {keyword:Kadet\Highlighter\Parser\Token\Token}else{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}echo{/call:Kadet\Highlighter\Parser\Token\Token} {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"Warning: Lockfile not found. It is recommended to commit lockfiles to version control."{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken} && yarn install; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}fi{/keyword:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}COPY{/keyword:Kadet\Highlighter\Parser\Token\Token} src ./src
+{keyword:Kadet\Highlighter\Parser\Token\Token}COPY{/keyword:Kadet\Highlighter\Parser\Token\Token} public ./public
+{keyword:Kadet\Highlighter\Parser\Token\Token}COPY{/keyword:Kadet\Highlighter\Parser\Token\Token} next.config.js .
+{keyword:Kadet\Highlighter\Parser\Token\Token}COPY{/keyword:Kadet\Highlighter\Parser\Token\Token} tsconfig.json .
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Next.js collects completely anonymous telemetry data about general usage. Learn more here: https://nextjs.org/telemetry{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}# Uncomment the following line to disable telemetry at run time{/comment:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}ENV{/keyword:Kadet\Highlighter\Parser\Token\Token} NEXT_TELEMETRY_DISABLED {number:Kadet\Highlighter\Parser\Token\Token}1{/number:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Note: Don't expose ports here, Compose will handle that for us{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{comment:Kadet\Highlighter\Parser\Token\Token}# Start Next.js in development mode based on the preferred package manager{/comment:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}CMD{/keyword:Kadet\Highlighter\Parser\Token\Token} \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} yarn.lock ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}yarn{/call:Kadet\Highlighter\Parser\Token\Token} dev; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}elif{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} package-lock.json ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}npm{/call:Kadet\Highlighter\Parser\Token\Token} run dev; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}elif{/keyword:Kadet\Highlighter\Parser\Token\Token} [ {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}-f{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} pnpm-lock.yaml ]; {keyword:Kadet\Highlighter\Parser\Token\Token}then{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}pnpm{/call:Kadet\Highlighter\Parser\Token\Token} dev; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}else{/keyword:Kadet\Highlighter\Parser\Token\Token} {call:Kadet\Highlighter\Parser\Token\Token}npm{/call:Kadet\Highlighter\Parser\Token\Token} run dev; \
+  {keyword:Kadet\Highlighter\Parser\Token\Token}fi{/keyword:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}ENTRYPOINT{/keyword:Kadet\Highlighter\Parser\Token\Token}[{string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"node"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}, {string.double:Kadet\Highlighter\Parser\Token\ContextualToken}"run-app.js"{/string.double:Kadet\Highlighter\Parser\Token\ContextualToken}]
+{/language.dockerfile:Kadet\Highlighter\Parser\Token\LanguageToken}
