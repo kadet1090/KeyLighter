@@ -1,0 +1,6 @@
+{language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}@{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} off
+{keyword:Kadet\Highlighter\Parser\Token\Token}set{/keyword:Kadet\Highlighter\Parser\Token\Token} /p {variable.assign:Kadet\Highlighter\Parser\Token\Token}imie{/variable.assign:Kadet\Highlighter\Parser\Token\Token}=Jak masz na imię?
+rem To jest komentarz i nie ma wpływu na działanie programu
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} Witaj, %imie%.
+{keyword:Kadet\Highlighter\Parser\Token\Token}pause{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{/language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}

@@ -32,6 +32,25 @@ return [
         'injectable' => false,
     ],
     [
+        'Kadet\\Highlighter\\Language\\Batch',
+        'name' => [
+            'bat',
+            'batch',
+            'dos',
+        ],
+        'mime' => [
+            'application/bat',
+            'application/x-bat',
+            'application/x-msdos-program',
+        ],
+        'extension' => [
+            '*.bat',
+            '*.cmd',
+        ],
+        'standalone' => true,
+        'injectable' => false,
+    ],
+    [
         'Kadet\\Highlighter\\Language\\C',
         'name' => [
             'c',

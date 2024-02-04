@@ -38,6 +38,7 @@ Class | Name | MIME | Extension
 ------|------|------|----------
 `Kadet\Highlighter\Language\Apache` | `apache` | none | `.htaccess`
 `Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
+`Kadet\Highlighter\Language\Batch` | `bat`, `batch`, `dos` | `application/bat`, `application/x-bat`, `application/x-msdos-program` | `*.bat`, `*.cmd`
 `Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
 `Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
 `Kadet\Highlighter\Language\Cobol` | `cobol` | `text/x-cobol` | `*.cbl`
