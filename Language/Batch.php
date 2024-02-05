@@ -37,20 +37,21 @@ class Batch extends GreedyLanguage
                 new Rule(new CommentMatcher(['::'])),
             ],
 
-            'keyword.special' => new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 2]),
-
-            'keyword' => new Rule(new WordMatcher([
-                'ASSOC', 'ATTRIB', 'BREAK', 'BCDEDIT', 'CACLS', 'CD', 'CHCP', 'CHDIR', 'CHKDSK', 'CHKNTFS',
-                'CLS', 'CMD', 'COLOR', 'COMP', 'COMPACT', 'CONVERT', 'COPY', 'DATE', 'DEL', 'DIR', 'DISKCOMP',
-                'DISKCOPY', 'DISKPART', 'DOSKEY', 'DRIVERQUERY', 'ECHO', 'ENDLOCAL', 'ERASE', 'EXIT', 'FC',
-                'FIND', 'FINDSTR', 'FOR', 'FORMAT', 'FSUTIL', 'FTYPE', 'GPRESULT', 'GRAFTABL', 'HELP', 'ICACLS',
-                'IF', 'LABEL', 'MD', 'MKDIR', 'MKLINK', 'MODE', 'MORE', 'MOVE', 'OPENFILES', 'PATH', 'PAUSE',
-                'POPD', 'PRINT', 'PROMPT', 'PUSHD', 'RD', 'RECOVER', 'REN', 'RENAME', 'REPLACE', 'RMDIR',
-                'ROBOCOPY', 'SET', 'SETLOCAL', 'SC', 'SCHTASKS', 'SHIFT', 'SHUTDOWN',  'SORT', 'START',
-                'SUBST', 'SYSTEMINFO', 'TASKLIST', 'TASKKILL', 'TIME', 'TITLE', 'TREE', 'TYPE', 'VER',
-                'VERIFY', 'VOL', 'XCOPY', 'WMIC', 'CSCRIPT',
-                'echo', 'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist',
-            ]), ['priority' => 3]),
+            'keyword' => [
+                new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 3]),
+                new Rule(new WordMatcher([
+                    'ASSOC', 'ATTRIB', 'BREAK', 'BCDEDIT', 'CACLS', 'CD', 'CHCP', 'CHDIR', 'CHKDSK', 'CHKNTFS',
+                    'CLS', 'CMD', 'COLOR', 'COMP', 'COMPACT', 'CONVERT', 'COPY', 'DATE', 'DEL', 'DIR', 'DISKCOMP',
+                    'DISKCOPY', 'DISKPART', 'DOSKEY', 'DRIVERQUERY', 'ECHO', 'ENDLOCAL', 'ERASE', 'EXIT', 'FC',
+                    'FIND', 'FINDSTR', 'FOR', 'FORMAT', 'FSUTIL', 'FTYPE', 'GPRESULT', 'GRAFTABL', 'HELP', 'ICACLS',
+                    'IF', 'LABEL', 'MD', 'MKDIR', 'MKLINK', 'MODE', 'MORE', 'MOVE', 'OPENFILES', 'PATH', 'PAUSE',
+                    'POPD', 'PRINT', 'PROMPT', 'PUSHD', 'RD', 'RECOVER', 'REN', 'RENAME', 'REPLACE', 'RMDIR',
+                    'ROBOCOPY', 'SET', 'SETLOCAL', 'SC', 'SCHTASKS', 'SHIFT', 'SHUTDOWN',  'SORT', 'START',
+                    'SUBST', 'SYSTEMINFO', 'TASKLIST', 'TASKKILL', 'TIME', 'TITLE', 'TREE', 'TYPE', 'VER',
+                    'VERIFY', 'VOL', 'XCOPY', 'WMIC', 'CSCRIPT',
+                    'echo', 'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist',
+                ]), ['priority' => 3]),
+            ],
 
             'variable'  => [
                 'assign' => new Rule(new RegexMatcher('/(\w+)[+-]?=/')),

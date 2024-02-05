@@ -1,4 +1,4 @@
-{language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword.special:Kadet\Highlighter\Parser\Token\Token}@echo off{/keyword.special:Kadet\Highlighter\Parser\Token\Token}
+{language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}@echo off{/keyword:Kadet\Highlighter\Parser\Token\Token}
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} Wartość dwóch parametrów przekazanych {keyword:Kadet\Highlighter\Parser\Token\Token}do{/keyword:Kadet\Highlighter\Parser\Token\Token} skryptu
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%1{/variable:Kadet\Highlighter\Parser\Token\Token}
