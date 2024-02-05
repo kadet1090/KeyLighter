@@ -6,6 +6,6 @@ removeme To jest komentarz i nie ma wpływu na działanie programu
 autoremove Żaden nie wie iże jożech psem
 {comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
 remąt
-{keyword.special:Kadet\Highlighter\Parser\Token\Token}echo{/keyword.special:Kadet\Highlighter\Parser\Token\Token} Witaj, %imie%.
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} Witaj, %imie%.
 {keyword:Kadet\Highlighter\Parser\Token\Token}pause{/keyword:Kadet\Highlighter\Parser\Token\Token}
 {/language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}

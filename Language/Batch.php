@@ -38,7 +38,7 @@ class Batch extends GreedyLanguage
 
             'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
 
-            'keyword.special' => new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 3]),
+            'keyword.special' => new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 2]),
 
             'keyword' => new Rule(new WordMatcher([
                 'ASSOC', 'ATTRIB', 'BREAK', 'BCDEDIT', 'CACLS', 'CD', 'CHCP', 'CHDIR', 'CHKDSK', 'CHKNTFS',
@@ -50,7 +50,7 @@ class Batch extends GreedyLanguage
                 'ROBOCOPY', 'SET', 'SETLOCAL', 'SC', 'SCHTASKS', 'SHIFT', 'SHUTDOWN',  'SORT', 'START',
                 'SUBST', 'SYSTEMINFO', 'TASKLIST', 'TASKKILL', 'TIME', 'TITLE', 'TREE', 'TYPE', 'VER',
                 'VERIFY', 'VOL', 'XCOPY', 'WMIC', 'CSCRIPT',
-                'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist',
+                'echo', 'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist',
             ]), ['priority' => 3]),
 
             'variable'  => [
