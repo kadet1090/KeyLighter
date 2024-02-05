@@ -22,9 +22,6 @@ use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
-use Kadet\Highlighter\Parser\Token\LanguageToken;
-use Kadet\Highlighter\Parser\TokenFactory;
-use Kadet\Highlighter\Parser\Validator\Validator;
 
 class Batch extends GreedyLanguage
 {
@@ -67,18 +64,6 @@ class Batch extends GreedyLanguage
             'symbol.parameter' => new Rule(new RegexMatcher('/(\/[a-z])\b/i'), [
                 'priority' => 0,
                 'context'  => ['!comment'],
-            ]),
-
-            'expression' => [
-                new Rule(new RegexMatcher('/(?=(\$\(((?>[^$()]+|(?1))+)\)))/x'), [
-                    'context' => Validator::everywhere(),
-                    'factory' => new TokenFactory(LanguageToken::class),
-                    'inject'  => $this
-                ]),
-            ],
-
-            'operator.escape' => new Rule(new RegexMatcher('/(\\\(?:x[0-9a-fA-F]{1,2}|u\{[0-9a-fA-F]{1,6}\}|[0-7]{1,3}|.))/i'), [
-                'context' => ['*']
             ]),
         ]);
     }
