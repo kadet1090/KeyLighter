@@ -35,8 +35,6 @@ class Batch extends GreedyLanguage
                 new Rule(new RegexMatcher('/^\s*(rem\s+.+)/mi')),
             ],
 
-            'string' => CommonFeatures::strings(['single' => '\'', 'double' => '"']),
-
             'keyword.special' => new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 2]),
 
             'keyword' => new Rule(new WordMatcher([
@@ -54,8 +52,8 @@ class Batch extends GreedyLanguage
 
             'variable'  => [
                 'assign' => new Rule(new RegexMatcher('/(\w+)[+-]?=/')),
-                new Rule(new RegexMatcher('/(%\w+%)/i'), ['context' => ['*none', '*string.double']]),
-                new Rule(new RegexMatcher('/(%\w+)/i'), ['context' => ['*none', '*string.double']]),
+                new Rule(new RegexMatcher('/(%\w+%)/i'), ['context' => ['*none']]),
+                new Rule(new RegexMatcher('/(%\w+)/i'), ['context' => ['*none']]),
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
