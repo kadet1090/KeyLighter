@@ -1,10 +1,13 @@
 @echo off
-set /p imie=Jak masz na imię?
+
+echo Wartość dwóch parametrów przekazanych do skryptu
+echo %1
+echo %2
+
 rem To jest komentarz i nie ma wpływu na działanie programu
-removeme To jest komentarz i nie ma wpływu na działanie programu
-rem Żaden nie wie iże jożech psem
-autoremove Żaden nie wie iże jożech psem
 rem
-remąt
+set /p imie=Jak masz na imię?
+
+echo
 echo Witaj, %imie%.
 pause
