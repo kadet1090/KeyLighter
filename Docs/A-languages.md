@@ -36,7 +36,7 @@ All alias definitions can be found in [`Config/metadata.php`](../Config/metadata
 <!-- aliasbegin -->
 Class | Name | MIME | Extension
 ------|------|------|----------
-`Kadet\Highlighter\Language\Apache` | `apache` | `application/xml`, `text/xml` | `.htaccess`
+`Kadet\Highlighter\Language\Apache` | `apache` | none | `.htaccess`
 `Kadet\Highlighter\Language\Assembler` | `asm`, `assembler` | `text/x-asm` | `*.asm`
 `Kadet\Highlighter\Language\C` | `c` | `text/x-csrc`, `text/x-chdr` | `*.c`, `*.h`, `*.idc`
 `Kadet\Highlighter\Language\CSharp` | `CSharp`, `C#` | `text/x-csharp` | `*.cs`
@@ -46,6 +46,7 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\Css\Less` | `less` | `text/x-less` | `*.less`
 `Kadet\Highlighter\Language\Css\Sass` | `sass` | `text/x-sass` | `*.sass`
 `Kadet\Highlighter\Language\Css\Scss` | `scss` | `text/x-scss` | `*.scss`
+`Kadet\Highlighter\Language\Dockerfile` | `dockerfile` | none | `Dockerfile`, `*.Dockerfile`, `*-Dockerfile`, `Dockerfile.*`, `Dockerfile-*`
 `Kadet\Highlighter\Language\Go` | `go`, `golang` | `text/x-go`, `application/x-go`, `text/x-golang`, `application/x-golang` | `*.go`
 `Kadet\Highlighter\Language\Haskell` | `haskell` | `text/x-haskell` | `*.hs`
 `Kadet\Highlighter\Language\Html` | `html` | `text/html` | `*.html`, `*.htm`
@@ -70,5 +71,5 @@ Class | Name | MIME | Extension
 `Kadet\Highlighter\Language\TypeScript` | `ts`, `typescript` | `application/typescript`, `application/x-typescript`, `text/x-typescript`, `text/typescript` | `*.ts`, `*.tsx`
 `Kadet\Highlighter\Language\UnifiedDiff` | `diff`, `patch` | `text/x-diff`, `text/x-patch`, `application/x-patch`, `application/x-diff` | `*.patch`, `*.diff`
 `Kadet\Highlighter\Language\Xaml` | `xaml` | none | `*.xaml`
-`Kadet\Highlighter\Language\Xml` | `xml` | none | `*.xml`
+`Kadet\Highlighter\Language\Xml` | `xml` | `application/xml`, `text/xml` | `*.xml`
 <!-- aliasend -->

@@ -155,6 +155,22 @@ return [
         'injectable' => false,
     ],
     [
+        'Kadet\\Highlighter\\Language\\Dockerfile',
+        'name' => [
+            'dockerfile',
+        ],
+        'mime' => [],
+        'extension' => [
+            'Dockerfile',
+            '*.Dockerfile',
+            '*-Dockerfile',
+            'Dockerfile.*',
+            'Dockerfile-*',
+        ],
+        'standalone' => true,
+        'injectable' => false,
+    ],
+    [
         'Kadet\\Highlighter\\Language\\Go',
         'name' => [
             'go',
