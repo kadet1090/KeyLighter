@@ -9,5 +9,6 @@ rem
 set /p imie=Jak masz na imię?
 
 echo
+:: Wyświetl odpowiedź użytkownika
 echo Witaj, %imie%.
 pause

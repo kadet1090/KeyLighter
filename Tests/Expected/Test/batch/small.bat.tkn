@@ -9,6 +9,7 @@
 {keyword:Kadet\Highlighter\Parser\Token\Token}set{/keyword:Kadet\Highlighter\Parser\Token\Token} /p {variable.assign:Kadet\Highlighter\Parser\Token\Token}imie{/variable.assign:Kadet\Highlighter\Parser\Token\Token}=Jak masz na imię?
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}:: Wyświetl odpowiedź użytkownika{/comment:Kadet\Highlighter\Parser\Token\Token}
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} Witaj, {variable:Kadet\Highlighter\Parser\Token\Token}%imie%{/variable:Kadet\Highlighter\Parser\Token\Token}.
 {keyword:Kadet\Highlighter\Parser\Token\Token}pause{/keyword:Kadet\Highlighter\Parser\Token\Token}
 {/language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}

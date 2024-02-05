@@ -18,6 +18,7 @@ declare(strict_types=1);
 
 namespace Kadet\Highlighter\Language;
 
+use Kadet\Highlighter\Matcher\CommentMatcher;
 use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
@@ -33,6 +34,7 @@ class Batch extends GreedyLanguage
             'comment' => [
                 new Rule(new RegexMatcher('/^\s*(rem)[\t\n\r]+/mi')),
                 new Rule(new RegexMatcher('/^\s*(rem\s+.+)/mi')),
+                new Rule(new CommentMatcher(['::'])),
             ],
 
             'keyword.special' => new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 2]),
