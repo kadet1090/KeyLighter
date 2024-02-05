@@ -37,6 +37,8 @@ class Batch extends GreedyLanguage
                 new Rule(new CommentMatcher(['::'])),
             ],
 
+            'string' => new Rule(new RegexMatcher('/^\s*@?echo[ \t]+(.+)\s/mi'), ['priority' => 2]),
+
             'keyword' => [
                 new Rule(new RegexMatcher('/^\s*(@?echo(\s+(on|off))?)\b/mi'), ['priority' => 3]),
                 new Rule(new WordMatcher([
@@ -55,8 +57,8 @@ class Batch extends GreedyLanguage
 
             'variable'  => [
                 'assign' => new Rule(new RegexMatcher('/(\w+)[+-]?=/')),
-                new Rule(new RegexMatcher('/(%\w+%)/i'), ['context' => ['*none']]),
-                new Rule(new RegexMatcher('/(%\w+)/i'), ['context' => ['*none']]),
+                new Rule(new RegexMatcher('/(%\w+%)/i'), ['context' => ['*none', '*string'], 'priority' => 4]),
+                new Rule(new RegexMatcher('/(%\w+)/i'), ['context' => ['*none', '*string'], 'priority' => 4]),
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
