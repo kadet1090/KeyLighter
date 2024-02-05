@@ -6,7 +6,7 @@
 
 {comment:Kadet\Highlighter\Parser\Token\Token}rem To jest komentarz i nie ma wpływu na działanie programu{/comment:Kadet\Highlighter\Parser\Token\Token}
 {comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
-{keyword:Kadet\Highlighter\Parser\Token\Token}set{/keyword:Kadet\Highlighter\Parser\Token\Token} /p {variable.assign:Kadet\Highlighter\Parser\Token\Token}imie{/variable.assign:Kadet\Highlighter\Parser\Token\Token}=Jak masz na imię?
+{keyword:Kadet\Highlighter\Parser\Token\Token}set{/keyword:Kadet\Highlighter\Parser\Token\Token} {symbol.parameter:Kadet\Highlighter\Parser\Token\Token}/p{/symbol.parameter:Kadet\Highlighter\Parser\Token\Token} {variable.assign:Kadet\Highlighter\Parser\Token\Token}imie{/variable.assign:Kadet\Highlighter\Parser\Token\Token}=Jak masz na imię?
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token}
 {comment:Kadet\Highlighter\Parser\Token\Token}:: Wyświetl odpowiedź użytkownika{/comment:Kadet\Highlighter\Parser\Token\Token}
