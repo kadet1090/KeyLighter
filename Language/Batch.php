@@ -22,7 +22,6 @@ use Kadet\Highlighter\Matcher\RegexMatcher;
 use Kadet\Highlighter\Matcher\WordMatcher;
 use Kadet\Highlighter\Parser\Rule;
 use Kadet\Highlighter\Parser\Token\LanguageToken;
-use Kadet\Highlighter\Parser\Token\Token;
 use Kadet\Highlighter\Parser\TokenFactory;
 use Kadet\Highlighter\Parser\Validator\Validator;
 
@@ -55,10 +54,8 @@ class Batch extends GreedyLanguage
 
             'variable'  => [
                 'assign' => new Rule(new RegexMatcher('/(\w+)[+-]?=/')),
-                new Rule(new RegexMatcher('/(\$\w+)/i'), ['context' => ['*none', '*string.double']]),
-                'special'  => new Rule(new RegexMatcher('/(\$[#@_])/i'), ['context' => ['*none', '*string.double']]),
-                'argument' => new Rule(new RegexMatcher('/(\$\d+)/i'), ['context' => ['*none', '*string.double']]),
-                new Rule(new RegexMatcher('/\$\{(\w+)(.*?)\}/i', [ 1 => Token::NAME, 2 => 'string' ]), ['context' => ['*none', '*string.double']])
+                new Rule(new RegexMatcher('/(%\w+%)/i'), ['context' => ['*none', '*string.double']]),
+                new Rule(new RegexMatcher('/(%\w+)/i'), ['context' => ['*none', '*string.double']]),
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/')),
