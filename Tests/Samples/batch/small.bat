@@ -1,4 +1,4 @@
-@echo
+@echo off
 set /p imie=Jak masz na imię?
 rem To jest komentarz i nie ma wpływu na działanie programu
 removeme To jest komentarz i nie ma wpływu na działanie programu
