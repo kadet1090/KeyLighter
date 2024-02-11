@@ -1,6 +1,6 @@
 {language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}@echo off{/keyword:Kadet\Highlighter\Parser\Token\Token}
 {comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
-rem  backbat.bat  -- Backup batch files (Windows NT/{number:Kadet\Highlighter\Parser\Token\Token}2000{/number:Kadet\Highlighter\Parser\Token\Token} version)
+rem  backbat.bat  -- Backup batch files (Windows NT/2000 version)
 {comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
 rem  usage:  backbat backupdir
 {comment:Kadet\Highlighter\Parser\Token\Token}rem  where:  backupdir  is the directory to copy batch files{/comment:Kadet\Highlighter\Parser\Token\Token}
@@ -46,7 +46,7 @@ goto end
 {keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}exist{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token}\nul goto skipdir
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}md{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token}
-{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} "{variable:Kadet\Highlighter\Parser\Token\Token}%errorlevel%{/variable:Kadet\Highlighter\Parser\Token\Token}"=="{number:Kadet\Highlighter\Parser\Token\Token}0{/number:Kadet\Highlighter\Parser\Token\Token}" goto skipdir
+{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} "{variable:Kadet\Highlighter\Parser\Token\Token}%errorlevel%{/variable:Kadet\Highlighter\Parser\Token\Token}"=="0" goto skipdir
 
 {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {string:Kadet\Highlighter\Parser\Token\Token}Error creating backup directory{/string:Kadet\Highlighter\Parser\Token\Token}
 goto end
