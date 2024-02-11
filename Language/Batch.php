@@ -48,7 +48,7 @@ class Batch extends GreedyLanguage
                     'ROBOCOPY', 'SET', 'SETLOCAL', 'SC', 'SCHTASKS', 'SHIFT', 'SHUTDOWN',  'SORT', 'START',
                     'SUBST', 'SYSTEMINFO', 'TASKLIST', 'TASKKILL', 'TIME', 'TITLE', 'TREE', 'TYPE', 'VER',
                     'VERIFY', 'VOL', 'XCOPY', 'WMIC', 'CSCRIPT',
-                    'echo', 'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist',
+                    'echo', 'set', 'for', 'if', 'exit', 'else', 'do', 'not', 'defined', 'exist', 'goto',
                 ]), ['priority' => 3]),
             ],
 
