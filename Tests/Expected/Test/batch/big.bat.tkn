@@ -1,0 +1,73 @@
+{language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}{keyword:Kadet\Highlighter\Parser\Token\Token}@echo off{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
+rem  backbat.bat  -- Backup batch files (Windows NT/2000 version)
+{comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
+rem  usage:  backbat backupdir
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  where:  backupdir  is the directory to copy batch files{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem                     all batch files in the current directory will{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem                     be backed up{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+rem  Make sure that there is at least one argument
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}not{/keyword:Kadet\Highlighter\Parser\Token\Token} "{variable:Kadet\Highlighter\Parser\Token\Token}%1{/variable:Kadet\Highlighter\Parser\Token\Token}"=="" {keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} argsok
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {string:Kadet\Highlighter\Parser\Token\Token}usage:  {variable:Kadet\Highlighter\Parser\Token\Token}%0{/variable:Kadet\Highlighter\Parser\Token\Token} backupdir{/string:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {string:Kadet\Highlighter\Parser\Token\Token}where:  backupdir  is the directory to copy batch files{/string:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token}                    {string:Kadet\Highlighter\Parser\Token\Token}all batch files in the current directory will{/string:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token}                    {string:Kadet\Highlighter\Parser\Token\Token}be backed up{/string:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} end
+
+
+:argsok
+
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}setlocal{/keyword:Kadet\Highlighter\Parser\Token\Token}
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Save the backup directory{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}set{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable.assign:Kadet\Highlighter\Parser\Token\Token}backupdir{/variable.assign:Kadet\Highlighter\Parser\Token\Token}={variable:Kadet\Highlighter\Parser\Token\Token}%1{/variable:Kadet\Highlighter\Parser\Token\Token}
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Check to make sure that the backupdir exists and isn't a file{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}not{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}exist{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} notfile
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token} is a file
+{keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} end
+
+
+:notfile
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  If the directory does not exist, create it.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}exist{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token}\nul {keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} skipdir
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}md{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} "{variable:Kadet\Highlighter\Parser\Token\Token}%errorlevel%{/variable:Kadet\Highlighter\Parser\Token\Token}"=="0" {keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} skipdir
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} {string:Kadet\Highlighter\Parser\Token\Token}Error creating backup directory{/string:Kadet\Highlighter\Parser\Token\Token}
+{keyword:Kadet\Highlighter\Parser\Token\Token}goto{/keyword:Kadet\Highlighter\Parser\Token\Token} end
+
+
+:skipdir
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Copy each batch file one at a time.{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Note:  the for loop variable (%%b) must be contain only one letter.{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}for{/keyword:Kadet\Highlighter\Parser\Token\Token} %{variable:Kadet\Highlighter\Parser\Token\Token}%b{/variable:Kadet\Highlighter\Parser\Token\Token} in ( *.bat ) {keyword:Kadet\Highlighter\Parser\Token\Token}do{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}copy{/keyword:Kadet\Highlighter\Parser\Token\Token} %{variable:Kadet\Highlighter\Parser\Token\Token}%b{/variable:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token} > nul
+
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Use the for loop again to check if each file was copied (since it is{/comment:Kadet\Highlighter\Parser\Token\Token}
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  difficult to run multiple commands in a for loop).{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}for{/keyword:Kadet\Highlighter\Parser\Token\Token} %{variable:Kadet\Highlighter\Parser\Token\Token}%b{/variable:Kadet\Highlighter\Parser\Token\Token} in ( *.bat ) {keyword:Kadet\Highlighter\Parser\Token\Token}do{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}if{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}not{/keyword:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}exist{/keyword:Kadet\Highlighter\Parser\Token\Token} {variable:Kadet\Highlighter\Parser\Token\Token}%backupdir%{/variable:Kadet\Highlighter\Parser\Token\Token}\%{variable:Kadet\Highlighter\Parser\Token\Token}%b{/variable:Kadet\Highlighter\Parser\Token\Token} {keyword:Kadet\Highlighter\Parser\Token\Token}echo{/keyword:Kadet\Highlighter\Parser\Token\Token} %{variable:Kadet\Highlighter\Parser\Token\Token}%b{/variable:Kadet\Highlighter\Parser\Token\Token} was {keyword:Kadet\Highlighter\Parser\Token\Token}not{/keyword:Kadet\Highlighter\Parser\Token\Token} copied
+
+:end
+
+{comment:Kadet\Highlighter\Parser\Token\Token}rem  Clean up{/comment:Kadet\Highlighter\Parser\Token\Token}
+
+{keyword:Kadet\Highlighter\Parser\Token\Token}endlocal{/keyword:Kadet\Highlighter\Parser\Token\Token}
+{/language.batch:Kadet\Highlighter\Parser\Token\LanguageToken}
