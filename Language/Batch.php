@@ -59,7 +59,6 @@ class Batch extends GreedyLanguage
             ],
 
             'number'    => new Rule(new RegexMatcher('/(-?(?:0[0-7]+|0[xX][0-9a-fA-F]+|0b[01]+|\d+))/', ['context' => '!comment'])),
-            'delimiter' => new Rule(new RegexMatcher('/^(\$)/m')),
 
             'symbol.parameter' => new Rule(new RegexMatcher('/(\/[a-z])\b/i'), [
                 'priority' => 0,
